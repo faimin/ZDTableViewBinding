@@ -1,26 +1,24 @@
 //
-//  ZDTableViewCell.h
+//  ZDCellProtocol.h
 //  Demo
 //
-//  Created by 符现超 on 16/3/6.
+//  Created by 符现超 on 16/3/7.
 //  Copyright © 2016年 Zero.D.Saber. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import "ZDCellProtocol.h"
+#import <Foundation/Foundation.h>
 #import "ZDCellViewModelProtocol.h"
-@class RACTuple;
+#import "RACCommand.h"
 
-@interface ZDTableViewCell : UITableViewCell<ZDCellProtocol>
+@protocol ZDCellProtocol <NSObject>
 
-/// 协议方法
 @property (nonatomic, strong) id model;
 @property (nonatomic, strong) id<ZDCellViewModelProtocol> viewModel;
 @property (nonatomic, assign) CGFloat height;
 @property (nonatomic, assign) CGFloat estimateHeight;
 @property (nonatomic, strong) RACCommand *selectionCommand;
 
-/// 把cell中的事件传出去
-- (void)deleverEvent:(RACTuple *)paramTuple;
+/// Binds the given view model to the view
+- (void)bindToViewModel:(id)viewModel;
 
 @end

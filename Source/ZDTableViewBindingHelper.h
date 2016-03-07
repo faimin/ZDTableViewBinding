@@ -16,7 +16,6 @@
 @property (nonatomic, weak) id<UITableViewDelegate> delegate;
 
 - (instancetype)initWithTableView:(UITableView *)tableView
-                     templateCell:(UINib *)templateCellNib
                   estimatedHeight:(CGFloat)estimatedHeight
                      sourceSignal:(RACSignal *)sourceSignal
                  selectionCommand:(RACCommand *)selectCommand;

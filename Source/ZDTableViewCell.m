@@ -7,22 +7,33 @@
 //
 
 #import "ZDTableViewCell.h"
+//#import "RACCommand.h"
+#import "RACTuple.h"
 
 @implementation ZDTableViewCell
 
-- (void)awakeFromNib {
-    // Initialization code
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
-}
-
-- (void)bindViewModel:(id)viewModel
+- (void)awakeFromNib
 {
-    // TODO:
+	// Initialization code
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated
+{
+	[super setSelected:selected animated:animated];
+
+	// Configure the view for the selected state
+}
+
+- (void)deleverEvent:(RACTuple *)paramTuple
+{
+    if (self.selectionCommand) {
+        [self.selectionCommand execute:paramTuple];
+    }
+}
+
+- (void)bindToViewModel:(id)viewModel
+{
+	// TODO:
 }
 
 @end

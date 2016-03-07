@@ -18,6 +18,7 @@
 		0592DDE31C8C15130063526D /* DemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0592DDE21C8C15130063526D /* DemoTests.m */; };
 		0592DDEE1C8C15130063526D /* DemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0592DDED1C8C15130063526D /* DemoUITests.m */; };
 		47DA60028228369CC8734512 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 553578F0AA68CDC013B2FB8A /* libPods.a */; };
+		BC97575D1C8D22A600A1CF24 /* ZDCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BC97575C1C8D22A600A1CF24 /* ZDCellViewModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,7 +39,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		058EB8311C8C288700F83F3D /* ZDBindingProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZDBindingProtocol.h; sourceTree = "<group>"; };
 		058EB8321C8C2A6500F83F3D /* ZDTableViewBindingHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZDTableViewBindingHelper.h; sourceTree = "<group>"; };
 		058EB8331C8C2A6500F83F3D /* ZDTableViewBindingHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZDTableViewBindingHelper.m; sourceTree = "<group>"; };
 		058EB8351C8C313800F83F3D /* ZDTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZDTableViewCell.h; sourceTree = "<group>"; };
@@ -61,6 +61,10 @@
 		0592DDEF1C8C15130063526D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1987B8DC41E4A64684A7853F /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		553578F0AA68CDC013B2FB8A /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		BC97575B1C8D22A600A1CF24 /* ZDCellViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZDCellViewModel.h; sourceTree = "<group>"; };
+		BC97575C1C8D22A600A1CF24 /* ZDCellViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZDCellViewModel.m; sourceTree = "<group>"; };
+		BC97575E1C8D2CD100A1CF24 /* ZDCellViewModelProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZDCellViewModelProtocol.h; sourceTree = "<group>"; };
+		BC97575F1C8D8ED200A1CF24 /* ZDCellProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZDCellProtocol.h; sourceTree = "<group>"; };
 		BD4C08AEA639525986F9D68D /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -98,22 +102,26 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		058EB82D1C8C1E4F00F83F3D /* Source */ = {
+		058EB82D1C8C1E4F00F83F3D /* ZDTableViewBinding */ = {
 			isa = PBXGroup;
 			children = (
-				058EB8311C8C288700F83F3D /* ZDBindingProtocol.h */,
+				BC97575E1C8D2CD100A1CF24 /* ZDCellViewModelProtocol.h */,
+				BC97575F1C8D8ED200A1CF24 /* ZDCellProtocol.h */,
 				058EB8321C8C2A6500F83F3D /* ZDTableViewBindingHelper.h */,
 				058EB8331C8C2A6500F83F3D /* ZDTableViewBindingHelper.m */,
 				058EB8351C8C313800F83F3D /* ZDTableViewCell.h */,
 				058EB8361C8C313800F83F3D /* ZDTableViewCell.m */,
+				BC97575B1C8D22A600A1CF24 /* ZDCellViewModel.h */,
+				BC97575C1C8D22A600A1CF24 /* ZDCellViewModel.m */,
 			);
+			name = ZDTableViewBinding;
 			path = Source;
 			sourceTree = "<group>";
 		};
 		0592DDBC1C8C15130063526D = {
 			isa = PBXGroup;
 			children = (
-				058EB82D1C8C1E4F00F83F3D /* Source */,
+				058EB82D1C8C1E4F00F83F3D /* ZDTableViewBinding */,
 				0592DDC71C8C15130063526D /* Demo */,
 				0592DDE11C8C15130063526D /* DemoTests */,
 				0592DDEC1C8C15130063526D /* DemoUITests */,
@@ -197,6 +205,7 @@
 				0592DDC31C8C15130063526D /* Resources */,
 				AF459236BD224DABC94EB2A5 /* Embed Pods Frameworks */,
 				1B612BC6D7DD19DD32D96C1A /* Copy Pods Resources */,
+				49074413E65701560AEC4465 /* Find unused imports */,
 			);
 			buildRules = (
 			);
@@ -329,6 +338,20 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		49074413E65701560AEC4465 /* Find unused imports */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Find unused imports";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/bin/sh \"/Users/fuxianchao/Library/Application Support/Developer/Shared/Xcode/Plug-ins/xcfui.xcplugin/Contents/Resources/fui_script.sh\" \"/Users/fuxianchao/MyGit/ZDTableViewBinding\"";
+		};
 		AA44D11877F8960FFB338230 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -368,6 +391,7 @@
 			files = (
 				0592DDD01C8C15130063526D /* ViewController.m in Sources */,
 				058EB8341C8C2A6500F83F3D /* ZDTableViewBindingHelper.m in Sources */,
+				BC97575D1C8D22A600A1CF24 /* ZDCellViewModel.m in Sources */,
 				0592DDCD1C8C15130063526D /* AppDelegate.m in Sources */,
 				058EB8371C8C313800F83F3D /* ZDTableViewCell.m in Sources */,
 				0592DDCA1C8C15130063526D /* main.m in Sources */,
@@ -513,7 +537,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Demo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ZD.Demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -526,7 +550,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Demo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ZD.Demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
