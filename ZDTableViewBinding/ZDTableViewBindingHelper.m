@@ -98,19 +98,17 @@ uint scrollViewDidEndScrollingAnimation:1;
 @implementation ZDTableViewBindingHelper
 
 + (instancetype)bindingHelperForTableView:(UITableView *)tableView
+                          estimatedHeight:(CGFloat)estimatedHeight
                              sourceSignal:(RACSignal *)sourceSignal
-                         selectionCommand:(RACCommand *)selectCommand
-                             templateCell:(UINib *)templateCellNib
+                         selectionCommand:(RACCommand *)selectCommand;
 {
     return [[self alloc] initWithTableView:tableView
-                              //templateCell:templateCellNib
-                           estimatedHeight:0
+                           estimatedHeight:estimatedHeight
                               sourceSignal:sourceSignal
                           selectionCommand:selectCommand];
 }
 
 - (instancetype)initWithTableView:(UITableView *)tableView
-                     //templateCell:(UINib *)templateCellNib
                   estimatedHeight:(CGFloat)estimatedHeight
                      sourceSignal:(RACSignal *)sourceSignal
                  selectionCommand:(RACCommand *)selectCommand

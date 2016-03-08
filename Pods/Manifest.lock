@@ -1,4 +1,20 @@
 PODS:
+  - AFNetworking (3.0.4):
+    - AFNetworking/NSURLSession (= 3.0.4)
+    - AFNetworking/Reachability (= 3.0.4)
+    - AFNetworking/Security (= 3.0.4)
+    - AFNetworking/Serialization (= 3.0.4)
+    - AFNetworking/UIKit (= 3.0.4)
+  - AFNetworking/NSURLSession (3.0.4):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (3.0.4)
+  - AFNetworking/Security (3.0.4)
+  - AFNetworking/Serialization (3.0.4)
+  - AFNetworking/UIKit (3.0.4):
+    - AFNetworking/NSURLSession
+  - MJExtension (3.0.10)
   - ReactiveCocoa (2.5):
     - ReactiveCocoa/UI (= 2.5)
   - ReactiveCocoa/Core (2.5):
@@ -9,14 +25,21 @@ PODS:
   - ReactiveTableViewBinding (1.0):
     - ReactiveCocoa (~> 2.4)
   - UITableView+FDTemplateLayoutCell (1.4)
+  - ZDAFNetWorkHelper (0.3.0):
+    - AFNetworking (~> 3.0.1)
 
 DEPENDENCIES:
+  - MJExtension (~> 3.0.10)
   - ReactiveTableViewBinding (~> 1.0)
   - UITableView+FDTemplateLayoutCell (~> 1.4)
+  - ZDAFNetWorkHelper (~> 0.3.0)
 
 SPEC CHECKSUMS:
+  AFNetworking: a0075feb321559dc78d9d85b55d11caa19eabb93
+  MJExtension: d86aacb740c87519d20e3cca55b6fa4be6cc7548
   ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
   ReactiveTableViewBinding: f925165a270dc51a3bc02ace494a2f212ae04498
   UITableView+FDTemplateLayoutCell: 234e1582bcc4e18461af91155123bb96538ed030
+  ZDAFNetWorkHelper: ccb72dd116efa8e9a6898a778c82c51a3e667a95
 
-COCOAPODS: 0.39.0
+COCOAPODS: 0.38.2

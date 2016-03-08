@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import <ReactiveCocoa/ReactiveCocoa.h>
+#import "ReactiveCocoa/ReactiveCocoa.h"
 
 @interface ZDTableViewBindingHelper : NSObject
 
@@ -21,8 +21,8 @@
                  selectionCommand:(RACCommand *)selectCommand;
 
 + (instancetype)bindingHelperForTableView:(UITableView *)tableView
+                          estimatedHeight:(CGFloat)estimatedHeight
                              sourceSignal:(RACSignal *)sourceSignal
-                         selectionCommand:(RACCommand *)selectCommand
-                             templateCell:(UINib *)templateCellNib;
+                         selectionCommand:(RACCommand *)selectCommand;
 
 @end
