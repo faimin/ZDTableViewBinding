@@ -8,14 +8,17 @@
 
 #import <Foundation/Foundation.h>
 #import "ZDCellViewModelProtocol.h"
-#import "RACCommand.h"
+@class RACCommand;
 
 @protocol ZDCellProtocol <NSObject>
 
+@optional
+@property (nonatomic, assign) CGFloat estimateHeight;
+
+@required
 @property (nonatomic, strong) id model;
 @property (nonatomic, strong) id<ZDCellViewModelProtocol> viewModel;
 @property (nonatomic, assign) CGFloat height;
-@property (nonatomic, assign) CGFloat estimateHeight;
 @property (nonatomic, strong) RACCommand *selectionCommand;
 
 /// Binds the given view model to the view

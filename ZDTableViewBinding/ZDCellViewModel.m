@@ -10,14 +10,4 @@
 
 @implementation ZDCellViewModel
 
-//- (NSString *)zd_reuseIdentifier
-//{
-//    return nil;
-//}
-//
-//- (NSString *)zd_nibName
-//{
-//    return nil;
-//}
-
 @end

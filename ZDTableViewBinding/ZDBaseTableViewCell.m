@@ -6,11 +6,9 @@
 //  Copyright © 2016年 Zero.D.Saber. All rights reserved.
 //
 
-#import "ZDTableViewCell.h"
-//#import "RACCommand.h"
-#import "RACTuple.h"
+#import "ZDBaseTableViewCell.h"
 
-@implementation ZDTableViewCell
+@implementation ZDBaseTableViewCell
 
 - (void)awakeFromNib
 {
@@ -26,14 +24,15 @@
 
 - (void)deleverEvent:(RACTuple *)paramTuple
 {
-    if (self.selectionCommand) {
-        [self.selectionCommand execute:paramTuple];
-    }
+	if (self.selectionCommand) {
+		[self.selectionCommand execute:paramTuple];
+	}
 }
 
 - (void)bindToViewModel:(id)viewModel
 {
 	// TODO:
+    NSAssert(NO, @"抽象类，在子类中实现");
 }
 
 @end

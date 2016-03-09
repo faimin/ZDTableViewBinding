@@ -18,7 +18,10 @@
 		47DA60028228369CC8734512 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 553578F0AA68CDC013B2FB8A /* libPods.a */; };
 		BC75FDB21C8EF55100C915E0 /* ZDCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BC75FDAC1C8EF55100C915E0 /* ZDCellViewModel.m */; };
 		BC75FDB31C8EF55100C915E0 /* ZDTableViewBindingHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = BC75FDAF1C8EF55100C915E0 /* ZDTableViewBindingHelper.m */; };
-		BC75FDB41C8EF55100C915E0 /* ZDTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BC75FDB11C8EF55100C915E0 /* ZDTableViewCell.m */; };
+		BC75FDB41C8EF55100C915E0 /* ZDBaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BC75FDB11C8EF55100C915E0 /* ZDBaseTableViewCell.m */; };
+		BC75FDB81C8FD44600C915E0 /* ZDModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BC75FDB71C8FD44600C915E0 /* ZDModel.m */; };
+		BC75FDBB1C8FDD3A00C915E0 /* ZD.m in Sources */ = {isa = PBXBuildFile; fileRef = BC75FDBA1C8FDD3A00C915E0 /* ZD.m */; };
+		BC75FDC21C9029BF00C915E0 /* ZDCustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BC75FDC11C9029BF00C915E0 /* ZDCustomCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,14 +60,20 @@
 		0592DDEF1C8C15130063526D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1987B8DC41E4A64684A7853F /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		553578F0AA68CDC013B2FB8A /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		BC75FDAA1C8EF55100C915E0 /* ZDCellProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZDCellProtocol.h; sourceTree = "<group>"; };
 		BC75FDAB1C8EF55100C915E0 /* ZDCellViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZDCellViewModel.h; sourceTree = "<group>"; };
 		BC75FDAC1C8EF55100C915E0 /* ZDCellViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZDCellViewModel.m; sourceTree = "<group>"; };
-		BC75FDAD1C8EF55100C915E0 /* ZDCellViewModelProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZDCellViewModelProtocol.h; sourceTree = "<group>"; };
 		BC75FDAE1C8EF55100C915E0 /* ZDTableViewBindingHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZDTableViewBindingHelper.h; sourceTree = "<group>"; };
 		BC75FDAF1C8EF55100C915E0 /* ZDTableViewBindingHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZDTableViewBindingHelper.m; sourceTree = "<group>"; };
-		BC75FDB01C8EF55100C915E0 /* ZDTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZDTableViewCell.h; sourceTree = "<group>"; };
-		BC75FDB11C8EF55100C915E0 /* ZDTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZDTableViewCell.m; sourceTree = "<group>"; };
+		BC75FDB01C8EF55100C915E0 /* ZDBaseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZDBaseTableViewCell.h; sourceTree = "<group>"; };
+		BC75FDB11C8EF55100C915E0 /* ZDBaseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZDBaseTableViewCell.m; sourceTree = "<group>"; };
+		BC75FDB61C8FD44600C915E0 /* ZDModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZDModel.h; sourceTree = "<group>"; };
+		BC75FDB71C8FD44600C915E0 /* ZDModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZDModel.m; sourceTree = "<group>"; };
+		BC75FDB91C8FDD3A00C915E0 /* ZD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZD.h; sourceTree = "<group>"; };
+		BC75FDBA1C8FDD3A00C915E0 /* ZD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZD.m; sourceTree = "<group>"; };
+		BC75FDBC1C9001A400C915E0 /* ZDCellViewModelProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZDCellViewModelProtocol.h; sourceTree = "<group>"; };
+		BC75FDBD1C9001D100C915E0 /* ZDCellProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZDCellProtocol.h; sourceTree = "<group>"; };
+		BC75FDC01C9029BF00C915E0 /* ZDCustomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZDCustomCell.h; sourceTree = "<group>"; };
+		BC75FDC11C9029BF00C915E0 /* ZDCustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZDCustomCell.m; sourceTree = "<group>"; };
 		BD4C08AEA639525986F9D68D /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -128,6 +137,8 @@
 		0592DDC71C8C15130063526D /* Demo */ = {
 			isa = PBXGroup;
 			children = (
+				BC75FDBF1C90299900C915E0 /* View */,
+				BC75FDB51C8FD43100C915E0 /* Model */,
 				0592DDCB1C8C15130063526D /* AppDelegate.h */,
 				0592DDCC1C8C15130063526D /* AppDelegate.m */,
 				0592DDCE1C8C15130063526D /* ViewController.h */,
@@ -179,16 +190,36 @@
 		BC75FDA91C8EF55100C915E0 /* ZDTableViewBinding */ = {
 			isa = PBXGroup;
 			children = (
-				BC75FDAA1C8EF55100C915E0 /* ZDCellProtocol.h */,
+				BC75FDBD1C9001D100C915E0 /* ZDCellProtocol.h */,
+				BC75FDBC1C9001A400C915E0 /* ZDCellViewModelProtocol.h */,
 				BC75FDAB1C8EF55100C915E0 /* ZDCellViewModel.h */,
 				BC75FDAC1C8EF55100C915E0 /* ZDCellViewModel.m */,
-				BC75FDAD1C8EF55100C915E0 /* ZDCellViewModelProtocol.h */,
 				BC75FDAE1C8EF55100C915E0 /* ZDTableViewBindingHelper.h */,
 				BC75FDAF1C8EF55100C915E0 /* ZDTableViewBindingHelper.m */,
-				BC75FDB01C8EF55100C915E0 /* ZDTableViewCell.h */,
-				BC75FDB11C8EF55100C915E0 /* ZDTableViewCell.m */,
+				BC75FDB01C8EF55100C915E0 /* ZDBaseTableViewCell.h */,
+				BC75FDB11C8EF55100C915E0 /* ZDBaseTableViewCell.m */,
 			);
 			path = ZDTableViewBinding;
+			sourceTree = "<group>";
+		};
+		BC75FDB51C8FD43100C915E0 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				BC75FDB61C8FD44600C915E0 /* ZDModel.h */,
+				BC75FDB71C8FD44600C915E0 /* ZDModel.m */,
+				BC75FDB91C8FDD3A00C915E0 /* ZD.h */,
+				BC75FDBA1C8FDD3A00C915E0 /* ZD.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		BC75FDBF1C90299900C915E0 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BC75FDC01C9029BF00C915E0 /* ZDCustomCell.h */,
+				BC75FDC11C9029BF00C915E0 /* ZDCustomCell.m */,
+			);
+			name = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -357,12 +388,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC75FDB81C8FD44600C915E0 /* ZDModel.m in Sources */,
 				0592DDD01C8C15130063526D /* ViewController.m in Sources */,
 				BC75FDB31C8EF55100C915E0 /* ZDTableViewBindingHelper.m in Sources */,
 				0592DDCD1C8C15130063526D /* AppDelegate.m in Sources */,
-				BC75FDB41C8EF55100C915E0 /* ZDTableViewCell.m in Sources */,
+				BC75FDB41C8EF55100C915E0 /* ZDBaseTableViewCell.m in Sources */,
+				BC75FDBB1C8FDD3A00C915E0 /* ZD.m in Sources */,
 				BC75FDB21C8EF55100C915E0 /* ZDCellViewModel.m in Sources */,
 				0592DDCA1C8C15130063526D /* main.m in Sources */,
+				BC75FDC21C9029BF00C915E0 /* ZDCustomCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

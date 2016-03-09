@@ -7,12 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreGraphics/CoreGraphics.h>
 #import "ZDCellViewModelProtocol.h"
 
 @interface ZDCellViewModel : NSObject<ZDCellViewModelProtocol>
 
-@property (nonatomic, copy) NSString *zd_reuseIdentifier;
-@property (nonatomic, copy) NSString *zd_nibName;
-@property (nonatomic, strong) id model;
+@property (nonatomic, copy  ) NSString *zd_reuseIdentifier;
+@property (nonatomic, copy  ) NSString *zd_nibName;
+@property (nonatomic, strong) id       model;
+@property (nonatomic, assign) CGFloat  height;
 
 @end

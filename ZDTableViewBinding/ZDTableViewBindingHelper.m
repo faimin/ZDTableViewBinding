@@ -10,11 +10,9 @@
 #import "UITableView+FDTemplateLayoutCell.h"
 #import "ZDCellViewModel.h"
 
-#import "ZDCellViewModelProtocol.h"
-#import "ZDCellProtocol.h"
-
 @interface ZDTableViewBindingHelper ()<UITableViewDelegate, UITableViewDataSource>
 
+@property (nonatomic, weak) UITableView *tableView;
 @property (nonatomic, readwrite, assign) struct delegateMethodsCaching {
 // UITableViewDelegate
 //Configuring Rows for the Table View
@@ -97,6 +95,11 @@ uint scrollViewDidEndScrollingAnimation:1;
 
 @implementation ZDTableViewBindingHelper
 
+- (void)dealloc
+{
+    NSLog(@"释放了");
+}
+
 + (instancetype)bindingHelperForTableView:(UITableView *)tableView
                           estimatedHeight:(CGFloat)estimatedHeight
                              sourceSignal:(RACSignal *)sourceSignal
@@ -115,24 +118,20 @@ uint scrollViewDidEndScrollingAnimation:1;
 {
     if (self = [super init]) {
         self.tableView = tableView;
+        
         self.command = selectCommand;
         if (estimatedHeight > 0) {
             self.tableView.estimatedRowHeight = estimatedHeight;
         }
         
         [[sourceSignal ignore:nil] subscribeNext:^(id x) {
-            if ([x isKindOfClass:[NSArray class]]) {
-                // TODO:
-            }
             
             self.cellViewModels = x;
+            [self registerNibForTableViewWithCellViewModels:x];
             [self.tableView reloadData];
         }];
         
         // TODO:
-        [self registerNibForTableViewWithCellViewModels:self.cellViewModels];
-        
-        
         self.tableView.dataSource = self;
         self.tableView.delegate = self;
         self.delegate = nil;
@@ -149,7 +148,8 @@ uint scrollViewDidEndScrollingAnimation:1;
         struct delegateMethodsCaching newMethodCaching;
         // UITableViewDelegate
         //Configuring Rows for the Table View
-        newMethodCaching.heightForRowAtIndexPath = [_delegate respondsToSelector:@selector(tableView:heightForRowAtIndexPath:)];
+        
+        //newMethodCaching.heightForRowAtIndexPath = [_delegate respondsToSelector:@selector(tableView:heightForRowAtIndexPath:)];
         newMethodCaching.estimatedHeightForRowAtIndexPath = [_delegate respondsToSelector:@selector(tableView:estimatedHeightForRowAtIndexPath:)];
         newMethodCaching.indentationLevelForRowAtIndexPath = [_delegate respondsToSelector:@selector(tableView:indentationLevelForRowAtIndexPath:)];
         newMethodCaching.willDisplayCellForRowAtIndexPath = [delegate respondsToSelector:@selector(tableView:willDisplayCell:forRowAtIndexPath:)];
@@ -224,17 +224,19 @@ uint scrollViewDidEndScrollingAnimation:1;
     }
 }
 
-#pragma mark - UITableViewDataSource methods
+#pragma mark - UITableViewDataSource Methods
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.cellViewModels.count;
+    NSInteger count = self.cellViewModels.count;
+    return count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     id<ZDCellViewModelProtocol> cellViewModel = [self viewModelAtIndexPath:indexPath];
-    id<ZDCellProtocol> cell = [tableView dequeueReusableCellWithIdentifier:[cellViewModel zd_reuseIdentifier]];
+    id<ZDCellProtocol> cell = [tableView dequeueReusableCellWithIdentifier:[cellViewModel zd_reuseIdentifier] forIndexPath:indexPath];
+    NSAssert(cell, @"Cell can not be nil");
     
     if ([cell respondsToSelector:@selector(setSelectionCommand:)]) {
         cell.selectionCommand = self.command;
@@ -269,7 +271,7 @@ uint scrollViewDidEndScrollingAnimation:1;
 {
     CGFloat heightForRowAtIndexPath = tableView.rowHeight;
     
-    if (self.delegateRespondsTo.heightForRowAtIndexPath) {
+//    if (self.delegateRespondsTo.heightForRowAtIndexPath) {
         //heightForRowAtIndexPath = [self.delegate tableView:tableView heightForRowAtIndexPath:indexPath];
         id<ZDCellViewModelProtocol> cellViewModel = [self viewModelAtIndexPath:indexPath];
         NSString *identifier = [cellViewModel zd_reuseIdentifier];
@@ -283,21 +285,21 @@ uint scrollViewDidEndScrollingAnimation:1;
         }];
         
         return heightForRowAtIndexPath;
-    }
-    return heightForRowAtIndexPath;
+//    }
+//    return heightForRowAtIndexPath;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    CGFloat estimatedHeightForRowAtIndexPath = tableView.rowHeight;
-    
-    if (self.delegateRespondsTo.estimatedHeightForRowAtIndexPath) {
-        //estimatedHeightForRowAtIndexPath = [self.delegate tableView:tableView estimatedHeightForRowAtIndexPath:indexPath];
-        id<ZDCellViewModelProtocol> cellViewModel = [self viewModelAtIndexPath:indexPath];
-        estimatedHeightForRowAtIndexPath = [cellViewModel height];
-    }
-    return estimatedHeightForRowAtIndexPath;
-}
+//- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//    CGFloat estimatedHeightForRowAtIndexPath = tableView.rowHeight;
+//    
+////    if (self.delegateRespondsTo.estimatedHeightForRowAtIndexPath) {
+//        //estimatedHeightForRowAtIndexPath = [self.delegate tableView:tableView estimatedHeightForRowAtIndexPath:indexPath];
+//        id<ZDCellViewModelProtocol> cellViewModel = [self viewModelAtIndexPath:indexPath];
+//        estimatedHeightForRowAtIndexPath = [cellViewModel height];
+////    }
+//    return estimatedHeightForRowAtIndexPath;
+//}
 
 - (NSInteger)tableView:(UITableView *)tableView indentationLevelForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -455,6 +457,7 @@ uint scrollViewDidEndScrollingAnimation:1;
         [self.delegate tableView:tableView willDisplayFooterView:view forSection:section];
     }
 }
+
 #pragma mark Editing Table Rows
 - (void)tableView:(UITableView *)tableView willBeginEditingRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -482,7 +485,7 @@ uint scrollViewDidEndScrollingAnimation:1;
 
 - (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *titleForDeleteConfirmationButtonForRowAtIndexPath = NSLocalizedString(@"Delete", @"Delete");
+    NSString *titleForDeleteConfirmationButtonForRowAtIndexPath = NSLocalizedString(@"删除", @"Delete");
     
     if (_delegateRespondsTo.titleForDeleteConfirmationButtonForRowAtIndexPath == 1) {
         titleForDeleteConfirmationButtonForRowAtIndexPath = [self.delegate tableView:tableView titleForDeleteConfirmationButtonForRowAtIndexPath:indexPath];
@@ -688,19 +691,55 @@ uint scrollViewDidEndScrollingAnimation:1;
     }
 }
 
-#pragma mark - CEObservableMutableArrayDelegate methods
+#pragma mark - Public Methods
 
-//- (void)array:(CEObservableMutableArray *)array didAddItemAtIndex:(NSUInteger)index {
-//    [_tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationRight];
-//}
-//
-//- (void)array:(CEObservableMutableArray *)array didRemoveItemAtIndex:(NSUInteger)index {
-//    [_tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationLeft];
-//}
-//
-//- (void)array:(CEObservableMutableArray *)array didReplaceObjectAtIndex:(NSUInteger)index withObject:(id)anObject {
-//    [_tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationMiddle];
-//}
+- (void)insertViewModel:(id<ZDCellViewModelProtocol>)viewModel atIndexPath:(NSIndexPath*)indexPath
+{
+    if (!indexPath || !viewModel) {
+        return;
+    }
+    [self registerNibForTableViewWithCellViewModels:@[viewModel]];
+    [self.cellViewModels insertObject:viewModel atIndex:indexPath.row];
+    
+    [self.tableView beginUpdates];
+    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.tableView endUpdates];
+}
+
+- (void)replaceViewModel:(id<ZDCellViewModelProtocol>)viewModel atIndexPath:(NSIndexPath*)indexPath
+{
+    if (!indexPath || !viewModel) {
+        return;
+    }
+    [self registerNibForTableViewWithCellViewModels:@[viewModel]];
+    [self.cellViewModels replaceObjectAtIndex:indexPath.row withObject:viewModel];
+    
+    [self.tableView beginUpdates];
+    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    [self.tableView endUpdates];
+}
+
+- (void)deleteViewModelAtIndexPath:(NSIndexPath*)indexPath
+{
+    if (!indexPath) {
+        return;
+    }
+    [self.cellViewModels removeObjectAtIndex:indexPath.row];
+    
+    [self.tableView beginUpdates];
+    [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.tableView beginUpdates];
+}
+
+- (void)reloadItemsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths
+{
+    if (indexPaths.count == 0) {
+        return;
+    }
+    [self.tableView beginUpdates];
+    [self.tableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.tableView endUpdates];
+}
 
 #pragma mark - Private Method
 - (id)viewModelAtIndexPath:(NSIndexPath *)indexPath
@@ -720,23 +759,32 @@ uint scrollViewDidEndScrollingAnimation:1;
 
 - (void)registerNibForTableViewWithCellViewModels:(NSArray<ZDCellViewModel*> *)cellViewModels
 {
-    NSAssert(cellViewModels, @"cellModels cannot be nil");
+    NSAssert(cellViewModels, @"CellViewModels cann't be nil");
     for (id<ZDCellViewModelProtocol>cellViewModel in cellViewModels) {
         NSString *nibName = [cellViewModel zd_nibName];
-        UINib *nib = [UINib nibWithNibName:nibName bundle:nil];
         NSString *reuseIdentifier = [cellViewModel zd_reuseIdentifier];
-        
-        if (nib && reuseIdentifier && ![self.mutSet containsObject:nibName]) {
-            [self.tableView registerNib:nib forCellReuseIdentifier:reuseIdentifier];
-            [self.mutSet addObject:nibName];
+        NSAssert(reuseIdentifier, @"cell重用id必须设置");
+        if (nibName && ![self.mutSet containsObject:nibName]) {
+            UINib *nib = [UINib nibWithNibName:nibName bundle:nil];
+            // create an instance of the template cell and register with the table view
+            //UITableViewCell *templateCell = [[nib instantiateWithOwner:nil options:nil] firstObject];
+            if (nib) {
+                [self.tableView registerNib:nib forCellReuseIdentifier:reuseIdentifier ?: nibName];
+                
+                [self.mutSet addObject:nibName];
+            }
         }
+//        else {
+//            [self.tableView registerClass:NSClassFromString(reuseIdentifier) forCellReuseIdentifier:reuseIdentifier];
+//        }
     }
 }
 
-#pragma mark - Property
+#pragma mark - Getter
+
 - (NSMutableSet *)mutSet
 {
-    if (_mutSet) {
+    if (!_mutSet) {
         _mutSet = [[NSMutableSet alloc] init];
     }
     return _mutSet;

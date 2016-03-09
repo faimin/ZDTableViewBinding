@@ -9,15 +9,16 @@
 #import <UIKit/UIKit.h>
 #import "ZDCellProtocol.h"
 #import "ZDCellViewModelProtocol.h"
-@class RACTuple;
+#import "ZDCellViewModel.h"
+#import "ReactiveCocoa/ReactiveCocoa.h"
 
-@interface ZDTableViewCell : UITableViewCell<ZDCellProtocol>
+@interface ZDBaseTableViewCell : UITableViewCell <ZDCellProtocol>
 
 /// 协议方法
 @property (nonatomic, strong) id model;
-@property (nonatomic, strong) id<ZDCellViewModelProtocol> viewModel;
+@property (nonatomic, strong) id <ZDCellViewModelProtocol> viewModel;
 @property (nonatomic, assign) CGFloat height;
-@property (nonatomic, assign) CGFloat estimateHeight;
+//@property (nonatomic, assign) CGFloat estimateHeight;
 @property (nonatomic, strong) RACCommand *selectionCommand;
 
 /// 把cell中的事件传出去

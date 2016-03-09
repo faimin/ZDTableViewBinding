@@ -11,15 +11,9 @@
 
 @protocol ZDCellViewModelProtocol <NSObject>
 
-- (NSString *)zd_reuseIdentifier;
-- (NSString *)zd_nibName;
-
-- (id)model;
-
-- (CGFloat)height;
-
-//@property (nonatomic, copy  ) NSString *reuseIdentifier;
-//@property (nonatomic, copy  ) NSString *nibName;
-//@property (nonatomic, strong) id model;
+@property (nonatomic, copy  ) NSString *zd_reuseIdentifier;
+@property (nonatomic, copy  ) NSString *zd_nibName;
+@property (nonatomic, strong) id model;
+@property (nonatomic, assign) CGFloat height;
 
 @end
