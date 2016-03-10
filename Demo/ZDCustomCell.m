@@ -10,44 +10,39 @@
 #import "UIImageView+AFNetworking.h"
 #import "ZDModel.h"
 
+#define STRINGFORMATE(obj, ...) [NSString stringWithFormat:obj, __VA_ARGS__]
+
 @implementation ZDCustomCell
 
 - (void)awakeFromNib
 {
     [super awakeFromNib];
     
+    //** 方案1
     @weakify(self);
-//    [RACObserve(self, model) subscribeNext:^(Barcontent *x) {
-//        @strongify(self);
-//        self.articleCount.text = x.articleNum;
-//        self.articleBrief.text = x.barDesc;
-//        self.barID.text = [NSString stringWithFormat:@"%ld", x.barId];
-//        self.barName.text = x.barName;
-//        self.recommendReason.text = x.recommendReason;
-//        [self.barImage setImageWithURL:[NSURL URLWithString:x.barImgUrl]];
-//    }];
-    
-    RAC(self, articleCount.text) = [RACObserve(((Barcontent *)self.model), articleNum) takeUntil:self.rac_prepareForReuseSignal];
-    RAC(self, articleBrief.text) = [RACObserve(((Barcontent *)self.model), barDesc) takeUntil:self.rac_prepareForReuseSignal];
-    RAC(self, barID.text) = [[RACObserve(((Barcontent *)self.model), barId) takeUntil:self.rac_prepareForReuseSignal] map:^id(id value) {
-        return [value stringValue];
-    }];
-    RAC(self, recommendReason.text) = [RACObserve(((Barcontent *)self.model), recommendReason) takeUntil:self.rac_prepareForReuseSignal];
-    [[RACObserve(((Barcontent *)self.model), barImgUrl) ignore:nil] subscribeNext:^(NSString *x) {
+    [[RACObserve(self, model) ignore:nil] subscribeNext:^(Barcontent *x) {
         @strongify(self);
-        [self.barImage setImageWithURL:[NSURL URLWithString:x]];
+        self.articleCount.text = STRINGFORMATE(@"文章数量：%@", x.articleNum);
+        self.articleBrief.text = STRINGFORMATE(@"文章简介：%@", x.barDesc);
+        self.barID.text = STRINGFORMATE(@"吧ID：%ld", x.barId);
+        self.barName.text = STRINGFORMATE(@"吧名称：%@", x.barName);
+        self.recommendReason.text = x.recommendReason;
+        [self.barImage setImageWithURL:[NSURL URLWithString:x.barImgUrl]];
     }];
+     //*/
 }
 
 - (void)bindToViewModel:(ZDCellViewModel *)viewModel
 {
+    /** 方案2
     Barcontent *x = viewModel.model;
-    self.articleCount.text = x.articleNum;
-    self.articleBrief.text = x.barDesc;
-    self.barID.text = [NSString stringWithFormat:@"%ld", x.barId];
-    self.barName.text = x.barName;
+    self.articleCount.text = STRINGFORMATE(@"文章数量：%@", x.articleNum);
+    self.articleBrief.text = STRINGFORMATE(@"文章简介：%@", x.barDesc);
+    self.barID.text = STRINGFORMATE(@"吧ID：%ld", x.barId);
+    self.barName.text = STRINGFORMATE(@"吧名称：%@", x.barName);
     self.recommendReason.text = x.recommendReason;
     [self.barImage setImageWithURL:[NSURL URLWithString:x.barImgUrl]];
+     */
 }
 
 @end

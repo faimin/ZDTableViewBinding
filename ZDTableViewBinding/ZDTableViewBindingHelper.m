@@ -87,7 +87,8 @@ uint scrollViewDidZoom:1;
 //Responding to Scrolling Animations
 uint scrollViewDidEndScrollingAnimation:1;
 } delegateRespondsTo;
-@property (nonatomic, weak) RACCommand *command;
+/// 外面的command是临时变量，所以需要helper持有
+@property (nonatomic, strong) RACCommand *command;
 @property (nonatomic, strong) NSMutableArray *cellViewModels;
 @property (nonatomic, strong) NSMutableSet *mutSet;
 
@@ -97,7 +98,7 @@ uint scrollViewDidEndScrollingAnimation:1;
 
 - (void)dealloc
 {
-    NSLog(@"释放了");
+    NSLog(@"\n【类名：%s】【行数：%d】", __PRETTY_FUNCTION__, __LINE__);
 }
 
 + (instancetype)bindingHelperForTableView:(UITableView *)tableView
@@ -118,20 +119,28 @@ uint scrollViewDidEndScrollingAnimation:1;
 {
     if (self = [super init]) {
         self.tableView = tableView;
-        
         self.command = selectCommand;
         if (estimatedHeight > 0) {
             self.tableView.estimatedRowHeight = estimatedHeight;
         }
         
+        @weakify(self);
         [[sourceSignal ignore:nil] subscribeNext:^(id x) {
-            
-            self.cellViewModels = x;
+            @strongify(self);
             [self registerNibForTableViewWithCellViewModels:x];
-            [self.tableView reloadData];
+            self.cellViewModels = x;
+            
+            // reloadData on mainQueue
+            if (![NSThread isMainThread]) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.tableView reloadData];
+                });
+            }
+            else {
+                [self.tableView reloadData];
+            }
         }];
         
-        // TODO:
         self.tableView.dataSource = self;
         self.tableView.delegate = self;
         self.delegate = nil;
@@ -145,10 +154,16 @@ uint scrollViewDidEndScrollingAnimation:1;
     if (self.delegate != delegate) {
         _delegate = delegate;
         
+        /**
+         *  Forward the delegate method
+         *  refer： https://github.com/ColinEberhardt/CETableViewBinding
+         *
+         *  如果delegate履行了哪个协议方法，那么这个协议方法就在代理对象的类里执行
+         */
         struct delegateMethodsCaching newMethodCaching;
         // UITableViewDelegate
-        //Configuring Rows for the Table View
         
+        //Configuring Rows for the Table View
         //newMethodCaching.heightForRowAtIndexPath = [_delegate respondsToSelector:@selector(tableView:heightForRowAtIndexPath:)];
         newMethodCaching.estimatedHeightForRowAtIndexPath = [_delegate respondsToSelector:@selector(tableView:estimatedHeightForRowAtIndexPath:)];
         newMethodCaching.indentationLevelForRowAtIndexPath = [_delegate respondsToSelector:@selector(tableView:indentationLevelForRowAtIndexPath:)];
@@ -228,8 +243,7 @@ uint scrollViewDidEndScrollingAnimation:1;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSInteger count = self.cellViewModels.count;
-    return count;
+    return self.cellViewModels.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -291,6 +305,7 @@ uint scrollViewDidEndScrollingAnimation:1;
 //    return heightForRowAtIndexPath;
 }
 
+// MARK: ----> estimatedHeightForRowAtIndexPath
 //- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
 //{
 //    CGFloat estimatedHeightForRowAtIndexPath = tableView.rowHeight;
@@ -351,19 +366,14 @@ uint scrollViewDidEndScrollingAnimation:1;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // forward the delegate method
-    //if (_delegateRespondsTo.didSelectRowAtIndexPath == 1) {
-        //[self.delegate tableView:tableView didSelectRowAtIndexPath:indexPath];
-        
-        UITableViewCell<ZDCellProtocol> *cell = [tableView cellForRowAtIndexPath:indexPath];
-        // execute the command
-        if ([cell respondsToSelector:@selector(selectionCommand)]) {
-#warning mark -  未完成(cell, model, event)
-            [cell.selectionCommand execute:[RACTuple tupleWithObjects:cell, [self viewModelAtIndexPath:indexPath], nil]];
-        }
-        
-        [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    //}
+    UITableViewCell<ZDCellProtocol> *cell = [tableView cellForRowAtIndexPath:indexPath];
+    // execute the command
+    if ([cell respondsToSelector:@selector(selectionCommand)]) {
+        /// RACTuplePack(cell, viewModel, event)
+        /// 这里的-1默认代表的是点击的cell本身
+        [cell.selectionCommand execute:[RACTuple tupleWithObjects:cell, [self viewModelAtIndexPath:indexPath], @(-1), nil]];
+    }
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willDeselectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -762,23 +772,24 @@ uint scrollViewDidEndScrollingAnimation:1;
 - (void)registerNibForTableViewWithCellViewModels:(NSArray<ZDCellViewModel*> *)cellViewModels
 {
     NSAssert(cellViewModels, @"CellViewModels cann't be nil");
+    /// storyBoard里的cell不需要注册，只需要设置reuseIdentifier
     for (id<ZDCellViewModelProtocol>cellViewModel in cellViewModels) {
         NSString *nibName = [cellViewModel zd_nibName];
         NSString *reuseIdentifier = [cellViewModel zd_reuseIdentifier];
-        NSAssert(reuseIdentifier, @"cell重用id必须设置");
+        
+        NSAssert(reuseIdentifier, @"Cell重用标识符必须设置");
         if (nibName && ![self.mutSet containsObject:nibName]) {
             UINib *nib = [UINib nibWithNibName:nibName bundle:nil];
             // create an instance of the template cell and register with the table view
             //UITableViewCell *templateCell = [[nib instantiateWithOwner:nil options:nil] firstObject];
             if (nib) {
                 [self.tableView registerNib:nib forCellReuseIdentifier:reuseIdentifier ?: nibName];
-                
                 [self.mutSet addObject:nibName];
             }
         }
-//        else {
-//            [self.tableView registerClass:NSClassFromString(reuseIdentifier) forCellReuseIdentifier:reuseIdentifier];
-//        }
+        else if (0) {
+            // TODO: 通过类名注册Cell
+        }
     }
 }
 

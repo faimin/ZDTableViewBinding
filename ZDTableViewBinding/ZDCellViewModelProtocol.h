@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 #import <CoreGraphics/CoreGraphics.h>
 
+/**
+ *  ViewModel需要实现的协议
+ */
 @protocol ZDCellViewModelProtocol <NSObject>
 
 @property (nonatomic, copy  ) NSString *zd_reuseIdentifier;

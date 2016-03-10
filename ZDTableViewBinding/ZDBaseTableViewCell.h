@@ -17,11 +17,11 @@
 /// 协议方法
 @property (nonatomic, strong) id model;
 @property (nonatomic, strong) id <ZDCellViewModelProtocol> viewModel;
-@property (nonatomic, assign) CGFloat cellHeight;
-//@property (nonatomic, assign) CGFloat estimateHeight;
+@property (nonatomic, assign) CGFloat height;
 @property (nonatomic, strong) RACCommand *selectionCommand;
+//@property (nonatomic, assign) CGFloat estimateHeight;
 
 /// 把cell中的事件传出去
-- (void)deleverEvent:(RACTuple *)paramTuple;
+//- (void)deleverEvent:(RACTuple *)paramTuple;
 
 @end

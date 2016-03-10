@@ -16,6 +16,7 @@
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSArray *models;
+@property (nonatomic, strong) ZDTableViewBindingHelper *helper;
 @end
 
 @implementation ViewController
@@ -55,13 +56,11 @@
                         ZDCellViewModel *viewModel = [ZDCellViewModel new];
                         viewModel.model = model;
                         viewModel.zd_reuseIdentifier = NSStringFromClass([ZDCustomCell class]);
-                        //viewModel.zd_nibName = NSStringFromClass([ZDCustomCell class]);
                         [viewModels addObject:viewModel];
                     }
                 }
             }
             self.models = viewModels;
-            NSLog(@"\n\n\n%@", mutArr);
         }
     }];
     [dataTask resume];
@@ -69,11 +68,12 @@
     
     RACCommand *command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         // TODO:
-        NSLog(@"\n%@", input);
+        NSLog(@"\n点击了===%@", input);
         return [RACSignal empty];
     }];
-    [ZDTableViewBindingHelper bindingHelperForTableView:self.tableView
-                                        estimatedHeight:44
+    // 不要忘记让当前类持有helper，否则出了当前作用域就被释放了
+    self.helper = [ZDTableViewBindingHelper bindingHelperForTableView:self.tableView
+                                        estimatedHeight:100
                                            sourceSignal:RACObserve(self, models)
                                        selectionCommand:command];
     

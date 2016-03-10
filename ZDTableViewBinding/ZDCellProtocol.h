@@ -8,8 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import "ZDCellViewModelProtocol.h"
-@class RACCommand;
+@class RACCommand, ZDCellViewModel;
 
+/**
+ *  TableViewCell需要实现的协议
+ */
 @protocol ZDCellProtocol <NSObject>
 
 @optional
@@ -22,6 +25,6 @@
 @property (nonatomic, strong) RACCommand *selectionCommand;
 
 /// Binds the given view model to the view
-- (void)bindToViewModel:(id)viewModel;
+- (void)bindToViewModel:(ZDCellViewModel *)viewModel;
 
 @end

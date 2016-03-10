@@ -8,6 +8,12 @@
 
 #import "ZDBaseTableViewCell.h"
 
+/**
+ *  如果是cell中的某些控件的点击事件，可以通过self.selectCommand方法传递出去
+     if (self.selectionCommand) {
+        [self.selectionCommand execute:paramTuple];
+     }
+ */
 @implementation ZDBaseTableViewCell
 
 - (void)awakeFromNib
@@ -18,21 +24,16 @@
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
 	[super setSelected:selected animated:animated];
-
 	// Configure the view for the selected state
 }
 
-- (void)deleverEvent:(RACTuple *)paramTuple
+//- (void)deleverEvent:(RACTuple *)paramTuple
+//{}
+
+- (void)bindToViewModel:(ZDCellViewModel *)viewModel
 {
-	if (self.selectionCommand) {
-		[self.selectionCommand execute:paramTuple];
-	}
+    NSAssert(NO, @"抽象类，需要在子类中实现");
 }
 
-- (void)bindToViewModel:(id)viewModel
-{
-	// TODO:
-    NSAssert(NO, @"抽象类，在子类中实现");
-}
 
 @end
