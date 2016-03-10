@@ -17,7 +17,7 @@
 /// 协议方法
 @property (nonatomic, strong) id model;
 @property (nonatomic, strong) id <ZDCellViewModelProtocol> viewModel;
-@property (nonatomic, assign) CGFloat height;
+@property (nonatomic, assign) CGFloat cellHeight;
 //@property (nonatomic, assign) CGFloat estimateHeight;
 @property (nonatomic, strong) RACCommand *selectionCommand;
 

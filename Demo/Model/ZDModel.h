@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MJExtension.h"
 
 @class Module,Barcontent;
 @interface ZDModel : NSObject

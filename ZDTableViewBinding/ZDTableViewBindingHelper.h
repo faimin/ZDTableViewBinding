@@ -14,7 +14,7 @@
 
 @interface ZDTableViewBindingHelper : NSObject
 
-/// 设置之后tableView的代理方法会在外面执行
+/// 用来转发代理方法
 @property (nonatomic, weak) id<UITableViewDelegate> delegate;
 
 + (instancetype)bindingHelperForTableView:(UITableView *)tableView

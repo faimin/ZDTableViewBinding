@@ -236,7 +236,7 @@ uint scrollViewDidEndScrollingAnimation:1;
 {
     id<ZDCellViewModelProtocol> cellViewModel = [self viewModelAtIndexPath:indexPath];
     id<ZDCellProtocol> cell = [tableView dequeueReusableCellWithIdentifier:[cellViewModel zd_reuseIdentifier] forIndexPath:indexPath];
-    NSAssert(cell, @"Cell can not be nil");
+    NSAssert(cell != nil, @"Cell can not be nil");
     
     if ([cell respondsToSelector:@selector(setSelectionCommand:)]) {
         cell.selectionCommand = self.command;
@@ -269,22 +269,24 @@ uint scrollViewDidEndScrollingAnimation:1;
 #pragma mark Configuring Rows for the Table View
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CGFloat heightForRowAtIndexPath = tableView.rowHeight;
+    CGFloat cellHeight = tableView.rowHeight;
     
 //    if (self.delegateRespondsTo.heightForRowAtIndexPath) {
         //heightForRowAtIndexPath = [self.delegate tableView:tableView heightForRowAtIndexPath:indexPath];
-        id<ZDCellViewModelProtocol> cellViewModel = [self viewModelAtIndexPath:indexPath];
-        NSString *identifier = [cellViewModel zd_reuseIdentifier];
-        
-        heightForRowAtIndexPath = [tableView fd_heightForCellWithIdentifier:identifier
-                                                           cacheByIndexPath:indexPath
-                                                              configuration:^(__kindof UITableViewCell<ZDCellProtocol> *cell) {
-            if ([cell respondsToSelector:@selector(setModel:)]) {
-                cell.model = cellViewModel.model;
-            }
-        }];
-        
-        return heightForRowAtIndexPath;
+    id<ZDCellViewModelProtocol> cellViewModel = [self viewModelAtIndexPath:indexPath];
+    NSString *identifier = [cellViewModel zd_reuseIdentifier];
+    
+    cellHeight = [tableView fd_heightForCellWithIdentifier:identifier
+                                                       cacheByIndexPath:indexPath
+                                                          configuration:^(__kindof UITableViewCell<ZDCellProtocol> *cell) {
+        if ([cell respondsToSelector:@selector(setModel:)]) {
+            cell.model = cellViewModel.model;
+        }
+    }];
+
+    [cellViewModel setHeight:cellHeight];
+
+    return cellHeight;
 //    }
 //    return heightForRowAtIndexPath;
 }
@@ -350,7 +352,7 @@ uint scrollViewDidEndScrollingAnimation:1;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // forward the delegate method
-    if (_delegateRespondsTo.didSelectRowAtIndexPath == 1) {
+    //if (_delegateRespondsTo.didSelectRowAtIndexPath == 1) {
         //[self.delegate tableView:tableView didSelectRowAtIndexPath:indexPath];
         
         UITableViewCell<ZDCellProtocol> *cell = [tableView cellForRowAtIndexPath:indexPath];
@@ -361,7 +363,7 @@ uint scrollViewDidEndScrollingAnimation:1;
         }
         
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    }
+    //}
 }
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willDeselectRowAtIndexPath:(NSIndexPath *)indexPath
