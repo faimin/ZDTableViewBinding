@@ -54,8 +54,9 @@
                 for (id model in zdModel.barContent) {
                     if ([model isKindOfClass:[Barcontent class]]) {
                         ZDCellViewModel *viewModel = [ZDCellViewModel new];
-                        viewModel.model = model;
+                        viewModel.zd_model = model;
                         viewModel.zd_reuseIdentifier = NSStringFromClass([ZDCustomCell class]);
+                        viewModel.zd_estimatedHeight = 322;
                         [viewModels addObject:viewModel];
                     }
                 }
@@ -71,11 +72,10 @@
         NSLog(@"\n点击了===%@", input);
         return [RACSignal empty];
     }];
-    // 不要忘记让当前类持有helper，否则出了当前作用域就被释放了
+    // 不要忘记让当前类持有helper，否则，出了当前作用域就会被释放
     self.helper = [ZDTableViewBindingHelper bindingHelperForTableView:self.tableView
-                                        estimatedHeight:100
-                                           sourceSignal:RACObserve(self, models)
-                                       selectionCommand:command];
+                                                         sourceSignal:RACObserve(self, models)
+                                                     selectionCommand:command];
     
     
 }

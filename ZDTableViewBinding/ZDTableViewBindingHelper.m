@@ -102,27 +102,23 @@ uint scrollViewDidEndScrollingAnimation:1;
 }
 
 + (instancetype)bindingHelperForTableView:(UITableView *)tableView
-                          estimatedHeight:(CGFloat)estimatedHeight
                              sourceSignal:(RACSignal *)sourceSignal
                          selectionCommand:(RACCommand *)selectCommand;
 {
     return [[self alloc] initWithTableView:tableView
-                           estimatedHeight:estimatedHeight
+                           //estimatedHeight:estimatedHeight
                               sourceSignal:sourceSignal
                           selectionCommand:selectCommand];
 }
 
 - (instancetype)initWithTableView:(UITableView *)tableView
-                  estimatedHeight:(CGFloat)estimatedHeight
+                  //estimatedHeight:(CGFloat)estimatedHeight
                      sourceSignal:(RACSignal *)sourceSignal
                  selectionCommand:(RACCommand *)selectCommand
 {
     if (self = [super init]) {
         self.tableView = tableView;
         self.command = selectCommand;
-        if (estimatedHeight > 0) {
-            self.tableView.estimatedRowHeight = estimatedHeight;
-        }
         
         @weakify(self);
         [[sourceSignal ignore:nil] subscribeNext:^(id x) {
@@ -256,7 +252,7 @@ uint scrollViewDidEndScrollingAnimation:1;
         cell.selectionCommand = self.command;
     }
     if ([cell respondsToSelector:@selector(setModel:)]) {
-        cell.model = cellViewModel.model;
+        cell.model = [cellViewModel zd_model];
     }
     if ([cell respondsToSelector:@selector(setViewModel:)]) {
         cell.viewModel = cellViewModel;
@@ -273,8 +269,6 @@ uint scrollViewDidEndScrollingAnimation:1;
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         if ([self.cellViewModels isKindOfClass:[NSArray class]]) {
             [self.cellViewModels removeObjectAtIndex:indexPath.row];
-        } else {
-            NSLog(@"The array bound to the table view must be a CEObservableMutableArray");
         }
     }
 }
@@ -285,38 +279,30 @@ uint scrollViewDidEndScrollingAnimation:1;
 {
     CGFloat cellHeight = tableView.rowHeight;
     
-//    if (self.delegateRespondsTo.heightForRowAtIndexPath) {
-        //heightForRowAtIndexPath = [self.delegate tableView:tableView heightForRowAtIndexPath:indexPath];
     id<ZDCellViewModelProtocol> cellViewModel = [self viewModelAtIndexPath:indexPath];
     NSString *identifier = [cellViewModel zd_reuseIdentifier];
     
-    cellHeight = [tableView fd_heightForCellWithIdentifier:identifier
-                                                       cacheByIndexPath:indexPath
-                                                          configuration:^(__kindof UITableViewCell<ZDCellProtocol> *cell) {
+    cellHeight = [tableView fd_heightForCellWithIdentifier:identifier cacheByIndexPath:indexPath configuration:^(__kindof UITableViewCell<ZDCellProtocol> *cell) {
         if ([cell respondsToSelector:@selector(setModel:)]) {
-            cell.model = cellViewModel.model;
+            cell.model = [cellViewModel zd_model];
         }
     }];
 
-    [cellViewModel setHeight:cellHeight];
+    [cellViewModel setZd_height:cellHeight];
 
     return cellHeight;
-//    }
-//    return heightForRowAtIndexPath;
 }
 
 // MARK: ----> estimatedHeightForRowAtIndexPath
-//- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    CGFloat estimatedHeightForRowAtIndexPath = tableView.rowHeight;
-//    
-////    if (self.delegateRespondsTo.estimatedHeightForRowAtIndexPath) {
-//        //estimatedHeightForRowAtIndexPath = [self.delegate tableView:tableView estimatedHeightForRowAtIndexPath:indexPath];
-//        id<ZDCellViewModelProtocol> cellViewModel = [self viewModelAtIndexPath:indexPath];
-//        estimatedHeightForRowAtIndexPath = [cellViewModel height];
-////    }
-//    return estimatedHeightForRowAtIndexPath;
-//}
+- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    CGFloat estimatedHeightForRowAtIndexPath = tableView.estimatedRowHeight;
+    
+    id<ZDCellViewModelProtocol> cellViewModel = [self viewModelAtIndexPath:indexPath];
+    estimatedHeightForRowAtIndexPath = [cellViewModel zd_estimatedHeight];
+
+    return estimatedHeightForRowAtIndexPath;
+}
 
 - (NSInteger)tableView:(UITableView *)tableView indentationLevelForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -754,20 +740,6 @@ uint scrollViewDidEndScrollingAnimation:1;
 }
 
 #pragma mark - Private Method
-- (id)viewModelAtIndexPath:(NSIndexPath *)indexPath
-{
-    NSInteger index = indexPath.row;
-    if (index < 0) {
-        return nil;
-    }
-    
-    if (index >= self.cellViewModels.count) {
-        return nil;
-    }
-    else {
-        return [self.cellViewModels objectAtIndex:index];
-    }
-}
 
 - (void)registerNibForTableViewWithCellViewModels:(NSArray<ZDCellViewModel*> *)cellViewModels
 {
@@ -790,6 +762,21 @@ uint scrollViewDidEndScrollingAnimation:1;
         else if (0) {
             // TODO: 通过类名注册Cell
         }
+    }
+}
+
+- (id)viewModelAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSInteger index = indexPath.row;
+    if (index < 0) {
+        return nil;
+    }
+    
+    if (index >= self.cellViewModels.count) {
+        return nil;
+    }
+    else {
+        return [self.cellViewModels objectAtIndex:index];
     }
 }
 

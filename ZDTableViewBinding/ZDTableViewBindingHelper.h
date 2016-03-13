@@ -18,12 +18,10 @@
 @property (nonatomic, weak) id<UITableViewDelegate> delegate;
 
 + (instancetype)bindingHelperForTableView:(UITableView *)tableView
-                          estimatedHeight:(CGFloat)estimatedHeight
                              sourceSignal:(RACSignal *)sourceSignal
                          selectionCommand:(RACCommand *)selectCommand;
 
 - (instancetype)initWithTableView:(UITableView *)tableView
-                  estimatedHeight:(CGFloat)estimatedHeight
                      sourceSignal:(RACSignal *)sourceSignal
                  selectionCommand:(RACCommand *)selectCommand;
 
@@ -33,3 +31,8 @@
 - (void)reloadItemsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths;
 
 @end
+
+
+
+
+
