@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Title-->
@@ -93,21 +94,20 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="推荐语" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="8Ry-mf-8N1">
-                                                    <rect key="frame" x="10" y="131" width="51" height="32"/>
+                                                    <rect key="frame" x="10" y="131" width="51" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="P1g-CY-c2y">
-                                                    <rect key="frame" x="10" y="173.5" width="240" height="139"/>
+                                                    <rect key="frame" x="10" y="161.5" width="580" height="151"/>
                                                     <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="240" id="28o-sr-zaK"/>
-                                                        <constraint firstAttribute="height" constant="139" id="MQj-YN-oBU"/>
+                                                        <constraint firstAttribute="width" secondItem="P1g-CY-c2y" secondAttribute="height" multiplier="4:3" priority="750" id="SYd-ZK-Dut"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="文章简介" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="0T7-FN-34c">
-                                                    <rect key="frame" x="10" y="40.5" width="68" height="20.5"/>
+                                                    <rect key="frame" x="10" y="40" width="68" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -118,7 +118,7 @@
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="lG8-V4-gj2" secondAttribute="trailing" constant="10" id="C6k-sG-EFZ"/>
                                                 <constraint firstItem="0T7-FN-34c" firstAttribute="top" secondItem="ObT-Ok-Zco" secondAttribute="bottom" constant="10" id="DfX-PN-4co"/>
                                                 <constraint firstItem="ObT-Ok-Zco" firstAttribute="leading" secondItem="rt9-hb-uVi" secondAttribute="leading" constant="10" id="OHw-eC-O2V"/>
-                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="P1g-CY-c2y" secondAttribute="trailing" constant="10" id="Qib-oZ-XU5"/>
+                                                <constraint firstAttribute="trailing" secondItem="P1g-CY-c2y" secondAttribute="trailing" constant="10" id="Qib-oZ-XU5"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ObT-Ok-Zco" secondAttribute="trailing" constant="10" id="Qn5-ED-csn"/>
                                                 <constraint firstItem="lG8-V4-gj2" firstAttribute="top" secondItem="Hpk-nW-EKw" secondAttribute="bottom" constant="10" id="Ued-a9-QMR"/>
                                                 <constraint firstItem="lG8-V4-gj2" firstAttribute="leading" secondItem="rt9-hb-uVi" secondAttribute="leading" constant="10" id="XzS-nc-2cL"/>
@@ -170,7 +170,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="416" y="442"/>
+            <point key="canvasLocation" x="302" y="383"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="qxu-wQ-yLF">

@@ -56,7 +56,7 @@
                         ZDCellViewModel *viewModel = [ZDCellViewModel new];
                         viewModel.zd_model = model;
                         viewModel.zd_reuseIdentifier = NSStringFromClass([ZDCustomCell class]);
-                        viewModel.zd_estimatedHeight = 322;
+                        viewModel.zd_estimatedHeight = 460;
                         [viewModels addObject:viewModel];
                     }
                 }
@@ -67,9 +67,11 @@
     [dataTask resume];
 
     
-    RACCommand *command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
+    RACCommand *command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(RACTuple *input) {
         // TODO:
-        NSLog(@"\n点击了===%@", input);
+        ZDCellViewModel *viewModel = input.second;
+        
+        NSLog(@"\n点击的cell的高度 = %lf", viewModel.zd_height);
         return [RACSignal empty];
     }];
     // 不要忘记让当前类持有helper，否则，出了当前作用域就会被释放

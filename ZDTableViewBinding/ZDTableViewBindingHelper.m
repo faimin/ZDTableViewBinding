@@ -161,7 +161,7 @@ uint scrollViewDidEndScrollingAnimation:1;
         
         //Configuring Rows for the Table View
         //newMethodCaching.heightForRowAtIndexPath = [_delegate respondsToSelector:@selector(tableView:heightForRowAtIndexPath:)];
-        newMethodCaching.estimatedHeightForRowAtIndexPath = [_delegate respondsToSelector:@selector(tableView:estimatedHeightForRowAtIndexPath:)];
+        //newMethodCaching.estimatedHeightForRowAtIndexPath = [_delegate respondsToSelector:@selector(tableView:estimatedHeightForRowAtIndexPath:)];
         newMethodCaching.indentationLevelForRowAtIndexPath = [_delegate respondsToSelector:@selector(tableView:indentationLevelForRowAtIndexPath:)];
         newMethodCaching.willDisplayCellForRowAtIndexPath = [delegate respondsToSelector:@selector(tableView:willDisplayCell:forRowAtIndexPath:)];
         
@@ -252,13 +252,16 @@ uint scrollViewDidEndScrollingAnimation:1;
         cell.selectionCommand = self.command;
     }
     if ([cell respondsToSelector:@selector(setModel:)]) {
-        cell.model = [cellViewModel zd_model];
+        cell.model = cellViewModel.zd_model;
     }
     if ([cell respondsToSelector:@selector(setViewModel:)]) {
         cell.viewModel = cellViewModel;
     }
+    if ([cell respondsToSelector:@selector(setHeight:)]) {
+        cell.height = cellViewModel.zd_height;
+    }
     
-    NSAssert([cell respondsToSelector:@selector(bindToViewModel:)], @"The cells supplied to the ZDTableViewBindingHelper must implement the ZDCellProtocol");
+    //NSAssert([cell respondsToSelector:@selector(bindToViewModel:)], @"The cells supplied to the ZDTableViewBindingHelper must implement the ZDCellProtocol");
     [cell bindToViewModel:cellViewModel];
     
     return (__kindof UITableViewCell *)cell;
