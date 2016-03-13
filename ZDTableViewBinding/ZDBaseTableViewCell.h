@@ -20,7 +20,6 @@
 @property (nonatomic, strong) id <ZDCellViewModelProtocol> viewModel;
 @property (nonatomic, strong) RACCommand *selectionCommand;
 
-/// 把cell中的事件传出去
-//- (void)deleverEvent:(RACTuple *)paramTuple;
+- (void)bindToViewModel:(ZDCellViewModel *)viewModel;
 
 @end

@@ -91,6 +91,7 @@ uint scrollViewDidEndScrollingAnimation:1;
 @property (nonatomic, strong) RACCommand *command;
 @property (nonatomic, strong) NSMutableArray *cellViewModels;
 @property (nonatomic, strong) NSMutableSet *mutSet;
+@property (nonatomic, assign) BOOL isMutSection;
 
 @end
 
@@ -106,13 +107,11 @@ uint scrollViewDidEndScrollingAnimation:1;
                          selectionCommand:(RACCommand *)selectCommand;
 {
     return [[self alloc] initWithTableView:tableView
-                           //estimatedHeight:estimatedHeight
                               sourceSignal:sourceSignal
                           selectionCommand:selectCommand];
 }
 
 - (instancetype)initWithTableView:(UITableView *)tableView
-                  //estimatedHeight:(CGFloat)estimatedHeight
                      sourceSignal:(RACSignal *)sourceSignal
                  selectionCommand:(RACCommand *)selectCommand
 {
@@ -121,8 +120,10 @@ uint scrollViewDidEndScrollingAnimation:1;
         self.command = selectCommand;
         
         @weakify(self);
-        [[sourceSignal ignore:nil] subscribeNext:^(id x) {
+        [[sourceSignal ignore:nil] subscribeNext:^(__kindof NSArray<ZDCellViewModel*> *x) {
             @strongify(self);
+            self.isMutSection = [x.firstObject isKindOfClass:[NSArray class]];
+            
             [self registerNibForTableViewWithCellViewModels:x];
             self.cellViewModels = x;
             
@@ -261,9 +262,9 @@ uint scrollViewDidEndScrollingAnimation:1;
         cell.height = cellViewModel.zd_height;
     }
     
-    //NSAssert([cell respondsToSelector:@selector(bindToViewModel:)], @"The cells supplied to the ZDTableViewBindingHelper must implement the ZDCellProtocol");
+    /// cell遵循的数据协议
     [cell bindToViewModel:cellViewModel];
-    
+        
     return (__kindof UITableViewCell *)cell;
 }
 

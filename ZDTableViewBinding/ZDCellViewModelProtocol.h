@@ -10,7 +10,7 @@
 #import <CoreGraphics/CoreGraphics.h>
 
 /**
- *  ViewModel需要实现的协议，为了与cellProtocol区分，协议方法前都加了zd
+ *  ViewModel需要实现的协议，为了与cellProtocol区分，协议方法前都加了zd前缀
  */
 @protocol ZDCellViewModelProtocol <NSObject>
 
