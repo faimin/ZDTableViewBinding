@@ -164,7 +164,7 @@ static ZDAFNetWorkHelper *zdAFHelper = nil;
     if (!data) {
         return nil;
     }
-	NSError *error;
+	NSError *__autoreleasing error;
 	return [data isKindOfClass:[NSData class]] ? [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&error] : data;
 }
 
