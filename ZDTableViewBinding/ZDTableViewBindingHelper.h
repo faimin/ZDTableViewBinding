@@ -5,6 +5,9 @@
 //  Created by 符现超 on 16/3/6.
 //  Copyright © 2016年 Zero.D.Saber. All rights reserved.
 //
+/**
+ *  有兴趣的童鞋可以看看这个lib： https://github.com/Raizlabs/RZCellSizeManager
+ */
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
