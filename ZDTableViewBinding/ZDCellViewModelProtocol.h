@@ -21,5 +21,11 @@
 
 @optional
 @property (nonatomic, assign) CGFloat zd_height;
+//@property (nonatomic, strong) __kindof UIView *zd_sectionHeader;
+//@property (nonatomic, strong) __kindof UIView *zd_sectionFooter;
+@property (nonatomic, copy  ) NSString *zd_headerNibName;
+@property (nonatomic, copy  ) NSString *zd_footerNibName;
+@property (nonatomic, copy  ) NSString *zd_headerReuseIdentifier;
+@property (nonatomic, copy  ) NSString *zd_footerReuseIdentifier;
 
 @end

@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <CoreGraphics/CoreGraphics.h>
+#import <UIKit/UIKit.h>
 #import "ZDCellViewModelProtocol.h"
 
 @interface ZDCellViewModel : NSObject<ZDCellViewModelProtocol>
@@ -17,5 +17,10 @@
 @property (nonatomic, strong) id       zd_model;
 @property (nonatomic, assign) CGFloat  zd_estimatedHeight;
 @property (nonatomic, assign) CGFloat  zd_height;
+
+@property (nonatomic, copy  ) NSString *zd_headerNibName;
+@property (nonatomic, copy  ) NSString *zd_footerNibName;
+@property (nonatomic, copy  ) NSString *zd_headerReuseIdentifier;
+@property (nonatomic, copy  ) NSString *zd_footerReuseIdentifier;
 
 @end

@@ -90,7 +90,7 @@ uint scrollViewDidEndScrollingAnimation:1;
 /// 外面的command是临时变量，所以需要helper持有
 @property (nonatomic, strong) RACCommand *command;
 @property (nonatomic, strong) NSMutableArray *cellViewModels;
-@property (nonatomic, strong) NSMutableSet *mutSet;
+@property (nonatomic, strong) NSMutableSet *mutSetForCell;
 @property (nonatomic, assign) BOOL isMutSection;
 
 @end
@@ -103,15 +103,18 @@ uint scrollViewDidEndScrollingAnimation:1;
 }
 
 + (instancetype)bindingHelperForTableView:(UITableView *)tableView
+                           mutableSection:(BOOL)mutableSection
                              sourceSignal:(RACSignal *)sourceSignal
                          selectionCommand:(RACCommand *)selectCommand;
 {
     return [[self alloc] initWithTableView:tableView
+                            mutableSection:(BOOL)mutableSection
                               sourceSignal:sourceSignal
                           selectionCommand:selectCommand];
 }
 
 - (instancetype)initWithTableView:(UITableView *)tableView
+                   mutableSection:(BOOL)mutableSection
                      sourceSignal:(RACSignal *)sourceSignal
                  selectionCommand:(RACCommand *)selectCommand
 {
@@ -122,8 +125,10 @@ uint scrollViewDidEndScrollingAnimation:1;
         @weakify(self);
         [[sourceSignal ignore:nil] subscribeNext:^(__kindof NSArray<ZDCellViewModel*> *x) {
             @strongify(self);
-            self.isMutSection = [x.firstObject isKindOfClass:[NSArray class]];
-            
+            ///是否有section
+            NSAssert([self dataIsMutDimensionalArray:x] == mutableSection, @"请检查所传数据是不是多section类型");
+            self.isMutSection = mutableSection;
+            ///注册cell
             [self registerNibForTableViewWithCellViewModels:x];
             self.cellViewModels = x;
             
@@ -237,6 +242,13 @@ uint scrollViewDidEndScrollingAnimation:1;
 }
 
 #pragma mark - UITableViewDataSource Methods
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    if (self.isMutSection) {
+        return self.cellViewModels.count;
+    }
+    return 1;
+}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -382,7 +394,7 @@ uint scrollViewDidEndScrollingAnimation:1;
         [self.delegate tableView:tableView didDeselectRowAtIndexPath:indexPath];
     }
 }
-
+//TODO: sectionHeaderView
 #pragma mark Modifying the Header and Footer of Sections
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
@@ -744,23 +756,23 @@ uint scrollViewDidEndScrollingAnimation:1;
 }
 
 #pragma mark - Private Method
-
+//TODO: 注册cell和sectionView
 - (void)registerNibForTableViewWithCellViewModels:(NSArray<ZDCellViewModel*> *)cellViewModels
 {
     NSAssert(cellViewModels, @"CellViewModels cann't be nil");
-    /// storyBoard里的cell不需要注册，只需要设置reuseIdentifier
+    /// storyBoard里的cell不需要手动注册，只需要设置reuseIdentifier
     for (id<ZDCellViewModelProtocol>cellViewModel in cellViewModels) {
         NSString *nibName = [cellViewModel zd_nibName];
         NSString *reuseIdentifier = [cellViewModel zd_reuseIdentifier];
         
         NSAssert(reuseIdentifier, @"Cell重用标识符必须设置");
-        if (nibName && ![self.mutSet containsObject:nibName]) {
+        if (nibName && ![self.mutSetForCell containsObject:nibName]) {
             UINib *nib = [UINib nibWithNibName:nibName bundle:nil];
             // create an instance of the template cell and register with the table view
             //UITableViewCell *templateCell = [[nib instantiateWithOwner:nil options:nil] firstObject];
             if (nib) {
                 [self.tableView registerNib:nib forCellReuseIdentifier:reuseIdentifier ?: nibName];
-                [self.mutSet addObject:nibName];
+                [self.mutSetForCell addObject:nibName];
             }
         }
         else if (0) {
@@ -784,14 +796,23 @@ uint scrollViewDidEndScrollingAnimation:1;
     }
 }
 
+/// 判断是否是二维数组
+- (BOOL)dataIsMutDimensionalArray:(__kindof NSArray *)data
+{
+    if ([data.firstObject isKindOfClass:[NSArray class]]) {
+        return YES;
+    }
+    return NO;
+}
+
 #pragma mark - Getter
 
-- (NSMutableSet *)mutSet
+- (NSMutableSet *)mutSetForCell
 {
-    if (!_mutSet) {
-        _mutSet = [[NSMutableSet alloc] init];
+    if (!_mutSetForCell) {
+        _mutSetForCell = [[NSMutableSet alloc] init];
     }
-    return _mutSet;
+    return _mutSetForCell;
 }
 
 @end

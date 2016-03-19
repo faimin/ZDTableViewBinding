@@ -21,10 +21,12 @@
 @property (nonatomic, weak) id<UITableViewDelegate> delegate;
 
 + (instancetype)bindingHelperForTableView:(UITableView *)tableView
+                           mutableSection:(BOOL)mutableSection
                              sourceSignal:(RACSignal *)sourceSignal
                          selectionCommand:(RACCommand *)selectCommand;
 
 - (instancetype)initWithTableView:(UITableView *)tableView
+                   mutableSection:(BOOL)mutableSection
                      sourceSignal:(RACSignal *)sourceSignal
                  selectionCommand:(RACCommand *)selectCommand;
 
