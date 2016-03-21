@@ -76,6 +76,7 @@
     }];
     // 不要忘记让当前类持有helper，否则，出了当前作用域就会被释放
     self.helper = [ZDTableViewBindingHelper bindingHelperForTableView:self.tableView
+                                                       mutableSection:NO
                                                          sourceSignal:RACObserve(self, models)
                                                      selectionCommand:command];
     

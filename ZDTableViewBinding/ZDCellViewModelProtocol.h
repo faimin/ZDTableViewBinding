@@ -16,16 +16,20 @@
 
 @property (nonatomic, copy  ) NSString *zd_reuseIdentifier;
 @property (nonatomic, copy  ) NSString *zd_nibName;
-@property (nonatomic, strong) id zd_model;
-@property (nonatomic, assign) CGFloat zd_estimatedHeight;
+@property (nonatomic, strong) id       zd_model;
+@property (nonatomic, assign) CGFloat  zd_estimatedHeight;
+@property (nonatomic, assign) CGFloat  zd_height;
 
 @optional
-@property (nonatomic, assign) CGFloat zd_height;
-//@property (nonatomic, strong) __kindof UIView *zd_sectionHeader;
-//@property (nonatomic, strong) __kindof UIView *zd_sectionFooter;
 @property (nonatomic, copy  ) NSString *zd_headerNibName;
 @property (nonatomic, copy  ) NSString *zd_footerNibName;
 @property (nonatomic, copy  ) NSString *zd_headerReuseIdentifier;
 @property (nonatomic, copy  ) NSString *zd_footerReuseIdentifier;
+@property (nonatomic, strong) id       zd_headerModel;
+@property (nonatomic, strong) id       zd_footerModel;
+@property (nonatomic, assign) CGFloat  zd_estimatedHeaderHeight;
+@property (nonatomic, assign) CGFloat  zd_estimatedFooterHeight;
+@property (nonatomic, assign) CGFloat  zd_headerHeight;
+@property (nonatomic, assign) CGFloat  zd_footerHeight;
 
 @end

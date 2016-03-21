@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		050D64F31CA000D80007403D /* ZDBaseHeaderFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 050D64F21CA000D80007403D /* ZDBaseHeaderFooterView.m */; };
 		0592DDCA1C8C15130063526D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0592DDC91C8C15130063526D /* main.m */; };
 		0592DDCD1C8C15130063526D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0592DDCC1C8C15130063526D /* AppDelegate.m */; };
 		0592DDD01C8C15130063526D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0592DDCF1C8C15130063526D /* ViewController.m */; };
@@ -41,6 +42,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		050D64F11CA000D80007403D /* ZDBaseHeaderFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZDBaseHeaderFooterView.h; sourceTree = "<group>"; };
+		050D64F21CA000D80007403D /* ZDBaseHeaderFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZDBaseHeaderFooterView.m; sourceTree = "<group>"; };
 		0592DDC51C8C15130063526D /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0592DDC91C8C15130063526D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		0592DDCB1C8C15130063526D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -195,6 +198,8 @@
 				BC75FDAF1C8EF55100C915E0 /* ZDTableViewBindingHelper.m */,
 				BC75FDB01C8EF55100C915E0 /* ZDBaseTableViewCell.h */,
 				BC75FDB11C8EF55100C915E0 /* ZDBaseTableViewCell.m */,
+				050D64F11CA000D80007403D /* ZDBaseHeaderFooterView.h */,
+				050D64F21CA000D80007403D /* ZDBaseHeaderFooterView.m */,
 			);
 			path = ZDTableViewBinding;
 			sourceTree = "<group>";
@@ -383,6 +388,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				050D64F31CA000D80007403D /* ZDBaseHeaderFooterView.m in Sources */,
 				BC75FDB81C8FD44600C915E0 /* ZDModel.m in Sources */,
 				0592DDD01C8C15130063526D /* ViewController.m in Sources */,
 				BC75FDB31C8EF55100C915E0 /* ZDTableViewBindingHelper.m in Sources */,
