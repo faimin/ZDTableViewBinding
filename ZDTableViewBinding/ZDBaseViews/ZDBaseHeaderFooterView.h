@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ZDSectionViewModel.h"
 
-@interface ZDBaseHeaderFooterView : UITableViewHeaderFooterView
+@interface ZDBaseHeaderFooterView : UITableViewHeaderFooterView 
 
+@property (nonatomic, strong) ZDSectionViewModel<ZDSectionViewModelProtocol> *sectionViewModel;
 @property (nonatomic, strong) id sectionModel;
 @property (nonatomic, assign) CGFloat headerHeight;
 @property (nonatomic, assign) CGFloat footerHeight;
