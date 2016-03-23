@@ -14,12 +14,15 @@
 
 @implementation ZDHeaderView
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
+- (void)awakeFromNib
+{
+    [super awakeFromNib];
+    @weakify(self);
+    [[RACObserve(self, sectionModel) ignore:nil] subscribeNext:^(id x) {
+        @strongify(self);
+        
+        //self.titleLabel.text =
+    }];
 }
-*/
 
 @end

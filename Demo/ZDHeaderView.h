@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ZDBaseSectionView.h"
 
-@interface ZDHeaderView : UIView
+@interface ZDHeaderView : ZDBaseSectionView
 
 @end

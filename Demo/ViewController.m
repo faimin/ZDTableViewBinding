@@ -9,9 +9,12 @@
 #import "ViewController.h"
 #import "ZDTableViewBindingHelper.h"
 #import "ZDCellViewModel.h"
+#import "ZDSectionViewModel.h"
+#import "ZDBindingDefine.h"
 #import "MJExtension.h"
 #import "ZDModel.h"
 #import "ZDCustomCell.h"
+#import "ZDHeaderView.h"
 
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -49,19 +52,27 @@
             NSDictionary *obj = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&zderror];
             NSMutableArray *mutArr = [ZDModel mj_objectArrayWithKeyValuesArray:obj[@"data"][@"squareInfo"]];
             
-            NSMutableArray *viewModels = [NSMutableArray array];
+            NSMutableArray *sectionCellViewModels = [NSMutableArray array];
             for (ZDModel *zdModel in mutArr) {
+                NSMutableArray *cellViewModels = [NSMutableArray array];
                 for (id model in zdModel.barContent) {
                     if ([model isKindOfClass:[Barcontent class]]) {
                         ZDCellViewModel *viewModel = [ZDCellViewModel new];
                         viewModel.zd_model = model;
                         viewModel.zd_reuseIdentifier = NSStringFromClass([ZDCustomCell class]);
                         viewModel.zd_estimatedHeight = 460;
-                        [viewModels addObject:viewModel];
+                        [cellViewModels addObject:viewModel];
                     }
                 }
+                ZDSectionViewModel *sectionViewModel = [ZDSectionViewModel new];
+                sectionViewModel.zd_headerReuseIdentifier = @"ZDHeaderView";
+                sectionViewModel.zd_headerModel = zdModel.module;
+                sectionViewModel.zd_estimatedHeaderHeight = 100;
+                NSDictionary *sectionDic = ZDSectionCellDictionary(sectionViewModel, cellViewModels, ([NSNull null]));
+                
+                [sectionCellViewModels addObject:sectionDic];
             }
-            self.models = viewModels;
+            self.models = sectionCellViewModels;
         }
     }];
     [dataTask resume];
@@ -76,7 +87,7 @@
     }];
     // 不要忘记让当前类持有helper，否则，出了当前作用域就会被释放
     self.helper = [ZDTableViewBindingHelper bindingHelperForTableView:self.tableView
-                                                       mutableSection:NO
+                                                       mutableSection:YES
                                                          sourceSignal:RACObserve(self, models)
                                                      selectionCommand:command];
     

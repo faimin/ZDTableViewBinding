@@ -11,6 +11,11 @@
 
 @protocol ZDSectionProtocol <NSObject>
 
+@property (nonatomic, strong) ZDSectionViewModel<ZDSectionViewModelProtocol> *sectionViewModel;
+@property (nonatomic, strong) id sectionModel;
+@property (nonatomic, assign) CGFloat headerHeight;
+@property (nonatomic, assign) CGFloat footerHeight;
+
 - (void)bindToSectionViewModel:(ZDSectionViewModel *)viewModel;
 
 @end

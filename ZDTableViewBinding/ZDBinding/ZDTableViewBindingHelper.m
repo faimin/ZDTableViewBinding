@@ -289,6 +289,7 @@ NS_ASSUME_NONNULL_END
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     id<ZDCellViewModelProtocol> cellViewModel = [self viewModelAtIndexPath:indexPath];
+    NSAssert(cellViewModel != nil, @"cellViewModel can't be nil");
     id<ZDCellProtocol> cell = [tableView dequeueReusableCellWithIdentifier:([cellViewModel zd_reuseIdentifier] ?: [cellViewModel zd_nibName]) forIndexPath:indexPath];
     NSAssert(cell != nil, @"Cell can not be nil");
     
@@ -343,9 +344,13 @@ NS_ASSUME_NONNULL_END
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CGFloat estimatedHeightForRowAtIndexPath = tableView.estimatedRowHeight;
-    
-    id<ZDCellViewModelProtocol> cellViewModel = [self viewModelAtIndexPath:indexPath];
-    estimatedHeightForRowAtIndexPath = [cellViewModel zd_estimatedHeight];
+    if (self.isMutSection) {
+        
+    }
+    else {
+        id<ZDCellViewModelProtocol> cellViewModel = [self viewModelAtIndexPath:indexPath];
+        estimatedHeightForRowAtIndexPath = [cellViewModel zd_estimatedHeight];
+    }
 
     return estimatedHeightForRowAtIndexPath;
 }
@@ -437,7 +442,16 @@ NS_ASSUME_NONNULL_END
             return nil;
         }
         NSString *headerReuseIdentifier = headerViewModel.zd_headerReuseIdentifier ?: headerViewModel.zd_headerNibName;
-        __kindof UITableViewHeaderFooterView *viewForHeaderInSection = [tableView dequeueReusableHeaderFooterViewWithIdentifier:headerReuseIdentifier];
+        __kindof ZDBaseSectionView *viewForHeaderInSection = [tableView dequeueReusableHeaderFooterViewWithIdentifier:headerReuseIdentifier];
+        if ([viewForHeaderInSection respondsToSelector:@selector(setSectionViewModel:)]) {
+            viewForHeaderInSection.sectionViewModel = headerViewModel;
+        }
+        if ([viewForHeaderInSection respondsToSelector:@selector(setSectionModel:)]) {
+            viewForHeaderInSection.sectionModel = headerViewModel.zd_headerModel;
+        }
+        if ([viewForHeaderInSection respondsToSelector:@selector(setHeaderHeight:)]) {
+            viewForHeaderInSection.headerHeight = headerViewModel.zd_headerHeight;
+        }
         return viewForHeaderInSection;
     }
 //    if (_delegateRespondsTo.viewForHeaderInSection == 1) {
@@ -461,7 +475,17 @@ NS_ASSUME_NONNULL_END
             return nil;
         }
         NSString *footerReuseIdentifier = footerViewModel.zd_footerReuseIdentifier ?: footerViewModel.zd_footerNibName;
-        __kindof UITableViewHeaderFooterView *viewForFooterInSection = [tableView dequeueReusableHeaderFooterViewWithIdentifier:footerReuseIdentifier];
+        __kindof ZDBaseSectionView *viewForFooterInSection = [tableView dequeueReusableHeaderFooterViewWithIdentifier:footerReuseIdentifier];
+        if ([viewForFooterInSection respondsToSelector:@selector(setSectionViewModel:)]) {
+            viewForFooterInSection.sectionViewModel = footerViewModel;
+        }
+        if ([viewForFooterInSection respondsToSelector:@selector(setSectionModel:)]) {
+            viewForFooterInSection.sectionModel = footerViewModel.zd_footerModel;
+        }
+        if ([viewForFooterInSection respondsToSelector:@selector(setHeaderHeight:)]) {
+            viewForFooterInSection.headerHeight = footerViewModel.zd_footerHeight;
+        }
+
         return viewForFooterInSection;
     }
 //    if (_delegateRespondsTo.viewForFooterInSection == 1) {
@@ -945,15 +969,21 @@ NS_ASSUME_NONNULL_END
             NSArray *cellViewModels = sectionCellDataDic[CellViewModelKey];
             ZDSectionViewModel *footerViewModel = sectionCellDataDic[FooterViewModelKey];
             
-            [self registerNibForTableViewWithCellViewModels:cellViewModels];
-            [self registerNibForTableViewWithSectionViewModel:headerViewModel];
-            [self registerNibForTableViewWithSectionViewModel:footerViewModel];
+            if (ZDNotNilOrEmpty(cellViewModels)) {
+                [self registerNibForTableViewWithCellViewModels:cellViewModels];
+            }
+            if (ZDNotNilOrEmpty(headerViewModel)) {
+                [self registerNibForTableViewWithSectionViewModel:headerViewModel];
+            }
+            if (ZDNotNilOrEmpty(footerViewModel)) {
+                [self registerNibForTableViewWithSectionViewModel:footerViewModel];
+            }
         }
     }
 }
 
 // MARK: -----------------------获取ViewModel-----------------------
-- (id<ZDCellViewModelProtocol>)viewModelAtIndexPath:(NSIndexPath *)indexPath
+- (id)viewModelAtIndexPath:(NSIndexPath *)indexPath
 {
     if (self.isMutSection) {
         NSInteger section = indexPath.section;
@@ -961,7 +991,9 @@ NS_ASSUME_NONNULL_END
             return nil;
         }
         else {
-            return self.sectionCellDatas[indexPath.section][CellViewModelKey];
+            NSArray *cellViewModelArr = self.sectionCellDatas[indexPath.section][CellViewModelKey];
+            ZDCellViewModel *viewModel = cellViewModelArr[indexPath.row];
+            return viewModel;
         }
     }
     else {
@@ -970,7 +1002,7 @@ NS_ASSUME_NONNULL_END
             return nil;
         }
         else {
-            return [self.cellViewModels objectAtIndex:index];
+            return self.cellViewModels[index];
         }
     }
 }

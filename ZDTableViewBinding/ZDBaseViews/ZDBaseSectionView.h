@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "ZDSectionViewModel.h"
 #import "ZDSectionProtocol.h"
+#import "ReactiveCocoa/ReactiveCocoa.h"
 
-@interface ZDBaseSectionView : UITableViewHeaderFooterView<ZDSectionViewModelProtocol>
+@interface ZDBaseSectionView : UITableViewHeaderFooterView<ZDSectionProtocol>
 
 @property (nonatomic, strong) ZDSectionViewModel<ZDSectionViewModelProtocol> *sectionViewModel;
 @property (nonatomic, strong) id sectionModel;
