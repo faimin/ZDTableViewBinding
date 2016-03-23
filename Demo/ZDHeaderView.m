@@ -1,14 +1,18 @@
 //
-//  ZDBaseHeaderFooterView.m
+//  ZDHeaderView.m
 //  Demo
 //
-//  Created by 符现超 on 16/3/21.
+//  Created by 符现超 on 16/3/23.
 //  Copyright © 2016年 Zero.D.Saber. All rights reserved.
 //
 
-#import "ZDBaseHeaderFooterView.h"
+#import "ZDHeaderView.h"
 
-@implementation ZDBaseHeaderFooterView
+@interface ZDHeaderView ()
+@property (nonatomic, weak) IBOutlet UILabel *titleLabel;
+@end
+
+@implementation ZDHeaderView
 
 /*
 // Only override drawRect: if you perform custom drawing.

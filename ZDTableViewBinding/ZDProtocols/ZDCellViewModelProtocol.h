@@ -21,7 +21,8 @@
 @property (nonatomic, assign) CGFloat  zd_height;
 
 @optional
-@property (nonatomic, strong) ZDSectionViewModel *zd_sectionViewModel;
+@property (nonatomic, copy  ) NSString *zd_titleViewReuseIdentifier;
+//@property (nonatomic, strong) ZDSectionViewModel *zd_sectionViewModel;
 
 
 @end

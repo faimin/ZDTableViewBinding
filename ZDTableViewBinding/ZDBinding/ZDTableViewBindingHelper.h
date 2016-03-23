@@ -5,12 +5,22 @@
 //  Created by 符现超 on 16/3/6.
 //  Copyright © 2016年 Zero.D.Saber. All rights reserved.
 //
+
 /**
- *  有兴趣的童鞋可以看看这个lib： https://github.com/Raizlabs/RZCellSizeManager
+ *  如果是多个section，需要把数据封装成（header或footer只存其一的话，则把sectionViewModel设置成[NSNull null]对象）
+ *  [
+        [sectionViewMoel, [cellViewModel, cellViewModel, ...], sectionViewModel],
+        [sectionViewMoel, [cellViewModel, cellViewModel, ...], sectionViewModel],
+        ...
+    ]
+ *
+ *  单个section，则封装成
+ *  [cellViewModel, cellViewModel, ...]
  */
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "ZDBindingDefine.h"
 #import "ReactiveCocoa/ReactiveCocoa.h"
 #import "ZDCellViewModelProtocol.h"
 #import "ZDCellProtocol.h"
