@@ -43,12 +43,14 @@
 + (instancetype)bindingHelperForTableView:(UITableView *)tableView
                            mutableSection:(BOOL)mutableSection
                              sourceSignal:(RACSignal *)sourceSignal
-                         selectionCommand:(RACCommand *)selectCommand;
+                              cellCommand:(RACCommand *)cellCommand
+                           sectionCommand:(RACCommand *)sectionCommand;
 
 - (instancetype)initWithTableView:(UITableView *)tableView
                    mutableSection:(BOOL)mutableSection
                      sourceSignal:(RACSignal *)sourceSignal
-                 selectionCommand:(RACCommand *)selectCommand;
+                      cellCommand:(RACCommand *)selectCommand
+                   sectionCommand:(RACCommand *)sectionCommand;
 
 - (void)insertViewModel:(id<ZDCellViewModelProtocol>)viewModel atIndexPath:(NSIndexPath*)indexPath;
 - (void)replaceViewModel:(id<ZDCellViewModelProtocol>)model atIndexPath:(NSIndexPath *)indexPath;

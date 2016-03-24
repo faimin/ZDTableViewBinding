@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-@class ZDSectionViewModel;
+@class ZDSectionViewModel, RACCommand;
 
 @protocol ZDSectionProtocol <NSObject>
 
@@ -15,6 +15,7 @@
 @property (nonatomic, strong) id sectionModel;
 @property (nonatomic, assign) CGFloat headerHeight;
 @property (nonatomic, assign) CGFloat footerHeight;
+@property (nonatomic, strong) RACCommand *sectionCommand;
 
 - (void)bindToSectionViewModel:(ZDSectionViewModel *)viewModel;
 

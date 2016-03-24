@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) id model;
 @property (nonatomic, assign) CGFloat height;
 @property (nonatomic, strong) id <ZDCellViewModelProtocol> viewModel;
-@property (nonatomic, strong) RACCommand *selectionCommand;
+@property (nonatomic, strong) RACCommand *cellCommand;
 
 - (void)bindToCellViewModel:(ZDCellViewModel *)viewModel;
 

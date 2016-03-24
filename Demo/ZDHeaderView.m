@@ -34,4 +34,9 @@
      */
 }
 
+- (IBAction)click:(UIButton *)sender
+{
+    [self.sectionCommand execute:RACTuplePack(sender, self.sectionModel)];
+}
+
 @end

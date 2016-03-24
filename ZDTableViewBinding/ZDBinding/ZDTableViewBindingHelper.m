@@ -102,7 +102,7 @@ uint scrollViewDidZoom:1;
 uint scrollViewDidEndScrollingAnimation:1;
 } delegateRespondsTo;
 /// 外面的command是临时变量，所以需要helper持有
-@property (nonatomic, strong) RACCommand *command;
+@property (nonatomic, strong) RACCommand *cellCommand;
 @property (nonatomic, strong) RACCommand *sectionCommand;
 /// 包含sectionViewModel和cellViewModel的二维数组
 @property (nonatomic, strong, nullable) NSMutableArray<NSDictionary *> *sectionCellDatas;
@@ -131,30 +131,33 @@ NS_ASSUME_NONNULL_END
 + (instancetype)bindingHelperForTableView:(UITableView *)tableView
                            mutableSection:(BOOL)mutableSection
                              sourceSignal:(RACSignal *)sourceSignal
-                         selectionCommand:(RACCommand *)selectCommand;
+                              cellCommand:(RACCommand *)cellCommand
+                           sectionCommand:(RACCommand *)sectionCommand
 {
     return [[self alloc] initWithTableView:tableView
                             mutableSection:(BOOL)mutableSection
                               sourceSignal:sourceSignal
-                          selectionCommand:selectCommand];
+                               cellCommand:cellCommand
+                            sectionCommand:sectionCommand];
 }
 
 - (instancetype)initWithTableView:(UITableView *)tableView
                    mutableSection:(BOOL)mutableSection
                      sourceSignal:(RACSignal *)sourceSignal
-                 selectionCommand:(RACCommand *)selectCommand
+                      cellCommand:(RACCommand *)cellCommand
+                   sectionCommand:(RACCommand *)sectionCommand
 {
     if (self = [super init]) {
         self.tableView = tableView;
-        self.command = selectCommand;
+        self.cellCommand = cellCommand;
+        self.sectionCommand = sectionCommand;
         
         @weakify(self);
         [[sourceSignal ignore:nil] subscribeNext:^(__kindof NSArray *x) {
             @strongify(self);
-            ///是否有section
-            //NSAssert([self dataIsMutDimensionalArray:x] == mutableSection, @"请检查所传数据是不是多section类型");
             self.isMutSection = mutableSection;
-            ///注册cell
+            
+            /// register cell && header && footer
             if (mutableSection) {
                 [self registerNibForTableViewWithSectionCellViewModels:x];
                 self.sectionCellDatas = x;
@@ -164,7 +167,7 @@ NS_ASSUME_NONNULL_END
                 self.cellViewModels = x;
             }
             
-            // reloadData on mainQueue
+            /// reloadData on mainQueue
             ZDDispatch_async_on_main_queue(^{
                 [self.tableView reloadData];
             });
@@ -210,12 +213,12 @@ NS_ASSUME_NONNULL_END
         newMethodCaching.didDeselectRowAtIndexPath = [_delegate respondsToSelector:@selector(tableView:didDeselectRowAtIndexPath:)];
         
         //Modifying the Header and Footer of Sections
-        newMethodCaching.viewForHeaderInSection = [_delegate respondsToSelector:@selector(tableView:viewForHeaderInSection:)];
-        newMethodCaching.viewForFooterInSection = [_delegate respondsToSelector:@selector(tableView:viewForFooterInSection:)];
-        newMethodCaching.heightForHeaderInSection = [_delegate respondsToSelector:@selector(tableView:heightForHeaderInSection:)];
-        newMethodCaching.estimatedHeightForHeaderInSection = [_delegate respondsToSelector:@selector(tableView:estimatedHeightForHeaderInSection:)];
-        newMethodCaching.heightForFooterInSection = [_delegate respondsToSelector:@selector(tableView:heightForFooterInSection:)];
-        newMethodCaching.estimatedHeightForFooterInSection = [_delegate respondsToSelector:@selector(tableView:estimatedHeightForFooterInSection:)];
+        //newMethodCaching.viewForHeaderInSection = [_delegate respondsToSelector:@selector(tableView:viewForHeaderInSection:)];
+        //newMethodCaching.viewForFooterInSection = [_delegate respondsToSelector:@selector(tableView:viewForFooterInSection:)];
+        //newMethodCaching.heightForHeaderInSection = [_delegate respondsToSelector:@selector(tableView:heightForHeaderInSection:)];
+        //newMethodCaching.estimatedHeightForHeaderInSection = [_delegate respondsToSelector:@selector(tableView:estimatedHeightForHeaderInSection:)];
+        //newMethodCaching.heightForFooterInSection = [_delegate respondsToSelector:@selector(tableView:heightForFooterInSection:)];
+        //newMethodCaching.estimatedHeightForFooterInSection = [_delegate respondsToSelector:@selector(tableView:estimatedHeightForFooterInSection:)];
         newMethodCaching.willDisplayHeaderViewForSection = [_delegate respondsToSelector:@selector(tableView:willDisplayHeaderView:forSection:)];
         newMethodCaching.willDisplayFooterViewForSection = [_delegate respondsToSelector:@selector(tableView:willDisplayFooterView:forSection:)];
         
@@ -292,10 +295,10 @@ NS_ASSUME_NONNULL_END
     id<ZDCellViewModelProtocol> cellViewModel = [self viewModelAtIndexPath:indexPath];
     NSAssert(cellViewModel != nil, @"cellViewModel can't be nil");
     id<ZDCellProtocol> cell = [tableView dequeueReusableCellWithIdentifier:([cellViewModel zd_reuseIdentifier] ?: [cellViewModel zd_nibName]) forIndexPath:indexPath];
-    NSAssert(cell != nil, @"Cell can not be nil");
+    NSAssert(cell != nil, @"cell can't be nil");
     
-    if ([cell respondsToSelector:@selector(setSelectionCommand:)]) {
-        cell.selectionCommand = self.command;
+    if ([cell respondsToSelector:@selector(setCellCommand:)]) {
+        cell.cellCommand = self.cellCommand;
     }
     if ([cell respondsToSelector:@selector(setModel:)]) {
         cell.model = cellViewModel.zd_model;
@@ -413,10 +416,10 @@ NS_ASSUME_NONNULL_END
 {
     UITableViewCell<ZDCellProtocol> *cell = [tableView cellForRowAtIndexPath:indexPath];
     // execute the command
-    if ([cell respondsToSelector:@selector(selectionCommand)]) {
+    if ([cell respondsToSelector:@selector(cellCommand)]) {
         /// RACTuplePack(cell, viewModel, event)
         /// 这里的-1默认代表的是点击的cell本身
-        [cell.selectionCommand execute:[RACTuple tupleWithObjects:cell, [self viewModelAtIndexPath:indexPath], @(-1), nil]];
+        [cell.cellCommand execute:[RACTuple tupleWithObjects:cell, [self viewModelAtIndexPath:indexPath], @(-1), nil]];
     }
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
@@ -463,6 +466,9 @@ NS_ASSUME_NONNULL_END
         }
         if ([viewForHeaderInSection respondsToSelector:@selector(setHeaderHeight:)]) {
             viewForHeaderInSection.headerHeight = headerViewModel.zd_headerHeight;
+        }
+        if ([viewForHeaderInSection respondsToSelector:@selector(setSectionCommand:)]) {
+            viewForHeaderInSection.sectionCommand = self.sectionCommand;
         }
         
         // section绑定协议

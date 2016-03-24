@@ -80,17 +80,22 @@
 
     
     RACCommand *command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(RACTuple *input) {
-        // TODO:
         ZDCellViewModel *viewModel = input.second;
-        
-        NSLog(@"\n点击的cell的高度 = %lf", viewModel.zd_height);
+        NSLog(@"\n 点击的cell的高度 = %lf", viewModel.zd_height);
         return [RACSignal empty];
     }];
+    
+    RACCommand *sectionCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(RACTuple *input) {
+        NSLog(@"\n Section上的按钮被点击了: %@", input.second);
+        return [RACSignal empty];
+    }];
+    
     // 不要忘记让当前类持有helper，否则，出了当前作用域就会被释放
     self.helper = [ZDTableViewBindingHelper bindingHelperForTableView:self.tableView
                                                        mutableSection:YES
                                                          sourceSignal:RACObserve(self, models)
-                                                     selectionCommand:command];
+                                                          cellCommand:command
+                                                       sectionCommand:sectionCommand];
     
     
 }
