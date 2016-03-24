@@ -19,6 +19,6 @@
                                             _cellViewModels , CellViewModelKey,             \
                                            _footerViewModel , FooterViewModelKey, nil]
 
-#define ZDNotNilOrEmpty(_objc) (_objc && ![_objc isKindOfClass:[NSNull class]])
+#define ZDNotNilOrEmpty(_objc) (_objc != nil && ![_objc isKindOfClass:[NSNull class]])
 
 #endif /* ZDBindingDefine_h */

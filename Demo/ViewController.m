@@ -66,6 +66,7 @@
                 }
                 ZDSectionViewModel *sectionViewModel = [ZDSectionViewModel new];
                 sectionViewModel.zd_headerReuseIdentifier = @"ZDHeaderView";
+                sectionViewModel.zd_headerNibName = @"ZDHeaderView";
                 sectionViewModel.zd_headerModel = zdModel.module;
                 sectionViewModel.zd_estimatedHeaderHeight = 100;
                 NSDictionary *sectionDic = ZDSectionCellDictionary(sectionViewModel, cellViewModels, ([NSNull null]));

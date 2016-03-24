@@ -9,9 +9,19 @@
 /**
  *  如果是多个section，需要把数据封装成（header或footer只存其一的话，则把sectionViewModel设置成[NSNull null]对象）
  *  [
-        [sectionViewMoel, [cellViewModel, cellViewModel, ...], sectionViewModel],
-        [sectionViewMoel, [cellViewModel, cellViewModel, ...], sectionViewModel],
-        ...
+         {
+             HeaderViewModelKey : sectionViewMoel,
+               CellViewModelKey : [cellViewModel, cellViewModel, ...],
+             FooterViewModelKey : sectionViewModel
+         },
+ 
+         {
+             HeaderViewModelKey : sectionViewMoel,
+               CellViewModelKey : [cellViewModel, cellViewModel, ...],
+             FooterViewModelKey : sectionViewModel
+         },
+ 
+         ...
     ]
  *
  *  单个section，则封装成

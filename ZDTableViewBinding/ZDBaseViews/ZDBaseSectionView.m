@@ -10,6 +10,11 @@
 
 @implementation ZDBaseSectionView
 
+- (void)awakeFromNib
+{
+    self.contentView.backgroundColor = [UIColor magentaColor];
+}
+
 - (void)bindToSectionViewModel:(ZDSectionViewModel *)viewModel
 {
     NSAssert(NO, @"抽象类，需要在子类中实现");

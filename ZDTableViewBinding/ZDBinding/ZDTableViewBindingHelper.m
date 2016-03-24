@@ -345,7 +345,14 @@ NS_ASSUME_NONNULL_END
 {
     CGFloat estimatedHeightForRowAtIndexPath = tableView.estimatedRowHeight;
     if (self.isMutSection) {
-        
+        NSDictionary *dic = self.sectionCellDatas[indexPath.section];
+        NSArray *cellViewModelArr = dic[CellViewModelKey];
+        ZDCellViewModel *cellViewModel = cellViewModelArr[indexPath.row];
+        if (!ZDNotNilOrEmpty(cellViewModel)) {
+            return 0;
+        }
+        CGFloat estimateHeight = cellViewModel.zd_estimatedHeight;
+        return estimateHeight;
     }
     else {
         id<ZDCellViewModelProtocol> cellViewModel = [self viewModelAtIndexPath:indexPath];
@@ -429,7 +436,7 @@ NS_ASSUME_NONNULL_END
         [self.delegate tableView:tableView didDeselectRowAtIndexPath:indexPath];
     }
 }
-//TODO: ------------> SectionHeaderView
+//TODO: ------------> SectionHeaderView ------------------------
 #pragma mark Modifying the Header and Footer of Sections
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
@@ -465,10 +472,6 @@ NS_ASSUME_NONNULL_END
     UIView *viewForFooterInSection = nil;
     
     // TODO: Footer
-    if (!self.isMutSection) {
-        return nil;
-    }
-    
     if (self.sectionCellDatas.count > section) {
         ZDSectionViewModel *footerViewModel = self.sectionCellDatas[section][FooterViewModelKey];
         if (!ZDNotNilOrEmpty(footerViewModel)) {
@@ -497,6 +500,7 @@ NS_ASSUME_NONNULL_END
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     CGFloat heightForHeaderInSection = 0.0f;
+    
     if (self.isMutSection) {
         NSDictionary *dic = self.sectionCellDatas[section];
         ZDSectionViewModel *sectionViewModel = dic[HeaderViewModelKey];
@@ -506,15 +510,19 @@ NS_ASSUME_NONNULL_END
         NSString *headerReuseIdentifier = sectionViewModel.zd_headerReuseIdentifier ?: sectionViewModel.zd_headerNibName;
         ZDBaseSectionView *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:headerReuseIdentifier];
         headerView.sectionModel = sectionViewModel.zd_headerModel;
-        CGFloat headerViewHeight = [headerView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
         
-        //更新model
-        sectionViewModel.zd_headerHeight = headerViewHeight;
-        NSMutableDictionary *mutDic = dic.mutableCopy;
-        mutDic[HeaderViewModelKey] = sectionViewModel;
-        self.sectionCellDatas[section] = mutDic.copy;
-        
-        return headerViewHeight;
+        if (sectionViewModel.zd_headerHeight > 0) {
+            heightForHeaderInSection = sectionViewModel.zd_headerHeight;
+        }
+        else {
+            heightForHeaderInSection = [headerView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
+            
+            //更新model
+            sectionViewModel.zd_headerHeight = heightForHeaderInSection;
+            NSMutableDictionary *mutDic = dic.mutableCopy;
+            mutDic[HeaderViewModelKey] = sectionViewModel;
+            self.sectionCellDatas[section] = mutDic.copy;
+        }
     }
 //    if (_delegateRespondsTo.heightForHeaderInSection == 1) {
 //        heightForHeaderInSection = [self.delegate tableView:tableView heightForHeaderInSection:section];
@@ -531,7 +539,7 @@ NS_ASSUME_NONNULL_END
         if (!ZDNotNilOrEmpty(sectionViewModel)) {
             return 0;
         }
-        CGFloat estimateHeight = sectionViewModel.zd_estimatedFooterHeight;
+        CGFloat estimateHeight = sectionViewModel.zd_estimatedHeaderHeight;
         return estimateHeight;
     }
 //    if (_delegateRespondsTo.estimatedHeightForHeaderInSection == 1) {
@@ -544,6 +552,7 @@ NS_ASSUME_NONNULL_END
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
     CGFloat heightForFooterInSection = 0.0f;
+    
     if (self.isMutSection) {
         NSDictionary *dic = self.sectionCellDatas[section];
         ZDSectionViewModel *sectionViewModel = dic[FooterViewModelKey];
@@ -551,17 +560,21 @@ NS_ASSUME_NONNULL_END
             return 0;
         }
         NSString *footerReuseIdentifier = sectionViewModel.zd_footerReuseIdentifier ?: sectionViewModel.zd_footerNibName;
-        ZDBaseSectionView *footerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:footerReuseIdentifier];
+        __kindof ZDBaseSectionView *footerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:footerReuseIdentifier];
         footerView.sectionModel = sectionViewModel.zd_footerModel;
-        CGFloat footerViewHeight = [footerView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
         
-        //更新model
-        sectionViewModel.zd_footerHeight = footerViewHeight;
-        NSMutableDictionary *mutDic = dic.mutableCopy;
-        mutDic[FooterViewModelKey] = sectionViewModel;
-        self.sectionCellDatas[section] = mutDic.copy;
-        
-        return footerViewHeight;
+        if (sectionViewModel.zd_footerHeight > 0) {
+            heightForFooterInSection = sectionViewModel.zd_headerHeight;
+        }
+        else {
+            heightForFooterInSection = [footerView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
+            
+            //更新model
+            sectionViewModel.zd_footerHeight = heightForFooterInSection;
+            NSMutableDictionary *mutDic = dic.mutableCopy;
+            mutDic[FooterViewModelKey] = sectionViewModel;
+            self.sectionCellDatas[section] = mutDic.copy;
+        }
     }
 //    if (_delegateRespondsTo.heightForFooterInSection == 1) {
 //        heightForFooterInSection = [self.delegate tableView:tableView heightForFooterInSection:section];
@@ -578,7 +591,7 @@ NS_ASSUME_NONNULL_END
         if (!ZDNotNilOrEmpty(sectionViewModel)) {
             return 0;
         }
-        CGFloat estimateHeight = sectionViewModel.zd_estimatedHeaderHeight;
+        CGFloat estimateHeight = sectionViewModel.zd_estimatedFooterHeight;
         return estimateHeight;
     }
 //    if (_delegateRespondsTo.estimatedHeightForFooterInSection == 1) {
@@ -885,7 +898,6 @@ NS_ASSUME_NONNULL_END
         return;
     }
     if (self.isMutSection) {
-        // TODO:
         NSArray *cellViewModelArr = self.sectionCellDatas[indexPath.section][CellViewModelKey];
         NSMutableArray *cellViewModelMutArr = cellViewModelArr.mutableCopy;
         [cellViewModelMutArr removeObjectAtIndex:indexPath.row];
@@ -920,8 +932,8 @@ NS_ASSUME_NONNULL_END
         // register cell
         NSString *cellNibName = [cellViewModel zd_nibName];
         NSString *reuseIdentifier = [cellViewModel zd_reuseIdentifier];
-        
         NSAssert(reuseIdentifier, @"Cell's reuseIdentifier must be set");
+        
         if (cellNibName && ![self.mutArrForCell containsObject:cellNibName]) {
             UINib *cellNib = [UINib nibWithNibName:cellNibName bundle:nil];
             // create an instance of the template cell and register with the table view
@@ -983,18 +995,16 @@ NS_ASSUME_NONNULL_END
 }
 
 // MARK: -----------------------获取ViewModel-----------------------
-- (id)viewModelAtIndexPath:(NSIndexPath *)indexPath
+- (id<ZDCellViewModelProtocol>)viewModelAtIndexPath:(NSIndexPath *)indexPath
 {
     if (self.isMutSection) {
         NSInteger section = indexPath.section;
-        if (section < 0 || section > self.cellViewModels.count) {
-            return nil;
-        }
-        else {
-            NSArray *cellViewModelArr = self.sectionCellDatas[indexPath.section][CellViewModelKey];
-            ZDCellViewModel *viewModel = cellViewModelArr[indexPath.row];
-            return viewModel;
-        }
+        NSAssert(section < self.sectionCellDatas.count, @"数组越界了");
+        
+        NSArray *cellViewModelArr = self.sectionCellDatas[indexPath.section][CellViewModelKey];
+        ZDCellViewModel *viewModel = cellViewModelArr[indexPath.row];
+        NSAssert(ZDNotNilOrEmpty(viewModel), @"viewModel不能为nil");
+        return viewModel;
     }
     else {
         NSInteger index = indexPath.row;
@@ -1048,22 +1058,6 @@ NS_ASSUME_NONNULL_END
 //        _sectionCellDatas = [NSMutableArray array];
 //    }
 //    return _sectionCellDatas;
-//}
-
-//- (NSMutableDictionary *)mutDicForHeader
-//{
-//    if (!_mutDicForHeader) {
-//        _mutDicForHeader = [NSMutableDictionary dictionary];
-//    }
-//    return _mutDicForHeader;
-//}
-//
-//- (NSMutableDictionary *)mutDicForFooter
-//{
-//    if (!_mutDicForFooter) {
-//        _mutDicForFooter = [NSMutableDictionary dictionary];
-//    }
-//    return _mutDicForFooter;
 //}
 
 @end

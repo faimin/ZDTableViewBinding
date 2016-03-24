@@ -7,6 +7,7 @@
 //
 
 #import "ZDHeaderView.h"
+#import "ZDModel.h"
 
 @interface ZDHeaderView ()
 @property (nonatomic, weak) IBOutlet UILabel *titleLabel;
@@ -18,10 +19,9 @@
 {
     [super awakeFromNib];
     @weakify(self);
-    [[RACObserve(self, sectionModel) ignore:nil] subscribeNext:^(id x) {
+    [[RACObserve(self, sectionModel) ignore:nil] subscribeNext:^(Module *x) {
         @strongify(self);
-        
-        //self.titleLabel.text =
+        self.titleLabel.text = x.moduleName;
     }];
 }
 
