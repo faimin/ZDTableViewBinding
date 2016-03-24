@@ -101,20 +101,15 @@ uint scrollViewDidZoom:1;
 //Responding to Scrolling Animations
 uint scrollViewDidEndScrollingAnimation:1;
 } delegateRespondsTo;
-/// 外面的command是临时变量，所以需要helper持有
+/// 外面的command是临时变量，所以需要当前类持有
 @property (nonatomic, strong) RACCommand *cellCommand;
 @property (nonatomic, strong) RACCommand *sectionCommand;
 /// 包含sectionViewModel和cellViewModel的二维数组
 @property (nonatomic, strong, nullable) NSMutableArray<NSDictionary *> *sectionCellDatas;
 @property (nonatomic, strong) NSMutableArray<ZDCellViewModel *> *cellViewModels;
 /// 下面三个Array装的是重用id
-@property (nonatomic, strong) NSMutableArray<NSString *> *mutArrForCell;
-@property (nonatomic, strong, nullable) NSMutableArray<NSString *> *mutArrNibNameForHeader;
-//@property (nonatomic, strong, nullable) NSMutableArray<NSString *> *mutArrNibNameForFooter;
-//@property (nonatomic, strong) NSMutableArray<NSString *> *mutArrForHeader;
-//@property (nonatomic, strong) NSMutableArray<NSString *> *mutArrForFooter;
-//@property (nonatomic, strong) NSMutableDictionary<NSString *, id> *mutDicForHeader;
-//@property (nonatomic, strong) NSMutableDictionary<NSString *, id> *mutDicForFooter;
+@property (nonatomic, strong) NSMutableArray<NSString *> *mutArrNibNameForCell;
+@property (nonatomic, strong, nullable) NSMutableArray<NSString *> *mutArrNibNameForSection;
 /// 是否是多section的tableView
 @property (nonatomic, assign) BOOL isMutSection;
 
@@ -125,7 +120,7 @@ NS_ASSUME_NONNULL_END
 
 - (void)dealloc
 {
-    NSLog(@"\n【类名：%s】【行数：%d】", __PRETTY_FUNCTION__, __LINE__);
+    NSLog(@"\n【类+方法名：%s】【行数：%d】", __PRETTY_FUNCTION__, __LINE__);
 }
 
 + (instancetype)bindingHelperForTableView:(UITableView *)tableView
@@ -440,7 +435,7 @@ NS_ASSUME_NONNULL_END
         [self.delegate tableView:tableView didDeselectRowAtIndexPath:indexPath];
     }
 }
-//TODO: ------------> SectionHeaderView ------------------------
+//TODO: ------------ SectionView ------------------------
 #pragma mark Modifying the Header and Footer of Sections
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
@@ -956,13 +951,13 @@ NS_ASSUME_NONNULL_END
         NSString *reuseIdentifier = [cellViewModel zd_reuseIdentifier];
         NSAssert(reuseIdentifier, @"Cell's reuseIdentifier must be set");
         
-        if (cellNibName && ![self.mutArrForCell containsObject:cellNibName]) {
+        if (cellNibName && ![self.mutArrNibNameForCell containsObject:cellNibName]) {
             UINib *cellNib = [UINib nibWithNibName:cellNibName bundle:nil];
             // create an instance of the template cell and register with the table view
             //UITableViewCell *templateCell = [[nib instantiateWithOwner:nil options:nil] firstObject];
             if (cellNib) {
                 [self.tableView registerNib:cellNib forCellReuseIdentifier:reuseIdentifier ?: cellNibName];
-                [self.mutArrForCell addObject:cellNibName];
+                [self.mutArrNibNameForCell addObject:cellNibName];
             }
         }
         else if (0) {
@@ -978,11 +973,11 @@ NS_ASSUME_NONNULL_END
     NSString *sectionReuseIdentifier = [sectionViewModel zd_headerReuseIdentifier];
     
     NSAssert(sectionReuseIdentifier, @"SectionView's reuseIdentifier must be set");
-    if (sectionNibName && ![self.mutArrNibNameForHeader containsObject:sectionNibName]) {
+    if (sectionNibName && ![self.mutArrNibNameForSection containsObject:sectionNibName]) {
         UINib *sectionNib = [UINib nibWithNibName:sectionNibName bundle:nil];
         if (sectionNib) {
             [self.tableView registerNib:sectionNib forHeaderFooterViewReuseIdentifier:sectionReuseIdentifier ?: sectionNibName];
-            [self.mutArrNibNameForHeader addObject:sectionNibName];
+            [self.mutArrNibNameForSection addObject:sectionNibName];
         }
     }
     else if (0) {
@@ -1039,48 +1034,32 @@ NS_ASSUME_NONNULL_END
     }
 }
 
-/// 判断是否是二维数组
-- (BOOL)dataIsMutDimensionalArray:(__kindof NSArray *)data
-{
-    if ([data.firstObject isKindOfClass:[NSArray class]]) {
-        return YES;
-    }
-    return NO;
-}
+///// 判断是否是二维数组
+//- (BOOL)dataIsMutDimensionalArray:(__kindof NSArray *)data
+//{
+//    if ([data.firstObject isKindOfClass:[NSArray class]]) {
+//        return YES;
+//    }
+//    return NO;
+//}
 
 #pragma mark - Getter
 
-- (NSMutableArray *)mutArrForCell
+- (NSMutableArray *)mutArrNibNameForCell
 {
-    if (!_mutArrForCell) {
-        _mutArrForCell = [NSMutableArray array];
+    if (!_mutArrNibNameForCell) {
+        _mutArrNibNameForCell = [NSMutableArray array];
     }
-    return _mutArrForCell;
+    return _mutArrNibNameForCell;
 }
 
-- (NSMutableArray *)mutArrNibNameForHeader
+- (NSMutableArray *)mutArrNibNameForSection
 {
-    if (!_mutArrNibNameForHeader) {
-        _mutArrNibNameForHeader = [NSMutableArray array];
+    if (!_mutArrNibNameForSection) {
+        _mutArrNibNameForSection = [NSMutableArray array];
     }
-    return _mutArrNibNameForHeader;
+    return _mutArrNibNameForSection;
 }
-
-//- (NSMutableArray *)mutArrNibNameForFooter
-//{
-//    if (!_mutArrNibNameForFooter) {
-//        _mutArrNibNameForFooter = [NSMutableArray array];
-//    }
-//    return _mutArrNibNameForFooter;
-//}
-
-//- (NSMutableArray *)sectionCellDatas
-//{
-//    if (!_sectionCellDatas) {
-//        _sectionCellDatas = [NSMutableArray array];
-//    }
-//    return _sectionCellDatas;
-//}
 
 @end
 
