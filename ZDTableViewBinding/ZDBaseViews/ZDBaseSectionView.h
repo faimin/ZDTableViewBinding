@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) id sectionModel;
 @property (nonatomic, assign) CGFloat headerHeight;
 @property (nonatomic, assign) CGFloat footerHeight;
-
+@property (nonatomic, strong) RACCommand *sectionCommand;
 @property (nonatomic, strong, nullable) UIColor *customBackgroundColor;
 
 - (void)bindToSectionViewModel:(ZDSectionViewModel *)viewModel;

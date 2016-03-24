@@ -18,7 +18,7 @@
 - (void)awakeFromNib
 {
     [super awakeFromNib];
-    self.customBackgroundColor = [UIColor redColor];
+    self.customBackgroundColor = [UIColor purpleColor];
     @weakify(self);
     [[RACObserve(self, sectionModel) ignore:nil] subscribeNext:^(Module *x) {
         @strongify(self);
@@ -28,8 +28,10 @@
 
 - (void)bindToSectionViewModel:(ZDSectionViewModel *)viewModel
 {
+    /** 方案2
     Module *x = viewModel.zd_headerModel;
     self.titleLabel.text = x.moduleName;
+     */
 }
 
 @end

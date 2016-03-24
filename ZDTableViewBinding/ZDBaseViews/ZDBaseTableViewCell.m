@@ -19,7 +19,6 @@
 - (void)awakeFromNib
 {
 	// Initialization code
-    self.contentView.backgroundColor = [UIColor whiteColor];
 }
 
 - (void)bindToCellViewModel:(ZDCellViewModel *)viewModel

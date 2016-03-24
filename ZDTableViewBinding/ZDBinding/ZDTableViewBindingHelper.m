@@ -103,6 +103,7 @@ uint scrollViewDidEndScrollingAnimation:1;
 } delegateRespondsTo;
 /// 外面的command是临时变量，所以需要helper持有
 @property (nonatomic, strong) RACCommand *command;
+@property (nonatomic, strong) RACCommand *sectionCommand;
 /// 包含sectionViewModel和cellViewModel的二维数组
 @property (nonatomic, strong, nullable) NSMutableArray<NSDictionary *> *sectionCellDatas;
 @property (nonatomic, strong) NSMutableArray<ZDCellViewModel *> *cellViewModels;
