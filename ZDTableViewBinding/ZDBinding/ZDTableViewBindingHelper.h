@@ -52,6 +52,8 @@
                       cellCommand:(RACCommand *)cellCommand
                    sectionCommand:(RACCommand *)sectionCommand;
 
+- (id<ZDCellViewModelProtocol>)viewModelAtIndexPath:(NSIndexPath *)indexPath;
+
 - (void)insertViewModel:(id<ZDCellViewModelProtocol>)viewModel atIndexPath:(NSIndexPath*)indexPath;
 - (void)replaceViewModel:(id<ZDCellViewModelProtocol>)model atIndexPath:(NSIndexPath *)indexPath;
 - (void)deleteViewModelAtIndexPath:(NSIndexPath *)indexPath;

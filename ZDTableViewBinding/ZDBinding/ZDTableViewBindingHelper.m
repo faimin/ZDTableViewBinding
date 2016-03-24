@@ -867,6 +867,28 @@ NS_ASSUME_NONNULL_END
 }
 
 #pragma mark - Public Methods
+// MARK: -----------------------获取ViewModel-----------------------
+- (id<ZDCellViewModelProtocol>)viewModelAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (self.isMutSection) {
+        NSInteger section = indexPath.section;
+        NSAssert(section < self.sectionCellDatas.count, @"数组越界了");
+        
+        NSArray *cellViewModelArr = self.sectionCellDatas[indexPath.section][CellViewModelKey];
+        ZDCellViewModel *viewModel = cellViewModelArr[indexPath.row];
+        NSAssert(ZDNotNilOrEmpty(viewModel), @"viewModel不能为nil");
+        return viewModel;
+    }
+    else {
+        NSInteger index = indexPath.row;
+        if (index < 0 || index >= self.cellViewModels.count) {
+            return nil;
+        }
+        else {
+            return self.cellViewModels[index];
+        }
+    }
+}
 
 - (void)insertViewModel:(id<ZDCellViewModelProtocol>)viewModel atIndexPath:(NSIndexPath*)indexPath
 {
@@ -1009,29 +1031,6 @@ NS_ASSUME_NONNULL_END
             if (ZDNotNilOrEmpty(footerViewModel)) {
                 [self registerNibForTableViewWithSectionViewModel:footerViewModel];
             }
-        }
-    }
-}
-
-// MARK: -----------------------获取ViewModel-----------------------
-- (id<ZDCellViewModelProtocol>)viewModelAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (self.isMutSection) {
-        NSInteger section = indexPath.section;
-        NSAssert(section < self.sectionCellDatas.count, @"数组越界了");
-        
-        NSArray *cellViewModelArr = self.sectionCellDatas[indexPath.section][CellViewModelKey];
-        ZDCellViewModel *viewModel = cellViewModelArr[indexPath.row];
-        NSAssert(ZDNotNilOrEmpty(viewModel), @"viewModel不能为nil");
-        return viewModel;
-    }
-    else {
-        NSInteger index = indexPath.row;
-        if (index < 0 || index >= self.cellViewModels.count) {
-            return nil;
-        }
-        else {
-            return self.cellViewModels[index];
         }
     }
 }
