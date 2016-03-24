@@ -19,21 +19,22 @@
 - (void)awakeFromNib
 {
 	// Initialization code
+    self.contentView.backgroundColor = [UIColor whiteColor];
+}
+
+- (void)bindToCellViewModel:(ZDCellViewModel *)viewModel
+{
+    NSLog(@"\n ZDBaseTableViewCell为抽象类，需要在子类中实现");
+    NSAssert(NO, @"抽象类，需要在子类中实现");
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
-	[super setSelected:selected animated:animated];
-	// Configure the view for the selected state
+    [super setSelected:selected animated:animated];
+    // Configure the view for the selected state
 }
 
 //- (void)deleverEvent:(RACTuple *)paramTuple
 //{}
-
-- (void)bindToViewModel:(ZDCellViewModel *)viewModel
-{
-    NSAssert(NO, @"抽象类，需要在子类中实现");
-}
-
 
 @end

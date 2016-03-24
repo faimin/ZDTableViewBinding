@@ -307,7 +307,7 @@ NS_ASSUME_NONNULL_END
     }
     
     /// cell遵循的数据协议
-    [cell bindToViewModel:cellViewModel];
+    [cell bindToCellViewModel:cellViewModel];
         
     return (__kindof UITableViewCell *)cell;
 }
@@ -443,6 +443,10 @@ NS_ASSUME_NONNULL_END
     UIView *viewForHeaderInSection = nil;
     
     // TODO: Header
+    if (!self.isMutSection) {
+        return nil;
+    }
+    
     if (self.sectionCellDatas.count > section) {
         ZDSectionViewModel *headerViewModel = self.sectionCellDatas[section][HeaderViewModelKey];
         if (!ZDNotNilOrEmpty(headerViewModel)) {
@@ -459,6 +463,10 @@ NS_ASSUME_NONNULL_END
         if ([viewForHeaderInSection respondsToSelector:@selector(setHeaderHeight:)]) {
             viewForHeaderInSection.headerHeight = headerViewModel.zd_headerHeight;
         }
+        
+        // section绑定协议
+        [viewForHeaderInSection bindToSectionViewModel:headerViewModel];
+        
         return viewForHeaderInSection;
     }
 //    if (_delegateRespondsTo.viewForHeaderInSection == 1) {
@@ -472,6 +480,10 @@ NS_ASSUME_NONNULL_END
     UIView *viewForFooterInSection = nil;
     
     // TODO: Footer
+    if (!self.isMutSection) {
+        return nil;
+    }
+    
     if (self.sectionCellDatas.count > section) {
         ZDSectionViewModel *footerViewModel = self.sectionCellDatas[section][FooterViewModelKey];
         if (!ZDNotNilOrEmpty(footerViewModel)) {
@@ -489,6 +501,9 @@ NS_ASSUME_NONNULL_END
             viewForFooterInSection.headerHeight = footerViewModel.zd_footerHeight;
         }
 
+        // section绑定协议
+        [viewForFooterInSection bindToSectionViewModel:footerViewModel];
+        
         return viewForFooterInSection;
     }
 //    if (_delegateRespondsTo.viewForFooterInSection == 1) {

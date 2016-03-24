@@ -25,6 +25,6 @@
 @property (nonatomic, assign) CGFloat estimateHeight;
 
 /// Binds the given viewModel to the view
-- (void)bindToViewModel:(ZDCellViewModel *)viewModel;
+- (void)bindToCellViewModel:(ZDCellViewModel *)viewModel;
 
 @end

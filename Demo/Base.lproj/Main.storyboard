@@ -155,7 +155,7 @@
                                 </prototypes>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="okV-U3-OXv" secondAttribute="bottom" id="1Sr-O3-mhQ"/>
                             <constraint firstAttribute="trailing" secondItem="okV-U3-OXv" secondAttribute="trailing" id="kUA-bg-5M6"/>

@@ -12,12 +12,32 @@
 
 - (void)awakeFromNib
 {
-    self.contentView.backgroundColor = [UIColor magentaColor];
+    self.customBackgroundColor = [UIColor whiteColor];
 }
 
 - (void)bindToSectionViewModel:(ZDSectionViewModel *)viewModel
 {
+    NSLog(@"\n ZDBaseSectionView为抽象类，需要在子类中实现");
     NSAssert(NO, @"抽象类，需要在子类中实现");
+}
+
+#pragma mark - Setter
+
+- (void)setCustomBackgroundColor:(UIColor *)customBackgroundColor
+{
+    if (_customBackgroundColor != customBackgroundColor) {
+        _customBackgroundColor = customBackgroundColor;
+        if (self.backgroundView) {
+            self.backgroundView.backgroundColor = customBackgroundColor;
+        }
+        else {
+            self.backgroundView = ({
+                UIView *backView = [[UIView alloc] init];
+                backView.backgroundColor = customBackgroundColor;
+                backView;
+            });
+        }
+    }
 }
 
 @end

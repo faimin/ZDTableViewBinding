@@ -22,7 +22,6 @@
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
-            <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="k49-IS-xHG" secondAttribute="bottom" priority="250" constant="20" id="1Ft-5Y-CHw"/>
                 <constraint firstItem="k49-IS-xHG" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="22" id="1Pc-9J-ZRa"/>

@@ -12,6 +12,7 @@
 #import "ZDCellViewModel.h"
 #import "ReactiveCocoa/ReactiveCocoa.h"
 
+NS_ASSUME_NONNULL_BEGIN
 @interface ZDBaseTableViewCell : UITableViewCell <ZDCellProtocol>
 
 /// 协议方法
@@ -20,6 +21,8 @@
 @property (nonatomic, strong) id <ZDCellViewModelProtocol> viewModel;
 @property (nonatomic, strong) RACCommand *selectionCommand;
 
-- (void)bindToViewModel:(ZDCellViewModel *)viewModel;
+- (void)bindToCellViewModel:(ZDCellViewModel *)viewModel;
 
 @end
+NS_ASSUME_NONNULL_END
+

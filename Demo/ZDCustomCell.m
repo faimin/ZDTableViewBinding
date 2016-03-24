@@ -32,7 +32,7 @@
      //*/
 }
 
-- (void)bindToViewModel:(ZDCellViewModel *)viewModel
+- (void)bindToCellViewModel:(ZDCellViewModel *)viewModel
 {
     /** 方案2
     Barcontent *x = viewModel.model;
