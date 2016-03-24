@@ -15,6 +15,7 @@
 #import "ZDModel.h"
 #import "ZDCustomCell.h"
 #import "ZDHeaderView.h"
+#import "ZDFooterView.h"
 
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -65,11 +66,19 @@
                     }
                 }
                 ZDSectionViewModel *sectionViewModel = [ZDSectionViewModel new];
-                sectionViewModel.zd_headerReuseIdentifier = @"ZDHeaderView";
-                sectionViewModel.zd_headerNibName = @"ZDHeaderView";
-                sectionViewModel.zd_headerModel = zdModel.module;
-                sectionViewModel.zd_estimatedHeaderHeight = 100;
-                NSDictionary *sectionDic = ZDSectionCellDictionary(sectionViewModel, cellViewModels, [NSNull null]);
+                sectionViewModel.zd_sectionReuseIdentifier = @"ZDHeaderView";
+                sectionViewModel.zd_sectionNibName = @"ZDHeaderView";
+                sectionViewModel.zd_sectionModel = zdModel.module;
+                sectionViewModel.zd_estimatedSectionHeight = 100;
+                
+                
+                ZDSectionViewModel *footerViewModel = [ZDSectionViewModel new];
+                footerViewModel.zd_sectionReuseIdentifier = NSStringFromClass([ZDFooterView class]);
+                footerViewModel.zd_sectionNibName = NSStringFromClass([ZDFooterView class]);
+                footerViewModel.zd_sectionModel = zdModel.module;
+                footerViewModel.zd_estimatedSectionHeight = 60;
+                
+                NSDictionary *sectionDic = ZDSectionCellDictionary(sectionViewModel, cellViewModels, footerViewModel);
                 
                 [sectionCellViewModels addObject:sectionDic];
             }
@@ -86,7 +95,7 @@
     }];
     
     RACCommand *sectionCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(RACTuple *input) {
-        NSLog(@"\n Section上的按钮被点击了: %@", input.second);
+        NSLog(@"\n 按钮被点击了: %@", input.second);
         return [RACSignal empty];
     }];
     

@@ -10,4 +10,12 @@
 
 @implementation ZDSectionViewModel
 
+- (CGFloat)zd_estimatedSectionHeight
+{
+    if (_zd_estimatedSectionHeight == 0) {
+        return 44;
+    }
+    return _zd_estimatedSectionHeight;
+}
+
 @end

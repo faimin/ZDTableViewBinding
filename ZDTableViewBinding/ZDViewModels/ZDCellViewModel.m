@@ -10,4 +10,12 @@
 
 @implementation ZDCellViewModel
 
+- (CGFloat)zd_estimatedHeight
+{
+    if (_zd_estimatedHeight == 0) {
+        return 44;
+    }
+    return _zd_estimatedHeight;
+}
+
 @end

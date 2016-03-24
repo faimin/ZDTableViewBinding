@@ -49,7 +49,7 @@
 - (instancetype)initWithTableView:(UITableView *)tableView
                    mutableSection:(BOOL)mutableSection
                      sourceSignal:(RACSignal *)sourceSignal
-                      cellCommand:(RACCommand *)selectCommand
+                      cellCommand:(RACCommand *)cellCommand
                    sectionCommand:(RACCommand *)sectionCommand;
 
 - (void)insertViewModel:(id<ZDCellViewModelProtocol>)viewModel atIndexPath:(NSIndexPath*)indexPath;

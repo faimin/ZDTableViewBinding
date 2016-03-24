@@ -18,12 +18,13 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ZDCellViewModel : NSObject<ZDCellViewModelProtocol>
 
 @property (nonatomic, copy, nullable) NSString *zd_titleViewReuseIdentifier;
-@property (nonatomic, copy, nullable) NSString *zd_nibName;
+///------------------- 必传参数 -------------------
+@property (nonatomic, copy  ) NSString *zd_nibName;
 @property (nonatomic, copy  ) NSString *zd_reuseIdentifier;
+///------------------- 必传参数 -------------------
 @property (nonatomic, strong) id       zd_model;
-@property (nonatomic, assign) CGFloat  zd_estimatedHeight;
+@property (nonatomic, assign) CGFloat  zd_estimatedHeight;  ///< 不能设置太小（>2），默认为44
 @property (nonatomic, assign) CGFloat  zd_height;
-//@property (nonatomic, strong) ZDSectionViewModel<ZDSectionViewModelProtocol> *zd_sectionViewModel;
 
 @end
 NS_ASSUME_NONNULL_END
