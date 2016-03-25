@@ -230,10 +230,10 @@
 		BCAC99EB1CA4EB5800F261CB /* ZDTableViewBinding */ = {
 			isa = PBXGroup;
 			children = (
-				BCAC99EC1CA4EB5800F261CB /* ZDBaseViews */,
 				BCAC99F11CA4EB5800F261CB /* ZDBinding */,
 				BCAC99F51CA4EB5800F261CB /* ZDProtocols */,
 				BCAC99FA1CA4EB5800F261CB /* ZDViewModels */,
+				BCAC99EC1CA4EB5800F261CB /* ZDBaseViews */,
 			);
 			path = ZDTableViewBinding;
 			sourceTree = "<group>";
