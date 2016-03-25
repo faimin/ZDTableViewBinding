@@ -37,7 +37,7 @@
 
 @interface ZDTableViewBindingHelper : NSObject
 
-/// 用来转发代理方法
+/// used to forward the delegate method
 @property (nonatomic, weak) id<UITableViewDelegate> delegate;
 
 + (instancetype)bindingHelperForTableView:(UITableView *)tableView

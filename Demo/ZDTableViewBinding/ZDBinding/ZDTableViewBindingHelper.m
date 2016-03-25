@@ -437,7 +437,7 @@ NS_ASSUME_NONNULL_END
 }
 //TODO: ------------ SectionView ------------------------
 #pragma mark Modifying the Header and Footer of Sections
-- (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *viewForHeaderInSection = nil;
     
@@ -452,7 +452,7 @@ NS_ASSUME_NONNULL_END
             return nil;
         }
         NSString *headerReuseIdentifier = headerViewModel.zd_sectionReuseIdentifier ?: headerViewModel.zd_sectionNibName;
-        id<ZDSectionProtocol> viewForHeaderInSection = [tableView dequeueReusableHeaderFooterViewWithIdentifier:headerReuseIdentifier];
+        ZDBaseSectionView<ZDSectionProtocol> *viewForHeaderInSection = [tableView dequeueReusableHeaderFooterViewWithIdentifier:headerReuseIdentifier];
         if ([viewForHeaderInSection respondsToSelector:@selector(setSectionViewModel:)]) {
             viewForHeaderInSection.sectionViewModel = headerViewModel;
         }
@@ -492,7 +492,7 @@ NS_ASSUME_NONNULL_END
             return nil;
         }
         NSString *footerReuseIdentifier = footerViewModel.zd_sectionReuseIdentifier ?: footerViewModel.zd_sectionNibName;
-        id<ZDSectionProtocol> viewForFooterInSection = [tableView dequeueReusableHeaderFooterViewWithIdentifier:footerReuseIdentifier];
+        ZDBaseSectionView<ZDSectionProtocol> *viewForFooterInSection = [tableView dequeueReusableHeaderFooterViewWithIdentifier:footerReuseIdentifier];
         if ([viewForFooterInSection respondsToSelector:@selector(setSectionViewModel:)]) {
             viewForFooterInSection.sectionViewModel = footerViewModel;
         }

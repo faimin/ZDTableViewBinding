@@ -5,6 +5,7 @@ inhibit_all_warnings!
 pod 'ReactiveCocoa', '~> 2.5'
 pod 'UITableView+FDTemplateLayoutCell', '~> 1.4'
 pod 'MJExtension', '~> 3.0.10'
+pod 'AFNetworking', '~> 3.0.4'
 
 #pod 'ReactiveTableViewBinding', '~> 1.0'
 #pod 'ZDAFNetWorkHelper', '~> 0.3.0'

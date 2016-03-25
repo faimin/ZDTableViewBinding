@@ -26,7 +26,6 @@
                     </connections>
                 </button>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="x2S-NZ-Xep" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="5Aa-zV-wkb"/>
                 <constraint firstAttribute="bottom" secondItem="x2S-NZ-Xep" secondAttribute="bottom" priority="750" id="VS6-Up-Tgm"/>
