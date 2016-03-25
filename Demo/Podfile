@@ -1,7 +1,8 @@
 platform :ios, "7.0"
-use_framework!
+#use_framework!
+inhibit_all_warnings!
 
-pod 'ReactiveCocoa', '~> 4.0.4-alpha-4'
+pod 'ReactiveCocoa', '~> 2.5'
 pod 'UITableView+FDTemplateLayoutCell', '~> 1.4'
 pod 'MJExtension', '~> 3.0.10'
 

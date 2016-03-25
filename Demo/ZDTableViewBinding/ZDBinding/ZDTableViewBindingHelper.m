@@ -468,7 +468,7 @@ NS_ASSUME_NONNULL_END
         
         // section绑定协议
         [viewForHeaderInSection bindToSectionViewModel:headerViewModel];
-        
+
         return viewForHeaderInSection;
     }
 //    if (_delegateRespondsTo.viewForHeaderInSection == 1) {
