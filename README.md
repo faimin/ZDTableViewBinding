@@ -2,7 +2,7 @@
 
 ####简介：
 ZDTableViewBinding是利用ReactiveCocoa自动处理tableView的数据并计算高度的一个类。
-目前只支持单个section。
+支持头视图和尾视图。
 ####ZDTableViewBinding用法:
 主要的就一个实例方法和一个类方法
 
