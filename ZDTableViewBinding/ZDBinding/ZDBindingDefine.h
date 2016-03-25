@@ -14,10 +14,10 @@
 #define CellViewModelKey   @"CellViewModelKey"
 #define FooterViewModelKey @"FooterViewModelKey"
 
-#define ZDSectionCellDictionary(_headerViewModel, _cellViewModels, _footerViewModel)        \
-[NSDictionary dictionaryWithObjectsAndKeys:_headerViewModel , HeaderViewModelKey,           \
-                                            _cellViewModels , CellViewModelKey,             \
-                                           _footerViewModel , FooterViewModelKey, nil]
+#define ZDSectionCellDictionary(_headerViewModel, _cellViewModels, _footerViewModel)                           \
+[NSDictionary dictionaryWithObjectsAndKeys:(_headerViewModel ?: [NSNull null]) , HeaderViewModelKey,           \
+                                                               _cellViewModels , CellViewModelKey,             \
+                                           (_footerViewModel ?: [NSNull null]) , FooterViewModelKey, nil]
 
 #define ZDNotNilOrEmpty(_objc) (_objc != nil && ![_objc isKindOfClass:[NSNull class]])
 

@@ -287,7 +287,7 @@ NS_ASSUME_NONNULL_END
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    id<ZDCellViewModelProtocol> cellViewModel = [self viewModelAtIndexPath:indexPath];
+    id<ZDCellViewModelProtocol> cellViewModel = [self cellViewModelAtIndexPath:indexPath];
     NSAssert(cellViewModel != nil, @"cellViewModel can't be nil");
     id<ZDCellProtocol> cell = [tableView dequeueReusableCellWithIdentifier:([cellViewModel zd_reuseIdentifier] ?: [cellViewModel zd_nibName]) forIndexPath:indexPath];
     NSAssert(cell != nil, @"cell can't be nil");
@@ -326,7 +326,7 @@ NS_ASSUME_NONNULL_END
 {
     CGFloat cellHeight = tableView.rowHeight;
     
-    id<ZDCellViewModelProtocol> cellViewModel = [self viewModelAtIndexPath:indexPath];
+    id<ZDCellViewModelProtocol> cellViewModel = [self cellViewModelAtIndexPath:indexPath];
     NSString *identifier = [cellViewModel zd_reuseIdentifier];
     
     cellHeight = [tableView fd_heightForCellWithIdentifier:identifier cacheByIndexPath:indexPath configuration:^(__kindof UITableViewCell<ZDCellProtocol> *cell) {
@@ -354,7 +354,7 @@ NS_ASSUME_NONNULL_END
         return estimateHeight;
     }
     else {
-        id<ZDCellViewModelProtocol> cellViewModel = [self viewModelAtIndexPath:indexPath];
+        id<ZDCellViewModelProtocol> cellViewModel = [self cellViewModelAtIndexPath:indexPath];
         estimatedHeightForRowAtIndexPath = [cellViewModel zd_estimatedHeight];
     }
 
@@ -414,7 +414,7 @@ NS_ASSUME_NONNULL_END
     if ([cell respondsToSelector:@selector(cellCommand)]) {
         /// RACTuplePack(cell, viewModel, event)
         /// 这里的-1默认代表的是点击的cell本身
-        [cell.cellCommand execute:[RACTuple tupleWithObjects:cell, [self viewModelAtIndexPath:indexPath], @(-1), nil]];
+        [cell.cellCommand execute:[RACTuple tupleWithObjects:cell, [self cellViewModelAtIndexPath:indexPath], @(-1), nil]];
     }
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
@@ -452,7 +452,7 @@ NS_ASSUME_NONNULL_END
             return nil;
         }
         NSString *headerReuseIdentifier = headerViewModel.zd_sectionReuseIdentifier ?: headerViewModel.zd_sectionNibName;
-        __kindof ZDBaseSectionView *viewForHeaderInSection = [tableView dequeueReusableHeaderFooterViewWithIdentifier:headerReuseIdentifier];
+        id<ZDSectionProtocol> viewForHeaderInSection = [tableView dequeueReusableHeaderFooterViewWithIdentifier:headerReuseIdentifier];
         if ([viewForHeaderInSection respondsToSelector:@selector(setSectionViewModel:)]) {
             viewForHeaderInSection.sectionViewModel = headerViewModel;
         }
@@ -492,7 +492,7 @@ NS_ASSUME_NONNULL_END
             return nil;
         }
         NSString *footerReuseIdentifier = footerViewModel.zd_sectionReuseIdentifier ?: footerViewModel.zd_sectionNibName;
-        __kindof ZDBaseSectionView *viewForFooterInSection = [tableView dequeueReusableHeaderFooterViewWithIdentifier:footerReuseIdentifier];
+        id<ZDSectionProtocol> viewForFooterInSection = [tableView dequeueReusableHeaderFooterViewWithIdentifier:footerReuseIdentifier];
         if ([viewForFooterInSection respondsToSelector:@selector(setSectionViewModel:)]) {
             viewForFooterInSection.sectionViewModel = footerViewModel;
         }
@@ -528,14 +528,14 @@ NS_ASSUME_NONNULL_END
             return 0;
         }
         NSString *headerReuseIdentifier = sectionViewModel.zd_sectionReuseIdentifier ?: sectionViewModel.zd_sectionNibName;
-        ZDBaseSectionView *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:headerReuseIdentifier];
+        id<ZDSectionProtocol> headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:headerReuseIdentifier];
         headerView.sectionModel = sectionViewModel.zd_sectionModel;
         
         if (sectionViewModel.zd_sectionHeight > 0) {
             heightForHeaderInSection = sectionViewModel.zd_sectionHeight;
         }
         else {
-            heightForHeaderInSection = [headerView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
+            heightForHeaderInSection = [(__kindof ZDBaseSectionView *)headerView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
             
             //更新model
             sectionViewModel.zd_sectionHeight = heightForHeaderInSection;
@@ -579,14 +579,14 @@ NS_ASSUME_NONNULL_END
             return 0;
         }
         NSString *footerReuseIdentifier = sectionViewModel.zd_sectionReuseIdentifier ?: sectionViewModel.zd_sectionNibName;
-        __kindof ZDBaseSectionView *footerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:footerReuseIdentifier];
+        id<ZDSectionProtocol> footerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:footerReuseIdentifier];
         footerView.sectionModel = sectionViewModel.zd_sectionModel;
         
         if (sectionViewModel.zd_sectionHeight > 0) {
             heightForFooterInSection = sectionViewModel.zd_sectionHeight;
         }
         else {
-            heightForFooterInSection = [footerView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
+            heightForFooterInSection = [(__kindof ZDBaseSectionView * )footerView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
             
             //更新model
             sectionViewModel.zd_sectionHeight = heightForFooterInSection;
@@ -868,7 +868,7 @@ NS_ASSUME_NONNULL_END
 
 #pragma mark - Public Methods
 // MARK: -----------------------获取ViewModel-----------------------
-- (id<ZDCellViewModelProtocol>)viewModelAtIndexPath:(NSIndexPath *)indexPath
+- (id<ZDCellViewModelProtocol>)cellViewModelAtIndexPath:(NSIndexPath *)indexPath
 {
     if (self.isMutSection) {
         NSInteger section = indexPath.section;
@@ -933,7 +933,7 @@ NS_ASSUME_NONNULL_END
     [self.tableView endUpdates];
 }
 
-- (void)deleteViewModelAtIndexPath:(NSIndexPath *)indexPath
+- (void)deletecellViewModelAtIndexPath:(NSIndexPath *)indexPath
 {
     if (!indexPath) {
         return;

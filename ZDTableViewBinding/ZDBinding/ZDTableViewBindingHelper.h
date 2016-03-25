@@ -7,7 +7,7 @@
 //
 
 /**
- *  如果是多个section，需要把数据封装成（header或footer只存其一的话，则把sectionViewModel设置成[NSNull null]对象）
+ *  如果是多个section，需要把数据封装成（header或footer只存其一的话，则把sectionViewModel设置成nil或者[NSNull null]对象）
  *  [
          {
              HeaderViewModelKey : sectionViewMoel,
@@ -30,8 +30,8 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "ZDBindingDefine.h"
 #import "ReactiveCocoa/ReactiveCocoa.h"
+#import "ZDBindingDefine.h"
 #import "ZDCellViewModelProtocol.h"
 #import "ZDCellProtocol.h"
 
@@ -52,7 +52,7 @@
                       cellCommand:(RACCommand *)cellCommand
                    sectionCommand:(RACCommand *)sectionCommand;
 
-- (id<ZDCellViewModelProtocol>)viewModelAtIndexPath:(NSIndexPath *)indexPath;
+- (id<ZDCellViewModelProtocol>)cellViewModelAtIndexPath:(NSIndexPath *)indexPath;
 
 - (void)insertViewModel:(id<ZDCellViewModelProtocol>)viewModel atIndexPath:(NSIndexPath*)indexPath;
 - (void)replaceViewModel:(id<ZDCellViewModelProtocol>)model atIndexPath:(NSIndexPath *)indexPath;

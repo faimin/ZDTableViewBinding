@@ -66,20 +66,21 @@
                     }
                 }
                 ZDSectionViewModel *sectionViewModel = [ZDSectionViewModel new];
-                sectionViewModel.zd_sectionReuseIdentifier = @"ZDHeaderView";
-                sectionViewModel.zd_sectionNibName = @"ZDHeaderView";
+                NSString *headerName = NSStringFromClass([ZDHeaderView class]);
+                sectionViewModel.zd_sectionReuseIdentifier = headerName;
+                sectionViewModel.zd_sectionNibName = headerName;
                 sectionViewModel.zd_sectionModel = zdModel.module;
                 sectionViewModel.zd_estimatedSectionHeight = 100;
                 
                 
                 ZDSectionViewModel *footerViewModel = [ZDSectionViewModel new];
-                footerViewModel.zd_sectionReuseIdentifier = NSStringFromClass([ZDFooterView class]);
-                footerViewModel.zd_sectionNibName = NSStringFromClass([ZDFooterView class]);
+                NSString *footerName = NSStringFromClass([ZDFooterView class]);
+                footerViewModel.zd_sectionReuseIdentifier = footerName;
+                footerViewModel.zd_sectionNibName = footerName;
                 footerViewModel.zd_sectionModel = zdModel.module;
                 footerViewModel.zd_estimatedSectionHeight = 60;
                 
                 NSDictionary *sectionDic = ZDSectionCellDictionary(sectionViewModel, cellViewModels, footerViewModel);
-                
                 [sectionCellViewModels addObject:sectionDic];
             }
             self.models = sectionCellViewModels;
