@@ -21,9 +21,9 @@ static inline void ZDDispatch_async_on_main_queue(dispatch_block_t block){
     }
 }
 
-//static NSString *const identifierKeyForHeader = @"identifierKeyForHeader";
-//static NSString *const identifierKeyForFooterKey = @"identifierKeyForFooterKey";
+
 NS_ASSUME_NONNULL_BEGIN
+
 @interface ZDTableViewBindingHelper ()<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic, weak) UITableView *tableView;
@@ -101,20 +101,20 @@ uint scrollViewDidZoom:1;
 //Responding to Scrolling Animations
 uint scrollViewDidEndScrollingAnimation:1;
 } delegateRespondsTo;
-/// 外面的command是临时变量，所以需要当前类持有
+/// 外面的command是临时变量，需要当前类持有，所以为strong类型
 @property (nonatomic, strong) RACCommand *cellCommand;
 @property (nonatomic, strong) RACCommand *sectionCommand;
-/// 包含sectionViewModel和cellViewModel的二维数组
+/// 包含sectionViewModel和cellViewModel的字典
 @property (nonatomic, strong, nullable) NSMutableArray<NSDictionary *> *sectionCellDatas;
 @property (nonatomic, strong) NSMutableArray<ZDCellViewModel *> *cellViewModels;
-/// 下面三个Array装的是重用id
+/// 下面2个Array放的是注册过的nibName
 @property (nonatomic, strong) NSMutableArray<NSString *> *mutArrNibNameForCell;
 @property (nonatomic, strong, nullable) NSMutableArray<NSString *> *mutArrNibNameForSection;
 /// 是否是多section的tableView
 @property (nonatomic, assign) BOOL isMutSection;
 
 @end
-NS_ASSUME_NONNULL_END
+
 
 @implementation ZDTableViewBindingHelper
 
@@ -267,7 +267,8 @@ NS_ASSUME_NONNULL_END
     }
 }
 
-#pragma mark - UITableViewDataSource Methods
+#pragma mark - UITableViewDataSource
+#pragma mark -
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     if (self.isMutSection) {
@@ -320,7 +321,8 @@ NS_ASSUME_NONNULL_END
     }
 }
 
-#pragma mark - UITableViewDelegate methods
+#pragma mark - UITableViewDelegate
+#pragma mark -
 #pragma mark Configuring Rows for the Table View
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -379,7 +381,7 @@ NS_ASSUME_NONNULL_END
 }
 
 #pragma mark Managing Accessory Views
-- (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
+- (nullable NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSArray *editActionsForRowAtIndexPath = nil;
     
@@ -397,7 +399,7 @@ NS_ASSUME_NONNULL_END
 }
 
 #pragma mark Managing Selections
-- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (nullable NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSIndexPath *willSelectRowAtIndexPath = indexPath;
     
@@ -419,7 +421,7 @@ NS_ASSUME_NONNULL_END
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
-- (NSIndexPath *)tableView:(UITableView *)tableView willDeselectRowAtIndexPath:(NSIndexPath *)indexPath
+- (nullable NSIndexPath *)tableView:(UITableView *)tableView willDeselectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSIndexPath *willDeselectRowAtIndexPath = indexPath;
     
@@ -435,13 +437,12 @@ NS_ASSUME_NONNULL_END
         [self.delegate tableView:tableView didDeselectRowAtIndexPath:indexPath];
     }
 }
-//TODO: ------------ SectionView ------------------------
+
 #pragma mark Modifying the Header and Footer of Sections
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+- (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    UIView *viewForHeaderInSection = nil;
+    UIView *viewForHeader = nil;
     
-    // TODO: Header
     if (!self.isMutSection) {
         return nil;
     }
@@ -452,7 +453,7 @@ NS_ASSUME_NONNULL_END
             return nil;
         }
         NSString *headerReuseIdentifier = headerViewModel.zd_sectionReuseIdentifier ?: headerViewModel.zd_sectionNibName;
-        ZDBaseSectionView<ZDSectionProtocol> *viewForHeaderInSection = [tableView dequeueReusableHeaderFooterViewWithIdentifier:headerReuseIdentifier];
+        __kindof ZDBaseSectionView<ZDSectionProtocol> *viewForHeaderInSection = [tableView dequeueReusableHeaderFooterViewWithIdentifier:headerReuseIdentifier];
         if ([viewForHeaderInSection respondsToSelector:@selector(setSectionViewModel:)]) {
             viewForHeaderInSection.sectionViewModel = headerViewModel;
         }
@@ -474,14 +475,13 @@ NS_ASSUME_NONNULL_END
 //    if (_delegateRespondsTo.viewForHeaderInSection == 1) {
 //        viewForHeaderInSection = [self.delegate tableView:tableView viewForHeaderInSection:section];
 //    }
-    return viewForHeaderInSection;
+    return viewForHeader;
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+- (nullable UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-    UIView *viewForFooterInSection = nil;
+    UIView *viewForFooter = nil;
     
-    // TODO: Footer
     if (!self.isMutSection) {
         return nil;
     }
@@ -492,7 +492,7 @@ NS_ASSUME_NONNULL_END
             return nil;
         }
         NSString *footerReuseIdentifier = footerViewModel.zd_sectionReuseIdentifier ?: footerViewModel.zd_sectionNibName;
-        ZDBaseSectionView<ZDSectionProtocol> *viewForFooterInSection = [tableView dequeueReusableHeaderFooterViewWithIdentifier:footerReuseIdentifier];
+        __kindof ZDBaseSectionView<ZDSectionProtocol> *viewForFooterInSection = [tableView dequeueReusableHeaderFooterViewWithIdentifier:footerReuseIdentifier];
         if ([viewForFooterInSection respondsToSelector:@selector(setSectionViewModel:)]) {
             viewForFooterInSection.sectionViewModel = footerViewModel;
         }
@@ -514,7 +514,7 @@ NS_ASSUME_NONNULL_END
 //    if (_delegateRespondsTo.viewForFooterInSection == 1) {
 //        viewForFooterInSection = [self.delegate tableView:tableView viewForFooterInSection:section];
 //    }
-    return viewForFooterInSection;
+    return viewForFooter;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -658,7 +658,7 @@ NS_ASSUME_NONNULL_END
     return editingStyleForRowAtIndexPath;
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
+- (nullable NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString *titleForDeleteConfirmationButtonForRowAtIndexPath = NSLocalizedString(@"删除", @"Delete");
     
@@ -722,7 +722,7 @@ NS_ASSUME_NONNULL_END
     return shouldShowMenuForRowAtIndexPath;
 }
 
-- (BOOL)tableView:(UITableView *)tableView canPerformAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender
+- (BOOL)tableView:(UITableView *)tableView canPerformAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(nullable id)sender
 {
     BOOL canPerformAction  = NO;
     
@@ -732,7 +732,7 @@ NS_ASSUME_NONNULL_END
     return canPerformAction;
 }
 
-- (void)tableView:(UITableView *)tableView performAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender
+- (void)tableView:(UITableView *)tableView performAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(nullable id)sender
 {
     if (_delegateRespondsTo.performActionForRowAtIndexPathWithSender == 1) {
         [self.delegate tableView:tableView performAction:action forRowAtIndexPath:indexPath withSender:sender];
@@ -765,6 +765,7 @@ NS_ASSUME_NONNULL_END
 }
 
 #pragma mark - UIScrollViewDelegate
+#pragma mark -
 #pragma mark Responding to Scrolling and Dragging
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
@@ -826,7 +827,7 @@ NS_ASSUME_NONNULL_END
 }
 
 #pragma mark Managing Zooming
-- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
+- (nullable UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
 {
     UIView *viewForZoomingInScrollView = nil;
     
@@ -836,7 +837,7 @@ NS_ASSUME_NONNULL_END
     return  viewForZoomingInScrollView;
 }
 
-- (void)scrollViewWillBeginZooming:(UIScrollView *)scrollView withView:(UIView *)view
+- (void)scrollViewWillBeginZooming:(UIScrollView *)scrollView withView:(nullable UIView *)view
 {
     if (_delegateRespondsTo.scrollViewWillBeginZoomingWithView) {
         [self.delegate scrollViewWillBeginZooming:scrollView withView:view];
@@ -844,7 +845,7 @@ NS_ASSUME_NONNULL_END
 }
 
 
-- (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(CGFloat)scale
+- (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(nullable UIView *)view atScale:(CGFloat)scale
 {
     if (_delegateRespondsTo.scrollViewDidEndZoomingWithViewAtScale) {
         [self.delegate scrollViewDidEndZooming:scrollView withView:view atScale:scale];
@@ -867,8 +868,8 @@ NS_ASSUME_NONNULL_END
 }
 
 #pragma mark - Public Methods
-// MARK: -----------------------获取ViewModel-----------------------
-- (id<ZDCellViewModelProtocol>)cellViewModelAtIndexPath:(NSIndexPath *)indexPath
+// MARK: -----------------------获取CellViewModel-----------------------
+- (nullable id<ZDCellViewModelProtocol>)cellViewModelAtIndexPath:(NSIndexPath *)indexPath
 {
     if (self.isMutSection) {
         NSInteger section = indexPath.section;
@@ -890,7 +891,7 @@ NS_ASSUME_NONNULL_END
     }
 }
 
-- (void)insertViewModel:(id<ZDCellViewModelProtocol>)viewModel atIndexPath:(NSIndexPath*)indexPath
+- (void)insertViewModel:(id<ZDCellViewModelProtocol>)viewModel atIndexPath:(NSIndexPath *)indexPath
 {
     if (!indexPath || !viewModel) {
         return;
@@ -918,7 +919,7 @@ NS_ASSUME_NONNULL_END
     }
     [self registerNibForTableViewWithCellViewModels:@[viewModel]];
     if (self.isMutSection) {
-        // TODO:
+        // MARK:
         NSArray *cellViewModelArr = self.sectionCellDatas[indexPath.section][CellViewModelKey];
         NSMutableArray *cellViewModelMutArr = cellViewModelArr.mutableCopy;
         [cellViewModelMutArr replaceObjectAtIndex:indexPath.row withObject:viewModel];
@@ -950,7 +951,7 @@ NS_ASSUME_NONNULL_END
     
     [self.tableView beginUpdates];
     [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-    [self.tableView beginUpdates];
+    [self.tableView endUpdates];
 }
 
 - (void)reloadItemsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths
@@ -964,7 +965,6 @@ NS_ASSUME_NONNULL_END
 }
 
 #pragma mark - Private Method
-//MARK: ----------------------注册cell-----------------------
 - (void)registerNibForTableViewWithCellViewModels:(NSArray<ZDCellViewModel*> *)cellViewModels
 {
     NSAssert(cellViewModels, @"CellViewModels cann't be nil");
@@ -985,12 +985,12 @@ NS_ASSUME_NONNULL_END
             }
         }
         else if (0) {
-            // TODO: 通过类名注册Cell
+            // 通过类名注册Cell
         }
     }
 }
-//MARK: ----------------------注册SectionView------------------------
-- (void)registerNibForTableViewWithSectionViewModel:(nullable ZDSectionViewModel *)sectionViewModel
+
+- (void)registerNibForTableViewWithSectionViewModel:(ZDSectionViewModel *)sectionViewModel
 {
     // register header && footer (only to mutableSection)
     NSString *sectionNibName = [sectionViewModel zd_sectionNibName];
@@ -1005,7 +1005,7 @@ NS_ASSUME_NONNULL_END
         }
     }
     else if (0) {
-        // TODO: 通过类名注册Section
+        // 通过类名注册Section
     }
 }
 
@@ -1035,7 +1035,7 @@ NS_ASSUME_NONNULL_END
     }
 }
 
-///// 判断是否是二维数组
+/// 判断是否是二维数组
 //- (BOOL)dataIsMutDimensionalArray:(__kindof NSArray *)data
 //{
 //    if ([data.firstObject isKindOfClass:[NSArray class]]) {
@@ -1054,7 +1054,7 @@ NS_ASSUME_NONNULL_END
     return _mutArrNibNameForCell;
 }
 
-- (NSMutableArray *)mutArrNibNameForSection
+- (nullable NSMutableArray *)mutArrNibNameForSection
 {
     if (!_mutArrNibNameForSection) {
         _mutArrNibNameForSection = [NSMutableArray array];
@@ -1063,6 +1063,8 @@ NS_ASSUME_NONNULL_END
 }
 
 @end
+
+NS_ASSUME_NONNULL_END
 
 @implementation NSObject (Cast)
 

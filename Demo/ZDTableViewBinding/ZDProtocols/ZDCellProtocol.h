@@ -21,9 +21,6 @@
 @property (nonatomic, assign) CGFloat height;
 @property (nonatomic, strong) RACCommand *cellCommand;
 
-@optional
-@property (nonatomic, assign) CGFloat estimateHeight;
-
 /// Binds the given viewModel to the view
 - (void)bindToCellViewModel:(ZDCellViewModel *)viewModel;
 

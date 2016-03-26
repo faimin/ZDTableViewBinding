@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreGraphics/CoreGraphics.h>
 @class ZDSectionViewModel;
+
 /**
  *  ViewModel需要实现的协议，为了与cellProtocol区分，协议方法前都加了zd前缀
  */
@@ -20,9 +21,9 @@
 @property (nonatomic, assign) CGFloat  zd_estimatedHeight;
 @property (nonatomic, assign) CGFloat  zd_height;
 
-@optional
-@property (nonatomic, copy  ) NSString *zd_titleViewReuseIdentifier;
-//@property (nonatomic, strong) ZDSectionViewModel *zd_sectionViewModel;
-
+//@optional
+//@property (nonatomic, copy  ) NSString *zd_titleViewReuseIdentifier;
 
 @end
+
+
