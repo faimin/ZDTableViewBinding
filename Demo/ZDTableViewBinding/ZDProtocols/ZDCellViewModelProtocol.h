@@ -17,6 +17,7 @@
 
 @property (nonatomic, copy  ) NSString *zd_reuseIdentifier;
 @property (nonatomic, copy  ) NSString *zd_nibName;
+@property (nonatomic, copy  ) NSString *zd_className;
 @property (nonatomic, strong) id       zd_model;
 @property (nonatomic, assign) CGFloat  zd_estimatedHeight;
 @property (nonatomic, assign) CGFloat  zd_height;

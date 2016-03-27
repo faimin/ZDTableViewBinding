@@ -109,7 +109,9 @@ uint scrollViewDidEndScrollingAnimation:1;
 @property (nonatomic, strong) NSMutableArray<ZDCellViewModel *> *cellViewModels;
 /// 下面2个Array放的是注册过的nibName
 @property (nonatomic, strong) NSMutableArray<NSString *> *mutArrNibNameForCell;
-@property (nonatomic, strong, nullable) NSMutableArray<NSString *> *mutArrNibNameForSection;
+@property (nonatomic, strong) NSMutableArray<NSString *> *mutArrClassNameForCell;
+@property (nonatomic, strong) NSMutableArray<NSString *> *mutArrNibNameForSection;
+@property (nonatomic, strong) NSMutableArray<NSString *> *mutArrClassNameForSection;
 /// 是否是多section的tableView
 @property (nonatomic, assign) BOOL isMutSection;
 
@@ -586,7 +588,7 @@ uint scrollViewDidEndScrollingAnimation:1;
             heightForFooterInSection = sectionViewModel.zd_sectionHeight;
         }
         else {
-            heightForFooterInSection = [(__kindof ZDBaseSectionView * )footerView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
+            heightForFooterInSection = [(__kindof ZDBaseSectionView *)footerView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
             
             //更新model
             sectionViewModel.zd_sectionHeight = heightForFooterInSection;
@@ -972,10 +974,11 @@ uint scrollViewDidEndScrollingAnimation:1;
     for (id<ZDCellViewModelProtocol>cellViewModel in cellViewModels) {
         // register cell
         NSString *cellNibName = [cellViewModel zd_nibName];
+        NSString *cellClassName = [cellViewModel zd_className];
         NSString *reuseIdentifier = [cellViewModel zd_reuseIdentifier];
         NSAssert(reuseIdentifier, @"Cell's reuseIdentifier must be set");
         
-        if (cellNibName && ![self.mutArrNibNameForCell containsObject:cellNibName]) {
+        if (ZDNotNilOrEmpty(cellNibName) && ![self.mutArrNibNameForCell containsObject:cellNibName]) {
             UINib *cellNib = [UINib nibWithNibName:cellNibName bundle:nil];
             // create an instance of the template cell and register with the table view
             //UITableViewCell *templateCell = [[nib instantiateWithOwner:nil options:nil] firstObject];
@@ -984,8 +987,10 @@ uint scrollViewDidEndScrollingAnimation:1;
                 [self.mutArrNibNameForCell addObject:cellNibName];
             }
         }
-        else if (0) {
+        else if (ZDNotNilOrEmpty(cellClassName) && ![self.mutArrClassNameForCell containsObject:cellClassName]) {
             // 通过类名注册Cell
+            [self.tableView registerClass:NSClassFromString(cellClassName) forCellReuseIdentifier:reuseIdentifier ?: cellClassName];
+            [self.mutArrClassNameForCell addObject:cellClassName];
         }
     }
 }
@@ -994,18 +999,21 @@ uint scrollViewDidEndScrollingAnimation:1;
 {
     // register header && footer (only to mutableSection)
     NSString *sectionNibName = [sectionViewModel zd_sectionNibName];
+    NSString *sectionClassName = [sectionViewModel zd_sectionClassName];
     NSString *sectionReuseIdentifier = [sectionViewModel zd_sectionReuseIdentifier];
     
     NSAssert(sectionReuseIdentifier, @"SectionView's reuseIdentifier must be set");
-    if (sectionNibName && ![self.mutArrNibNameForSection containsObject:sectionNibName]) {
+    if (ZDNotNilOrEmpty(sectionNibName) && ![self.mutArrNibNameForSection containsObject:sectionNibName]) {
         UINib *sectionNib = [UINib nibWithNibName:sectionNibName bundle:nil];
         if (sectionNib) {
             [self.tableView registerNib:sectionNib forHeaderFooterViewReuseIdentifier:sectionReuseIdentifier ?: sectionNibName];
             [self.mutArrNibNameForSection addObject:sectionNibName];
         }
     }
-    else if (0) {
+    else if (ZDNotNilOrEmpty(sectionClassName) && ![self.mutArrClassNameForSection containsObject:sectionClassName]) {
         // 通过类名注册Section
+        [self.tableView registerClass:NSClassFromString(sectionClassName) forCellReuseIdentifier:sectionReuseIdentifier ?: sectionClassName];
+        [self.mutArrClassNameForSection addObject:sectionClassName];
     }
 }
 
@@ -1054,12 +1062,28 @@ uint scrollViewDidEndScrollingAnimation:1;
     return _mutArrNibNameForCell;
 }
 
-- (nullable NSMutableArray *)mutArrNibNameForSection
+- (NSMutableArray *)mutArrClassNameForCell
+{
+    if (!_mutArrClassNameForCell) {
+        _mutArrClassNameForCell = [NSMutableArray array];
+    }
+    return _mutArrClassNameForCell;
+}
+
+- (NSMutableArray *)mutArrNibNameForSection
 {
     if (!_mutArrNibNameForSection) {
         _mutArrNibNameForSection = [NSMutableArray array];
     }
     return _mutArrNibNameForSection;
+}
+
+- (NSMutableArray *)mutArrClassNameForSection
+{
+    if (!_mutArrClassNameForSection) {
+        _mutArrClassNameForSection = [NSMutableArray array];
+    }
+    return _mutArrClassNameForSection;
 }
 
 @end

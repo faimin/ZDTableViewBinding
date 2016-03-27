@@ -15,10 +15,11 @@
 ///------------------- 必传参数 -------------------
 @property (nonatomic, copy  ) NSString *zd_sectionNibName;
 @property (nonatomic, copy  ) NSString *zd_sectionReuseIdentifier;
-///------------------- 必传参数 -------------------
 @property (nonatomic, strong) id       zd_sectionModel;
+///------------------- 必传参数 -------------------
 @property (nonatomic, assign) CGFloat  zd_estimatedSectionHeight;   ///< 不能设置太小(>2)，默认为44
 @property (nonatomic, assign) CGFloat  zd_sectionHeight;
+@property (nonatomic, copy  ) NSString *zd_sectionClassName;
 
 //@property (nonatomic, copy  ) NSString *zd_headerNibName;
 //@property (nonatomic, copy  ) NSString *zd_headerReuseIdentifier;

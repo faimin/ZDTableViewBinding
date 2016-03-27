@@ -15,6 +15,7 @@
 @property (nonatomic, strong) id       zd_sectionModel;
 @property (nonatomic, assign) CGFloat  zd_estimatedSectionHeight;
 @property (nonatomic, assign) CGFloat  zd_sectionHeight;
+@property (nonatomic, copy  ) NSString *zd_sectionClassName;
 
 @end
 
