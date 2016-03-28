@@ -18,10 +18,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, copy, nullable) NSString *zd_titleViewReuseIdentifier;
 ///------------------- 必传参数 -------------------
-@property (nonatomic, copy  ) NSString *zd_nibName;
 @property (nonatomic, copy  ) NSString *zd_reuseIdentifier;
 @property (nonatomic, strong) id       zd_model;
 ///------------------- 必传参数 -------------------
+@property (nonatomic, copy  ) NSString *zd_nibName; ///< xib创建的nib才需要设置此属性
 @property (nonatomic, copy  ) NSString *zd_className;
 @property (nonatomic, assign) CGFloat  zd_estimatedHeight;  ///< 不能设置太小（>2），默认为44
 @property (nonatomic, assign) CGFloat  zd_height;
