@@ -24,7 +24,7 @@
 - (void)bindToCellViewModel:(ZDCellViewModel *)viewModel
 {
     NSLog(@"\n ZDBaseTableViewCell为抽象类，需要在子类中实现");
-    NSAssert(NO, @"抽象类，需要在子类中实现");
+    NSAssert(NO, @"abstract class，need to implementation in subClass");
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
@@ -33,7 +33,12 @@
     // Configure the view for the selected state
 }
 
-//- (void)deleverEvent:(RACTuple *)paramTuple
-//{}
+- (void)deliverCellEvent:(RACTuple *)parameterTuple
+{
+    NSAssert(self.cellCommand, @"command is't initialization");
+    if (self.cellCommand) {
+        [self.cellCommand execute:parameterTuple];
+    }
+}
 
 @end

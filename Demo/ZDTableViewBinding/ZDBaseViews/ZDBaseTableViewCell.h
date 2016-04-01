@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) id <ZDCellViewModelProtocol> viewModel;
 @property (nonatomic, strong) RACCommand *cellCommand;
 
-- (void)bindToCellViewModel:(ZDCellViewModel *)viewModel;
+- (void)deliverCellEvent:(RACTuple *)parameterTuple;
 
 @end
 NS_ASSUME_NONNULL_END

@@ -18,7 +18,15 @@
 - (void)bindToSectionViewModel:(ZDSectionViewModel *)viewModel
 {
     NSLog(@"\n ZDBaseSectionView为抽象类，需要在子类中实现");
-    NSAssert(NO, @"抽象类，需要在子类中实现");
+    NSAssert(NO, @"abstract class，need to implementation in subClass");
+}
+
+- (void)deliverSectionEvent:(RACTuple *)parameterTuple
+{
+    NSAssert(self.sectionCommand, @"command is't initialization");
+    if (self.sectionCommand) {
+        [self.sectionCommand execute:parameterTuple];
+    }
 }
 
 #pragma mark - Setter

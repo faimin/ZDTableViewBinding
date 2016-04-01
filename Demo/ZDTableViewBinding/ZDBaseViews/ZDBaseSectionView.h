@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) RACCommand *sectionCommand;
 @property (nonatomic, strong, nullable) UIColor *customBackgroundColor;
 
-- (void)bindToSectionViewModel:(ZDSectionViewModel *)viewModel;
+- (void)deliverSectionEvent:(RACTuple *)parameterTuple;
 
 @end
 NS_ASSUME_NONNULL_END

@@ -36,7 +36,8 @@
 
 - (IBAction)click:(UIButton *)sender
 {
-    [self.sectionCommand execute:RACTuplePack(sender, self.sectionModel)];
+    //[self.sectionCommand execute:RACTuplePack(sender, self.sectionModel)];
+    [self deliverSectionEvent:RACTuplePack(sender, self.sectionModel)];
 }
 
 @end
