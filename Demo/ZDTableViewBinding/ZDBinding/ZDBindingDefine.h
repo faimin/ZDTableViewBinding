@@ -19,9 +19,6 @@
                                                                _cellViewModels , CellViewModelKey,             \
                                            (_footerViewModel ?: [NSNull null]) , FooterViewModelKey, nil]
 
-//#define ZDNotNilOrEmpty(_objc) (_objc != nil && _objc != NULL && ![_objc isKindOfClass:[NSNull class]])
-
-
 static inline BOOL ZDNotNilOrEmpty(id _objc)
 {
     if (_objc == nil || _objc == NULL) {
