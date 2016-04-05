@@ -987,6 +987,16 @@ NS_ASSUME_NONNULL_BEGIN
 	[self.tableView endUpdates];
 }
 
+- (void)clearData
+{
+    if (self.isMutSection) {
+        [self.sectionCellDatas removeAllObjects];
+    }
+    else {
+        [self.cellViewModels removeAllObjects];
+    }
+}
+
 #pragma mark - Private Method
 - (void)registerNibForTableViewWithCellViewModels:(NSArray <ZDCellViewModel *> *)cellViewModels
 {

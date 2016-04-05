@@ -60,5 +60,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)deleteCellViewModelAtIndexPath:(NSIndexPath *)indexPath;
 - (void)reloadItemsAtIndexPaths:(NSArray <NSIndexPath *> *)indexPaths;
 
+- (void)clearData;
+
 @end
 NS_ASSUME_NONNULL_END
