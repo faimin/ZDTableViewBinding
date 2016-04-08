@@ -12,15 +12,6 @@
 #import "ZDSectionViewModel.h"
 #import "ZDBaseSectionView.h"
 
-static inline void ZDDispatch_async_on_main_queue(dispatch_block_t block)
-{
-	if ([NSThread isMainThread]) {
-		block();
-	}
-	else {
-		dispatch_async(dispatch_get_main_queue(), block);
-	}
-}
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -30,75 +21,75 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readwrite, assign) struct delegateMethodsCaching {
 // UITableViewDelegate
 //Configuring Rows for the Table View
-	uint heightForRowAtIndexPath : 1;
-	uint estimatedHeightForRowAtIndexPath : 1;
-	uint indentationLevelForRowAtIndexPath : 1;
-	uint willDisplayCellForRowAtIndexPath : 1;
+	uint heightForRowAtIndexPath: 1;
+	uint estimatedHeightForRowAtIndexPath: 1;
+	uint indentationLevelForRowAtIndexPath: 1;
+	uint willDisplayCellForRowAtIndexPath: 1;
 
 //Managing Accessory Views
-	uint editActionsForRowAtIndexPath : 1;
-	uint accessoryButtonTappedForRowWithIndexPath : 1;
+	uint editActionsForRowAtIndexPath: 1;
+	uint accessoryButtonTappedForRowWithIndexPath: 1;
 
 //Managing Selections
-	uint willSelectRowAtIndexPath : 1;
-	uint didSelectRowAtIndexPath : 1;
-	uint willDeselectRowAtIndexPath : 1;
-	uint didDeselectRowAtIndexPath : 1;
+	uint willSelectRowAtIndexPath: 1;
+	uint didSelectRowAtIndexPath: 1;
+	uint willDeselectRowAtIndexPath: 1;
+	uint didDeselectRowAtIndexPath: 1;
 
 //Modifying the Header and Footer of Sections
-	uint viewForHeaderInSection : 1;
-	uint viewForFooterInSection : 1;
-	uint heightForHeaderInSection : 1;
-	uint estimatedHeightForHeaderInSection : 1;
-	uint heightForFooterInSection : 1;
-	uint estimatedHeightForFooterInSection : 1;
-	uint willDisplayHeaderViewForSection : 1;
-	uint willDisplayFooterViewForSection : 1;
+	uint viewForHeaderInSection: 1;
+	uint viewForFooterInSection: 1;
+	uint heightForHeaderInSection: 1;
+	uint estimatedHeightForHeaderInSection: 1;
+	uint heightForFooterInSection: 1;
+	uint estimatedHeightForFooterInSection: 1;
+	uint willDisplayHeaderViewForSection: 1;
+	uint willDisplayFooterViewForSection: 1;
 
 //Editing Table Rows
-	uint willBeginEditingRowAtIndexPath : 1;
-	uint didEndEditingRowAtIndexPath : 1;
-	uint editingStyleForRowAtIndexPath : 1;
-	uint titleForDeleteConfirmationButtonForRowAtIndexPath : 1;
-	uint shouldIndentWhileEditingRowAtIndexPath : 1;
+	uint willBeginEditingRowAtIndexPath: 1;
+	uint didEndEditingRowAtIndexPath: 1;
+	uint editingStyleForRowAtIndexPath: 1;
+	uint titleForDeleteConfirmationButtonForRowAtIndexPath: 1;
+	uint shouldIndentWhileEditingRowAtIndexPath: 1;
 
 //Reordering Table Rows
-	uint targetIndexPathForMoveFromRowAtIndexPathToProposedIndexPath : 1;
+	uint targetIndexPathForMoveFromRowAtIndexPathToProposedIndexPath: 1;
 
 //Tracking the Removal of Views
-	uint didEndDisplayingCellForRowAtIndexPath : 1;
-	uint didEndDisplayingHeaderViewForSection : 1;
-	uint didEndDisplayingFooterViewForSection : 1;
+	uint didEndDisplayingCellForRowAtIndexPath: 1;
+	uint didEndDisplayingHeaderViewForSection: 1;
+	uint didEndDisplayingFooterViewForSection: 1;
 
 //Copying and Pasting Row Content
-	uint shouldShowMenuForRowAtIndexPath : 1;
-	uint canPerformActionForRowAtIndexPathWithSender : 1;
-	uint performActionForRowAtIndexPathWithSender : 1;
+	uint shouldShowMenuForRowAtIndexPath: 1;
+	uint canPerformActionForRowAtIndexPathWithSender: 1;
+	uint performActionForRowAtIndexPathWithSender: 1;
 
 //Managing Table View Highlighting
-	uint shouldHighlightRowAtIndexPath : 1;
-	uint didHighlightRowAtIndexPath : 1;
-	uint didUnhighlightRowAtIndexPath : 1;
+	uint shouldHighlightRowAtIndexPath: 1;
+	uint didHighlightRowAtIndexPath: 1;
+	uint didUnhighlightRowAtIndexPath: 1;
 
 // UIScrollViewDelegate
 //Responding to Scrolling and Dragging
-	uint scrollViewDidScroll : 1;
-	uint scrollViewWillBeginDragging : 1;
-	uint scrollViewWillEndDraggingWithVelocityTargetContentOffset : 1;
-	uint scrollViewDidEndDraggingWillDecelerate : 1;
-	uint scrollViewShouldScrollToTop : 1;
-	uint scrollViewDidScrollToTop : 1;
-	uint scrollViewWillBeginDecelerating : 1;
-	uint scrollViewDidEndDecelerating : 1;
+	uint scrollViewDidScroll: 1;
+	uint scrollViewWillBeginDragging: 1;
+	uint scrollViewWillEndDraggingWithVelocityTargetContentOffset: 1;
+	uint scrollViewDidEndDraggingWillDecelerate: 1;
+	uint scrollViewShouldScrollToTop: 1;
+	uint scrollViewDidScrollToTop: 1;
+	uint scrollViewWillBeginDecelerating: 1;
+	uint scrollViewDidEndDecelerating: 1;
 
 //Managing Zooming
-	uint viewForZoomingInScrollView : 1;
-	uint scrollViewWillBeginZoomingWithView : 1;
-	uint scrollViewDidEndZoomingWithViewAtScale : 1;
-	uint scrollViewDidZoom : 1;
+	uint viewForZoomingInScrollView: 1;
+	uint scrollViewWillBeginZoomingWithView: 1;
+	uint scrollViewDidEndZoomingWithViewAtScale: 1;
+	uint scrollViewDidZoom: 1;
 
 //Responding to Scrolling Animations
-	uint scrollViewDidEndScrollingAnimation : 1;
+	uint scrollViewDidEndScrollingAnimation: 1;
 } delegateRespondsTo;
 /// 外面的command是临时变量，需要当前类持有，所以为strong类型
 @property (nonatomic, strong) RACCommand *cellCommand;
@@ -124,23 +115,23 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 + (instancetype)bindingHelperForTableView:(UITableView *)tableView
-	mutableSection:(BOOL)mutableSection
-	sourceSignal:(RACSignal *)sourceSignal
-	cellCommand:(RACCommand *)cellCommand
-	sectionCommand:(RACCommand *)sectionCommand
+                           mutableSection:(BOOL)mutableSection
+                             sourceSignal:(RACSignal *)sourceSignal
+                              cellCommand:(RACCommand *)cellCommand
+                           sectionCommand:(RACCommand *)sectionCommand
 {
 	return [[self alloc] initWithTableView:tableView
-		   mutableSection:(BOOL)mutableSection
-		   sourceSignal:sourceSignal
-		   cellCommand:cellCommand
-		   sectionCommand:sectionCommand];
+                            mutableSection:(BOOL)mutableSection
+                              sourceSignal:sourceSignal
+                               cellCommand:cellCommand
+                            sectionCommand:sectionCommand];
 }
 
 - (instancetype)initWithTableView:(UITableView *)tableView
-	mutableSection:(BOOL)mutableSection
-	sourceSignal:(RACSignal *)sourceSignal
-	cellCommand:(RACCommand *)cellCommand
-	sectionCommand:(RACCommand *)sectionCommand
+                   mutableSection:(BOOL)mutableSection
+                     sourceSignal:(RACSignal *)sourceSignal
+                      cellCommand:(RACCommand *)cellCommand
+                   sectionCommand:(RACCommand *)sectionCommand
 {
 	if (self = [super init]) {
 		self.tableView = tableView;
@@ -194,7 +185,7 @@ NS_ASSUME_NONNULL_BEGIN
 		//newMethodCaching.heightForRowAtIndexPath = [_delegate respondsToSelector:@selector(tableView:heightForRowAtIndexPath:)];
 		//newMethodCaching.estimatedHeightForRowAtIndexPath = [_delegate respondsToSelector:@selector(tableView:estimatedHeightForRowAtIndexPath:)];
 		newMethodCaching.indentationLevelForRowAtIndexPath = [_delegate respondsToSelector:@selector(tableView:indentationLevelForRowAtIndexPath:)];
-		newMethodCaching.willDisplayCellForRowAtIndexPath = [delegate respondsToSelector:@selector(tableView:willDisplayCell:forRowAtIndexPath:)];
+		//newMethodCaching.willDisplayCellForRowAtIndexPath = [delegate respondsToSelector:@selector(tableView:willDisplayCell:forRowAtIndexPath:)];
 
 		//Managing Accessory Views
 		newMethodCaching.editActionsForRowAtIndexPath = [_delegate respondsToSelector:@selector(tableView:editActionsForRowAtIndexPath:)];
@@ -213,8 +204,8 @@ NS_ASSUME_NONNULL_BEGIN
 		//newMethodCaching.estimatedHeightForHeaderInSection = [_delegate respondsToSelector:@selector(tableView:estimatedHeightForHeaderInSection:)];
 		//newMethodCaching.heightForFooterInSection = [_delegate respondsToSelector:@selector(tableView:heightForFooterInSection:)];
 		//newMethodCaching.estimatedHeightForFooterInSection = [_delegate respondsToSelector:@selector(tableView:estimatedHeightForFooterInSection:)];
-		newMethodCaching.willDisplayHeaderViewForSection = [_delegate respondsToSelector:@selector(tableView:willDisplayHeaderView:forSection:)];
-		newMethodCaching.willDisplayFooterViewForSection = [_delegate respondsToSelector:@selector(tableView:willDisplayFooterView:forSection:)];
+		//newMethodCaching.willDisplayHeaderViewForSection = [_delegate respondsToSelector:@selector(tableView:willDisplayHeaderView:forSection:)];
+		//newMethodCaching.willDisplayFooterViewForSection = [_delegate respondsToSelector:@selector(tableView:willDisplayFooterView:forSection:)];
 
 		//Editing Table Rows
 		newMethodCaching.willBeginEditingRowAtIndexPath = [_delegate respondsToSelector:@selector(tableView:willBeginEditingRowAtIndexPath:)];
@@ -295,21 +286,10 @@ NS_ASSUME_NONNULL_BEGIN
 		cell.cellCommand = self.cellCommand;
 	}
 
-	if ([cell respondsToSelector:@selector(setModel:)]) {
-		cell.model = cellViewModel.zd_model;
-	}
-
-	if ([cell respondsToSelector:@selector(setViewModel:)]) {
-		cell.viewModel = cellViewModel;
-	}
-
-	if ([cell respondsToSelector:@selector(setHeight:)]) {
-		cell.height = cellViewModel.zd_height;
-	}
-
-	/// cell遵循的数据协议
-	[cell bindToCellViewModel:cellViewModel];
-
+    if ([cell respondsToSelector:@selector(setHeight:)]) {
+        cell.height = cellViewModel.zd_height;
+    }
+    
 	return (__kindof UITableViewCell *)cell;
 }
 
@@ -324,7 +304,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - UITableViewDelegate
 #pragma mark -
-#pragma mark Configuring Rows for the Table View
+#pragma mark Configuring Rows for the TableView
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	CGFloat cellHeight = tableView.rowHeight;
@@ -378,9 +358,26 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	if (self.delegateRespondsTo.willDisplayCellForRowAtIndexPath == 1) {
-		[self.delegate tableView:tableView willDisplayCell:cell forRowAtIndexPath:indexPath];
-	}
+//	if (self.delegateRespondsTo.willDisplayCellForRowAtIndexPath == 1) {
+//		[self.delegate tableView:tableView willDisplayCell:cell forRowAtIndexPath:indexPath];
+//	}
+    
+    id <ZDCellViewModelProtocol> cellViewModel = [self cellViewModelAtIndexPath:indexPath];
+    NSAssert(cellViewModel != nil, @"cellViewModel can't be nil");
+    id <ZDCellProtocol> zdCell = (id)cell;
+    
+    if ([zdCell respondsToSelector:@selector(setModel:)]) {
+        zdCell.model = cellViewModel.zd_model;
+    }
+    
+    if ([zdCell respondsToSelector:@selector(setViewModel:)]) {
+        zdCell.viewModel = cellViewModel;
+    }
+    
+    /// cell遵循的数据协议
+    if ([zdCell respondsToSelector:@selector(bindToCellViewModel:)]) {
+        [zdCell bindToCellViewModel:cellViewModel];
+    }
 }
 
 #pragma mark Managing Accessory Views
@@ -460,14 +457,6 @@ NS_ASSUME_NONNULL_BEGIN
 		NSString *headerReuseIdentifier = headerViewModel.zd_sectionReuseIdentifier ? : headerViewModel.zd_sectionNibName;
 		__kindof ZDBaseSectionView <ZDSectionProtocol> *viewForHeaderInSection = [tableView dequeueReusableHeaderFooterViewWithIdentifier:headerReuseIdentifier];
 
-		if ([viewForHeaderInSection respondsToSelector:@selector(setSectionViewModel:)]) {
-			viewForHeaderInSection.sectionViewModel = headerViewModel;
-		}
-
-		if ([viewForHeaderInSection respondsToSelector:@selector(setSectionModel:)]) {
-			viewForHeaderInSection.sectionModel = headerViewModel.zd_sectionModel;
-		}
-
 		if ([viewForHeaderInSection respondsToSelector:@selector(setHeaderHeight:)]) {
 			viewForHeaderInSection.headerHeight = headerViewModel.zd_sectionHeight;
 		}
@@ -475,9 +464,6 @@ NS_ASSUME_NONNULL_BEGIN
 		if ([viewForHeaderInSection respondsToSelector:@selector(setSectionCommand:)]) {
 			viewForHeaderInSection.sectionCommand = self.sectionCommand;
 		}
-
-		// section绑定协议
-		[viewForHeaderInSection bindToSectionViewModel:headerViewModel];
 
 		return viewForHeaderInSection;
 	}
@@ -504,14 +490,6 @@ NS_ASSUME_NONNULL_BEGIN
 		NSString *footerReuseIdentifier = footerViewModel.zd_sectionReuseIdentifier ? : footerViewModel.zd_sectionNibName;
 		__kindof ZDBaseSectionView <ZDSectionProtocol> *viewForFooterInSection = [tableView dequeueReusableHeaderFooterViewWithIdentifier:footerReuseIdentifier];
 
-		if ([viewForFooterInSection respondsToSelector:@selector(setSectionViewModel:)]) {
-			viewForFooterInSection.sectionViewModel = footerViewModel;
-		}
-
-		if ([viewForFooterInSection respondsToSelector:@selector(setSectionModel:)]) {
-			viewForFooterInSection.sectionModel = footerViewModel.zd_sectionModel;
-		}
-
 		if ([viewForFooterInSection respondsToSelector:@selector(setHeaderHeight:)]) {
 			viewForFooterInSection.headerHeight = footerViewModel.zd_sectionHeight;
 		}
@@ -519,9 +497,6 @@ NS_ASSUME_NONNULL_BEGIN
 		if ([viewForFooterInSection respondsToSelector:@selector(setSectionCommand:)]) {
 			viewForFooterInSection.sectionCommand = self.sectionCommand;
 		}
-
-		// section绑定协议
-		[viewForFooterInSection bindToSectionViewModel:footerViewModel];
 
 		return viewForFooterInSection;
 	}
@@ -641,16 +616,68 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
 {
-	if (_delegateRespondsTo.willDisplayHeaderViewForSection == 1) {
-		[self.delegate tableView:tableView willDisplayHeaderView:view forSection:section];
-	}
+//	if (_delegateRespondsTo.willDisplayHeaderViewForSection == 1) {
+//		[self.delegate tableView:tableView willDisplayHeaderView:view forSection:section];
+//	}
+    
+    if (!self.isMutSection) {
+        return;
+    }
+    
+    if (self.sectionCellDatas.count > section) {
+        __kindof ZDBaseSectionView <ZDSectionProtocol> *viewForHeaderInSection = (id)view;
+        
+        ZDSectionViewModel *headerViewModel = self.sectionCellDatas[section][HeaderViewModelKey];
+        if (!ZDNotNilOrEmpty(headerViewModel)) {
+            return;
+        }
+        
+        if ([viewForHeaderInSection respondsToSelector:@selector(setSectionViewModel:)]) {
+            viewForHeaderInSection.sectionViewModel = headerViewModel;
+        }
+        
+        if ([viewForHeaderInSection respondsToSelector:@selector(setSectionModel:)]) {
+            viewForHeaderInSection.sectionModel = headerViewModel.zd_sectionModel;
+        }
+        
+        // section绑定协议
+        if ([viewForHeaderInSection respondsToSelector:@selector(bindToSectionViewModel:)]) {
+            [viewForHeaderInSection bindToSectionViewModel:headerViewModel];
+        }
+    }
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayFooterView:(UIView *)view forSection:(NSInteger)section
 {
-	if (_delegateRespondsTo.willDisplayFooterViewForSection == 1) {
-		[self.delegate tableView:tableView willDisplayFooterView:view forSection:section];
-	}
+//	if (_delegateRespondsTo.willDisplayFooterViewForSection == 1) {
+//		[self.delegate tableView:tableView willDisplayFooterView:view forSection:section];
+//	}
+    
+    if (!self.isMutSection) {
+        return;
+    }
+    
+    if (self.sectionCellDatas.count > section) {
+        __kindof ZDBaseSectionView <ZDSectionProtocol> *viewForFooterInSection = (id)view;
+        
+        ZDSectionViewModel *footerViewModel = self.sectionCellDatas[section][FooterViewModelKey];
+        if (!ZDNotNilOrEmpty(footerViewModel)) {
+            return;
+        }
+        
+        if ([viewForFooterInSection respondsToSelector:@selector(setSectionViewModel:)]) {
+            viewForFooterInSection.sectionViewModel = footerViewModel;
+        }
+        
+        if ([viewForFooterInSection respondsToSelector:@selector(setSectionModel:)]) {
+            viewForFooterInSection.sectionModel = footerViewModel.zd_sectionModel;
+        }
+        
+        /// section绑定协议
+        if ([viewForFooterInSection respondsToSelector:@selector(bindToSectionViewModel:)]) {
+            [viewForFooterInSection bindToSectionViewModel:footerViewModel];
+        }
+    }
 }
 
 #pragma mark Editing Table Rows

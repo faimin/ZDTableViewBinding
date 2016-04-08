@@ -42,16 +42,16 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak, nullable) id <UITableViewDelegate> delegate;
 
 + (instancetype)bindingHelperForTableView:(UITableView *)tableView
-	mutableSection:(BOOL)mutableSection
-	sourceSignal:(RACSignal *)sourceSignal
-	cellCommand:(RACCommand *)cellCommand
-	sectionCommand:(RACCommand *)sectionCommand;
+                           mutableSection:(BOOL)mutableSection
+                             sourceSignal:(RACSignal *)sourceSignal
+                              cellCommand:(RACCommand *)cellCommand
+                           sectionCommand:(RACCommand *)sectionCommand;
 
 - (instancetype)initWithTableView:(UITableView *)tableView
-	mutableSection:(BOOL)mutableSection
-	sourceSignal:(RACSignal *)sourceSignal
-	cellCommand:(RACCommand *)cellCommand
-	sectionCommand:(RACCommand *)sectionCommand;
+                   mutableSection:(BOOL)mutableSection
+                     sourceSignal:(RACSignal *)sourceSignal
+                      cellCommand:(RACCommand *)cellCommand
+                   sectionCommand:(RACCommand *)sectionCommand;
 
 - (nullable id <ZDCellViewModelProtocol>)cellViewModelAtIndexPath:(NSIndexPath *)indexPath;
 

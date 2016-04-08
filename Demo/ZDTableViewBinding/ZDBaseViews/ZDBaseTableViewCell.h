@@ -17,8 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 协议方法
 @property (nonatomic, strong) id model;
-@property (nonatomic, assign) CGFloat height;
 @property (nonatomic, strong) id <ZDCellViewModelProtocol> viewModel;
+@property (nonatomic, assign) CGFloat height;
 @property (nonatomic, strong) RACCommand *cellCommand;
 
 - (void)deliverCellEvent:(RACTuple *)parameterTuple;

@@ -19,8 +19,7 @@
                                                                _cellViewModels , CellViewModelKey,             \
                                            (_footerViewModel ?: [NSNull null]) , FooterViewModelKey, nil]
 
-static inline BOOL ZDNotNilOrEmpty(id _objc)
-{
+static inline BOOL ZDNotNilOrEmpty(id _objc) {
     if (_objc == nil || _objc == NULL) {
         return NO;
     }
@@ -36,6 +35,15 @@ static inline BOOL ZDNotNilOrEmpty(id _objc)
     }
     
     return YES;
+}
+
+static inline void ZDDispatch_async_on_main_queue(dispatch_block_t block) {
+    if ([NSThread isMainThread]) {
+        block();
+    }
+    else {
+        dispatch_async(dispatch_get_main_queue(), block);
+    }
 }
 
 #endif /* ZDBindingDefine_h */

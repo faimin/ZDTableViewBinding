@@ -104,11 +104,11 @@
 	}];
 
 	// 不要忘记让当前类持有helper，否则，出了当前作用域就会被释放
-	self.helper = [ZDTableViewBindingHelper bindingHelperForTableView:self.tableView
-		mutableSection:YES
-		sourceSignal:RACObserve(self, models)
-		cellCommand:command
-		sectionCommand:sectionCommand];
+	self.helper = [ZDTableViewBinding bindingHelperForTableView:self.tableView
+                                                 mutableSection:YES
+                                                   sourceSignal:RACObserve(self, models)
+                                                    cellCommand:command
+                                                 sectionCommand:sectionCommand];
 }
 
 @end
