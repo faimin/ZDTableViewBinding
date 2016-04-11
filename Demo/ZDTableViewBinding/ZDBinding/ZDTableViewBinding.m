@@ -500,9 +500,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 		return viewForFooterInSection;
 	}
-//    if (_delegateRespondsTo.viewForFooterInSection == 1) {
-//        viewForFooterInSection = [self.delegate tableView:tableView viewForFooterInSection:section];
-//    }
+
 	return viewForFooter;
 }
 
@@ -534,9 +532,7 @@ NS_ASSUME_NONNULL_BEGIN
 			self.sectionCellDatas[section] = mutDic.copy;
 		}
 	}
-//    if (_delegateRespondsTo.heightForHeaderInSection == 1) {
-//        heightForHeaderInSection = [self.delegate tableView:tableView heightForHeaderInSection:section];
-//    }
+
 	return heightForHeaderInSection;
 }
 
@@ -554,9 +550,7 @@ NS_ASSUME_NONNULL_BEGIN
 		CGFloat estimateHeight = sectionViewModel.zd_estimatedSectionHeight;
 		return estimateHeight;
 	}
-//    if (_delegateRespondsTo.estimatedHeightForHeaderInSection == 1) {
-//        estimatedHeightForHeaderInSection = [self.delegate tableView:tableView estimatedHeightForHeaderInSection:section];
-//    }
+
 	return estimatedHeightForHeaderInSection;
 }
 
@@ -588,9 +582,7 @@ NS_ASSUME_NONNULL_BEGIN
 			self.sectionCellDatas[section] = mutDic.copy;
 		}
 	}
-//    if (_delegateRespondsTo.heightForFooterInSection == 1) {
-//        heightForFooterInSection = [self.delegate tableView:tableView heightForFooterInSection:section];
-//    }
+
 	return heightForFooterInSection;
 }
 
@@ -608,18 +600,12 @@ NS_ASSUME_NONNULL_BEGIN
 		CGFloat estimateHeight = sectionViewModel.zd_estimatedSectionHeight;
 		return estimateHeight;
 	}
-//    if (_delegateRespondsTo.estimatedHeightForFooterInSection == 1) {
-//        estimatedHeightForFooterInSection = [self.delegate tableView:tableView estimatedHeightForFooterInSection:section];
-//    }
+
 	return estimatedHeightForFooterInSection;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
 {
-//	if (_delegateRespondsTo.willDisplayHeaderViewForSection == 1) {
-//		[self.delegate tableView:tableView willDisplayHeaderView:view forSection:section];
-//	}
-    
     if (!self.isMutSection) {
         return;
     }
@@ -649,10 +635,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)tableView:(UITableView *)tableView willDisplayFooterView:(UIView *)view forSection:(NSInteger)section
 {
-//	if (_delegateRespondsTo.willDisplayFooterViewForSection == 1) {
-//		[self.delegate tableView:tableView willDisplayFooterView:view forSection:section];
-//	}
-    
     if (!self.isMutSection) {
         return;
     }
