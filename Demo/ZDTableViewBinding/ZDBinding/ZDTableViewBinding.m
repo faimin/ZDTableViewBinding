@@ -458,7 +458,7 @@ NS_ASSUME_NONNULL_BEGIN
 		__kindof ZDBaseSectionView <ZDSectionProtocol> *viewForHeaderInSection = [tableView dequeueReusableHeaderFooterViewWithIdentifier:headerReuseIdentifier];
 
 		if ([viewForHeaderInSection respondsToSelector:@selector(setHeaderHeight:)]) {
-			viewForHeaderInSection.headerHeight = headerViewModel.zd_sectionHeight;
+            viewForHeaderInSection.headerHeight = headerViewModel.zd_sectionHeight;
 		}
 
 		if ([viewForHeaderInSection respondsToSelector:@selector(setSectionCommand:)]) {
@@ -467,9 +467,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 		return viewForHeaderInSection;
 	}
-//    if (_delegateRespondsTo.viewForHeaderInSection == 1) {
-//        viewForHeaderInSection = [self.delegate tableView:tableView viewForHeaderInSection:section];
-//    }
+
 	return viewForHeader;
 }
 
@@ -491,7 +489,7 @@ NS_ASSUME_NONNULL_BEGIN
 		__kindof ZDBaseSectionView <ZDSectionProtocol> *viewForFooterInSection = [tableView dequeueReusableHeaderFooterViewWithIdentifier:footerReuseIdentifier];
 
 		if ([viewForFooterInSection respondsToSelector:@selector(setHeaderHeight:)]) {
-			viewForFooterInSection.headerHeight = footerViewModel.zd_sectionHeight;
+            viewForFooterInSection.headerHeight = footerViewModel.zd_sectionHeight;
 		}
 
 		if ([viewForFooterInSection respondsToSelector:@selector(setSectionCommand:)]) {
@@ -525,7 +523,7 @@ NS_ASSUME_NONNULL_BEGIN
 		else {
 			heightForHeaderInSection = [(__kindof ZDBaseSectionView *)headerView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
 
-			//更新model
+			//更新headerViewModel
 			sectionViewModel.zd_sectionHeight = heightForHeaderInSection;
 			NSMutableDictionary *mutDic = dic.mutableCopy;
 			mutDic[HeaderViewModelKey] = sectionViewModel;
@@ -575,7 +573,7 @@ NS_ASSUME_NONNULL_BEGIN
 		else {
 			heightForFooterInSection = [(__kindof ZDBaseSectionView *)footerView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
 
-			//更新model
+			//更新footerViewModel
 			sectionViewModel.zd_sectionHeight = heightForFooterInSection;
 			NSMutableDictionary *mutDic = dic.mutableCopy;
 			mutDic[FooterViewModelKey] = sectionViewModel;
@@ -586,6 +584,8 @@ NS_ASSUME_NONNULL_BEGIN
 	return heightForFooterInSection;
 }
 
+/// The table view does not call this method
+/// if it was created in a plain style (UITableViewStylePlain).
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForFooterInSection:(NSInteger)section
 {
 	CGFloat estimatedHeightForFooterInSection = 0.0f;
