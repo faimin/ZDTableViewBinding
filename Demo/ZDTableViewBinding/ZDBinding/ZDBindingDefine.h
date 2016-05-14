@@ -14,6 +14,8 @@
 #define CellViewModelKey   @"CellViewModelKey"
 #define FooterViewModelKey @"FooterViewModelKey"
 
+#define ZDCellDictionary(_cellViewModels) ZDSectionCellDictionary(nil, _cellViewModels, nil)
+
 #define ZDSectionCellDictionary(_headerViewModel, _cellViewModels, _footerViewModel)                           \
 [NSDictionary dictionaryWithObjectsAndKeys:(_headerViewModel ?: [NSNull null]) , HeaderViewModelKey,           \
                                                                _cellViewModels , CellViewModelKey,             \

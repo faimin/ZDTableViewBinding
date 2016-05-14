@@ -1138,7 +1138,7 @@ NS_ASSUME_NONNULL_END
 
 @implementation NSObject (Cast)
 
-- (id)cast:(id)objc
++ (id)zd_cast:(id)objc
 {
 	if ([objc isKindOfClass:[self class]]) {
 		return objc;

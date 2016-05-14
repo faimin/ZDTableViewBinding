@@ -30,7 +30,8 @@
 	[super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
 	self.automaticallyAdjustsScrollViewInsets = NO;
-
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    
 	[self requestData];
 }
 
@@ -88,7 +89,10 @@
 			}
 
 			self.models = sectionCellViewModels;
-		}
+        }
+        else {
+            NSLog(@" --- > error%@", error.localizedDescription);
+        }
 	}];
 	[dataTask resume];
 

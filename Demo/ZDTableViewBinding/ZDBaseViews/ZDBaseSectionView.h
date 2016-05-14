@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) RACCommand *sectionCommand;
 @property (nonatomic, strong, nullable) UIColor *customBackgroundColor;
 
+///外传section中的事件
 - (void)deliverSectionEvent:(RACTuple *)parameterTuple;
 
 @end

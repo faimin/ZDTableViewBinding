@@ -10,7 +10,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "ZDModel.h"
 
-#define STRINGFORMATE(obj, ...) [NSString stringWithFormat:obj, __VA_ARGS__]
+#define STRINGFORMATE(objc, ...) [NSString stringWithFormat:objc, __VA_ARGS__]
 
 @implementation ZDCustomCell
 

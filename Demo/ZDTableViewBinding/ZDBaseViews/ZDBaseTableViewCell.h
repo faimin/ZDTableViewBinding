@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) CGFloat height;
 @property (nonatomic, strong) RACCommand *cellCommand;
 
+///外传section中的事件
 - (void)deliverCellEvent:(RACTuple *)parameterTuple;
 
 @end
