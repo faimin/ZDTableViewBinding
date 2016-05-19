@@ -182,7 +182,7 @@ NS_ASSUME_NONNULL_BEGIN
 		// UITableViewDelegate
 
 		//Configuring Rows for the Table View
-		//newMethodCaching.heightForRowAtIndexPath = [_delegate respondsToSelector:@selector(tableView:heightForRowAtIndexPath:)];
+		newMethodCaching.heightForRowAtIndexPath = [_delegate respondsToSelector:@selector(tableView:heightForRowAtIndexPath:)];
 		//newMethodCaching.estimatedHeightForRowAtIndexPath = [_delegate respondsToSelector:@selector(tableView:estimatedHeightForRowAtIndexPath:)];
 		newMethodCaching.indentationLevelForRowAtIndexPath = [_delegate respondsToSelector:@selector(tableView:indentationLevelForRowAtIndexPath:)];
 		//newMethodCaching.willDisplayCellForRowAtIndexPath = [delegate respondsToSelector:@selector(tableView:willDisplayCell:forRowAtIndexPath:)];
@@ -307,7 +307,11 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark Configuring Rows for the TableView
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	CGFloat cellHeight = tableView.rowHeight;
+    CGFloat cellHeight = tableView.rowHeight;
+    if (self.delegateRespondsTo.heightForRowAtIndexPath == 1) {
+        cellHeight = [self.delegate tableView:tableView heightForRowAtIndexPath:indexPath];
+        return cellHeight;
+    }
 
 	id <ZDCellViewModelProtocol> cellViewModel = [self cellViewModelAtIndexPath:indexPath];
 	NSString *identifier = [cellViewModel zd_reuseIdentifier];
@@ -1138,7 +1142,7 @@ NS_ASSUME_NONNULL_END
 
 @implementation NSObject (Cast)
 
-+ (id)zd_cast:(id)objc
++ (nullable id)zd_cast:(id)objc
 {
 	if ([objc isKindOfClass:[self class]]) {
 		return objc;
