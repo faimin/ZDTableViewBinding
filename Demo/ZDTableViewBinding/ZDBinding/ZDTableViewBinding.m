@@ -12,12 +12,9 @@
 #import "ZDSectionViewModel.h"
 #import "ZDBaseSectionView.h"
 
-
 NS_ASSUME_NONNULL_BEGIN
-
 @interface ZDTableViewBinding () <UITableViewDelegate, UITableViewDataSource>
 
-@property (nonatomic, weak) UITableView *tableView;
 @property (nonatomic, readwrite, assign) struct delegateMethodsCaching {
 // UITableViewDelegate
 //Configuring Rows for the Table View
@@ -91,11 +88,13 @@ NS_ASSUME_NONNULL_BEGIN
 //Responding to Scrolling Animations
 	uint scrollViewDidEndScrollingAnimation: 1;
 } delegateRespondsTo;
+
+@property (nonatomic, weak) UITableView *tableView;
 /// 外面的command是临时变量，需要当前类持有，所以为strong类型
 @property (nonatomic, strong) RACCommand *cellCommand;
 @property (nonatomic, strong) RACCommand *sectionCommand;
 /// 包含sectionViewModel和cellViewModel的字典
-@property (nonatomic, strong, nullable) NSMutableArray <NSDictionary *> *sectionCellDatas;
+@property (nonatomic, strong) NSMutableArray <NSDictionary *> *sectionCellDatas;
 @property (nonatomic, strong) NSMutableArray <ZDCellViewModel *> *cellViewModels;
 /// 下面2个Array放的是注册过的nibName
 @property (nonatomic, strong) NSMutableArray <NSString *> *mutArrNibNameForCell;
@@ -104,6 +103,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSMutableArray <NSString *> *mutArrClassNameForSection;
 /// 是否是多section的tableView
 @property (nonatomic, assign) BOOL isMutSection;
+
+@property (nonatomic, assign) BOOL isFinishedReloadData;
 
 @end
 
@@ -135,33 +136,38 @@ NS_ASSUME_NONNULL_BEGIN
 {
 	if (self = [super init]) {
 		self.tableView = tableView;
+        self.tableView.dataSource = self;
+        self.tableView.delegate = self;
+        self.delegate = nil;
+        
 		self.cellCommand = cellCommand;
 		self.sectionCommand = sectionCommand;
-
+        
+        [self clearData];
+        
 		@weakify(self);
-		[[sourceSignal ignore:nil] subscribeNext:^(__kindof NSArray *x) {
+		[[sourceSignal filter:^BOOL(id value) {
+            return (value != nil);
+        }] subscribeNext:^(__kindof NSArray *x) {
 			@strongify(self);
 			self.isMutSection = mutableSection;
 
 		    /// register cell && header && footer
 			if (mutableSection) {
 				[self registerNibForTableViewWithSectionCellViewModels:x];
-				self.sectionCellDatas = x;
+                [self.sectionCellDatas addObjectsFromArray:x];
 			}
 			else {
 				[self registerNibForTableViewWithCellViewModels:x];
-				self.cellViewModels = x;
+                [self.cellViewModels addObjectsFromArray:x];
 			}
 
 		    /// reloadData on mainQueue
 			ZDDispatch_async_on_main_queue(^{
 				[self.tableView reloadData];
+                self.isFinishedReloadData = YES;
 			});
 		}];
-
-		self.tableView.dataSource = self;
-		self.tableView.delegate = self;
-		self.delegate = nil;
 	}
 	return self;
 }
@@ -1000,17 +1006,25 @@ NS_ASSUME_NONNULL_BEGIN
 	[self.tableView endUpdates];
 }
 
+- (void)resetData
+{
+    self.isNeedToResetData = YES;
+}
+
+#pragma mark - Private Method
 - (void)clearData
 {
+    if (!self.isNeedToResetData) return;
+    
     if (self.isMutSection) {
         [self.sectionCellDatas removeAllObjects];
     }
     else {
         [self.cellViewModels removeAllObjects];
     }
+    self.isNeedToResetData = NO;
 }
 
-#pragma mark - Private Method
 - (void)registerNibForTableViewWithCellViewModels:(NSArray <ZDCellViewModel *> *)cellViewModels
 {
 	NSAssert(cellViewModels, @"CellViewModels cann't be nil");
@@ -1103,11 +1117,26 @@ NS_ASSUME_NONNULL_BEGIN
 //}
 
 #pragma mark - Getter
+- (NSMutableArray<NSDictionary *> *)sectionCellDatas
+{
+    if (!_sectionCellDatas) {
+        _sectionCellDatas = [[NSMutableArray alloc] init];
+    }
+    return _sectionCellDatas;
+}
+
+- (NSMutableArray<ZDCellViewModel *> *)cellViewModels
+{
+    if (!_cellViewModels) {
+        _cellViewModels = [[NSMutableArray alloc] init];
+    }
+    return _cellViewModels;
+}
 
 - (NSMutableArray *)mutArrNibNameForCell
 {
 	if (!_mutArrNibNameForCell) {
-		_mutArrNibNameForCell = [NSMutableArray array];
+		_mutArrNibNameForCell = [[NSMutableArray alloc] init];
 	}
 	return _mutArrNibNameForCell;
 }
@@ -1115,7 +1144,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSMutableArray *)mutArrClassNameForCell
 {
 	if (!_mutArrClassNameForCell) {
-		_mutArrClassNameForCell = [NSMutableArray array];
+		_mutArrClassNameForCell = [[NSMutableArray alloc] init];
 	}
 	return _mutArrClassNameForCell;
 }
@@ -1123,7 +1152,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSMutableArray *)mutArrNibNameForSection
 {
 	if (!_mutArrNibNameForSection) {
-		_mutArrNibNameForSection = [NSMutableArray array];
+		_mutArrNibNameForSection = [[NSMutableArray alloc] init];
 	}
 	return _mutArrNibNameForSection;
 }
@@ -1131,7 +1160,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSMutableArray *)mutArrClassNameForSection
 {
 	if (!_mutArrClassNameForSection) {
-		_mutArrClassNameForSection = [NSMutableArray array];
+		_mutArrClassNameForSection = [[NSMutableArray alloc] init];
 	}
 	return _mutArrClassNameForSection;
 }
