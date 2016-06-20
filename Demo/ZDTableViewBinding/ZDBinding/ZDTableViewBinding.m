@@ -12,6 +12,11 @@
 #import "ZDSectionViewModel.h"
 #import "ZDBaseSectionView.h"
 
+@interface NSObject (Cast)
++ (nullable id)zd_cast:(id)objc;
+@end
+
+
 NS_ASSUME_NONNULL_BEGIN
 @interface ZDTableViewBinding () <UITableViewDelegate, UITableViewDataSource>
 
@@ -276,7 +281,7 @@ NS_ASSUME_NONNULL_BEGIN
 {
 	if (self.isMutSection) {
 		NSArray *cellViewModelArr = self.sectionCellDatas[section][CellViewModelKey];
-		return [cellViewModelArr isKindOfClass:[NSArray class]] ? cellViewModelArr.count : 0;
+        return [NSArray zd_cast:cellViewModelArr] ? cellViewModelArr.count : 0;
 	}
 	return self.cellViewModels.count;
 }
@@ -302,9 +307,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	if (editingStyle == UITableViewCellEditingStyleDelete) {
-		if ([self.cellViewModels isKindOfClass:[NSArray class]]) {
-			[self.cellViewModels removeObjectAtIndex:indexPath.row];
-		}
+        [self.cellViewModels removeObjectAtIndex:indexPath.row];
 	}
 }
 
@@ -320,16 +323,15 @@ NS_ASSUME_NONNULL_BEGIN
     }
 
 	id <ZDCellViewModelProtocol> cellViewModel = [self cellViewModelAtIndexPath:indexPath];
-	NSString *identifier = [cellViewModel zd_reuseIdentifier];
-
-	cellHeight = [tableView fd_heightForCellWithIdentifier:identifier cacheByIndexPath:indexPath configuration:^(__kindof UITableViewCell < ZDCellProtocol > *cell) {
+    
+    NSString *identifier = [cellViewModel zd_reuseIdentifier];
+	cellHeight = [tableView fd_heightForCellWithIdentifier:identifier cacheByIndexPath:indexPath configuration:^(__kindof UITableViewCell <ZDCellProtocol> *cell) {
 		if ([cell respondsToSelector:@selector(setModel:)]) {
 			cell.model = [cellViewModel zd_model];
 		}
 	}];
-
-	[cellViewModel setZd_height:cellHeight];
-
+    cellViewModel.zd_height = cellHeight;
+    
 	return cellHeight;
 }
 
