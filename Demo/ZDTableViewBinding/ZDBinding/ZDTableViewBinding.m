@@ -107,7 +107,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) NSMutableArray <NSString *> *mutArrNibNameForSection;
 @property (nonatomic, strong) NSMutableArray <NSString *> *mutArrClassNameForSection;
 /// 是否是多section的tableView
-@property (nonatomic, assign) BOOL isMutSection;
+@property (nonatomic, assign) BOOL isMutiSection;
 
 @property (nonatomic, assign) BOOL isFinishedReloadData;
 
@@ -155,7 +155,7 @@ NS_ASSUME_NONNULL_BEGIN
             return (value != nil);
         }] subscribeNext:^(__kindof NSArray *x) {
 			@strongify(self);
-			self.isMutSection = mutableSection;
+			self.isMutiSection = mutableSection;
 
 		    /// register cell && header && footer
 			if (mutableSection) {
@@ -271,7 +271,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark -
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-	if (self.isMutSection) {
+	if (self.isMutiSection) {
 		return self.sectionCellDatas.count;
 	}
 	return 1;
@@ -279,7 +279,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-	if (self.isMutSection) {
+	if (self.isMutiSection) {
 		NSArray *cellViewModelArr = self.sectionCellDatas[section][CellViewModelKey];
         return [NSArray zd_cast:cellViewModelArr] ? cellViewModelArr.count : 0;
 	}
@@ -339,7 +339,7 @@ NS_ASSUME_NONNULL_BEGIN
 {
 	CGFloat estimatedHeightForRowAtIndexPath = tableView.estimatedRowHeight;
 
-	if (self.isMutSection) {
+	if (self.isMutiSection) {
 		NSDictionary *dic = self.sectionCellDatas[indexPath.section];
 		NSArray *cellViewModelArr = dic[CellViewModelKey];
 		ZDCellViewModel *cellViewModel = cellViewModelArr[indexPath.row];
@@ -456,7 +456,7 @@ NS_ASSUME_NONNULL_BEGIN
 {
 	UIView *viewForHeader = nil;
 
-	if (!self.isMutSection) {
+	if (!self.isMutiSection) {
 		return nil;
 	}
 
@@ -487,7 +487,7 @@ NS_ASSUME_NONNULL_BEGIN
 {
 	UIView *viewForFooter = nil;
 
-	if (!self.isMutSection) {
+	if (!self.isMutiSection) {
 		return nil;
 	}
 
@@ -518,7 +518,7 @@ NS_ASSUME_NONNULL_BEGIN
 {
 	CGFloat heightForHeaderInSection = 0.0f;
 
-	if (self.isMutSection) {
+	if (self.isMutiSection) {
 		NSDictionary *dic = self.sectionCellDatas[section];
 		ZDSectionViewModel *sectionViewModel = dic[HeaderViewModelKey];
 
@@ -550,7 +550,7 @@ NS_ASSUME_NONNULL_BEGIN
 {
 	CGFloat estimatedHeightForHeaderInSection = 0.0f;
 
-	if (self.isMutSection) {
+	if (self.isMutiSection) {
 		NSDictionary *dic = self.sectionCellDatas[section];
 		ZDSectionViewModel *sectionViewModel = dic[HeaderViewModelKey];
 
@@ -568,7 +568,7 @@ NS_ASSUME_NONNULL_BEGIN
 {
 	CGFloat heightForFooterInSection = 0.0f;
 
-	if (self.isMutSection) {
+	if (self.isMutiSection) {
 		NSDictionary *dic = self.sectionCellDatas[section];
 		ZDSectionViewModel *sectionViewModel = dic[FooterViewModelKey];
 
@@ -602,7 +602,7 @@ NS_ASSUME_NONNULL_BEGIN
 {
 	CGFloat estimatedHeightForFooterInSection = 0.0f;
 
-	if (self.isMutSection) {
+	if (self.isMutiSection) {
 		NSDictionary *dic = self.sectionCellDatas[section];
 		ZDSectionViewModel *sectionViewModel = dic[FooterViewModelKey];
 
@@ -618,7 +618,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
 {
-    if (!self.isMutSection) {
+    if (!self.isMutiSection) {
         return;
     }
     
@@ -647,7 +647,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)tableView:(UITableView *)tableView willDisplayFooterView:(UIView *)view forSection:(NSInteger)section
 {
-    if (!self.isMutSection) {
+    if (!self.isMutiSection) {
         return;
     }
     
@@ -911,7 +911,7 @@ NS_ASSUME_NONNULL_BEGIN
 // MARK: -----------------------获取CellViewModel-----------------------
 - (nullable id <ZDCellViewModelProtocol>)cellViewModelAtIndexPath:(NSIndexPath *)indexPath
 {
-	if (self.isMutSection) {
+	if (self.isMutiSection) {
 		NSInteger section = indexPath.section;
 		NSAssert(section < self.sectionCellDatas.count, @"数组越界了");
 
@@ -939,7 +939,7 @@ NS_ASSUME_NONNULL_BEGIN
 	}
 	[self registerNibForTableViewWithCellViewModels:@[viewModel]];
 
-	if (self.isMutSection) {
+	if (self.isMutiSection) {
 		NSArray *cellViewModelArr = self.sectionCellDatas[indexPath.section][CellViewModelKey];
 		NSMutableArray *cellViewModelMutArr = cellViewModelArr.mutableCopy;
 		[cellViewModelMutArr insertObject:viewModel atIndex:indexPath.row];
@@ -961,7 +961,7 @@ NS_ASSUME_NONNULL_BEGIN
 	}
 	[self registerNibForTableViewWithCellViewModels:@[viewModel]];
 
-	if (self.isMutSection) {
+	if (self.isMutiSection) {
 		// MARK:
 		NSArray *cellViewModelArr = self.sectionCellDatas[indexPath.section][CellViewModelKey];
 		NSMutableArray *cellViewModelMutArr = cellViewModelArr.mutableCopy;
@@ -983,7 +983,7 @@ NS_ASSUME_NONNULL_BEGIN
 		return;
 	}
 
-	if (self.isMutSection) {
+	if (self.isMutiSection) {
 		NSArray *cellViewModelArr = self.sectionCellDatas[indexPath.section][CellViewModelKey];
 		NSMutableArray *cellViewModelMutArr = cellViewModelArr.mutableCopy;
 		[cellViewModelMutArr removeObjectAtIndex:indexPath.row];
@@ -1018,7 +1018,7 @@ NS_ASSUME_NONNULL_BEGIN
 {
     if (!self.isNeedToResetData) return;
     
-    if (self.isMutSection) {
+    if (self.isMutiSection) {
         [self.sectionCellDatas removeAllObjects];
     }
     else {
@@ -1084,7 +1084,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 多个Section
 - (void)registerNibForTableViewWithSectionCellViewModels:(__kindof NSArray <NSDictionary *> *)sectionCellModels
 {
-	if (!self.isMutSection) {
+	if (!self.isMutiSection) {
 		return;
 	}
 
