@@ -1,15 +1,16 @@
 platform :ios, "7.0"
 #use_framework!
-inhibit_all_warnings!
+#inhibit_all_warnings!
 
-pod 'ReactiveCocoa', '~> 2.5'
-pod 'UITableView+FDTemplateLayoutCell', '~> 1.4'
-pod 'MJExtension', '~> 3.0.10'
-pod 'AFNetworking', '~> 3.0.4'
-
+#target :Demo, :exclusive => true do
+    pod 'ReactiveCocoa', '~> 2.5'
+    pod 'UITableView+FDTemplateLayoutCell', '~> 1.4'
+    pod 'MJExtension', '~> 3.0.10'
+    pod 'AFNetworking', '~> 3.1.0'
+#end
 #pod 'ReactiveTableViewBinding', '~> 1.0'
 #pod 'ZDAFNetWorkHelper', '~> 0.3.0'
 
-#target :<#TargetName#>Tests, :exclusive => true do
-  # pod 'Kiwi'
-#end
+target :DemoTests, :exclusive => true do
+	pod 'Kiwi'
+end
