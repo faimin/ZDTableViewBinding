@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+@class ZDTableViewBinding;
 
 @protocol ZDSectionViewModelProtocol <NSObject>
 
@@ -16,6 +17,7 @@
 @property (nonatomic, assign) CGFloat  zd_estimatedSectionHeight;
 @property (nonatomic, assign) CGFloat  zd_sectionHeight;
 @property (nonatomic, copy  ) NSString *zd_sectionClassName;
+@property (nonatomic, weak  ) ZDTableViewBinding *zd_sectionBindProxy;
 
 @end
 

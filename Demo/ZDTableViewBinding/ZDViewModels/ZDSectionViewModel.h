@@ -10,16 +10,19 @@
 #import <CoreGraphics/CoreGraphics.h>
 #import "ZDSectionViewModelProtocol.h"
 
+NS_ASSUME_NONNULL_BEGIN
 @interface ZDSectionViewModel : NSObject<ZDSectionViewModelProtocol>
 
 ///------------------- 必传参数 -------------------
-@property (nonatomic, copy  ) NSString *zd_sectionNibName;
+@property (nonatomic, copy, nullable) NSString *zd_sectionNibName;
 @property (nonatomic, copy  ) NSString *zd_sectionReuseIdentifier;
 @property (nonatomic, strong) id       zd_sectionModel;
-///------------------- 必传参数 -------------------
+///------------------- 可选参数 -------------------
 @property (nonatomic, assign) CGFloat  zd_estimatedSectionHeight;   ///< 不能设置太小(>2)，默认为44
 @property (nonatomic, assign) CGFloat  zd_sectionHeight;
-@property (nonatomic, copy  ) NSString *zd_sectionClassName;
+@property (nonatomic, copy, nullable) NSString *zd_sectionClassName;
+
+@property (nonatomic, weak, nullable) ZDTableViewBinding *zd_sectionBindProxy;
 
 //@property (nonatomic, copy  ) NSString *zd_headerNibName;
 //@property (nonatomic, copy  ) NSString *zd_headerReuseIdentifier;
@@ -34,3 +37,4 @@
 //@property (nonatomic, assign) CGFloat  zd_footerHeight;
 
 @end
+NS_ASSUME_NONNULL_END

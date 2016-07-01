@@ -15,13 +15,14 @@
 NS_ASSUME_NONNULL_BEGIN
 @interface ZDBaseTableViewCell : UITableViewCell <ZDCellProtocol>
 
-/// 协议方法
+/// 协议方法，在tableview代理方法里被赋值
 @property (nonatomic, strong) id model;
 @property (nonatomic, strong) id <ZDCellViewModelProtocol> viewModel;
 @property (nonatomic, assign) CGFloat height;
 @property (nonatomic, strong) RACCommand *cellCommand;
+@property (nonatomic, weak, nullable) ZDTableViewBinding *bindProxy;
 
-///外传section中的事件
+///外传cell中的事件
 - (void)deliverCellEvent:(RACTuple *)parameterTuple;
 
 @end
