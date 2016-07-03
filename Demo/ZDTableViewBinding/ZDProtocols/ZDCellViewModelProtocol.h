@@ -22,6 +22,7 @@
 @property (nonatomic, assign) CGFloat  zd_estimatedHeight;
 @property (nonatomic, assign) CGFloat  zd_height;
 @property (nonatomic, weak  ) ZDTableViewBinding *zd_bindProxy;
+
 @end
 
 

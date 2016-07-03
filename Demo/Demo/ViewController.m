@@ -81,7 +81,7 @@
 				footerViewModel.zd_sectionReuseIdentifier = footerName;
 				footerViewModel.zd_sectionNibName = footerName;
 				footerViewModel.zd_sectionModel = zdModel.module;
-				footerViewModel.zd_estimatedSectionHeight = 60;
+				footerViewModel.zd_estimatedSectionHeight = 100;
 
 				NSDictionary *sectionDic = ZDSectionCellDictionary(headerViewModel, cellViewModels, footerViewModel);
 				[sectionCellViewModels addObject:sectionDic];
