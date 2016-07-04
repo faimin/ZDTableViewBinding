@@ -572,7 +572,8 @@ NS_ASSUME_NONNULL_BEGIN
 	return heightForHeaderInSection;
 }
 
-#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_9_0
+#ifdef __IPHONE_9_0
+//#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_9_0
 // fix bug：在9.0系统以前执行此方法后，tableView:heightForFooterInSection:会不执行，然后footerHeight用的是header的heigth
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForFooterInSection:(NSInteger)section
 {
