@@ -331,13 +331,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 	id <ZDCellViewModelProtocol> cellViewModel = [self cellViewModelAtIndexPath:indexPath];
     
-    NSString *identifier = [cellViewModel zd_reuseIdentifier];
-	cellHeight = [tableView fd_heightForCellWithIdentifier:identifier cacheByIndexPath:indexPath configuration:^(__kindof UITableViewCell <ZDCellProtocol> *cell) {
-		if ([cell respondsToSelector:@selector(setModel:)]) {
-			cell.model = [cellViewModel zd_model];
-		}
-	}];
-    cellViewModel.zd_height = cellHeight;
+    if (cellViewModel.zd_fixedHeight > 0) {
+        return cellViewModel.zd_fixedHeight;
+    }
+    else {
+        NSString *identifier = [cellViewModel zd_reuseIdentifier];
+        cellHeight = [tableView fd_heightForCellWithIdentifier:identifier cacheByIndexPath:indexPath configuration:^(__kindof UITableViewCell <ZDCellProtocol> *cell) {
+            if ([cell respondsToSelector:@selector(setModel:)]) {
+                cell.model = [cellViewModel zd_model];
+            }
+        }];
+        cellViewModel.zd_height = cellHeight;
+    }
     
 	return cellHeight;
 }
@@ -552,7 +557,10 @@ NS_ASSUME_NONNULL_BEGIN
 		__kindof ZDBaseSectionView <ZDSectionProtocol> *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:headerReuseIdentifier];
 		headerView.sectionModel = sectionViewModel.zd_sectionModel;
 
-		if (sectionViewModel.zd_sectionHeight > 0) {
+        if (sectionViewModel.zd_sectionFixedHeight > 0) {   // 固定高度
+            heightForHeaderInSection = sectionViewModel.zd_sectionFixedHeight;
+        }
+		else if (sectionViewModel.zd_sectionHeight > 0) {   // 缓存高度
 			heightForHeaderInSection = sectionViewModel.zd_sectionHeight;
 		}
 		else {
@@ -572,9 +580,8 @@ NS_ASSUME_NONNULL_BEGIN
 	return heightForHeaderInSection;
 }
 
-#ifdef __IPHONE_9_0
-//#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_9_0
-// fix bug：在9.0系统以前执行此方法后，tableView:heightForFooterInSection:会不执行，然后footerHeight用的是header的heigth
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_9_0
+// fix bug：在9.0之前的系统，执行此方法后，tableView:heightForFooterInSection:代理方法会不执行，然后footerHeight用的是header的heigth
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForFooterInSection:(NSInteger)section
 {
     CGFloat estimatedHeightForFooterInSection = 0.0f;
@@ -609,7 +616,10 @@ NS_ASSUME_NONNULL_BEGIN
 		id <ZDSectionProtocol> footerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:footerReuseIdentifier];
 		footerView.sectionModel = sectionViewModel.zd_sectionModel;
 
-		if (sectionViewModel.zd_sectionHeight > 0) {
+        if (sectionViewModel.zd_sectionFixedHeight > 0) {
+            heightForFooterInSection = sectionViewModel.zd_sectionFixedHeight;
+        }
+		else if (sectionViewModel.zd_sectionHeight > 0) {
 			heightForFooterInSection = sectionViewModel.zd_sectionHeight;
 		}
 		else {
@@ -1050,7 +1060,7 @@ NS_ASSUME_NONNULL_BEGIN
             NSString *nibPath = [[NSBundle mainBundle] pathForResource:[NSString stringWithFormat:@"%@.nib", cellNibName] ofType:nil];
 			if (nibPath) {
                 // create an instance of the template cell and register with the table view
-                //UITableViewCell *templateCell = [[nib instantiateWithOwner:nil options:nil] firstObject];
+                // UITableViewCell *templateCell = [[nib instantiateWithOwner:nil options:nil] firstObject];
                 UINib *cellNib = [UINib nibWithNibName:cellNibName bundle:nil];
 				[self.tableView registerNib:cellNib forCellReuseIdentifier:reuseIdentifier ? : cellNibName];
 				[self.mutArrNibNameForCell addObject:cellNibName];

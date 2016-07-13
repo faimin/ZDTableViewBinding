@@ -16,6 +16,7 @@
 @property (nonatomic, strong) id       zd_sectionModel;
 @property (nonatomic, assign) CGFloat  zd_estimatedSectionHeight;
 @property (nonatomic, assign) CGFloat  zd_sectionHeight;
+@property (nonatomic, assign) CGFloat  zd_sectionFixedHeight;
 @property (nonatomic, copy  ) NSString *zd_sectionClassName;
 @property (nonatomic, weak  ) ZDTableViewBinding *zd_sectionBindProxy;
 

@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///------------------- Option -------------------
 @property (nonatomic, assign) CGFloat  zd_estimatedSectionHeight;///< 不能设置太小(>2)，默认为44
 @property (nonatomic, assign) CGFloat  zd_sectionHeight;
+@property (nonatomic, assign) CGFloat  zd_sectionFixedHeight;
 @property (nonatomic, copy, nullable) NSString *zd_sectionClassName;
 @property (nonatomic, weak, nullable) ZDTableViewBinding *zd_sectionBindProxy;
 

@@ -65,6 +65,7 @@
 						viewModel.zd_model = model;
 						viewModel.zd_reuseIdentifier = NSStringFromClass([ZDCustomCell class]);
 						viewModel.zd_estimatedHeight = 460;
+                        //viewModel.zd_fixedHeight = 100;
 						[cellViewModels addObject:viewModel];
 					}
 				}

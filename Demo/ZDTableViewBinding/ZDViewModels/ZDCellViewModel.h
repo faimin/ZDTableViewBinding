@@ -20,10 +20,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy  ) NSString *zd_reuseIdentifier;
 @property (nonatomic, strong) id       zd_model;
 ///------------------- Option -------------------
-@property (nonatomic, copy, nullable) NSString *zd_nibName;///< xib创建的nib才需要设置此属性
+// nib and class altenative select one
+@property (nonatomic, copy, nullable) NSString *zd_nibName; ///< xib创建的nib才需要设置此属性
 @property (nonatomic, copy, nullable) NSString *zd_className;
-@property (nonatomic, assign) CGFloat  zd_estimatedHeight; ///< 不能设置太小（>2），默认为44
-@property (nonatomic, assign) CGFloat  zd_height;
+@property (nonatomic, assign) CGFloat zd_estimatedHeight;   ///< 不能设置太小（>2），默认为44
+@property (nonatomic, assign) CGFloat zd_height;
+@property (nonatomic, assign) CGFloat zd_fixedHeight;       ///< 固定高度
 @property (nonatomic, weak, nullable) ZDTableViewBinding *zd_bindProxy;
 
 @end
