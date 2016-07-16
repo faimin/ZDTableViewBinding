@@ -992,9 +992,44 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
-- (void)replaceViewModel:(id <ZDCellViewModelProtocol>)viewModel atIndexPath:(NSIndexPath *)indexPath
+- (void)replaceViewModel:(id<ZDCellViewModelProtocol>)viewModel atIndexPath:(NSIndexPath *)indexPath
 {
     [self replaceViewModel:viewModel atIndexPath:indexPath afterDelay:0];
+}
+
+- (void)moveViewModel:(nullable id<ZDCellViewModelProtocol>)viewModel fromIndexPath:(nullable NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+{
+    if (self.isMutiSection) {
+        [self.sectionCellDatas[fromIndexPath.section] removeObjectAtIndex:fromIndexPath.row];
+        [self.cellViewModels insertObject:viewModel atIndex:toIndexPath.row];
+        
+        [self.tableView beginUpdates];
+        [self.tableView moveRowAtIndexPath:[NSIndexPath indexPathForRow:fromIndex inSection:0] toIndexPath:toIndexPath];
+        [self.tableView endUpdates];
+    }
+    else {
+        if (!viewModel) return;
+        // 需先移除后添加数据
+        NSUInteger fromIndex = [self.cellViewModels indexOfObject:viewModel];
+        [self.cellViewModels removeObjectAtIndex:fromIndex];
+        [self.cellViewModels insertObject:viewModel atIndex:toIndexPath.row];
+        
+        [self.tableView beginUpdates];
+        [self.tableView moveRowAtIndexPath:[NSIndexPath indexPathForRow:fromIndex inSection:0] toIndexPath:toIndexPath];
+        [self.tableView endUpdates];
+    }
+}
+
+// 多section
+- (void)moveViewModelFromIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+{
+    [self moveViewModel:nil fromIndexPath:fromIndexPath toIndexPath:toIndexPath];
+}
+
+// 单section
+- (void)moveViewModel:(id<ZDCellViewModelProtocol>)viewModel toIndexPath:(NSIndexPath *)toIndexPath
+{
+    [self moveViewModel:viewModel fromIndexPath:nil toIndexPath:toIndexPath];
 }
 
 - (void)deleteCellViewModelAtIndexPath:(NSIndexPath *)indexPath
