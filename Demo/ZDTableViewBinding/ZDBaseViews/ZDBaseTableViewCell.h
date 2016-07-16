@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) id model;
 @property (nonatomic, strong) id <ZDCellViewModelProtocol> viewModel;
 @property (nonatomic, assign) CGFloat height;
+@property (nonatomic, strong) NSIndexPath *indexPath;
 @property (nonatomic, strong) RACCommand *cellCommand;
 @property (nonatomic, weak, nullable) ZDTableViewBinding *bindProxy;
 

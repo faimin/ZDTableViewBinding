@@ -308,13 +308,25 @@ NS_ASSUME_NONNULL_BEGIN
         cell.height = cellViewModel.zd_height;
     }
     
+    if ([cell respondsToSelector:@selector(setIndexPath:)]) {
+        cell.indexPath = indexPath;
+    }
+    
 	return (__kindof UITableViewCell *)cell;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [self.cellViewModels removeObjectAtIndex:indexPath.row];
+        if (self.isMutiSection) {
+            NSArray *cellViewModelArr = self.sectionCellDatas[indexPath.section][CellViewModelKey];
+            NSMutableArray *cellViewModelMutArr = cellViewModelArr.mutableCopy;
+            [cellViewModelMutArr removeObjectAtIndex:indexPath.row];
+            [self.sectionCellDatas[indexPath.section] setValue:cellViewModelMutArr.copy forKey:CellViewModelKey];
+        }
+        else {
+            [self.cellViewModels removeObjectAtIndex:indexPath.row];
+        }
 	}
 }
 
@@ -997,27 +1009,36 @@ NS_ASSUME_NONNULL_BEGIN
     [self replaceViewModel:viewModel atIndexPath:indexPath afterDelay:0];
 }
 
+// 单section时，fromIndexPath和viewmodel可以只传一个；多section时，fromIndexPath必传，viewmodel可选
 - (void)moveViewModel:(nullable id<ZDCellViewModelProtocol>)viewModel fromIndexPath:(nullable NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
 {
     if (self.isMutiSection) {
-        [self.sectionCellDatas[fromIndexPath.section] removeObjectAtIndex:fromIndexPath.row];
-        [self.cellViewModels insertObject:viewModel atIndex:toIndexPath.row];
-        
-        [self.tableView beginUpdates];
-        [self.tableView moveRowAtIndexPath:[NSIndexPath indexPathForRow:fromIndex inSection:0] toIndexPath:toIndexPath];
-        [self.tableView endUpdates];
+        NSArray *cellViewModelArr = self.sectionCellDatas[fromIndexPath.section][CellViewModelKey];
+        if (!viewModel) {
+            viewModel = cellViewModelArr[fromIndexPath.row];
+        }
+        NSMutableArray *mutRowCellViewModelArr = cellViewModelArr.mutableCopy;
+        // 需先移除后添加数据
+        [mutRowCellViewModelArr removeObjectAtIndex:fromIndexPath.row];
+        [mutRowCellViewModelArr insertObject:viewModel atIndex:toIndexPath.row];
+        [self.sectionCellDatas[fromIndexPath.section] setValue:mutRowCellViewModelArr forKey:CellViewModelKey];
     }
     else {
-        if (!viewModel) return;
-        // 需先移除后添加数据
-        NSUInteger fromIndex = [self.cellViewModels indexOfObject:viewModel];
-        [self.cellViewModels removeObjectAtIndex:fromIndex];
-        [self.cellViewModels insertObject:viewModel atIndex:toIndexPath.row];
-        
-        [self.tableView beginUpdates];
-        [self.tableView moveRowAtIndexPath:[NSIndexPath indexPathForRow:fromIndex inSection:0] toIndexPath:toIndexPath];
-        [self.tableView endUpdates];
+        if (!fromIndexPath) {
+            NSUInteger fromIndex = [self.cellViewModels indexOfObject:viewModel];
+            [self.cellViewModels removeObjectAtIndex:fromIndex];
+            [self.cellViewModels insertObject:viewModel atIndex:toIndexPath.row];
+            
+            fromIndexPath = [NSIndexPath indexPathForRow:fromIndex inSection:0];
+        }
+        else if (!viewModel) {
+            viewModel = self.cellViewModels[fromIndexPath.row];
+        }
     }
+        
+    [self.tableView beginUpdates];
+    [self.tableView moveRowAtIndexPath:fromIndexPath toIndexPath:toIndexPath];
+    [self.tableView endUpdates];
 }
 
 // 多section
@@ -1167,15 +1188,6 @@ NS_ASSUME_NONNULL_BEGIN
     [self.tableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
     [self.tableView endUpdates];
 }
-
-/// 判断是否是二维数组
-//- (BOOL)dataIsMutDimensionalArray:(__kindof NSArray *)data
-//{
-//    if ([data.firstObject isKindOfClass:[NSArray class]]) {
-//        return YES;
-//    }
-//    return NO;
-//}
 
 #pragma mark - Getter
 - (NSMutableArray<NSDictionary *> *)sectionCellDatas

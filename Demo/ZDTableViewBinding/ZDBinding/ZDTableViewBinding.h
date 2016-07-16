@@ -63,6 +63,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)insertViewModel:(id <ZDCellViewModelProtocol>)viewModel atIndexPath:(NSIndexPath *)indexPath;
 - (void)replaceViewModel:(id <ZDCellViewModelProtocol>)viewModel atIndexPath:(NSIndexPath *)indexPath afterDelay:(NSTimeInterval)delay;///< delay < 0，don't reloadCell, = 0 reload immediately
 - (void)replaceViewModel:(id <ZDCellViewModelProtocol>)model atIndexPath:(NSIndexPath *)indexPath;
+- (void)moveViewModelFromIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath;///< muti section
+- (void)moveViewModel:(id<ZDCellViewModelProtocol>)viewModel toIndexPath:(NSIndexPath *)toIndexPath;///< single section
 - (void)deleteCellViewModelAtIndexPath:(NSIndexPath *)indexPath;
 - (void)reloadItemsAtIndexPaths:(NSArray <NSIndexPath *> *)indexPaths;
 
