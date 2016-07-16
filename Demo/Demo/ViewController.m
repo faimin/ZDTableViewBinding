@@ -16,6 +16,7 @@
 #import "ZDCustomCell.h"
 #import "ZDHeaderView.h"
 #import "ZDFooterView.h"
+#import "YYModel.h"
 
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -52,11 +53,14 @@
 		if (!error) {
 			NSError *zderror;
 			NSDictionary *obj = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&zderror];
-			NSMutableArray *mutArr = [ZDModel mj_objectArrayWithKeyValuesArray:obj[@"data"][@"squareInfo"]];
+            //YYModel解析
+            NSArray *yyArr = [NSArray yy_modelArrayWithClass:[ZDModel class] json:obj[@"data"][@"squareInfo"]];
+            // MJExtend解析
+            NSArray *mjArr __attribute__((unused)) = [ZDModel mj_objectArrayWithKeyValuesArray:obj[@"data"][@"squareInfo"]];
 
 			NSMutableArray *sectionCellViewModels = [NSMutableArray array];
 
-			for (ZDModel *zdModel in mutArr) {
+			for (ZDModel *zdModel in yyArr) {
 				NSMutableArray *cellViewModels = [NSMutableArray array];
 
 				for (id model in zdModel.barContent) {
