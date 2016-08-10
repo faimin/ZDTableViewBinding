@@ -26,6 +26,8 @@
 		BCAC9A011CA4EB5800F261CB /* ZDTableViewBinding.m in Sources */ = {isa = PBXBuildFile; fileRef = BCAC99F41CA4EB5800F261CB /* ZDTableViewBinding.m */; };
 		BCAC9A021CA4EB5800F261CB /* ZDCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BCAC99FC1CA4EB5800F261CB /* ZDCellViewModel.m */; };
 		BCAC9A031CA4EB5800F261CB /* ZDSectionViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BCAC99FE1CA4EB5800F261CB /* ZDSectionViewModel.m */; };
+		BCEE70001D5B0452002FFFF3 /* YYFPSLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = BCEE6FFF1D5B0451002FFFF3 /* YYFPSLabel.m */; };
+		BCEE70031D5B0513002FFFF3 /* YYWeakProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = BCEE70021D5B0513002FFFF3 /* YYWeakProxy.m */; };
 		CC85646B602573FA401C52C4 /* libPods-Demo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AE198B456128EA9341B0657 /* libPods-Demo.a */; };
 /* End PBXBuildFile section */
 
@@ -90,6 +92,10 @@
 		BCAC99FC1CA4EB5800F261CB /* ZDCellViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZDCellViewModel.m; sourceTree = "<group>"; };
 		BCAC99FD1CA4EB5800F261CB /* ZDSectionViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZDSectionViewModel.h; sourceTree = "<group>"; };
 		BCAC99FE1CA4EB5800F261CB /* ZDSectionViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZDSectionViewModel.m; sourceTree = "<group>"; };
+		BCEE6FFE1D5B0451002FFFF3 /* YYFPSLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYFPSLabel.h; sourceTree = "<group>"; };
+		BCEE6FFF1D5B0451002FFFF3 /* YYFPSLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYFPSLabel.m; sourceTree = "<group>"; };
+		BCEE70011D5B0513002FFFF3 /* YYWeakProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYWeakProxy.h; sourceTree = "<group>"; };
+		BCEE70021D5B0513002FFFF3 /* YYWeakProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYWeakProxy.m; sourceTree = "<group>"; };
 		DC107892207001210A19034F /* Pods-Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Demo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Demo/Pods-Demo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -155,6 +161,7 @@
 				0592DDD41C8C15130063526D /* Assets.xcassets */,
 				0592DDD61C8C15130063526D /* LaunchScreen.storyboard */,
 				0592DDD91C8C15130063526D /* Info.plist */,
+				BCEE6FFD1D5B043A002FFFF3 /* Vendor */,
 				0592DDC81C8C15130063526D /* Supporting Files */,
 			);
 			path = Demo;
@@ -279,6 +286,17 @@
 				BCAC99FE1CA4EB5800F261CB /* ZDSectionViewModel.m */,
 			);
 			path = ZDViewModels;
+			sourceTree = "<group>";
+		};
+		BCEE6FFD1D5B043A002FFFF3 /* Vendor */ = {
+			isa = PBXGroup;
+			children = (
+				BCEE6FFE1D5B0451002FFFF3 /* YYFPSLabel.h */,
+				BCEE6FFF1D5B0451002FFFF3 /* YYFPSLabel.m */,
+				BCEE70011D5B0513002FFFF3 /* YYWeakProxy.h */,
+				BCEE70021D5B0513002FFFF3 /* YYWeakProxy.m */,
+			);
+			path = Vendor;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -473,7 +491,9 @@
 				0592DDD01C8C15130063526D /* ViewController.m in Sources */,
 				BCAC9A031CA4EB5800F261CB /* ZDSectionViewModel.m in Sources */,
 				0592DDCD1C8C15130063526D /* AppDelegate.m in Sources */,
+				BCEE70031D5B0513002FFFF3 /* YYWeakProxy.m in Sources */,
 				0592DDCA1C8C15130063526D /* main.m in Sources */,
+				BCEE70001D5B0452002FFFF3 /* YYFPSLabel.m in Sources */,
 				BC75FDC21C9029BF00C915E0 /* ZDCustomCell.m in Sources */,
 				BC770C211CA3F385007731BC /* ZDFooterView.m in Sources */,
 				BCAC99FF1CA4EB5800F261CB /* ZDBaseSectionView.m in Sources */,

@@ -17,6 +17,7 @@
 #import "ZDHeaderView.h"
 #import "ZDFooterView.h"
 #import "YYModel.h"
+#import "YYFPSLabel.h"
 
 @interface ViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -32,7 +33,7 @@
 	// Do any additional setup after loading the view, typically from a nib.
 	self.automaticallyAdjustsScrollViewInsets = NO;
     self.edgesForExtendedLayout = UIRectEdgeNone;
-    
+    self.navigationItem.titleView = [[YYFPSLabel alloc] initWithFrame:(CGRect){CGPointZero, 80.0, 40.0}];
 	[self requestData];
 }
 
