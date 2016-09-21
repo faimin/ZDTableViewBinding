@@ -10,6 +10,15 @@
 #ifndef ZDBindingDefine_h
 #define ZDBindingDefine_h
 
+#define IS_XCODE8_OR_LATER __has_include(<UserNotifications/UserNotifications.h>)
+
+#if IS_XCODE8_OR_LATER
+#define ZD_NULL nullable
+#else
+#define ZD_NULLABLE nonnull
+#endif
+
+
 #define HeaderViewModelKey @"HeaderViewModelKey"
 #define CellViewModelKey   @"CellViewModelKey"
 #define FooterViewModelKey @"FooterViewModelKey"

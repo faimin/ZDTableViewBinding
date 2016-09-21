@@ -12,13 +12,18 @@
 #import "ZDSectionViewModel.h"
 #import "ZDBaseSectionView.h"
 
+
 @interface NSObject (Cast)
 + (nullable id)zd_cast:(id)objc;
 @end
 
 
 NS_ASSUME_NONNULL_BEGIN
-@interface ZDTableViewBinding () <UITableViewDelegate, UITableViewDataSource>
+@interface ZDTableViewBinding ()<UITableViewDelegate, UITableViewDataSource
+#if IS_XCODE8_OR_LATER
+, UITableViewDataSourcePrefetching
+#endif
+>
 
 @property (nonatomic, readwrite, assign) struct delegateMethodsCaching {
 // UITableViewDelegate
@@ -142,6 +147,11 @@ NS_ASSUME_NONNULL_BEGIN
 		self.tableView = tableView;
         self.tableView.dataSource = self;
         self.tableView.delegate = self;
+#if __has_include(<UserNotifications/UserNotifications.h>)
+        if (kCFCoreFoundationVersionNumber > kCFCoreFoundationVersionNumber_iOS_9_x_Max) {
+            self.tableView.prefetchDataSource = self;
+        }
+#endif
         self.delegate = nil;
         
 		self.cellCommand = cellCommand;
@@ -264,6 +274,21 @@ NS_ASSUME_NONNULL_BEGIN
 
 		self.delegateRespondsTo = newMethodCaching;
 	}
+}
+
+#pragma mark - UITableViewDataSourcePrefetching
+#pragma mark -
+- (void)tableView:(UITableView *)tableView prefetchRowsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths
+{
+    for (NSIndexPath *indexPath in indexPaths) {
+        //
+    }
+}
+
+// indexPaths that previously were considered as candidates for pre-fetching, but were not actually used; may be a subset of the previous call to -tableView:prefetchRowsAtIndexPaths:
+- (void)tableView:(UITableView *)tableView cancelPrefetchingForRowsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths
+{
+    
 }
 
 #pragma mark - UITableViewDataSource
@@ -706,7 +731,7 @@ NS_ASSUME_NONNULL_BEGIN
 	}
 }
 
-- (void)tableView:(UITableView *)tableView didEndEditingRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView didEndEditingRowAtIndexPath:(ZD_NULLABLE NSIndexPath *)indexPath
 {
 	if (_delegateRespondsTo.didEndEditingRowAtIndexPath == 1) {
 		[self.delegate tableView:tableView didEndEditingRowAtIndexPath:indexPath];
