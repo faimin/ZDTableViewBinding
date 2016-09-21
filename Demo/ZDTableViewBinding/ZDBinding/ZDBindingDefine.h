@@ -13,7 +13,7 @@
 #define IS_XCODE8_OR_LATER __has_include(<UserNotifications/UserNotifications.h>)
 
 #if IS_XCODE8_OR_LATER
-#define ZD_NULL nullable
+#define ZD_NULLABLE nullable
 #else
 #define ZD_NULLABLE nonnull
 #endif

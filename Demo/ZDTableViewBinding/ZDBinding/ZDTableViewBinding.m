@@ -276,20 +276,25 @@ NS_ASSUME_NONNULL_BEGIN
 	}
 }
 
+#if IS_XCODE8_OR_LATER
 #pragma mark - UITableViewDataSourcePrefetching
 #pragma mark -
 - (void)tableView:(UITableView *)tableView prefetchRowsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths
 {
-    for (NSIndexPath *indexPath in indexPaths) {
-        //
-    }
+    //TODO: 完善预加载
+//    for (NSIndexPath *indexPath in indexPaths) {
+//        id <ZDCellViewModelProtocol> cellViewModel = [self cellViewModelAtIndexPath:indexPath];
+//        NSAssert(cellViewModel != nil, @"cellViewModel can't be nil");
+//        id <ZDCellProtocol> cell = [tableView dequeueReusableCellWithIdentifier:([cellViewModel zd_reuseIdentifier] ? : [cellViewModel zd_nibName]) forIndexPath:indexPath];
+//        NSAssert(cell != nil, @"cell can't be nil");
+//    }
 }
 
-// indexPaths that previously were considered as candidates for pre-fetching, but were not actually used; may be a subset of the previous call to -tableView:prefetchRowsAtIndexPaths:
 - (void)tableView:(UITableView *)tableView cancelPrefetchingForRowsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths
 {
-    
+    //TODO: 完善预加载
 }
+#endif
 
 #pragma mark - UITableViewDataSource
 #pragma mark -
