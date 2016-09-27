@@ -116,7 +116,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) BOOL isFinishedReloadData;
 
 /// 预加载的cell
-@property (nonatomic, strong) NSMutableSet<NSIndexPath *> *prefetchSet;
+@property (nonatomic, strong) NSMutableDictionary<NSIndexPath *, id> *prefetchDict;
 
 @end
 
@@ -189,12 +189,12 @@ NS_ASSUME_NONNULL_BEGIN
 	return self;
 }
 
-#if IS_XCODE8_OR_LATER
 #pragma mark - UITableViewDataSourcePrefetching
 #pragma mark -
+#if IS_XCODE8_OR_LATER
 - (void)tableView:(UITableView *)tableView prefetchRowsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths
 {
-    //TODO: 完善预加载
+    //TODO: 预加载
 //    for (NSIndexPath *indexPath in indexPaths) {
 //        id <ZDCellViewModelProtocol> cellViewModel = [self cellViewModelAtIndexPath:indexPath];
 //        NSAssert(cellViewModel != nil, @"cellViewModel can't be nil");
@@ -205,7 +205,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)tableView:(UITableView *)tableView cancelPrefetchingForRowsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths
 {
-    //TODO: 完善预加载
+    //TODO: 取消预加载
 }
 #endif
 
@@ -1271,12 +1271,12 @@ NS_ASSUME_NONNULL_BEGIN
 	return _mutArrClassNameForSection;
 }
 
-- (NSMutableSet<NSIndexPath *> *)prefetchSet
+- (NSMutableDictionary<NSIndexPath *, id> *)prefetchDict
 {
-    if (!_prefetchSet) {
-        _prefetchSet = [[NSMutableSet alloc] init];
+    if (!_prefetchDict) {
+        _prefetchDict = [[NSMutableDictionary alloc] init];
     }
-    return _prefetchSet;
+    return _prefetchDict;
 }
 
 @end
