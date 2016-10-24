@@ -10,15 +10,51 @@
 #ifndef ZDBindingDefine_h
 #define ZDBindingDefine_h
 
+#define IS_XCODE8_OR_LATER __has_include(<UserNotifications/UserNotifications.h>)
+
+#if IS_XCODE8_OR_LATER
+#define ZD_NULLABLE nullable
+#else
+#define ZD_NULLABLE nonnull
+#endif
+
+
 #define HeaderViewModelKey @"HeaderViewModelKey"
 #define CellViewModelKey   @"CellViewModelKey"
 #define FooterViewModelKey @"FooterViewModelKey"
+
+#define ZDCellDictionary(_cellViewModels) ZDSectionCellDictionary(nil, _cellViewModels, nil)
 
 #define ZDSectionCellDictionary(_headerViewModel, _cellViewModels, _footerViewModel)                           \
 [NSDictionary dictionaryWithObjectsAndKeys:(_headerViewModel ?: [NSNull null]) , HeaderViewModelKey,           \
                                                                _cellViewModels , CellViewModelKey,             \
                                            (_footerViewModel ?: [NSNull null]) , FooterViewModelKey, nil]
 
-#define ZDNotNilOrEmpty(_objc) (_objc != nil && ![_objc isKindOfClass:[NSNull class]])
+static inline BOOL ZDNotNilOrEmpty(id _objc) {
+    if (_objc == nil || _objc == NULL) {
+        return NO;
+    }
+    
+    if ([_objc isKindOfClass:[NSNull class]]) {
+        return NO;
+    }
+    
+    if ([_objc isKindOfClass:[NSString class]]) {
+        if ([[_objc stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length] == 0) {
+            return NO;
+        }
+    }
+    
+    return YES;
+}
+
+static inline void ZDDispatch_async_on_main_queue(dispatch_block_t block) {
+    if ([NSThread isMainThread]) {
+        block();
+    }
+    else {
+        dispatch_async(dispatch_get_main_queue(), block);
+    }
+}
 
 #endif /* ZDBindingDefine_h */

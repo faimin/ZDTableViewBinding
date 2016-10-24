@@ -19,9 +19,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) CGFloat headerHeight;
 @property (nonatomic, assign) CGFloat footerHeight;
 @property (nonatomic, strong) RACCommand *sectionCommand;
+@property (nonatomic, weak, nullable) ZDTableViewBinding *sectionBindProxy;
 @property (nonatomic, strong, nullable) UIColor *customBackgroundColor;
 
-- (void)bindToSectionViewModel:(ZDSectionViewModel *)viewModel;
+///外传section中的事件
+- (void)deliverSectionEvent:(RACTuple *)parameterTuple;
 
 @end
 NS_ASSUME_NONNULL_END

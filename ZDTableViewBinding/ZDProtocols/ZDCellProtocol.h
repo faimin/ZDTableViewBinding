@@ -10,19 +10,15 @@
 #import "ZDCellViewModelProtocol.h"
 @class RACCommand, ZDCellViewModel;
 
-/**
- *  TableViewCell需要实现的协议
- */
+/// Protocol the tableViewCell need to implement
 @protocol ZDCellProtocol <NSObject>
-
 @required
 @property (nonatomic, strong) id model;
 @property (nonatomic, strong) id<ZDCellViewModelProtocol> viewModel;
 @property (nonatomic, assign) CGFloat height;
+@property (nonatomic, strong) NSIndexPath *indexPath;
 @property (nonatomic, strong) RACCommand *cellCommand;
-
-@optional
-@property (nonatomic, assign) CGFloat estimateHeight;
+@property (nonatomic, weak  ) ZDTableViewBinding *bindProxy;
 
 /// Binds the given viewModel to the view
 - (void)bindToCellViewModel:(ZDCellViewModel *)viewModel;

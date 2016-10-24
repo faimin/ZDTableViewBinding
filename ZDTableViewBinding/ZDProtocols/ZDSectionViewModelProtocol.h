@@ -7,15 +7,22 @@
 //
 
 #import <Foundation/Foundation.h>
+@class ZDTableViewBinding;
 
 @protocol ZDSectionViewModelProtocol <NSObject>
 
-@optional
 @property (nonatomic, copy  ) NSString *zd_sectionNibName;
 @property (nonatomic, copy  ) NSString *zd_sectionReuseIdentifier;
 @property (nonatomic, strong) id       zd_sectionModel;
 @property (nonatomic, assign) CGFloat  zd_estimatedSectionHeight;
 @property (nonatomic, assign) CGFloat  zd_sectionHeight;
+@property (nonatomic, assign) CGFloat  zd_sectionFixedHeight;
+@property (nonatomic, copy  ) NSString *zd_sectionClassName;
+@property (nonatomic, weak  ) ZDTableViewBinding *zd_sectionBindProxy;
+
+@end
+
+
 
 //@property (nonatomic, copy  ) NSString *zd_headerNibName;
 //@property (nonatomic, copy  ) NSString *zd_headerReuseIdentifier;
@@ -29,4 +36,3 @@
 //@property (nonatomic, assign) CGFloat  zd_estimatedFooterHeight;
 //@property (nonatomic, assign) CGFloat  zd_footerHeight;
 
-@end
