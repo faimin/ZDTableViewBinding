@@ -882,7 +882,7 @@ NS_ASSUME_NONNULL_BEGIN
 		NSInteger section = indexPath.section;
 		NSAssert(section < self.sectionCellDatas.count, @"数组越界了");
 
-		NSArray *cellViewModelArr = self.sectionCellDatas[indexPath.section][CellViewModelKey];
+		NSArray *cellViewModelArr = self.sectionCellDatas[section][CellViewModelKey];
 		ZDCellViewModel *viewModel = cellViewModelArr[indexPath.row];
 		NSAssert(ZDNotNilOrEmpty(viewModel), @"viewModel不能为nil");
 		return viewModel;
