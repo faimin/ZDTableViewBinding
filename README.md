@@ -1,3 +1,6 @@
+[![License MIT](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](https://github.com/faimin/ZDTableViewBinding/blob/master/Demo/LICENSE)&nbsp;
+[![Language](http://img.shields.io/badge/language-objc-brightgreen.svg?style=flat
+)](https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html)&nbsp;
 # ZDTableViewBinding
 
 ####简介：
@@ -37,11 +40,19 @@ cell和section中的控件的响应事件会通过外面`command`的进行操作
 
 ---
 
-####安装使用
-支持`CocoaPods`安装
+###Installation with CocoaPods
+Add the following line to your Podfile.
 
 ```ruby
 pod 'ZDTableViewBinding'
 ```
+Then, run the following command:
+
+```ruby
+$ pod install
+```
+###License
+**ZDTableViewBinding** is under an MIT license. See the [LICENSE](https://github.com/faimin/ZDTableViewBinding/blob/master/Demo/LICENSE) file for more information.
+
 
 
