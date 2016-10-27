@@ -37,4 +37,11 @@ cell和section中的控件的响应事件会通过外面`command`的进行操作
 
 ---
 
+####安装使用
+支持`CocoaPods`安装
+
+```ruby
+pod 'ZDTableViewBinding'
+```
+
 
