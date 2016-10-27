@@ -1,3 +1,4 @@
+source 'https://github.com/CocoaPods/Specs.git'
 
 Pod::Spec.new do |s|
 
