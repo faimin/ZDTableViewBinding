@@ -39,6 +39,7 @@ PODS:
     - ReactiveCocoa (~> 2.5)
     - UITableView+FDTemplateLayoutCell (~> 1.4)
     - ZDTableViewBinding/ZDProtocols
+    - ZDTableViewBinding/ZDViewModels
   - ZDTableViewBinding/ZDProtocols (0.0.2):
     - ReactiveCocoa (~> 2.5)
   - ZDTableViewBinding/ZDViewModels (0.0.2):
@@ -63,7 +64,7 @@ SPEC CHECKSUMS:
   ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
   UITableView+FDTemplateLayoutCell: 234e1582bcc4e18461af91155123bb96538ed030
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
-  ZDTableViewBinding: 54ac5330b23d2a537b9aa9391f2cdb3889ed9c9a
+  ZDTableViewBinding: 963a71692b3a782daaf21e2fc7d19a809a7c4e6c
 
 PODFILE CHECKSUM: b5ac4dbe5746742b37730f385962e8a7f292e061
 

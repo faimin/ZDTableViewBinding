@@ -7,7 +7,7 @@
 //
 
 #import "ZDTableViewBinding.h"
-#import <UITableView+FDTemplateLayoutCell.h>
+#import "UITableView+FDTemplateLayoutCell.h"
 #import "ZDCellViewModel.h"
 #import "ZDSectionViewModel.h"
 

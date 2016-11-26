@@ -33,23 +33,26 @@
       "source_files": "ZDTableViewBinding/ZDProtocols/*.h"
     },
     {
+      "name": "ZDViewModels",
+      "source_files": "ZDTableViewBinding/ZDViewModels/*.{h,m}",
+      "dependencies": {
+        "ZDTableViewBinding/ZDProtocols": [
+
+        ]
+      }
+    },
+    {
       "name": "ZDBinding",
       "source_files": "ZDTableViewBinding/ZDBinding/*.{h,m}",
       "dependencies": {
         "ZDTableViewBinding/ZDProtocols": [
 
         ],
+        "ZDTableViewBinding/ZDViewModels": [
+
+        ],
         "UITableView+FDTemplateLayoutCell": [
           "~> 1.4"
-        ]
-      }
-    },
-    {
-      "name": "ZDViewModels",
-      "source_files": "ZDTableViewBinding/ZDViewModels/*.{h,m}",
-      "dependencies": {
-        "ZDTableViewBinding/ZDProtocols": [
-
         ]
       }
     },
