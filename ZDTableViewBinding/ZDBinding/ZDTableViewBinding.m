@@ -10,8 +10,6 @@
 #import <UITableView+FDTemplateLayoutCell.h>
 #import "ZDCellViewModel.h"
 #import "ZDSectionViewModel.h"
-#import "ZDBaseSectionView.h"
-
 
 NS_ASSUME_NONNULL_BEGIN
 @interface NSObject (Cast)
@@ -430,7 +428,7 @@ NS_ASSUME_NONNULL_BEGIN
         if (!ZDNotNilOrEmpty(headerViewModel)) return nil;
         
         NSString *headerReuseIdentifier = headerViewModel.zd_sectionReuseIdentifier ? : headerViewModel.zd_sectionNibName;
-		__kindof ZDBaseSectionView <ZDSectionProtocol> *viewForHeaderInSection = [tableView dequeueReusableHeaderFooterViewWithIdentifier:headerReuseIdentifier];
+		id <ZDSectionProtocol> viewForHeaderInSection = [tableView dequeueReusableHeaderFooterViewWithIdentifier:headerReuseIdentifier];
         
         if ([viewForHeaderInSection respondsToSelector:@selector(setSectionBindProxy:)]) {
             viewForHeaderInSection.sectionBindProxy = self;
@@ -444,7 +442,7 @@ NS_ASSUME_NONNULL_BEGIN
 			viewForHeaderInSection.sectionCommand = self.sectionCommand;
 		}
 
-		return viewForHeaderInSection;
+		return [UIView zd_cast:viewForHeaderInSection];
 	}
 
 	return nil;
@@ -460,7 +458,7 @@ NS_ASSUME_NONNULL_BEGIN
         if (!ZDNotNilOrEmpty(footerViewModel)) return nil;
         
         NSString *footerReuseIdentifier = footerViewModel.zd_sectionReuseIdentifier ? : footerViewModel.zd_sectionNibName;
-		__kindof ZDBaseSectionView <ZDSectionProtocol> *viewForFooterInSection = [tableView dequeueReusableHeaderFooterViewWithIdentifier:footerReuseIdentifier];
+		id <ZDSectionProtocol> viewForFooterInSection = [tableView dequeueReusableHeaderFooterViewWithIdentifier:footerReuseIdentifier];
 
         if ([viewForFooterInSection respondsToSelector:@selector(setSectionBindProxy:)]) {
             viewForFooterInSection.sectionBindProxy = self;
@@ -474,7 +472,7 @@ NS_ASSUME_NONNULL_BEGIN
 			viewForFooterInSection.sectionCommand = self.sectionCommand;
 		}
 
-		return viewForFooterInSection;
+		return [UIView zd_cast:viewForFooterInSection];
 	}
 
     return nil;
@@ -509,7 +507,7 @@ NS_ASSUME_NONNULL_BEGIN
         if (!ZDNotNilOrEmpty(sectionViewModel)) return 0;
         
         NSString *headerReuseIdentifier = sectionViewModel.zd_sectionReuseIdentifier ? : sectionViewModel.zd_sectionNibName;
-		__kindof ZDBaseSectionView <ZDSectionProtocol> *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:headerReuseIdentifier];
+		id <ZDSectionProtocol> headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:headerReuseIdentifier];
 		headerView.sectionModel = sectionViewModel.zd_sectionModel;
 
         if (sectionViewModel.zd_sectionFixedHeight > 0) {   // 固定高度
@@ -521,7 +519,7 @@ NS_ASSUME_NONNULL_BEGIN
 		else {
             //NSLayoutConstraint *widthConstraint = [NSLayoutConstraint constraintWithItem:headerView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:CGRectGetWidth(headerView.contentView.bounds)];
             //[headerView addConstraint:widthConstraint];
-			heightForHeaderInSection = [(__kindof ZDBaseSectionView *)headerView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
+			heightForHeaderInSection = [(__kindof UIView *)headerView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
             //[headerView removeConstraint:widthConstraint];
             
 			//更新headerViewModel
@@ -578,7 +576,7 @@ NS_ASSUME_NONNULL_BEGIN
 			heightForFooterInSection = sectionViewModel.zd_sectionHeight;
 		}
 		else {
-			heightForFooterInSection = [(__kindof ZDBaseSectionView *)footerView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
+			heightForFooterInSection = [(__kindof UIView *)footerView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize].height;
 
 			//更新footerViewModel
 			sectionViewModel.zd_sectionHeight = heightForFooterInSection;
@@ -596,7 +594,7 @@ NS_ASSUME_NONNULL_BEGIN
     if (!self.isMutiSection) return;
     
     if (self.sectionCellDatas.count > section) {
-        __kindof ZDBaseSectionView <ZDSectionProtocol> *viewForHeaderInSection = (id)view;
+        id <ZDSectionProtocol> viewForHeaderInSection = (id)view;
         
         ZDSectionViewModel *headerViewModel = self.sectionCellDatas[section][HeaderViewModelKey];
         if (!ZDNotNilOrEmpty(headerViewModel)) return;
@@ -621,7 +619,7 @@ NS_ASSUME_NONNULL_BEGIN
     if (!self.isMutiSection) return;
     
     if (self.sectionCellDatas.count > section) {
-        __kindof ZDBaseSectionView <ZDSectionProtocol> *viewForFooterInSection = (id)view;
+        id <ZDSectionProtocol> viewForFooterInSection = (id)view;
         
         ZDSectionViewModel *footerViewModel = self.sectionCellDatas[section][FooterViewModelKey];
         if (!ZDNotNilOrEmpty(footerViewModel)) return;

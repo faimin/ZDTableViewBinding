@@ -34,6 +34,7 @@
 #import "ZDBindingDefine.h"
 #import "ZDCellViewModelProtocol.h"
 #import "ZDCellProtocol.h"
+#import "ZDSectionProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
 @interface ZDTableViewBinding : NSObject

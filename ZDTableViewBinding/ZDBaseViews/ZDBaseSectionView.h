@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <ReactiveCocoa/ReactiveCocoa.h>
 #import "ZDSectionViewModel.h"
 #import "ZDSectionProtocol.h"
-#import <ReactiveCocoa/ReactiveCocoa.h>
 
 NS_ASSUME_NONNULL_BEGIN
 @interface ZDBaseSectionView : UITableViewHeaderFooterView<ZDSectionProtocol>

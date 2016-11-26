@@ -10,13 +10,8 @@ Pod::Spec.new do |s|
   s.platform     = :ios, "7.0"
   s.source       = { 
     :git => "https://github.com/faimin/ZDTableViewBinding.git", 
-    :tag => s.version
+    :tag => s.version.to_s
   }
-
-  s.subspec 'ZDBinding' do |ss|
-    ss.source_files = 'ZDTableViewBinding/ZDBinding/*.{h,m}'
-    ss.dependency "UITableView+FDTemplateLayoutCell", "~> 1.4"
-  end
 
   s.subspec 'ZDProtocols' do |ss|
     ss.source_files = 'ZDTableViewBinding/ZDProtocols/*.h'
@@ -24,13 +19,24 @@ Pod::Spec.new do |s|
 
   s.subspec 'ZDViewModels' do |ss|
     ss.source_files = 'ZDTableViewBinding/ZDViewModels/*.{h,m}'
+    ss.dependency 'ZDTableViewBinding/ZDProtocols'
+  end
+
+  s.subspec 'ZDBinding' do |ss|
+    ss.source_files = 'ZDTableViewBinding/ZDBinding/*.{h,m}'
+    ss.dependency 'ZDTableViewBinding/ZDProtocols'
+    ss.dependency 'ZDTableViewBinding/ZDViewModels'
+    ss.dependency 'UITableView+FDTemplateLayoutCell', '~> 1.4'
   end
 
   s.subspec 'ZDBaseViews' do |ss|
     ss.source_files = 'ZDTableViewBinding/ZDBaseViews/*.{h,m}'
+    ss.dependency 'ZDTableViewBinding/ZDProtocols'
+    ss.dependency 'ZDTableViewBinding/ZDViewModels'
   end
 
   s.requires_arc = true
+  s.frameworks = 'Foundation', 'UIKit'
   s.dependency "ReactiveCocoa", "~> 2.5"
 
 end

@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ZDSectionViewModelProtocol.h"
 @class ZDSectionViewModel, RACCommand;
 
 @protocol ZDSectionProtocol <NSObject>
