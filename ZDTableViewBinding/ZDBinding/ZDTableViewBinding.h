@@ -2,7 +2,7 @@
 //  ZDTableViewBindingHelper.h
 //  Demo
 //
-//  Created by 符现超 on 16/3/6.
+//  Created by Zero on 16/3/6.
 //  Copyright © 2016年 Zero.D.Saber. All rights reserved.
 //
 
@@ -30,7 +30,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "ReactiveCocoa/ReactiveCocoa.h"
+#import <ReactiveCocoa/ReactiveCocoa.h>
 #import "ZDBindingDefine.h"
 #import "ZDCellViewModelProtocol.h"
 #import "ZDCellProtocol.h"

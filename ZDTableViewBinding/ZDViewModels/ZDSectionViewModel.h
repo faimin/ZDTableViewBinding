@@ -2,12 +2,12 @@
 //  ZDHeaderFooterViewModel.h
 //  Demo
 //
-//  Created by 符现超 on 16/3/22.
+//  Created by Zero on 16/3/22.
 //  Copyright © 2016年 Zero.D.Saber. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import <CoreGraphics/CoreGraphics.h>
+#import <UIKit/UIKit.h>
 #import "ZDSectionViewModelProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN

@@ -2,7 +2,7 @@
 //  ZDSectionProtocol.h
 //  Demo
 //
-//  Created by 符现超 on 16/3/23.
+//  Created by Zero on 16/3/23.
 //  Copyright © 2016年 Zero.D.Saber. All rights reserved.
 //
 
@@ -16,6 +16,7 @@
 @property (nonatomic, assign) CGFloat headerHeight;
 @property (nonatomic, assign) CGFloat footerHeight;
 @property (nonatomic, strong) RACCommand *sectionCommand;
+@property (nonatomic, weak  ) ZDTableViewBinding *sectionBindProxy;
 
 - (void)bindToSectionViewModel:(ZDSectionViewModel *)viewModel;
 

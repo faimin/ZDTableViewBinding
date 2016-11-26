@@ -2,23 +2,23 @@
 //  ZDTableViewBindingHelper.m
 //  Demo
 //
-//  Created by 符现超 on 16/3/6.
+//  Created by Zero on 16/3/6.
 //  Copyright © 2016年 Zero.D.Saber. All rights reserved.
 //
 
 #import "ZDTableViewBinding.h"
-#import "UITableView+FDTemplateLayoutCell.h"
+#import <UITableView+FDTemplateLayoutCell.h>
 #import "ZDCellViewModel.h"
 #import "ZDSectionViewModel.h"
 #import "ZDBaseSectionView.h"
 
 
+NS_ASSUME_NONNULL_BEGIN
 @interface NSObject (Cast)
 + (nullable id)zd_cast:(id)objc;
 @end
 
 
-NS_ASSUME_NONNULL_BEGIN
 @interface ZDTableViewBinding ()<UITableViewDelegate, UITableViewDataSource
 #if IS_XCODE8_OR_LATER
 , UITableViewDataSourcePrefetching
@@ -1281,7 +1281,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-NS_ASSUME_NONNULL_END
 
 @implementation NSObject (Cast)
 
@@ -1294,3 +1293,4 @@ NS_ASSUME_NONNULL_END
 }
 
 @end
+NS_ASSUME_NONNULL_END
