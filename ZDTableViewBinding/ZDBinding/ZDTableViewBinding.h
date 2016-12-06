@@ -57,7 +57,7 @@ NS_ASSUME_NONNULL_BEGIN
                    mutableSection:(BOOL)mutableSection
                      sourceSignal:(RACSignal *)sourceSignal
                       cellCommand:(RACCommand *)cellCommand
-                   sectionCommand:(RACCommand *)sectionCommand;
+                   sectionCommand:(RACCommand *)sectionCommand NS_DESIGNATED_INITIALIZER;
 
 - (nullable id <ZDCellViewModelProtocol>)cellViewModelAtIndexPath:(NSIndexPath *)indexPath;
 
