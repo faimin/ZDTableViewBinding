@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <ReactiveCocoa/ReactiveCocoa.h>
+#import <ReactiveObjC/ReactiveObjC.h>
 #import "ZDCellProtocol.h"
 #import "ZDCellViewModelProtocol.h"
 #import "ZDCellViewModel.h"
