@@ -22,7 +22,9 @@ NS_ASSUME_NONNULL_BEGIN
 , UITableViewDataSourcePrefetching
 #endif
 >
-
+{
+    BOOL _isNeedToResetData;
+}
 @property (nonatomic, readwrite, assign) struct delegateMethodsCaching {
 // UITableViewDelegate
 //Configuring Rows for the Table View
@@ -1024,13 +1026,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)resetData
 {
-    self.isNeedToResetData = YES;
+    _isNeedToResetData = YES;
 }
 
 #pragma mark - Private Method
 - (void)clearData
 {
-    if (!self.isNeedToResetData) return;
+    if (!_isNeedToResetData) return;
     
     if (self.isMutiSection) {
         [self.sectionCellDatas removeAllObjects];
@@ -1038,7 +1040,7 @@ NS_ASSUME_NONNULL_BEGIN
     else {
         [self.cellViewModels removeAllObjects];
     }
-    self.isNeedToResetData = NO;
+    _isNeedToResetData = NO;
 }
 
 - (void)registerNibForTableViewWithCellViewModels:(NSArray <ZDCellViewModel *> *)cellViewModels

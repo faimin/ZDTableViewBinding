@@ -54,7 +54,7 @@
 		if (!error) {
 			NSError *zderror;
 			NSDictionary *obj = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&zderror];
-            //YYModel解析
+            // YYModel解析
             NSArray *yyArr = [NSArray yy_modelArrayWithClass:[ZDModel class] json:obj[@"data"][@"squareInfo"]];
             // MJExtend解析
             NSArray *mjArr __attribute__((unused)) = [ZDModel mj_objectArrayWithKeyValuesArray:obj[@"data"][@"squareInfo"]];

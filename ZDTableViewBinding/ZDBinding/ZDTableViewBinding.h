@@ -42,8 +42,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak, readonly) UITableView *tableView;
 /// used to forward the delegate method
 @property (nonatomic, weak, nullable) id <UITableViewDelegate> delegate;
-/// if YES,the old datas in array will be clear, otherwise the new datas add to the array
-@property (nonatomic, assign) BOOL isNeedToResetData;
 /// datas had be reloaded
 @property (nonatomic, assign, readonly) BOOL isFinishedReloadData;
 
