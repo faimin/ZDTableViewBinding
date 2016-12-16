@@ -45,25 +45,30 @@ NS_ASSUME_NONNULL_BEGIN
 /// datas had be reloaded
 @property (nonatomic, assign, readonly) BOOL isFinishedReloadData;
 
+/**
+ TableView数据绑定
+
+ @param tableView 表视图
+ @param multiSection 只要要显示section，此参数就需要设置为`YES`
+ @param sourceSignal 数据源信号
+ @param cellCommand cell上的事件
+ @param sectionCommand section上的事件
+ @return tableView代理
+ */
 + (instancetype)bindingHelperForTableView:(UITableView *)tableView
-                           mutableSection:(BOOL)mutableSection
+                             multiSection:(BOOL)multiSection
                              sourceSignal:(RACSignal *)sourceSignal
                               cellCommand:(RACCommand *)cellCommand
                            sectionCommand:(RACCommand *)sectionCommand;
 
-- (instancetype)initWithTableView:(UITableView *)tableView
-                   mutableSection:(BOOL)mutableSection
-                     sourceSignal:(RACSignal *)sourceSignal
-                      cellCommand:(RACCommand *)cellCommand
-                   sectionCommand:(RACCommand *)sectionCommand;
-
 - (nullable id <ZDCellViewModelProtocol>)cellViewModelAtIndexPath:(NSIndexPath *)indexPath;
 
 - (void)insertViewModel:(id <ZDCellViewModelProtocol>)viewModel atIndexPath:(NSIndexPath *)indexPath;
-- (void)replaceViewModel:(id <ZDCellViewModelProtocol>)viewModel atIndexPath:(NSIndexPath *)indexPath afterDelay:(NSTimeInterval)delay;///< delay < 0，don't reloadCell, = 0 reload immediately
+/// `delay < 0`,don't reloadCell; `= 0`,reload immediately
+- (void)replaceViewModel:(id <ZDCellViewModelProtocol>)viewModel atIndexPath:(NSIndexPath *)indexPath afterDelay:(NSTimeInterval)delay;
 - (void)replaceViewModel:(id <ZDCellViewModelProtocol>)model atIndexPath:(NSIndexPath *)indexPath;
-- (void)moveViewModelFromIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath;///< muti section
-- (void)moveViewModel:(id<ZDCellViewModelProtocol>)viewModel toIndexPath:(NSIndexPath *)toIndexPath;///< single section
+- (void)moveViewModelFromIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath; ///< multi section
+- (void)moveViewModel:(id<ZDCellViewModelProtocol>)viewModel toIndexPath:(NSIndexPath *)toIndexPath;    ///< single section
 - (void)deleteCellViewModelAtIndexPath:(NSIndexPath *)indexPath;
 - (void)reloadItemsAtIndexPaths:(NSArray <NSIndexPath *> *)indexPaths;
 
