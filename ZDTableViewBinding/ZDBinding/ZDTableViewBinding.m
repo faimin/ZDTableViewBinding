@@ -551,6 +551,7 @@ NS_ASSUME_NONNULL_BEGIN
 // fix bug：在9.0之前的系统，执行此方法后，tableView:heightForFooterInSection:代理方法会不执行，然后footerHeight用的是header的heigth
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForFooterInSection:(NSInteger)section
 {
+    CGFloat estimatedHeightForFooterInSection = 0.0;
     
     if (self.isMultiSection) {
         NSDictionary *dic = self.sectionCellDatas[section];
