@@ -233,7 +233,19 @@ NS_ASSUME_NONNULL_BEGIN
 	id <ZDCellViewModelProtocol> cellViewModel = [self cellViewModelAtIndexPath:indexPath];
 	NSAssert(cellViewModel != nil, @"cellViewModel can't be nil");
 	id <ZDCellProtocol> cell = [tableView dequeueReusableCellWithIdentifier:([cellViewModel zd_reuseIdentifier] ? : [cellViewModel zd_nibName]) forIndexPath:indexPath];
-	NSAssert(cell != nil, @"cell can't be nil");
+    if (!cell) {
+        NSString *reuseIdentifier = [cellViewModel zd_reuseIdentifier];
+        Class aCalss = NSClassFromString(reuseIdentifier);
+        if (!aCalss) {
+            NSAssert(NO, @"aClass don't exist");
+        }
+        else {
+            if (![[[aCalss alloc] init] isKindOfClass:[UITableViewCell class]]) {
+                NSAssert(NO, @"aClass isn't `UITableViewCell` class");
+            }
+        }
+        cell = [[aCalss alloc] initWithStyle:UITableViewStylePlain reuseIdentifier:reuseIdentifier];
+    }
 
     if ([cellViewModel respondsToSelector:@selector(setZd_bindProxy:)]) {
         cellViewModel.zd_bindProxy = self;
@@ -539,13 +551,12 @@ NS_ASSUME_NONNULL_BEGIN
 // fix bug：在9.0之前的系统，执行此方法后，tableView:heightForFooterInSection:代理方法会不执行，然后footerHeight用的是header的heigth
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForFooterInSection:(NSInteger)section
 {
-    CGFloat estimatedHeightForFooterInSection = 0.0f;
     
     if (self.isMultiSection) {
         NSDictionary *dic = self.sectionCellDatas[section];
         ZDSectionViewModel *sectionViewModel = dic[FooterViewModelKey];
         
-        if (!ZDNotNilOrEmpty(sectionViewModel)) return 0;
+        if (!ZDNotNilOrEmpty(sectionViewModel)) return 0.0;
         
         CGFloat estimateHeight = sectionViewModel.zd_estimatedSectionHeight;
         return estimateHeight;
