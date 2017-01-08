@@ -244,7 +244,7 @@ NS_ASSUME_NONNULL_BEGIN
                 NSAssert(NO, @"aClass isn't `UITableViewCell` class");
             }
         }
-        cell = [[aCalss alloc] initWithStyle:UITableViewStylePlain reuseIdentifier:reuseIdentifier];
+        cell = [[aCalss alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
     }
 
     if ([cellViewModel respondsToSelector:@selector(setZd_bindProxy:)]) {
