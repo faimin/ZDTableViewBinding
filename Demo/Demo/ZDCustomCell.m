@@ -22,27 +22,32 @@
     @weakify(self);
     [[RACObserve(self, model) ignore:nil] subscribeNext:^(Barcontent *x) {
         @strongify(self);
-        self.articleCount.text = STRINGFORMATE(@"文章数量：%@", x.articleNum);
-        self.articleBrief.text = STRINGFORMATE(@"文章简介：%@", x.barDesc);
-        self.barID.text = STRINGFORMATE(@"吧ID：%ld", x.barId);
-        self.barName.text = STRINGFORMATE(@"吧名称：%@", x.barName);
-        self.recommendReason.text = x.recommendReason;
-        [self.barImage setImageWithURL:[NSURL URLWithString:x.barImgUrl]];
+        [self updateUIWithModel:x];
     }];
-     //*/
 }
 
 - (void)bindToCellViewModel:(ZDCellViewModel *)viewModel
 {
-    /** 方案2
-    Barcontent *x = viewModel.model;
+    //** 方案2
+    //[self updateUIWithModel:viewModel.zd_model];
+}
+
+- (void)updateUIWithModel:(Barcontent *)x
+{
     self.articleCount.text = STRINGFORMATE(@"文章数量：%@", x.articleNum);
     self.articleBrief.text = STRINGFORMATE(@"文章简介：%@", x.barDesc);
     self.barID.text = STRINGFORMATE(@"吧ID：%ld", x.barId);
     self.barName.text = STRINGFORMATE(@"吧名称：%@", x.barName);
     self.recommendReason.text = x.recommendReason;
     [self.barImage setImageWithURL:[NSURL URLWithString:x.barImgUrl]];
-     */
+}
+
+#pragma mark - Override
+// 设置每个cell之间的间距
+- (void)setFrame:(CGRect)frame
+{
+    frame.size.height -= 5;
+    [super setFrame:frame];
 }
 
 @end
