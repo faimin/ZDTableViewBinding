@@ -36,7 +36,7 @@
 {
     self.articleCount.text = STRINGFORMATE(@"文章数量：%@", x.articleNum);
     self.articleBrief.text = STRINGFORMATE(@"文章简介：%@", x.barDesc);
-    self.barID.text = STRINGFORMATE(@"吧ID：%ld", x.barId);
+    self.barID.text = STRINGFORMATE(@"吧ID：%zd", x.barId);
     self.barName.text = STRINGFORMATE(@"吧名称：%@", x.barName);
     self.recommendReason.text = x.recommendReason;
     [self.barImage setImageWithURL:[NSURL URLWithString:x.barImgUrl]];
