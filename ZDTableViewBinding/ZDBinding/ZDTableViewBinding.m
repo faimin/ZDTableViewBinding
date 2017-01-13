@@ -239,12 +239,12 @@ NS_ASSUME_NONNULL_BEGIN
         if (!aCalss) {
             NSAssert(NO, @"aClass don't exist");
         }
-        else {
-            if (![[[aCalss alloc] init] isKindOfClass:[UITableViewCell class]]) {
-                NSAssert(NO, @"aClass isn't `UITableViewCell` class");
-            }
+        else if ([[[aCalss alloc] init] isKindOfClass:[UITableViewCell class]]) {
+            cell = [[aCalss alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
         }
-        cell = [[aCalss alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
+        else {
+            NSAssert(NO, @"aClass isn't `UITableViewCell` class");
+        }
     }
 
     if ([cellViewModel respondsToSelector:@selector(setZd_bindProxy:)]) {
