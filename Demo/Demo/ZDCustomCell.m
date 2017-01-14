@@ -32,6 +32,8 @@
     //[self updateUIWithModel:viewModel.zd_model];
 }
 
+/// Note: 这里我们会发现cell接收了2次相同的model值，你可能会认为视图会无故多刷新一次，
+/// 但是其实不是你想象的那样，因为你打印self会发现，虽然是同一个model，但是接收的对象一般情况下却是不相同的，其中第一次的model是发送给用来计算高度的cell的
 - (void)updateUIWithModel:(Barcontent *)x
 {
     self.articleCount.text = STRINGFORMATE(@"文章数量：%@", x.articleNum);
