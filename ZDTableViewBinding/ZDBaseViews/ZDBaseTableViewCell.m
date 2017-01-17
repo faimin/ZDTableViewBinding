@@ -36,7 +36,7 @@
 
 - (void)deliverCellEvent:(RACTuple *)parameterTuple
 {
-    NSAssert(self.cellCommand, @"command is't initialization");
+    NSAssert(self.cellCommand, @"command isn't initialization");
     if (self.cellCommand) {
         [self.cellCommand execute:parameterTuple];
     }
