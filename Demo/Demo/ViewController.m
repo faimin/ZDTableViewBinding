@@ -54,7 +54,7 @@
 		if (!error) {
 			NSError *zderror;
 			NSDictionary *obj = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&zderror];
-            //YYModel解析
+            // YYModel解析
             NSArray *yyArr = [NSArray yy_modelArrayWithClass:[ZDModel class] json:obj[@"data"][@"squareInfo"]];
             // MJExtend解析
             NSArray *mjArr __attribute__((unused)) = [ZDModel mj_objectArrayWithKeyValuesArray:obj[@"data"][@"squareInfo"]];
@@ -114,7 +114,7 @@
 
 	// 不要忘记让当前类持有helper，否则，出了当前作用域就会被释放
 	self.helper = [ZDTableViewBinding bindingHelperForTableView:self.tableView
-                                                 mutableSection:YES
+                                                   multiSection:YES
                                                    sourceSignal:RACObserve(self, models)
                                                     cellCommand:command
                                                  sectionCommand:sectionCommand];
