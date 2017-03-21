@@ -353,6 +353,11 @@ NS_ASSUME_NONNULL_BEGIN
 //		[self.delegate tableView:tableView willDisplayCell:cell forRowAtIndexPath:indexPath];
 //	}
     
+    if (![cell conformsToProtocol:@protocol(ZDCellProtocol)]) {
+        NSAssert(NO, @"cell 需要遵守协议");
+        return;
+    }
+        
     id <ZDCellViewModelProtocol> cellViewModel = [self cellViewModelAtIndexPath:indexPath];
     NSAssert(cellViewModel != nil, @"cellViewModel can't be nil");
     
@@ -442,7 +447,14 @@ NS_ASSUME_NONNULL_BEGIN
         if (!ZDNotNilOrEmpty(headerViewModel)) return nil;
         
         NSString *headerReuseIdentifier = headerViewModel.zd_sectionReuseIdentifier ? : headerViewModel.zd_sectionNibName;
-		id <ZDSectionProtocol> viewForHeaderInSection = [tableView dequeueReusableHeaderFooterViewWithIdentifier:headerReuseIdentifier];
+		UITableViewHeaderFooterView *headerInSectionView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:headerReuseIdentifier];
+        
+        if (![headerInSectionView conformsToProtocol:@protocol(ZDSectionProtocol)]) {
+            NSAssert(NO, @"headerView需要遵守协议");
+            return headerInSectionView;
+        }
+        
+        id <ZDSectionProtocol> viewForHeaderInSection = headerInSectionView;
         
         if ([viewForHeaderInSection respondsToSelector:@selector(setSectionBindProxy:)]) {
             viewForHeaderInSection.sectionBindProxy = self;
@@ -472,7 +484,14 @@ NS_ASSUME_NONNULL_BEGIN
         if (!ZDNotNilOrEmpty(footerViewModel)) return nil;
         
         NSString *footerReuseIdentifier = footerViewModel.zd_sectionReuseIdentifier ? : footerViewModel.zd_sectionNibName;
-		id <ZDSectionProtocol> viewForFooterInSection = [tableView dequeueReusableHeaderFooterViewWithIdentifier:footerReuseIdentifier];
+		UITableViewHeaderFooterView *footerInSectionView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:footerReuseIdentifier];
+        
+        if (![footerInSectionView conformsToProtocol:@protocol(ZDSectionProtocol)]) {
+            NSAssert(NO, @"需要遵守协议");
+            return footerInSectionView;
+        }
+        
+        id <ZDSectionProtocol> viewForFooterInSection = footerInSectionView;
 
         if ([viewForFooterInSection respondsToSelector:@selector(setSectionBindProxy:)]) {
             viewForFooterInSection.sectionBindProxy = self;
