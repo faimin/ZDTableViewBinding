@@ -16,34 +16,34 @@ PODS:
     - AFNetworking/NSURLSession
   - JPFPSStatus (0.1)
   - MJExtension (3.0.13)
-  - ReactiveObjC (2.1.0)
-  - UITableView+FDTemplateLayoutCell (1.4)
+  - ReactiveObjC (3.0.0)
+  - UITableView+FDTemplateLayoutCell (1.6)
   - YYModel (1.0.4)
   - ZDTableViewBinding (0.0.3):
-    - ReactiveObjC (~> 2.1.0)
+    - ReactiveObjC
     - ZDTableViewBinding/ZDBaseViews (= 0.0.3)
     - ZDTableViewBinding/ZDBinding (= 0.0.3)
     - ZDTableViewBinding/ZDProtocols (= 0.0.3)
     - ZDTableViewBinding/ZDViewModels (= 0.0.3)
   - ZDTableViewBinding/ZDBaseViews (0.0.3):
-    - ReactiveObjC (~> 2.1.0)
+    - ReactiveObjC
     - ZDTableViewBinding/ZDProtocols
     - ZDTableViewBinding/ZDViewModels
   - ZDTableViewBinding/ZDBinding (0.0.3):
-    - ReactiveObjC (~> 2.1.0)
-    - UITableView+FDTemplateLayoutCell (~> 1.4)
+    - ReactiveObjC
+    - UITableView+FDTemplateLayoutCell (~> 1.6)
     - ZDTableViewBinding/ZDProtocols
     - ZDTableViewBinding/ZDViewModels
   - ZDTableViewBinding/ZDProtocols (0.0.3):
-    - ReactiveObjC (~> 2.1.0)
+    - ReactiveObjC
   - ZDTableViewBinding/ZDViewModels (0.0.3):
-    - ReactiveObjC (~> 2.1.0)
+    - ReactiveObjC
     - ZDTableViewBinding/ZDProtocols
 
 DEPENDENCIES:
   - AFNetworking
   - JPFPSStatus (~> 0.1)
-  - MJExtension (~> 3.0.10)
+  - MJExtension (~> 3.0.13)
   - YYModel (~> 1.0.4)
   - ZDTableViewBinding (from `../`)
 
@@ -55,11 +55,11 @@ SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   JPFPSStatus: 4467a17488382e4c1700bd9d18c92ae581fd6305
   MJExtension: 5932755f451458eefa24239358817f8d291240c7
-  ReactiveObjC: 2edae120982d8e6d5407503a10edcfdd87eb8639
-  UITableView+FDTemplateLayoutCell: 234e1582bcc4e18461af91155123bb96538ed030
+  ReactiveObjC: ce79989e8684b9086b5f8d0c74bc7b81a8729c9e
+  UITableView+FDTemplateLayoutCell: 5c949b4a5059c404b442926c0e80f81d10a2d66f
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
-  ZDTableViewBinding: 8dbd73cf4ef7a74c3bee4328bc8467e9f8730a67
+  ZDTableViewBinding: 6d1ef20be00ddc7511dc1f52b10ef2accd4e4b48
 
-PODFILE CHECKSUM: 7579d047be3d8943d5bd217599b3f75672c7a0d7
+PODFILE CHECKSUM: 2ca43cbcbc97dff34d321fe85beeb0277bc3f35a
 
-COCOAPODS: 1.2.0.beta.1
+COCOAPODS: 1.2.1

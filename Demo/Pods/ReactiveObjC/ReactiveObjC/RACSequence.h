@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "RACStream.h"
 
+@class RACTuple;
 @class RACScheduler;
 @class RACSignal<__covariant ValueType>;
 
@@ -126,7 +127,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// block - The block predicate used to check each item. Cannot be nil.
 ///
 /// Returns an object that passes the block or nil if no objects passed.
-- (id)objectPassingTest:(BOOL (^)(ValueType _Nullable value))block;
+- (nullable ValueType)objectPassingTest:(BOOL (^)(ValueType _Nullable value))block;
 
 /// Creates a sequence that dynamically generates its values.
 ///
@@ -149,12 +150,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-/// A block which accepts a value from a RACSequence and returns a new sequence.
-///
-/// Setting `stop` to `YES` will cause the bind to terminate after the returned
-/// value. Returning `nil` will result in immediate termination.
-typedef RACSequence * _Nullable (^RACSequenceBindBlock)(id _Nullable value, BOOL *stop);
-
 @interface RACSequence<__covariant ValueType> (RACStream)
 
 /// Returns a sequence that immediately sends the given value and then completes.
@@ -162,6 +157,12 @@ typedef RACSequence * _Nullable (^RACSequenceBindBlock)(id _Nullable value, BOOL
 
 /// Returns a sequence that immediately completes.
 + (RACSequence<ValueType> *)empty;
+
+/// A block which accepts a value from a RACSequence and returns a new sequence.
+///
+/// Setting `stop` to `YES` will cause the bind to terminate after the returned
+/// value. Returning `nil` will result in immediate termination.
+typedef RACSequence * _Nullable (^RACSequenceBindBlock)(ValueType _Nullable value, BOOL *stop);
 
 /// Lazily binds a block to the values in the receiver.
 ///
@@ -190,7 +191,7 @@ typedef RACSequence * _Nullable (^RACSequenceBindBlock)(id _Nullable value, BOOL
 /// Returns a new sequence of RACTuples, representing the combined values of the
 /// two sequences. Any error from one of the original sequence will be forwarded
 /// on the returned sequence.
-- (RACSequence *)zipWith:(RACSequence *)sequence;
+- (RACSequence<RACTuple *> *)zipWith:(RACSequence *)sequence;
 
 @end
 
@@ -286,7 +287,7 @@ typedef RACSequence * _Nullable (^RACSequenceBindBlock)(id _Nullable value, BOOL
 ///
 /// Returns a new sequence containing RACTuples of the zipped values from the
 /// sequences.
-+ (RACSequence<ValueType> *)zip:(id<NSFastEnumeration>)sequence;
++ (RACSequence<RACTuple *> *)zip:(id<NSFastEnumeration>)sequence;
 
 /// Zips sequences using +zip:, then reduces the resulting tuples into a single
 /// value using -reduceEach:

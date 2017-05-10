@@ -3,7 +3,7 @@ Pod::Spec.new do |s|
 
   s.name         = "ZDTableViewBinding"
   s.version      = "0.0.3"
-  s.summary      = "使用`ReactiveCocoa`绑定处理tableView的数据,并利用`UITableView+FDTemplateLayoutCell`计算tableViewCell的高度"
+  s.summary      = "使用`ReactiveObjC`绑定处理tableView的数据,并利用`UITableView+FDTemplateLayoutCell`计算tableViewCell的高度"
   s.homepage     = "https://github.com/faimin/ZDTableViewBinding"
   s.license      = { :type => "MIT", :file => "LICENSE" }
   s.author       = { "Zero.D.Saber" => "fuxianchao@gmail.com" }
@@ -26,7 +26,7 @@ Pod::Spec.new do |s|
     ss.source_files = 'ZDTableViewBinding/ZDBinding/*.{h,m}'
     ss.dependency 'ZDTableViewBinding/ZDProtocols'
     ss.dependency 'ZDTableViewBinding/ZDViewModels'
-    ss.dependency 'UITableView+FDTemplateLayoutCell', '~> 1.4'
+    ss.dependency 'UITableView+FDTemplateLayoutCell', '~> 1.6'
   end
 
   s.subspec 'ZDBaseViews' do |ss|
@@ -38,6 +38,6 @@ Pod::Spec.new do |s|
   s.requires_arc = true
   s.frameworks = 'Foundation', 'UIKit'
   # s.dependency "ReactiveCocoa", "~> 2.5"
-  s.dependency 'ReactiveObjC', '~> 2.1.0'
+  s.dependency 'ReactiveObjC'#, '~> 3.0.0'
 
 end
