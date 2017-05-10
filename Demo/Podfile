@@ -1,16 +1,19 @@
 platform :ios, "7.0"
 inhibit_all_warnings!
 
-target :Demo do
-#    pod 'ReactiveCocoa', '~> 2.5'
-#    pod 'UITableView+FDTemplateLayoutCell', '~> 1.4'
+def zd_dependencyPods
     pod 'ZDTableViewBinding', :path => '../'
-    pod 'MJExtension', '~> 3.0.10'
+    pod 'MJExtension', '~> 3.0.13'
     pod 'AFNetworking'
     pod 'YYModel', '~> 1.0.4'
     pod 'JPFPSStatus', '~> 0.1'
 end
 
-#target :DemoTests, :exclusive => true do
-#	pod 'Kiwi'
-#end
+target :Demo do
+	zd_dependencyPods
+end
+
+target :DemoTests do
+	# pod 'Kiwi'
+	zd_dependencyPods
+end

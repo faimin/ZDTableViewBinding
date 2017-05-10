@@ -1,6 +1,6 @@
 {
   "name": "ZDTableViewBinding",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "summary": "使用`ReactiveCocoa`绑定处理tableView的数据,并利用`UITableView+FDTemplateLayoutCell`计算tableViewCell的高度",
   "homepage": "https://github.com/faimin/ZDTableViewBinding",
   "license": {
@@ -15,7 +15,7 @@
   },
   "source": {
     "git": "https://github.com/faimin/ZDTableViewBinding.git",
-    "tag": "0.0.2"
+    "tag": "0.0.3"
   },
   "requires_arc": true,
   "frameworks": [
@@ -52,7 +52,7 @@
 
         ],
         "UITableView+FDTemplateLayoutCell": [
-          "~> 1.4"
+          "~> 1.6"
         ]
       }
     },

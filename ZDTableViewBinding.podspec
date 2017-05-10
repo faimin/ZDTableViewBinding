@@ -26,7 +26,7 @@ Pod::Spec.new do |s|
     ss.source_files = 'ZDTableViewBinding/ZDBinding/*.{h,m}'
     ss.dependency 'ZDTableViewBinding/ZDProtocols'
     ss.dependency 'ZDTableViewBinding/ZDViewModels'
-    ss.dependency 'UITableView+FDTemplateLayoutCell', '~> 1.4'
+    ss.dependency 'UITableView+FDTemplateLayoutCell', '~> 1.6'
   end
 
   s.subspec 'ZDBaseViews' do |ss|
