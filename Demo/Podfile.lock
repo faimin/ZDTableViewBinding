@@ -16,56 +16,50 @@ PODS:
     - AFNetworking/NSURLSession
   - JPFPSStatus (0.1)
   - MJExtension (3.0.13)
-  - ReactiveCocoa (2.5):
-    - ReactiveCocoa/UI (= 2.5)
-  - ReactiveCocoa/Core (2.5):
-    - ReactiveCocoa/no-arc
-  - ReactiveCocoa/no-arc (2.5)
-  - ReactiveCocoa/UI (2.5):
-    - ReactiveCocoa/Core
+  - ReactiveObjC (3.0.0)
   - UITableView+FDTemplateLayoutCell (1.6)
   - YYModel (1.0.4)
   - ZDTableViewBinding (0.0.3):
-    - ReactiveCocoa (~> 2.5)
+    - ReactiveObjC
     - ZDTableViewBinding/ZDBaseViews (= 0.0.3)
     - ZDTableViewBinding/ZDBinding (= 0.0.3)
     - ZDTableViewBinding/ZDProtocols (= 0.0.3)
     - ZDTableViewBinding/ZDViewModels (= 0.0.3)
   - ZDTableViewBinding/ZDBaseViews (0.0.3):
-    - ReactiveCocoa (~> 2.5)
+    - ReactiveObjC
     - ZDTableViewBinding/ZDProtocols
     - ZDTableViewBinding/ZDViewModels
   - ZDTableViewBinding/ZDBinding (0.0.3):
-    - ReactiveCocoa (~> 2.5)
+    - ReactiveObjC
     - UITableView+FDTemplateLayoutCell (~> 1.6)
     - ZDTableViewBinding/ZDProtocols
     - ZDTableViewBinding/ZDViewModels
   - ZDTableViewBinding/ZDProtocols (0.0.3):
-    - ReactiveCocoa (~> 2.5)
+    - ReactiveObjC
   - ZDTableViewBinding/ZDViewModels (0.0.3):
-    - ReactiveCocoa (~> 2.5)
+    - ReactiveObjC
     - ZDTableViewBinding/ZDProtocols
 
 DEPENDENCIES:
   - AFNetworking
-  - JPFPSStatus (~> 0.1)
-  - MJExtension (~> 3.0.13)
-  - YYModel (~> 1.0.4)
+  - JPFPSStatus
+  - MJExtension
+  - YYModel
   - ZDTableViewBinding (from `../`)
 
 EXTERNAL SOURCES:
   ZDTableViewBinding:
-    :path: "../"
+    :path: ../
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   JPFPSStatus: 4467a17488382e4c1700bd9d18c92ae581fd6305
   MJExtension: 5932755f451458eefa24239358817f8d291240c7
-  ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
+  ReactiveObjC: ce79989e8684b9086b5f8d0c74bc7b81a8729c9e
   UITableView+FDTemplateLayoutCell: 5c949b4a5059c404b442926c0e80f81d10a2d66f
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
-  ZDTableViewBinding: b7c4419bb0defab00435d0ac5191479e9b858c0d
+  ZDTableViewBinding: 6d1ef20be00ddc7511dc1f52b10ef2accd4e4b48
 
-PODFILE CHECKSUM: e6dba82c6d1e322a2cb05de7087ee16ff5ad496b
+PODFILE CHECKSUM: 2b89e261e6efd111653fa9c02765b8a6d62ff4ca
 
 COCOAPODS: 1.2.1

@@ -12,7 +12,7 @@
 
 /// Protocol the tableViewCell need to implement
 @protocol ZDCellProtocol <NSObject>
-@required
+
 @property (nonatomic, strong) id model;
 @property (nonatomic, strong) id<ZDCellViewModelProtocol> viewModel;
 @property (nonatomic, assign) CGFloat height;

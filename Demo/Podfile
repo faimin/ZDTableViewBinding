@@ -1,19 +1,31 @@
-platform :ios, "7.0"
+# Uncomment the next line to define a global platform for your project
+platform :ios, '8.0'
 inhibit_all_warnings!
 
 def zd_dependencyPods
     pod 'ZDTableViewBinding', :path => '../'
-    pod 'MJExtension', '~> 3.0.13'
+    pod 'MJExtension'
     pod 'AFNetworking'
-    pod 'YYModel', '~> 1.0.4'
-    pod 'JPFPSStatus', '~> 0.1'
+    pod 'YYModel'
+    pod 'JPFPSStatus'
 end
 
-target :Demo do
-	zd_dependencyPods
+target 'Demo' do
+  # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
+  # use_frameworks!
+
+  # Pods for Demo
+  zd_dependencyPods
+
+  target 'DemoTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+  target 'DemoUITests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
 end
 
-target :DemoTests do
-	# pod 'Kiwi'
-	zd_dependencyPods
-end
