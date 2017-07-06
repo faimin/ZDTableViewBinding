@@ -13,6 +13,7 @@
 #import "ZDCellViewModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
+
 @interface ZDBaseTableViewCell : UITableViewCell <ZDCellProtocol>
 
 /// 协议方法，在tableview代理方法里被赋值
@@ -27,5 +28,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)deliverCellEvent:(RACTuple *)parameterTuple;
 
 @end
+
 NS_ASSUME_NONNULL_END
 

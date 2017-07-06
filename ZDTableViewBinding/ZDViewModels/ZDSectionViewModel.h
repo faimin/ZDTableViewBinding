@@ -11,6 +11,7 @@
 #import "ZDSectionViewModelProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
+
 @interface ZDSectionViewModel : NSObject<ZDSectionViewModelProtocol>
 
 ///------------------- Require -------------------
@@ -24,17 +25,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, nullable) NSString *zd_sectionClassName;
 @property (nonatomic, weak, nullable) ZDTableViewBinding *zd_sectionBindProxy;
 
-//@property (nonatomic, copy  ) NSString *zd_headerNibName;
-//@property (nonatomic, copy  ) NSString *zd_headerReuseIdentifier;
-//@property (nonatomic, strong) id       zd_headerModel;
-//@property (nonatomic, assign) CGFloat  zd_estimatedHeaderHeight;
-//@property (nonatomic, assign) CGFloat  zd_headerHeight;
-//
-//@property (nonatomic, copy  ) NSString *zd_footerNibName;
-//@property (nonatomic, copy  ) NSString *zd_footerReuseIdentifier;
-//@property (nonatomic, strong) id       zd_footerModel;
-//@property (nonatomic, assign) CGFloat  zd_estimatedFooterHeight;
-//@property (nonatomic, assign) CGFloat  zd_footerHeight;
-
 @end
+
 NS_ASSUME_NONNULL_END

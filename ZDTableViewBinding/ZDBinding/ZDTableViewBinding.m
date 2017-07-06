@@ -105,7 +105,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) RACCommand *sectionCommand;
 /// 包含sectionViewModel和cellViewModel字典的数组
 @property (nonatomic, strong) NSMutableArray <NSDictionary *> *sectionCellDatas;
-@property (nonatomic, strong) NSMutableArray <ZDCellViewModel *> *cellViewModels;
+@property (nonatomic, strong) NSMutableArray <id<ZDCellViewModelProtocol>> *cellViewModels;
 /// 下面2个array盛放的是注册过的nibName
 @property (nonatomic, strong) NSMutableArray <NSString *> *mutArrNibNameForCell;
 @property (nonatomic, strong) NSMutableArray <NSString *> *mutArrClassNameForCell;
@@ -309,6 +309,7 @@ NS_ASSUME_NONNULL_BEGIN
             }
         }];
         cellViewModel.zd_height = cellHeight;
+        [self updateViewModel:cellViewModel atIndexPath:indexPath];
     }
     
 	return cellHeight;
@@ -930,6 +931,21 @@ NS_ASSUME_NONNULL_BEGIN
 	}
 }
 
+- (void)updateViewModel:(id <ZDCellViewModelProtocol>)viewModel atIndexPath:(NSIndexPath *)indexPath
+{
+    if (!indexPath || !viewModel) return;
+    
+    if (self.isMultiSection) {
+        NSArray *cellViewModelArr = self.sectionCellDatas[indexPath.section][CellViewModelKey];
+        NSMutableArray *cellViewModelMutArr = cellViewModelArr.mutableCopy;
+        [cellViewModelMutArr replaceObjectAtIndex:indexPath.row withObject:viewModel];
+        [self.sectionCellDatas[indexPath.section] setValue:cellViewModelMutArr.copy forKey:CellViewModelKey];
+    }
+    else {
+        [self.cellViewModels replaceObjectAtIndex:indexPath.row withObject:viewModel];
+    }
+}
+
 - (void)insertViewModel:(id <ZDCellViewModelProtocol>)viewModel atIndexPath:(NSIndexPath *)indexPath
 {
     if (!indexPath || !viewModel) return;
@@ -1263,7 +1279,7 @@ NS_ASSUME_NONNULL_BEGIN
     return _sectionCellDatas;
 }
 
-- (NSMutableArray<ZDCellViewModel *> *)cellViewModels
+- (NSMutableArray<id<ZDCellViewModelProtocol>> *)cellViewModels
 {
     if (!_cellViewModels) {
         _cellViewModels = [[NSMutableArray alloc] init];
