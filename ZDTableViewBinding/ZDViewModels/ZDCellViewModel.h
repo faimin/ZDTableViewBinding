@@ -14,6 +14,7 @@
  *  把cell统一封装成cellViewModel格式
  */
 NS_ASSUME_NONNULL_BEGIN
+
 @interface ZDCellViewModel : NSObject<ZDCellViewModelProtocol>
 
 ///------------------- Require -------------------
@@ -29,4 +30,5 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, weak, nullable) ZDTableViewBinding *zd_bindProxy;
 
 @end
+
 NS_ASSUME_NONNULL_END

@@ -12,6 +12,7 @@
 #import "ZDSectionProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
+
 @interface ZDBaseSectionView : UITableViewHeaderFooterView<ZDSectionProtocol>
 
 @property (nonatomic, strong) ZDSectionViewModel<ZDSectionViewModelProtocol> *sectionViewModel;
@@ -26,4 +27,5 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)deliverSectionEvent:(RACTuple *)parameterTuple;
 
 @end
+
 NS_ASSUME_NONNULL_END

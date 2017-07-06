@@ -37,6 +37,7 @@
 #import "ZDSectionProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
+
 @interface ZDTableViewBinding : NSObject
 
 @property (nonatomic, weak, readonly) UITableView *tableView;
@@ -63,6 +64,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (nullable id <ZDCellViewModelProtocol>)cellViewModelAtIndexPath:(NSIndexPath *)indexPath;
 
+- (void)updateViewModel:(id <ZDCellViewModelProtocol>)viewModel atIndexPath:(NSIndexPath *)indexPath;
 - (void)insertViewModel:(id <ZDCellViewModelProtocol>)viewModel atIndexPath:(NSIndexPath *)indexPath;
 /// `delay < 0`,don't reloadCell; `= 0`,reload immediately
 - (void)replaceViewModel:(id <ZDCellViewModelProtocol>)viewModel atIndexPath:(NSIndexPath *)indexPath afterDelay:(NSTimeInterval)delay;
@@ -76,4 +78,5 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)resetData;
 
 @end
+
 NS_ASSUME_NONNULL_END
