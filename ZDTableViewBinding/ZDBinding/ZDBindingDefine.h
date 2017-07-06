@@ -10,6 +10,12 @@
 #ifndef ZDBindingDefine_h
 #define ZDBindingDefine_h
 
+#if (DEBUG && 1)
+#define ZDBDLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+#else
+#define ZDBDLog(...)
+#endif
+
 #define IS_XCODE8_OR_LATER __has_include(<UserNotifications/UserNotifications.h>)
 
 #if IS_XCODE8_OR_LATER
