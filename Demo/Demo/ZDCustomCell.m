@@ -5,7 +5,7 @@
 //  Created by 符现超 on 16/3/9.
 //  Copyright © 2016年 Zero.D.Saber. All rights reserved.
 //
-
+// http://devetc.org/code/2014/07/07/auto-layout-and-views-that-wrap.html
 #import "ZDCustomCell.h"
 #import "UIImageView+AFNetworking.h"
 #import "ZDModel.h"
@@ -17,6 +17,7 @@
 - (void)awakeFromNib
 {
     [super awakeFromNib];
+    self.articleBrief.preferredMaxLayoutWidth = [UIScreen mainScreen].bounds.size.width - 20.f;
     
     //** 方案1
     @weakify(self);
@@ -45,6 +46,7 @@
 }
 
 #pragma mark - Override
+
 // 设置每个cell之间的间距
 - (void)setFrame:(CGRect)frame
 {
