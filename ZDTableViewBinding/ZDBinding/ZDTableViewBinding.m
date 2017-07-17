@@ -13,7 +13,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 @interface NSObject (Cast)
-+ (nullable id)zd_cast:(id)objc;
++ (nullable instancetype)zd_cast:(id)objc;
 @end
 
 
@@ -940,10 +940,11 @@ NS_ASSUME_NONNULL_BEGIN
     if (!indexPath || !viewModel) return;
     
     if (self.isMultiSection) {
-        NSArray *cellViewModelArr = self.sectionCellDatas[indexPath.section][CellViewModelKey];
-        NSMutableArray *cellViewModelMutArr = cellViewModelArr.mutableCopy;
+        NSMutableDictionary *sectionMutDict = self.sectionCellDatas[indexPath.section].mutableCopy;
+        NSMutableArray *cellViewModelMutArr = [NSArray zd_cast:sectionMutDict[CellViewModelKey]].mutableCopy;
         [cellViewModelMutArr replaceObjectAtIndex:indexPath.row withObject:viewModel];
-        [self.sectionCellDatas[indexPath.section] setValue:cellViewModelMutArr.copy forKey:CellViewModelKey];
+        [sectionMutDict setValue:cellViewModelMutArr.copy forKey:CellViewModelKey];
+        [self.sectionCellDatas replaceObjectAtIndex:indexPath.section withObject:sectionMutDict];
     }
     else {
         [self.cellViewModels replaceObjectAtIndex:indexPath.row withObject:viewModel];
@@ -1336,7 +1337,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @implementation NSObject (Cast)
 
-+ (nullable id)zd_cast:(id)objc
++ (nullable instancetype)zd_cast:(id)objc
 {
 	if ([objc isKindOfClass:[self class]]) {
 		return objc;
