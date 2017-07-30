@@ -9,10 +9,12 @@
 #import "ZDCustomCell.h"
 #import "UIImageView+AFNetworking.h"
 #import "ZDModel.h"
+#import <ReactiveObjC/ReactiveObjC.h>
 
 #define STRINGFORMATE(objc, ...) [NSString stringWithFormat:objc, __VA_ARGS__]
 
 @implementation ZDCustomCell
+@synthesize model, cellCommand, bindProxy, height, viewModel, indexPath;
 
 - (void)awakeFromNib
 {

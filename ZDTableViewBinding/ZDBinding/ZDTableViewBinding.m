@@ -7,7 +7,9 @@
 //
 
 #import "ZDTableViewBinding.h"
+#if __has_include(<UITableView+FDTemplateLayoutCell/UITableView+FDTemplateLayoutCell.h>)
 #import "UITableView+FDTemplateLayoutCell.h"
+#endif
 #import "ZDCellViewModel.h"
 #import "ZDSectionViewModel.h"
 
@@ -303,11 +305,15 @@ NS_ASSUME_NONNULL_BEGIN
     }
     else {
         NSString *identifier = [cellViewModel zd_reuseIdentifier];
+#if __has_include(<UITableView+FDTemplateLayoutCell/UITableView+FDTemplateLayoutCell.h>)
         cellHeight = [tableView fd_heightForCellWithIdentifier:identifier cacheByIndexPath:indexPath configuration:^(__kindof UITableViewCell <ZDCellProtocol> *cell) {
             if ([cell respondsToSelector:@selector(setModel:)]) {
                 cell.model = [cellViewModel zd_model];
             }
         }];
+#else
+        NSCAssert(NO, @"if has not import `UITableView+FDTemplateLayoutCell`, you should calculate the cellHeight by yourself, e.g, set zd_fixedHeight value");
+#endif
         cellViewModel.zd_height = cellHeight;
         [self updateViewModel:cellViewModel atIndexPath:indexPath];
     }
