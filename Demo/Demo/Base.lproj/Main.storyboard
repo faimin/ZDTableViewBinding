@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="My7-yl-yZx">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="My7-yl-yZx">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -105,20 +105,20 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="推荐语" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="8Ry-mf-8N1">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="推荐语" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="8Ry-mf-8N1">
                                                     <rect key="frame" x="10" y="131" width="355" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="P1g-CY-c2y">
-                                                    <rect key="frame" x="10" y="161.5" width="355" height="151"/>
+                                                    <rect key="frame" x="10" y="161.5" width="355" height="266.5"/>
                                                     <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" secondItem="P1g-CY-c2y" secondAttribute="height" multiplier="4:3" priority="750" id="SYd-ZK-Dut"/>
+                                                        <constraint firstAttribute="height" secondItem="P1g-CY-c2y" secondAttribute="width" multiplier="3:4" id="SYd-ZK-Dut"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="文章简介" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="0T7-FN-34c">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="文章简介" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="0T7-FN-34c">
                                                     <rect key="frame" x="10" y="40" width="355" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -142,17 +142,11 @@
                                                 <constraint firstItem="Hpk-nW-EKw" firstAttribute="top" secondItem="0T7-FN-34c" secondAttribute="bottom" constant="10" id="he9-5U-HlE"/>
                                                 <constraint firstItem="P1g-CY-c2y" firstAttribute="top" secondItem="8Ry-mf-8N1" secondAttribute="bottom" constant="10" id="hvY-0q-jnW"/>
                                                 <constraint firstAttribute="trailing" secondItem="8Ry-mf-8N1" secondAttribute="trailing" constant="10" id="kDW-4N-4Zp"/>
-                                                <constraint firstAttribute="bottom" secondItem="P1g-CY-c2y" secondAttribute="bottom" constant="10" id="tD6-TC-zHY"/>
+                                                <constraint firstAttribute="bottom" secondItem="P1g-CY-c2y" secondAttribute="bottom" priority="750" constant="10" id="tD6-TC-zHY"/>
                                                 <constraint firstAttribute="trailing" secondItem="0T7-FN-34c" secondAttribute="trailing" constant="10" id="ubL-Vb-HKR"/>
                                                 <constraint firstItem="Hpk-nW-EKw" firstAttribute="leading" secondItem="rt9-hb-uVi" secondAttribute="leading" constant="10" id="w2V-H2-pMs"/>
                                                 <constraint firstItem="8Ry-mf-8N1" firstAttribute="top" secondItem="lG8-V4-gj2" secondAttribute="bottom" constant="10" id="xn2-aG-t1f"/>
-                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="P1g-CY-c2y" secondAttribute="trailing" constant="10" id="yfG-vd-g8Z"/>
                                             </constraints>
-                                            <variation key="default">
-                                                <mask key="constraints">
-                                                    <exclude reference="yfG-vd-g8Z"/>
-                                                </mask>
-                                            </variation>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="articleBrief" destination="0T7-FN-34c" id="wtn-2p-lHu"/>

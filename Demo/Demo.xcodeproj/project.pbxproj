@@ -25,6 +25,7 @@
 		BCEE70001D5B0452002FFFF3 /* YYFPSLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = BCEE6FFF1D5B0451002FFFF3 /* YYFPSLabel.m */; };
 		BCEE70031D5B0513002FFFF3 /* YYWeakProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = BCEE70021D5B0513002FFFF3 /* YYWeakProxy.m */; };
 		CC85646B602573FA401C52C4 /* libPods-Demo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AE198B456128EA9341B0657 /* libPods-Demo.a */; };
+		DA3E48A01F29F02A00528BB2 /* UIResponder+ZDRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = DA3E489F1F29F02A00528BB2 /* UIResponder+ZDRouter.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +81,8 @@
 		BCEE6FFF1D5B0451002FFFF3 /* YYFPSLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYFPSLabel.m; sourceTree = "<group>"; };
 		BCEE70011D5B0513002FFFF3 /* YYWeakProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYWeakProxy.h; sourceTree = "<group>"; };
 		BCEE70021D5B0513002FFFF3 /* YYWeakProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYWeakProxy.m; sourceTree = "<group>"; };
+		DA3E489E1F29F02A00528BB2 /* UIResponder+ZDRouter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIResponder+ZDRouter.h"; sourceTree = "<group>"; };
+		DA3E489F1F29F02A00528BB2 /* UIResponder+ZDRouter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIResponder+ZDRouter.m"; sourceTree = "<group>"; };
 		DC107892207001210A19034F /* Pods-Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Demo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Demo/Pods-Demo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -228,6 +231,8 @@
 				BCEE6FFF1D5B0451002FFFF3 /* YYFPSLabel.m */,
 				BCEE70011D5B0513002FFFF3 /* YYWeakProxy.h */,
 				BCEE70021D5B0513002FFFF3 /* YYWeakProxy.m */,
+				DA3E489E1F29F02A00528BB2 /* UIResponder+ZDRouter.h */,
+				DA3E489F1F29F02A00528BB2 /* UIResponder+ZDRouter.m */,
 			);
 			path = Vendor;
 			sourceTree = "<group>";
@@ -472,6 +477,7 @@
 				BCEE70031D5B0513002FFFF3 /* YYWeakProxy.m in Sources */,
 				0592DDCA1C8C15130063526D /* main.m in Sources */,
 				BCEE70001D5B0452002FFFF3 /* YYFPSLabel.m in Sources */,
+				DA3E48A01F29F02A00528BB2 /* UIResponder+ZDRouter.m in Sources */,
 				BC75FDC21C9029BF00C915E0 /* ZDCustomCell.m in Sources */,
 				BC770C211CA3F385007731BC /* ZDFooterView.m in Sources */,
 			);

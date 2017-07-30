@@ -9,6 +9,7 @@
 #import "ZDBaseTableViewCell.h"
 
 @interface ZDCustomCell : ZDBaseTableViewCell
+
 @property (weak, nonatomic) IBOutlet UILabel *articleCount;
 @property (weak, nonatomic) IBOutlet UILabel *articleBrief;
 @property (weak, nonatomic) IBOutlet UILabel *barID;
