@@ -13,8 +13,6 @@
 - (void)awakeFromNib
 {
     [super awakeFromNib];
-    
-    
 }
 
 - (void)bindToSectionViewModel:(ZDSectionViewModel *)viewModel
