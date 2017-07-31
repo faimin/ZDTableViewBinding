@@ -30,7 +30,11 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#if __has_include(<ReactiveObjC/ReactiveObjC.h>)
 #import <ReactiveObjC/ReactiveObjC.h>
+#else
+#import <ReactiveCocoa/ReactiveCocoa.h>
+#endif
 #import "ZDBindingDefine.h"
 #import "ZDCellViewModelProtocol.h"
 #import "ZDCellProtocol.h"
