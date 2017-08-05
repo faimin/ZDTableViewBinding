@@ -6,6 +6,7 @@
 //  Copyright © 2016年 Zero.D.Saber. All rights reserved.
 //
 //  http://devetc.org/code/2014/07/07/auto-layout-and-views-that-wrap.html
+
 #import "ZDCustomCell.h"
 #import "UIImageView+AFNetworking.h"
 #import "ZDModel.h"
@@ -50,9 +51,14 @@
 #pragma mark - Override
 
 // 设置每个cell之间的间距
+// 左滑cell时这种设置分割线的方式的bug：
+// http://www.tuicool.com/articles/YzqYZbM
 - (void)setFrame:(CGRect)frame
 {
-    frame.size.height -= 5;
+    if (self.frame.size.height != frame.size.height) {
+        frame.origin.y += 5;    // 上面的间距
+        frame.size.height -= 5; // 下面的分割线
+    }
     [super setFrame:frame];
 }
 
