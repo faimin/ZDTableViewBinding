@@ -313,12 +313,12 @@ NS_ASSUME_NONNULL_BEGIN
         }];
         cellViewModel.zd_height = cellHeight;
         [self updateViewModel:cellViewModel atIndexPath:indexPath];
+        return cellHeight;
 #else
-        NSCAssert(NO, @"if has not import `UITableView+FDTemplateLayoutCell`, you should calculate the cellHeight by yourself, e.g, set zd_fixedHeight value");
+        //NSCAssert(NO, @"if has not import `UITableView+FDTemplateLayoutCell`, you should calculate the cellHeight by yourself, e.g, set zd_fixedHeight value");
+        return UITableViewAutomaticDimension;
 #endif
     }
-    
-	return cellHeight;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
