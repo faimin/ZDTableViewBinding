@@ -311,11 +311,11 @@ NS_ASSUME_NONNULL_BEGIN
                 cell.model = [cellViewModel zd_model];
             }
         }];
+        cellViewModel.zd_height = cellHeight;
+        [self updateViewModel:cellViewModel atIndexPath:indexPath];
 #else
         NSCAssert(NO, @"if has not import `UITableView+FDTemplateLayoutCell`, you should calculate the cellHeight by yourself, e.g, set zd_fixedHeight value");
 #endif
-        cellViewModel.zd_height = cellHeight;
-        [self updateViewModel:cellViewModel atIndexPath:indexPath];
     }
     
 	return cellHeight;
