@@ -304,8 +304,8 @@ NS_ASSUME_NONNULL_BEGIN
         return cellViewModel.zd_fixedHeight;
     }
     else {
-        NSString *identifier = [cellViewModel zd_reuseIdentifier];
 #if __has_include(<UITableView+FDTemplateLayoutCell/UITableView+FDTemplateLayoutCell.h>)
+        NSString *identifier = [cellViewModel zd_reuseIdentifier];
         cellHeight = [tableView fd_heightForCellWithIdentifier:identifier cacheByIndexPath:indexPath configuration:^(__kindof UITableViewCell <ZDCellProtocol> *cell) {
             if ([cell respondsToSelector:@selector(setModel:)]) {
                 cell.model = [cellViewModel zd_model];
@@ -461,7 +461,7 @@ NS_ASSUME_NONNULL_BEGIN
             return headerInSectionView;
         }
         
-        id <ZDSectionProtocol> viewForHeaderInSection = headerInSectionView;
+        id <ZDSectionProtocol> viewForHeaderInSection = (id)headerInSectionView;
         
         if ([viewForHeaderInSection respondsToSelector:@selector(setSectionBindProxy:)]) {
             viewForHeaderInSection.sectionBindProxy = self;
@@ -501,7 +501,7 @@ NS_ASSUME_NONNULL_BEGIN
         return footerInSectionView;
     }
     
-    id <ZDSectionProtocol> viewForFooterInSection = footerInSectionView;
+    id <ZDSectionProtocol> viewForFooterInSection = (id)footerInSectionView;
     
     if ([viewForFooterInSection respondsToSelector:@selector(setSectionBindProxy:)]) {
         viewForFooterInSection.sectionBindProxy = self;
