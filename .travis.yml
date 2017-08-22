@@ -5,7 +5,7 @@ os: osx
 cache: cocoapods
 osx_image: xcode8.3
 
-xcode_workspace: Demo/Demo.xcodeproj 
+xcode_workspace: Demo/Demo.xcworkspace 
 xcode_scheme: Demo
 podfile: Demo/Podfile
 
@@ -13,19 +13,21 @@ env:
  global:
  - LANG=en_US.UTF-8
  - LC_ALL=en_US.UTF-8
- - XCODE_WORKSPACE=Demo/Demo.xcworkspace
- matrix:
- - SCHEME=Demo
-
+ - XCODE_WORKSPACE="Demo/Demo.xcworkspace"
+ - SCHEME="Demo"
+ # matrix:
+ 
 before_install:
   # - gem install xcpretty --no-rdoc --no-ri --no-document --quiet
   - gem install cocoapods --pre --no-rdoc --no-ri --no-document --quiet
   - pod repo update --silent
   - pod install --project-directory=Demo
+  
 branches:
   only:
   - master
   - develop
+
 script:
   - set -o pipefail
   - xcodebuild -version
@@ -37,7 +39,7 @@ notifications:
     recipients:
       - fuxianchao2009@163.com
       # - fuxianchao@xxx.com
-    on_success: never
+    on_success: always # never/always/change
     on_failure: always  
 after_success:
   # - bash <(curl -s https://codecov.io/bash)
