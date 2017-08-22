@@ -32,8 +32,8 @@ script:
   - set -o pipefail
   - xcodebuild -version
   - xcodebuild -showsdks
-  - xcodebuild clean -workspace "$XCODE_WORKSPACE" -scheme "$SCHEME" CODE_SIGNING_REQUIRED=NO | xcpretty -c
-  - xcodebuild -workspace "$XCODE_WORKSPACE" -scheme "$SCHEME" -sdk iphonesimulator10.3 CODE_SIGNING_REQUIRED=NO ONLY_ACTIVE_ARCH=NO | xcpretty -c
+  - xcodebuild clean -workspace "$XCODE_WORKSPACE" -scheme "$SCHEME" | xcpretty -c
+  - xcodebuild -workspace "$XCODE_WORKSPACE" -scheme "$SCHEME" -sdk iphonesimulator10.3 | xcpretty -c
 notifications:
   email:
     recipients:
