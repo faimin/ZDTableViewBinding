@@ -691,7 +691,7 @@ NS_ASSUME_NONNULL_BEGIN
 	}
 }
 
-- (void)tableView:(UITableView *)tableView didEndEditingRowAtIndexPath:(ZD_NULLABLE NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView didEndEditingRowAtIndexPath:(nullable NSIndexPath *)indexPath
 {
 	if (_delegateRespondsTo.didEndEditingRowAtIndexPath == 1) {
 		[self.delegate tableView:tableView didEndEditingRowAtIndexPath:indexPath];
@@ -973,9 +973,7 @@ NS_ASSUME_NONNULL_BEGIN
 		[self.cellViewModels insertObject:viewModel atIndex:indexPath.row];
 	}
     
-	[self.tableView beginUpdates];
-	[self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-	[self.tableView endUpdates];
+    ZD_BATCH_UPDATE(self.tableView, [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];)
 }
 
 - (void)replaceViewModel:(id <ZDCellViewModelProtocol>)viewModel atIndexPath:(NSIndexPath *)indexPath afterDelay:(NSTimeInterval)delay
@@ -1036,10 +1034,8 @@ NS_ASSUME_NONNULL_BEGIN
             viewModel = self.cellViewModels[fromIndexPath.row];
         }
     }
-        
-    [self.tableView beginUpdates];
-    [self.tableView moveRowAtIndexPath:fromIndexPath toIndexPath:toIndexPath];
-    [self.tableView endUpdates];
+    
+    ZD_BATCH_UPDATE(self.tableView, [self.tableView moveRowAtIndexPath:fromIndexPath toIndexPath:toIndexPath];)
 }
 
 // muti section
@@ -1067,19 +1063,15 @@ NS_ASSUME_NONNULL_BEGIN
 	else {
 		[self.cellViewModels removeObjectAtIndex:indexPath.row];
 	}
-
-	[self.tableView beginUpdates];
-	[self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
-	[self.tableView endUpdates];
+    
+    ZD_BATCH_UPDATE(self.tableView, [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];)
 }
 
 - (void)reloadItemsAtIndexPaths:(NSArray <NSIndexPath *> *)indexPaths
 {
     if (indexPaths.count == 0) return;
     
-    [self.tableView beginUpdates];
-	[self.tableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
-	[self.tableView endUpdates];
+    ZD_BATCH_UPDATE(self.tableView, [self.tableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];)
 }
 
 - (void)resetData
@@ -1186,9 +1178,7 @@ NS_ASSUME_NONNULL_BEGIN
 {
     if (indexPaths.count == 0) return;
     
-    [self.tableView beginUpdates];
-    [self.tableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
-    [self.tableView endUpdates];
+    ZD_BATCH_UPDATE(self.tableView, [self.tableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];)
 }
 
 #pragma mark - Setters

@@ -24,6 +24,24 @@
 #define ZD_NULLABLE nonnull
 #endif
 
+#ifndef ZD_BATCH_UPDATES
+#define ZD_BATCH_UPDATE(tableView, stuff)           \
+do {                                                \
+    if (@available(iOS 11.0, *)) {                  \
+        [self.tableView performBatchUpdates:^{      \
+            stuff;                                  \
+        } completion:^(BOOL finished) {             \
+                                                    \
+        }];                                         \
+    } else {                                        \
+        [tableView beginUpdates];                   \
+        stuff;                                      \
+        [tableView endUpdates];                     \
+    }                                               \
+} while (0);
+#endif
+
+
 static NSString * const HeaderViewModelKey = @"HeaderViewModelKey";
 static NSString * const CellViewModelKey   = @"CellViewModelKey";
 static NSString * const FooterViewModelKey = @"FooterViewModelKey";
