@@ -165,9 +165,9 @@ NS_ASSUME_NONNULL_BEGIN
         [self clearData];
         
 		@weakify(self);
-		[[sourceSignal filter:^BOOL(id value) {
+		[[[sourceSignal filter:^BOOL(id value) {
             return (value != nil);
-        }] subscribeNext:^(__kindof NSArray *x) {
+        }] deliverOnMainThread] subscribeNext:^(__kindof NSArray *x) {
 			@strongify(self);
 			self.isMultiSection = multiSection;
 

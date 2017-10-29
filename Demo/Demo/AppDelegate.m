@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import <JPFPSStatus.h>
+#import "ZDWatchdog.h"
 
 @interface AppDelegate ()
 
@@ -20,6 +21,7 @@
     // Override point for customization after application launch.
 #if defined(DEBUG)||defined(_DEBUG)
     [[JPFPSStatus sharedInstance] open];
+    [[ZDWatchdog shareInstance] start];
 #endif
     return YES;
 }

@@ -27,6 +27,7 @@
 		DA0935C21F31A011005CBB69 /* ZDHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0935BC1F31A011005CBB69 /* ZDHeaderView.m */; };
 		DA0935C31F31A011005CBB69 /* ZDHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DA0935BD1F31A011005CBB69 /* ZDHeaderView.xib */; };
 		DA3E48A01F29F02A00528BB2 /* UIResponder+ZDRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = DA3E489F1F29F02A00528BB2 /* UIResponder+ZDRouter.m */; };
+		DAE6E51D1FA5C9F70056C13F /* ZDWatchdog.m in Sources */ = {isa = PBXBuildFile; fileRef = DAE6E51B1FA5C9F70056C13F /* ZDWatchdog.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,6 +85,8 @@
 		DA0935BD1F31A011005CBB69 /* ZDHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZDHeaderView.xib; sourceTree = "<group>"; };
 		DA3E489E1F29F02A00528BB2 /* UIResponder+ZDRouter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIResponder+ZDRouter.h"; sourceTree = "<group>"; };
 		DA3E489F1F29F02A00528BB2 /* UIResponder+ZDRouter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIResponder+ZDRouter.m"; sourceTree = "<group>"; };
+		DAE6E51B1FA5C9F70056C13F /* ZDWatchdog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZDWatchdog.m; sourceTree = "<group>"; };
+		DAE6E51C1FA5C9F70056C13F /* ZDWatchdog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZDWatchdog.h; sourceTree = "<group>"; };
 		DC107892207001210A19034F /* Pods-Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Demo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Demo/Pods-Demo.debug.xcconfig"; sourceTree = "<group>"; };
 		ECE7092B921D6A3C1B3A5CD8 /* Pods-DemoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DemoUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DemoUITests/Pods-DemoUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -221,6 +224,8 @@
 				BCEE70021D5B0513002FFFF3 /* YYWeakProxy.m */,
 				DA3E489E1F29F02A00528BB2 /* UIResponder+ZDRouter.h */,
 				DA3E489F1F29F02A00528BB2 /* UIResponder+ZDRouter.m */,
+				DAE6E51C1FA5C9F70056C13F /* ZDWatchdog.h */,
+				DAE6E51B1FA5C9F70056C13F /* ZDWatchdog.m */,
 			);
 			path = Vendor;
 			sourceTree = "<group>";
@@ -321,7 +326,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = ZD;
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = Zero.D.Saber;
 				TargetAttributes = {
 					0592DDC41C8C15130063526D = {
@@ -534,6 +539,7 @@
 				BC75FDB81C8FD44600C915E0 /* ZDModel.m in Sources */,
 				0592DDCD1C8C15130063526D /* AppDelegate.m in Sources */,
 				DA0935C21F31A011005CBB69 /* ZDHeaderView.m in Sources */,
+				DAE6E51D1FA5C9F70056C13F /* ZDWatchdog.m in Sources */,
 				BCEE70031D5B0513002FFFF3 /* YYWeakProxy.m in Sources */,
 				0592DDCA1C8C15130063526D /* main.m in Sources */,
 				BCEE70001D5B0452002FFFF3 /* YYFPSLabel.m in Sources */,
@@ -602,14 +608,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -648,14 +660,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
