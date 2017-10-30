@@ -60,9 +60,9 @@ NS_ASSUME_NONNULL_BEGIN
  @param sectionCommand section上的事件
  @return tableView代理
  */
-+ (instancetype)bindingHelperForTableView:(UITableView *)tableView
++ (instancetype)bindingHelperForTableView:(__kindof UITableView *)tableView
                              multiSection:(BOOL)multiSection
-                             sourceSignal:(RACSignal *)sourceSignal
+                             sourceSignal:(__kindof RACSignal *)sourceSignal
                               cellCommand:(RACCommand *)cellCommand
                            sectionCommand:(RACCommand *)sectionCommand;
 
@@ -73,10 +73,10 @@ NS_ASSUME_NONNULL_BEGIN
 /// `delay < 0`,don't reloadCell; `= 0`,reload immediately
 - (void)replaceViewModel:(id <ZDCellViewModelProtocol>)viewModel atIndexPath:(NSIndexPath *)indexPath afterDelay:(NSTimeInterval)delay;
 - (void)replaceViewModel:(id <ZDCellViewModelProtocol>)model atIndexPath:(NSIndexPath *)indexPath;
-- (void)moveViewModelFromIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath; ///< multi section
-- (void)moveViewModel:(id<ZDCellViewModelProtocol>)viewModel toIndexPath:(NSIndexPath *)toIndexPath;    ///< single section
+- (void)moveViewModelFromIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath;    ///< multi section
+- (void)moveViewModel:(id <ZDCellViewModelProtocol>)viewModel toIndexPath:(NSIndexPath *)toIndexPath;    ///< single section
 - (void)deleteCellViewModelAtIndexPath:(NSIndexPath *)indexPath;
-- (void)reloadItemsAtIndexPaths:(NSArray <NSIndexPath *> *)indexPaths;
+- (void)reloadItemsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths;
 
 /// clear all existing datas when the new datas come
 - (void)resetData;

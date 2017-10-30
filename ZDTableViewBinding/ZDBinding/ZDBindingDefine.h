@@ -16,13 +16,6 @@
 #define ZDBDLog(...)
 #endif
 
-#define IS_XCODE8_OR_LATER __has_include(<UserNotifications/UserNotifications.h>)
-
-#if IS_XCODE8_OR_LATER
-#define ZD_NULLABLE nullable
-#else
-#define ZD_NULLABLE nonnull
-#endif
 
 #ifndef ZD_BATCH_UPDATES
 #define ZD_BATCH_UPDATE(tableView, stuff)           \
