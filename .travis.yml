@@ -17,14 +17,15 @@ env:
     - LC_ALL=en_US.UTF-8
     - XCODE_WORKSPACE="Demo/Demo.xcworkspace"
     - IOS_SCHEME="Demo"
-    - IOS_SDK=iphonesimulator11.0
+    - IOS_SDK=iphonesimulator11.1
+    - IOS_VERSON=11.1
  matrix:
-    - DESTINATION="OS=11.0,name=iPhone 5s"           SCHEME="$IOS_SCHEME"     SDK="$IOS_SDK"     RUN_TESTS="NO"
-    - DESTINATION="OS=11.0,name=iPhone 6"            SCHEME="$IOS_SCHEME"     SDK="$IOS_SDK"     RUN_TESTS="NO"
-    - DESTINATION="OS=11.0,name=iPhone 6 Plus"       SCHEME="$IOS_SCHEME"     SDK="$IOS_SDK"     RUN_TESTS="NO"
-    - DESTINATION="OS=11.0,name=iPhone 6s"           SCHEME="$IOS_SCHEME"     SDK="$IOS_SDK"     RUN_TESTS="NO"
-    - DESTINATION="OS=11.0,name=iPhone 6s Plus"      SCHEME="$IOS_SCHEME"     SDK="$IOS_SDK"     RUN_TESTS="NO"
-    - DESTINATION="OS=11.0,name=iPhone X"            SCHEME="$IOS_SCHEME"     SDK="$IOS_SDK"     RUN_TESTS="NO"
+    - DESTINATION="OS=$IOS_VERSON,name=iPhone 5s"           SCHEME="$IOS_SCHEME"     SDK="$IOS_SDK"     RUN_TESTS="NO"
+    - DESTINATION="OS=$IOS_VERSON,name=iPhone 6"            SCHEME="$IOS_SCHEME"     SDK="$IOS_SDK"     RUN_TESTS="NO"
+    - DESTINATION="OS=$IOS_VERSON,name=iPhone 6 Plus"       SCHEME="$IOS_SCHEME"     SDK="$IOS_SDK"     RUN_TESTS="NO"
+    - DESTINATION="OS=$IOS_VERSON,name=iPhone 6s"           SCHEME="$IOS_SCHEME"     SDK="$IOS_SDK"     RUN_TESTS="NO"
+    - DESTINATION="OS=$IOS_VERSON,name=iPhone 6s Plus"      SCHEME="$IOS_SCHEME"     SDK="$IOS_SDK"     RUN_TESTS="NO"
+    - DESTINATION="OS=$IOS_VERSON,name=iPhone X"            SCHEME="$IOS_SCHEME"     SDK="$IOS_SDK"     RUN_TESTS="NO"
  
 branches:
   only:
