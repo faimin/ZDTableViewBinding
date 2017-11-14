@@ -63,8 +63,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)bindingHelperForTableView:(__kindof UITableView *)tableView
                              multiSection:(BOOL)multiSection
                              sourceSignal:(__kindof RACSignal *)sourceSignal
-                              cellCommand:(RACCommand *)cellCommand
-                           sectionCommand:(RACCommand *)sectionCommand;
+                              cellCommand:(nullable RACCommand *)cellCommand
+                           sectionCommand:(nullable RACCommand *)sectionCommand;
 
 - (nullable id <ZDCellViewModelProtocol>)cellViewModelAtIndexPath:(NSIndexPath *)indexPath;
 

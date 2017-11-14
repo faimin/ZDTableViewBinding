@@ -7,45 +7,43 @@
 //
 
 #import "ZDTableViewBinding.h"
+#import "ZDCellViewModel.h"
+#import "ZDSectionViewModel.h"
 #if __has_include(<UITableView+FDTemplateLayoutCell/UITableView+FDTemplateLayoutCell.h>)
 #import "UITableView+FDTemplateLayoutCell.h"
 #endif
-#import "ZDCellViewModel.h"
-#import "ZDSectionViewModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
+
 @interface NSObject (Cast)
 + (nullable instancetype)zdbd_cast:(id)objc;
 @end
 
 
-@interface ZDTableViewBinding ()<UITableViewDelegate, UITableViewDataSource
-#ifdef __IPHONE_10_0
-, UITableViewDataSourcePrefetching
-#endif
->
-{
+@interface ZDTableViewBinding ()<UITableViewDelegate, UITableViewDataSource, UITableViewDataSourcePrefetching> {
     BOOL _isNeedToResetData;
 }
+
+// 位域: http://c.biancheng.net/cpp/html/102.html
 @property (nonatomic, readwrite, assign) struct delegateMethodsCaching {
-// UITableViewDelegate
-//Configuring Rows for the Table View
+    // UITableViewDelegate
+    //Configuring Rows for the Table View
 	uint heightForRowAtIndexPath: 1;
 	uint estimatedHeightForRowAtIndexPath: 1;
 	uint indentationLevelForRowAtIndexPath: 1;
 	uint willDisplayCellForRowAtIndexPath: 1;
 
-//Managing Accessory Views
+    //Managing Accessory Views
 	uint editActionsForRowAtIndexPath: 1;
 	uint accessoryButtonTappedForRowWithIndexPath: 1;
 
-//Managing Selections
+    //Managing Selections
 	uint willSelectRowAtIndexPath: 1;
 	uint didSelectRowAtIndexPath: 1;
 	uint willDeselectRowAtIndexPath: 1;
 	uint didDeselectRowAtIndexPath: 1;
 
-//Modifying the Header and Footer of Sections
+    //Modifying the Header and Footer of Sections
 	uint viewForHeaderInSection: 1;
 	uint viewForFooterInSection: 1;
 	uint heightForHeaderInSection: 1;
@@ -55,33 +53,33 @@ NS_ASSUME_NONNULL_BEGIN
 	uint willDisplayHeaderViewForSection: 1;
 	uint willDisplayFooterViewForSection: 1;
 
-//Editing Table Rows
+    //Editing Table Rows
 	uint willBeginEditingRowAtIndexPath: 1;
 	uint didEndEditingRowAtIndexPath: 1;
 	uint editingStyleForRowAtIndexPath: 1;
 	uint titleForDeleteConfirmationButtonForRowAtIndexPath: 1;
 	uint shouldIndentWhileEditingRowAtIndexPath: 1;
 
-//Reordering Table Rows
+    //Reordering Table Rows
 	uint targetIndexPathForMoveFromRowAtIndexPathToProposedIndexPath: 1;
 
-//Tracking the Removal of Views
+    //Tracking the Removal of Views
 	uint didEndDisplayingCellForRowAtIndexPath: 1;
 	uint didEndDisplayingHeaderViewForSection: 1;
 	uint didEndDisplayingFooterViewForSection: 1;
 
-//Copying and Pasting Row Content
+    //Copying and Pasting Row Content
 	uint shouldShowMenuForRowAtIndexPath: 1;
 	uint canPerformActionForRowAtIndexPathWithSender: 1;
 	uint performActionForRowAtIndexPathWithSender: 1;
 
-//Managing Table View Highlighting
+    //Managing Table View Highlighting
 	uint shouldHighlightRowAtIndexPath: 1;
 	uint didHighlightRowAtIndexPath: 1;
 	uint didUnhighlightRowAtIndexPath: 1;
 
-// UIScrollViewDelegate
-//Responding to Scrolling and Dragging
+    // UIScrollViewDelegate
+    //Responding to Scrolling and Dragging
 	uint scrollViewDidScroll: 1;
 	uint scrollViewWillBeginDragging: 1;
 	uint scrollViewWillEndDraggingWithVelocityTargetContentOffset: 1;
@@ -91,13 +89,13 @@ NS_ASSUME_NONNULL_BEGIN
 	uint scrollViewWillBeginDecelerating: 1;
 	uint scrollViewDidEndDecelerating: 1;
 
-//Managing Zooming
+    //Managing Zooming
 	uint viewForZoomingInScrollView: 1;
 	uint scrollViewWillBeginZoomingWithView: 1;
 	uint scrollViewDidEndZoomingWithViewAtScale: 1;
 	uint scrollViewDidZoom: 1;
 
-//Responding to Scrolling Animations
+    //Responding to Scrolling Animations
 	uint scrollViewDidEndScrollingAnimation: 1;
 } delegateRespondsTo;
 
@@ -132,8 +130,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)bindingHelperForTableView:(UITableView *)tableView
                              multiSection:(BOOL)multiSection
                              sourceSignal:(RACSignal *)sourceSignal
-                              cellCommand:(RACCommand *)cellCommand
-                           sectionCommand:(RACCommand *)sectionCommand
+                              cellCommand:(nullable RACCommand *)cellCommand
+                           sectionCommand:(nullable RACCommand *)sectionCommand
 {
 	return [[self alloc] initWithTableView:tableView
                               multiSection:(BOOL)multiSection
@@ -145,48 +143,50 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithTableView:(__kindof UITableView *)tableView
                      multiSection:(BOOL)multiSection
                      sourceSignal:(__kindof RACSignal *)sourceSignal
-                      cellCommand:(RACCommand *)cellCommand
-                   sectionCommand:(RACCommand *)sectionCommand
+                      cellCommand:(nullable RACCommand *)cellCommand
+                   sectionCommand:(nullable RACCommand *)sectionCommand
 {
-	if (self = [super init]) {
-		self.tableView = tableView;
-        self.tableView.dataSource = self;
-        self.tableView.delegate = self;
-        //if (kCFCoreFoundationVersionNumber > kCFCoreFoundationVersionNumber_iOS_9_x_Max)
-        if (@available(iOS 10, *)) {
-            self.tableView.prefetchDataSource = self;
-        }
-        self.delegate = nil;
-        
-		self.cellCommand = cellCommand;
-		self.sectionCommand = sectionCommand;
-        
+    self = [super init];
+	if (!self) return nil;
+    
+    self.tableView = tableView;
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+    //if (kCFCoreFoundationVersionNumber > kCFCoreFoundationVersionNumber_iOS_9_x_Max)
+    if (@available(iOS 10, *)) {
+        self.tableView.prefetchDataSource = self;
+    }
+    self.delegate = nil;
+    
+    self.isMultiSection = multiSection;
+    self.cellCommand = cellCommand;
+    self.sectionCommand = sectionCommand;
+    
+    
+    @weakify(self);
+    [[[sourceSignal filter:^BOOL(id value) {
+        return (value != nil);
+    }] deliverOnMainThread] subscribeNext:^(__kindof NSArray *x) {
+        @strongify(self);
+        // 清空数据源(只有调用resetData后才会清空数据源,否则下面方法没作用)
         [self clearData];
         
-		@weakify(self);
-		[[[sourceSignal filter:^BOOL(id value) {
-            return (value != nil);
-        }] deliverOnMainThread] subscribeNext:^(__kindof NSArray *x) {
-			@strongify(self);
-			self.isMultiSection = multiSection;
-
-		    /// register cell && header && footer
-			if (multiSection) {
-				[self registerNibForTableViewWithSectionCellViewModels:x];
-                [self.sectionCellDatas addObjectsFromArray:x];
-			}
-			else {
-				[self registerNibForTableViewWithCellViewModels:x];
-                [self.cellViewModels addObjectsFromArray:x];
-			}
-
-		    /// reloadData on mainQueue
-			ZDDispatch_async_on_main_queue(^{
-				[self.tableView reloadData];
-                self.isFinishedReloadData = YES;
-			});
-		}];
-	}
+        // register cell && header && footer
+        if (multiSection) {
+            [self registerNibForTableViewWithSectionCellViewModels:x];
+            [self.sectionCellDatas addObjectsFromArray:x];
+        }
+        else {
+            [self registerNibForTableViewWithCellViewModels:x];
+            [self.cellViewModels addObjectsFromArray:x];
+        }
+        
+        /// reloadData on mainThread
+        [self.tableView reloadData];
+        
+        self.isFinishedReloadData = YES;
+    }];
+    
 	return self;
 }
 
@@ -1339,4 +1339,5 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 @end
+
 NS_ASSUME_NONNULL_END
