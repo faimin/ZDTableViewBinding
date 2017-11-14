@@ -169,7 +169,7 @@ NS_ASSUME_NONNULL_BEGIN
     }] deliverOnMainThread] subscribeNext:^(__kindof NSArray *x) {
         @strongify(self);
         // 清空数据源(只有调用resetData后才会清空数据源,否则下面方法没作用)
-        [self clearData];
+        [self clearDataIfNeeded];
         
         // register cell && header && footer
         if (multiSection) {
@@ -1071,14 +1071,14 @@ NS_ASSUME_NONNULL_BEGIN
     ZD_BATCH_UPDATE(self.tableView, [self.tableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];)
 }
 
-- (void)resetData
+- (void)setNeedsResetData
 {
     _isNeedToResetData = YES;
 }
 
 #pragma mark - Private Method
 /// 清除所有数据(不需要重置数据时不执行，直接返回)
-- (void)clearData
+- (void)clearDataIfNeeded
 {
     if (!_isNeedToResetData) return;
     
