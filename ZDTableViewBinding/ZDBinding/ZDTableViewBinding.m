@@ -129,20 +129,20 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)bindingHelperForTableView:(UITableView *)tableView
                              multiSection:(BOOL)multiSection
-                             sourceSignal:(RACSignal *)sourceSignal
+                         dataSourceSignal:(RACSignal *)dataSourceSignal
                               cellCommand:(nullable RACCommand *)cellCommand
                            sectionCommand:(nullable RACCommand *)sectionCommand
 {
 	return [[self alloc] initWithTableView:tableView
                               multiSection:(BOOL)multiSection
-                              sourceSignal:sourceSignal
+                          dataSourceSignal:dataSourceSignal
                                cellCommand:cellCommand
                             sectionCommand:sectionCommand];
 }
 
 - (instancetype)initWithTableView:(__kindof UITableView *)tableView
                      multiSection:(BOOL)multiSection
-                     sourceSignal:(__kindof RACSignal *)sourceSignal
+                 dataSourceSignal:(__kindof RACSignal *)dataSourceSignal
                       cellCommand:(nullable RACCommand *)cellCommand
                    sectionCommand:(nullable RACCommand *)sectionCommand
 {
@@ -164,7 +164,7 @@ NS_ASSUME_NONNULL_BEGIN
     
     
     @weakify(self);
-    [[[sourceSignal filter:^BOOL(id value) {
+    [[[dataSourceSignal filter:^BOOL(id value) {
         return (value != nil);
     }] deliverOnMainThread] subscribeNext:^(__kindof NSArray *x) {
         @strongify(self);

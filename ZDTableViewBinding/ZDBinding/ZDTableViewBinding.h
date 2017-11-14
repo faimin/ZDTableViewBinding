@@ -62,7 +62,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (instancetype)bindingHelperForTableView:(__kindof UITableView *)tableView
                              multiSection:(BOOL)multiSection
-                             sourceSignal:(__kindof RACSignal *)sourceSignal
+                         dataSourceSignal:(__kindof RACSignal *)dataSourceSignal
                               cellCommand:(nullable RACCommand *)cellCommand
                            sectionCommand:(nullable RACCommand *)sectionCommand;
 
