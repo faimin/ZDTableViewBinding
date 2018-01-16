@@ -7,7 +7,7 @@
 //
 
 /** Usage
- *  如果是多个section，需要把数据包装成（header或footer只存其一的话，则把sectionViewModel设置成nil或者[NSNull null]对象）
+ *  1. 多个section，需要把数据包装成（header或footer只存其一的话，则把sectionViewModel设置成nil或者[NSNull null]对象）
  *  [
  *        {
  *            HeaderViewModelKey : sectionViewMoel,
@@ -24,7 +24,7 @@
  *        ...
  *   ]
  *
- *  单个section，则包装成
+ *  2. 单个section，则包装成
  *  [cellViewModel, cellViewModel, ...]
  */
 

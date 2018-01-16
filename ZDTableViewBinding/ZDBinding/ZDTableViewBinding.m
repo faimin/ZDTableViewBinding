@@ -9,7 +9,7 @@
 #import "ZDTableViewBinding.h"
 #import "ZDCellViewModel.h"
 #import "ZDSectionViewModel.h"
-#if __has_include(<UITableView+FDTemplateLayoutCell/UITableView+FDTemplateLayoutCell.h>)
+#if ZD_INCLUEDE_FD
 #import "UITableView+FDTemplateLayoutCell.h"
 #endif
 
@@ -134,7 +134,7 @@ NS_ASSUME_NONNULL_BEGIN
                            sectionCommand:(nullable RACCommand *)sectionCommand
 {
 	return [[self alloc] initWithTableView:tableView
-                              multiSection:(BOOL)multiSection
+                              multiSection:multiSection
                           dataSourceSignal:dataSourceSignal
                                cellCommand:cellCommand
                             sectionCommand:sectionCommand];
@@ -153,7 +153,7 @@ NS_ASSUME_NONNULL_BEGIN
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     //if (kCFCoreFoundationVersionNumber > kCFCoreFoundationVersionNumber_iOS_9_x_Max)
-    if (@available(iOS 10, *)) {
+    if (@available(iOS 10.0, *)) {
         self.tableView.prefetchDataSource = self;
     }
     self.delegate = nil;
@@ -231,14 +231,36 @@ NS_ASSUME_NONNULL_BEGIN
 {
 	id <ZDCellViewModelProtocol> cellViewModel = [self cellViewModelAtIndexPath:indexPath];
 	NSCAssert(cellViewModel != nil, @"cellViewModel can't be nil");
-	id <ZDCellProtocol> cell = [tableView dequeueReusableCellWithIdentifier:([cellViewModel zd_reuseIdentifier] ? : [cellViewModel zd_nibName]) forIndexPath:indexPath];
+    NSString *reuseIdentifier = ({
+        NSString *reuseId = nil;
+        if ([cellViewModel respondsToSelector:@selector(zd_reuseIdentifier)]) {
+            reuseId = [cellViewModel zd_reuseIdentifier];
+        }
+        reuseId;
+    });
+    NSString *className = ({
+        NSString *classNameString = nil;
+        if ([cellViewModel respondsToSelector:@selector(zd_className)]) {
+            classNameString = [cellViewModel zd_className];
+        }
+        classNameString;
+    });
+    NSString *nibName = ({
+        NSString *nibNameString = nil;
+        if ([cellViewModel respondsToSelector:@selector(zd_nibName)]) {
+            nibNameString = [cellViewModel zd_nibName];
+        }
+        nibNameString;
+    });
+    
+    NSString *identifier = reuseIdentifier ?: (nibName ?: className);
+    id <ZDCellProtocol> cell = [tableView dequeueReusableCellWithIdentifier:identifier forIndexPath:indexPath];
     if (!cell) {
-        NSString *reuseIdentifier = [cellViewModel zd_reuseIdentifier];
-        Class aCalss = NSClassFromString(reuseIdentifier);
+        Class aCalss = NSClassFromString(className ?: reuseIdentifier);
         if (!aCalss) {
             NSCAssert(NO, @"aClass don't exist");
         }
-        else if ([[[aCalss alloc] init] isKindOfClass:[UITableViewCell class]]) {
+        else if ([aCalss isSubclassOfClass:[UITableViewCell class]]) {
             cell = [[aCalss alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
         }
         else {
@@ -269,8 +291,10 @@ NS_ASSUME_NONNULL_BEGIN
 	return (__kindof UITableViewCell *)cell;
 }
 
+// 如果不实现此代理,那么在iOS8系统无法左滑
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    /*
 	if (editingStyle == UITableViewCellEditingStyleDelete) {
         if (self.isMultiSection) {
             NSArray *cellViewModelArr = self.sectionCellDatas[indexPath.section][CellViewModelKey];
@@ -282,6 +306,23 @@ NS_ASSUME_NONNULL_BEGIN
             [self.cellViewModels removeObjectAtIndex:indexPath.row];
         }
 	}
+     */
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSArray<id<ZDCellViewModelProtocol>> *cellViewModels = self.cellViewModels;
+    if (self.isMultiSection) {
+        cellViewModels = self.sectionCellDatas[indexPath.section][CellViewModelKey];
+    }
+
+    if (cellViewModels.count > indexPath.row) {
+        id<ZDCellViewModelProtocol> cellViewModel = cellViewModels[indexPath.row];
+        if ([cellViewModel respondsToSelector:@selector(zd_canEditRow)]) {
+            return cellViewModel.zd_canEditRow;
+        }
+    }
+    return NO;
 }
 
 #pragma mark - UITableViewDelegate
@@ -301,7 +342,7 @@ NS_ASSUME_NONNULL_BEGIN
         return cellViewModel.zd_fixedHeight;
     }
     else {
-#if __has_include(<UITableView+FDTemplateLayoutCell/UITableView+FDTemplateLayoutCell.h>)
+#if ZD_INCLUEDE_FD
         NSString *identifier = [cellViewModel zd_reuseIdentifier];
         cellHeight = [tableView fd_heightForCellWithIdentifier:identifier cacheByIndexPath:indexPath configuration:^(__kindof UITableViewCell <ZDCellProtocol> *cell) {
             if ([cell respondsToSelector:@selector(setModel:)]) {

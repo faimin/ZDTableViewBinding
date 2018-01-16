@@ -19,7 +19,7 @@
 #import "YYModel.h"
 #import "YYFPSLabel.h"
 
-@interface ViewController ()
+@interface ViewController () <UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSArray *models;
 @property (nonatomic, strong) ZDTableViewBinding *helper;
@@ -71,6 +71,7 @@
 						viewModel.zd_reuseIdentifier = NSStringFromClass([ZDCustomCell class]);
 						viewModel.zd_estimatedHeight = 460;
                         //viewModel.zd_fixedHeight = 100;
+                        viewModel.zd_canEditRow = YES;
 						[cellViewModels addObject:viewModel];
 					}
 				}
@@ -118,6 +119,31 @@
                                                dataSourceSignal:RACObserve(self, models)
                                                     cellCommand:command
                                                  sectionCommand:sectionCommand];
+    self.helper.delegate = self;
+}
+
+#pragma mark - UITableViewDelegate
+
+- (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    NSMutableArray<UITableViewRowAction *> *rowActions = @[].mutableCopy;
+    
+    __weak typeof(self) weakTarget = self;
+    UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        __strong typeof(weakTarget) self = weakTarget;
+        tableView.editing = NO;
+        NSLog(@"选择的是删除操作");
+        [self.helper deleteCellViewModelAtIndexPath:indexPath];
+    }];
+    [rowActions addObject:deleteAction];
+    
+    UITableViewRowAction *reportAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"举报" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        tableView.editing = NO;
+        NSLog(@"点击的是举报操作");
+    }];
+    reportAction.backgroundColor = [UIColor cyanColor];
+    [rowActions addObject:reportAction];
+    
+    return rowActions;
 }
 
 @end

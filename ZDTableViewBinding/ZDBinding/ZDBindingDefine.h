@@ -16,8 +16,11 @@
 #define ZDBDLog(...)
 #endif
 
+#ifndef ZD_INCLUEDE_FD
+#define ZD_INCLUEDE_FD (__has_include(<UITableView+FDTemplateLayoutCell/UITableView+FDTemplateLayoutCell.h>))
+#endif
 
-#ifndef ZD_BATCH_UPDATES
+#ifndef ZD_BATCH_UPDATE
 #define ZD_BATCH_UPDATE(tableView, stuff)           \
 do {                                                \
     if (@available(iOS 11.0, *)) {                  \

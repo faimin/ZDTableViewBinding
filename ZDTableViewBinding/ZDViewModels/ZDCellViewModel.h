@@ -27,6 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) CGFloat zd_estimatedHeight;   ///< 不能设置太小（>2），默认为44
 @property (nonatomic, assign) CGFloat zd_height;
 @property (nonatomic, assign) CGFloat zd_fixedHeight;       ///< 固定高度
+@property (nonatomic, assign) BOOL    zd_canEditRow;        ///< 是否能够编辑
 @property (nonatomic, weak, nullable) ZDTableViewBinding *zd_bindProxy;
 
 @end
