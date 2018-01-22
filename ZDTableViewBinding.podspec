@@ -36,6 +36,7 @@ Pod::Spec.new do |s|
   end
 
   s.requires_arc = true
+  s.static_framework = true
   s.frameworks = 'Foundation', 'UIKit'
   # s.dependency "ReactiveCocoa", "~> 2.5"
   s.dependency 'ReactiveObjC'
