@@ -59,7 +59,7 @@ NS_INLINE BOOL ZDNotNilOrEmpty(id _objc) {
     }
     
     if ([_objc isKindOfClass:[NSString class]]) {
-        if ([[_objc stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length] == 0) {
+        if ([[_objc stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] length] == 0) {
             return NO;
         }
     }

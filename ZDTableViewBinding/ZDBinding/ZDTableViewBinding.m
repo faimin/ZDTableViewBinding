@@ -1326,7 +1326,7 @@ NS_ASSUME_NONNULL_BEGIN
     return _cellViewModels;
 }
 
-- (NSMutableArray *)mutArrNibNameForCell
+- (NSMutableArray<NSString *> *)mutArrNibNameForCell
 {
 	if (!_mutArrNibNameForCell) {
 		_mutArrNibNameForCell = [[NSMutableArray alloc] init];
@@ -1334,7 +1334,7 @@ NS_ASSUME_NONNULL_BEGIN
 	return _mutArrNibNameForCell;
 }
 
-- (NSMutableArray *)mutArrClassNameForCell
+- (NSMutableArray<NSString *> *)mutArrClassNameForCell
 {
 	if (!_mutArrClassNameForCell) {
 		_mutArrClassNameForCell = [[NSMutableArray alloc] init];
@@ -1342,7 +1342,7 @@ NS_ASSUME_NONNULL_BEGIN
 	return _mutArrClassNameForCell;
 }
 
-- (NSMutableArray *)mutArrNibNameForSection
+- (NSMutableArray<NSString *> *)mutArrNibNameForSection
 {
 	if (!_mutArrNibNameForSection) {
 		_mutArrNibNameForSection = [[NSMutableArray alloc] init];
@@ -1350,7 +1350,7 @@ NS_ASSUME_NONNULL_BEGIN
 	return _mutArrNibNameForSection;
 }
 
-- (NSMutableArray *)mutArrClassNameForSection
+- (NSMutableArray<NSString *> *)mutArrClassNameForSection
 {
 	if (!_mutArrClassNameForSection) {
 		_mutArrClassNameForSection = [[NSMutableArray alloc] init];
@@ -1373,6 +1373,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (nullable instancetype)zdbd_cast:(id)objc
 {
+    if (!objc) return nil;
 	if ([objc isKindOfClass:[self class]]) {
 		return objc;
 	}
