@@ -49,22 +49,17 @@ static NSString * const FooterViewModelKey = @"FooterViewModelKey";
                                                                _cellViewModels , CellViewModelKey,             \
                                            (_footerViewModel ?: [NSNull null]) , FooterViewModelKey, nil]
 
-NS_INLINE BOOL ZDNotNilOrEmpty(id _objc) {
+NS_INLINE BOOL ZDNotNilOrEmpty(NSString *_objc) {
     if (_objc == nil || _objc == NULL) {
         return NO;
     }
     
-    if ([_objc isKindOfClass:[NSNull class]]) {
-        return NO;
+    if ([_objc isKindOfClass:[NSString class]] &&
+        [[_objc stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] length] > 0) {
+        return YES;
     }
     
-    if ([_objc isKindOfClass:[NSString class]]) {
-        if ([[_objc stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] length] == 0) {
-            return NO;
-        }
-    }
-    
-    return YES;
+    return NO;
 }
 
 NS_INLINE void ZDDispatch_async_on_main_queue(dispatch_block_t block) {
