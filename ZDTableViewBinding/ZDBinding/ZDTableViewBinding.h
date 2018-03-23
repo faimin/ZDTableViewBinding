@@ -54,7 +54,7 @@ NS_ASSUME_NONNULL_BEGIN
  TableView数据绑定
 
  @param tableView 表视图
- @param multiSection 只要要显示section，此参数就需要设置为`YES`
+ @param multiSection 只要想包含section,此参数就需要设置为`YES`
  @param sourceSignal 数据源信号
  @param cellCommand cell上的事件
  @param sectionCommand section上的事件

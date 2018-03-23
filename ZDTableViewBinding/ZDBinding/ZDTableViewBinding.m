@@ -15,10 +15,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+//****************************************************************
+
 @interface NSObject (Cast)
 + (nullable instancetype)zdbd_cast:(id)objc;
 @end
 
+//****************************************************************
 
 @interface ZDTableViewBinding ()<UITableViewDelegate, UITableViewDataSource, UITableViewDataSourcePrefetching> {
     BOOL _isNeedToResetData;
@@ -331,7 +334,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CGFloat cellHeight = tableView.rowHeight;
-    if (self.delegateRespondsTo.heightForRowAtIndexPath == 1) {
+    if (_delegateRespondsTo.heightForRowAtIndexPath == 1) {
         cellHeight = [self.delegate tableView:tableView heightForRowAtIndexPath:indexPath];
         return cellHeight;
     }
@@ -385,7 +388,7 @@ NS_ASSUME_NONNULL_BEGIN
 {
 	NSInteger indentationLevelForRowAtIndexPath = 0;
 
-	if (self.delegateRespondsTo.indentationLevelForRowAtIndexPath == 1) {
+	if (_delegateRespondsTo.indentationLevelForRowAtIndexPath == 1) {
 		indentationLevelForRowAtIndexPath = [self.delegate tableView:tableView indentationLevelForRowAtIndexPath:indexPath];
 	}
 	return indentationLevelForRowAtIndexPath;
@@ -393,10 +396,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//	if (self.delegateRespondsTo.willDisplayCellForRowAtIndexPath == 1) {
-//		[self.delegate tableView:tableView willDisplayCell:cell forRowAtIndexPath:indexPath];
-//	}
-    
     if (![cell conformsToProtocol:@protocol(ZDCellProtocol)]) {
         NSCAssert(NO, @"cell 需要遵守协议");
         return;
@@ -418,6 +417,10 @@ NS_ASSUME_NONNULL_BEGIN
     /// cell遵循的数据协议
     if ([zdCell respondsToSelector:@selector(bindToCellViewModel:)]) {
         [zdCell bindToCellViewModel:cellViewModel];
+    }
+    
+    if (_delegateRespondsTo.willDisplayCellForRowAtIndexPath == 1) {
+        [self.delegate tableView:tableView willDisplayCell:cell forRowAtIndexPath:indexPath];
     }
 }
 
@@ -1364,6 +1367,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+//****************************************************************
 
 @implementation NSObject (Cast)
 
