@@ -6,9 +6,9 @@
 //  Copyright © 2016年 Zero.D.Saber. All rights reserved.
 //
 
-#import "ZDSectionViewModel.h"
+#import "ZDBaseSectionViewModel.h"
 
-@implementation ZDSectionViewModel
+@implementation ZDBaseSectionViewModel
 
 - (CGFloat)zd_estimatedSectionHeight
 {

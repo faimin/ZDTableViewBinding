@@ -12,14 +12,13 @@
 #else
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #endif
-#import "ZDSectionViewModel.h"
-#import "ZDSectionProtocol.h"
+#import "ZDBindingProtocols.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZDBaseSectionView : UITableViewHeaderFooterView<ZDSectionProtocol>
 
-@property (nonatomic, strong) ZDSectionViewModel<ZDSectionViewModelProtocol> *sectionViewModel;
+@property (nonatomic, strong) id<ZDSectionViewModelProtocol> sectionViewModel;
 @property (nonatomic, strong) id sectionModel;
 @property (nonatomic, assign) CGFloat headerHeight;
 @property (nonatomic, assign) CGFloat footerHeight;

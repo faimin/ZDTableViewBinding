@@ -12,9 +12,7 @@
 #else
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #endif
-#import "ZDCellProtocol.h"
-#import "ZDCellViewModelProtocol.h"
-#import "ZDCellViewModel.h"
+#import "ZDBindingProtocols.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

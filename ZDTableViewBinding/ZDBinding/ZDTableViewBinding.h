@@ -36,9 +36,7 @@
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #endif
 #import "ZDBindingDefine.h"
-#import "ZDCellViewModelProtocol.h"
-#import "ZDCellProtocol.h"
-#import "ZDSectionProtocol.h"
+#import "ZDBindingProtocols.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

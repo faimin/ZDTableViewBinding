@@ -26,7 +26,7 @@
     }];
 }
 
-- (void)bindToSectionViewModel:(ZDSectionViewModel *)viewModel
+- (void)bindToSectionViewModel:(ZDSectionViewModel)viewModel
 {
     /** 方案2
     Module *x = viewModel.zd_headerModel;

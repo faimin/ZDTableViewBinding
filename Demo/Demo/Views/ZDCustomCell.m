@@ -30,7 +30,7 @@
     }];
 }
 
-- (void)bindToCellViewModel:(ZDCellViewModel *)viewModel
+- (void)bindToCellViewModel:(ZDCellViewModel)viewModel
 {
     //** 方案2
     //[self updateUIWithModel:viewModel.zd_model];

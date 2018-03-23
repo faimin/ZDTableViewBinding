@@ -8,14 +8,14 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "ZDCellViewModelProtocol.h"
+#import "ZDBindingProtocols.h"
 
 /**
  *  把cell统一封装成cellViewModel格式
  */
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZDCellViewModel : NSObject<ZDCellViewModelProtocol>
+@interface ZDBaseCellViewModel : NSObject<ZDCellViewModelProtocol>
 
 ///------------------- Require -------------------
 @property (nonatomic, copy  ) NSString *zd_reuseIdentifier;

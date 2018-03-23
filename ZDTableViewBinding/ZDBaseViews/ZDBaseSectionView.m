@@ -16,7 +16,7 @@
     self.customBackgroundColor = [UIColor whiteColor];
 }
 
-- (void)bindToSectionViewModel:(ZDSectionViewModel *)viewModel
+- (void)bindToSectionViewModel:(ZDSectionViewModel)viewModel
 {
     NSCAssert(NO, @"abstract class，need to implementation in subClass");
 }

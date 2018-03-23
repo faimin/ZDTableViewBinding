@@ -8,8 +8,8 @@
 
 #import "ViewController.h"
 #import "ZDTableViewBinding.h"
-#import "ZDCellViewModel.h"
-#import "ZDSectionViewModel.h"
+#import "ZDBaseCellViewModel.h"
+#import "ZDBaseSectionViewModel.h"
 #import "ZDBindingDefine.h"
 #import "MJExtension.h"
 #import "ZDModel.h"
@@ -66,7 +66,7 @@
 
 				for (id model in zdModel.barContent) {
 					if ([model isKindOfClass:[Barcontent class]]) {
-						ZDCellViewModel *viewModel = [ZDCellViewModel new];
+						ZDBaseCellViewModel *viewModel = [ZDBaseCellViewModel new];
 						viewModel.zd_model = model;
 						viewModel.zd_reuseIdentifier = NSStringFromClass([ZDCustomCell class]);
 						viewModel.zd_estimatedHeight = 460;
@@ -76,14 +76,14 @@
 					}
 				}
 
-				ZDSectionViewModel *headerViewModel = [ZDSectionViewModel new];
+				ZDBaseSectionViewModel *headerViewModel = [ZDBaseSectionViewModel new];
 				NSString *headerName = NSStringFromClass([ZDHeaderView class]);
 				headerViewModel.zd_sectionReuseIdentifier = headerName;
 				headerViewModel.zd_sectionNibName = headerName;
 				headerViewModel.zd_sectionModel = zdModel.module;
 				headerViewModel.zd_estimatedSectionHeight = 100;
 
-				ZDSectionViewModel *footerViewModel = [ZDSectionViewModel new];
+				ZDBaseSectionViewModel *footerViewModel = [ZDBaseSectionViewModel new];
 				NSString *footerName = NSStringFromClass([ZDFooterView class]);
 				footerViewModel.zd_sectionReuseIdentifier = footerName;
 				footerViewModel.zd_sectionNibName = footerName;
@@ -103,7 +103,7 @@
 	[dataTask resume];
 
 	RACCommand *command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(RACTuple *input) {
-		ZDCellViewModel *viewModel = input.second;
+		ZDBaseCellViewModel *viewModel = input.second;
 		NSLog(@"\n 点击的cell的高度 = %lf", viewModel.zd_height);
 		return [RACSignal empty];
 	}];

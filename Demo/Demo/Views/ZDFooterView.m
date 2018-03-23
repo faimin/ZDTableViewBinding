@@ -15,7 +15,7 @@
     [super awakeFromNib];
 }
 
-- (void)bindToSectionViewModel:(ZDSectionViewModel *)viewModel
+- (void)bindToSectionViewModel:(ZDSectionViewModel)viewModel
 {
     
 }

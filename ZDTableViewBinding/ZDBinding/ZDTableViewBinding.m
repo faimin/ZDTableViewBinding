@@ -7,8 +7,6 @@
 //
 
 #import "ZDTableViewBinding.h"
-#import "ZDCellViewModel.h"
-#import "ZDSectionViewModel.h"
 #if ZD_INCLUEDE_FD
 #import "UITableView+FDTemplateLayoutCell.h"
 #endif
@@ -369,7 +367,7 @@ NS_ASSUME_NONNULL_BEGIN
 	if (self.isMultiSection) {
 		NSDictionary *dict = self.sectionCellDatas[indexPath.section];
 		NSArray *cellViewModelArr = dict[CellViewModelKey];
-		ZDCellViewModel *cellViewModel = cellViewModelArr[indexPath.row];
+		ZDCellViewModel cellViewModel = cellViewModelArr[indexPath.row];
         
         if (!cellViewModel) return 0.f;
         
@@ -489,7 +487,7 @@ NS_ASSUME_NONNULL_BEGIN
     if (!self.isMultiSection) return nil;
     
 	if (self.sectionCellDatas.count > section) {
-		ZDSectionViewModel *headerViewModel = self.sectionCellDatas[section][HeaderViewModelKey];
+		ZDSectionViewModel headerViewModel = self.sectionCellDatas[section][HeaderViewModelKey];
 
         if (!headerViewModel) return nil;
         
@@ -529,7 +527,7 @@ NS_ASSUME_NONNULL_BEGIN
         return nil;
     }
     
-    ZDSectionViewModel *footerViewModel = self.sectionCellDatas[section][FooterViewModelKey];
+    ZDSectionViewModel footerViewModel = self.sectionCellDatas[section][FooterViewModelKey];
     
     if (!footerViewModel) return nil;
     
@@ -564,7 +562,7 @@ NS_ASSUME_NONNULL_BEGIN
     
     if (self.isMultiSection) {
         NSDictionary *dic = self.sectionCellDatas[section];
-        ZDSectionViewModel *sectionViewModel = dic[HeaderViewModelKey];
+        ZDSectionViewModel sectionViewModel = dic[HeaderViewModelKey];
         
         if (!sectionViewModel) return 0.f;
         
@@ -582,7 +580,7 @@ NS_ASSUME_NONNULL_BEGIN
     if (!self.isMultiSection) return heightForHeaderInSection;
     
     NSDictionary *dic = self.sectionCellDatas[section];
-    ZDSectionViewModel *sectionViewModel = dic[HeaderViewModelKey];
+    ZDSectionViewModel sectionViewModel = dic[HeaderViewModelKey];
     
     if (!sectionViewModel) return 0.f;
     
@@ -620,7 +618,7 @@ NS_ASSUME_NONNULL_BEGIN
     
     if (self.isMultiSection) {
         NSDictionary *dic = self.sectionCellDatas[section];
-        ZDSectionViewModel *sectionViewModel = dic[FooterViewModelKey];
+        ZDSectionViewModel sectionViewModel = dic[FooterViewModelKey];
         
         if (!sectionViewModel) return 0.f;
         
@@ -641,7 +639,7 @@ NS_ASSUME_NONNULL_BEGIN
     if (!self.isMultiSection) return heightForFooterInSection;
     
     NSDictionary *dic = self.sectionCellDatas[section];
-    ZDSectionViewModel *sectionViewModel = dic[FooterViewModelKey];
+    ZDSectionViewModel sectionViewModel = dic[FooterViewModelKey];
     
     if (!sectionViewModel) return 0.f;
     
@@ -678,7 +676,7 @@ NS_ASSUME_NONNULL_BEGIN
     
     id <ZDSectionProtocol> viewForHeaderInSection = (id)view;
     
-    ZDSectionViewModel *headerViewModel = self.sectionCellDatas[section][HeaderViewModelKey];
+    ZDSectionViewModel headerViewModel = self.sectionCellDatas[section][HeaderViewModelKey];
     if (!headerViewModel) return;
     
     if ([viewForHeaderInSection respondsToSelector:@selector(setSectionViewModel:)]) {
@@ -705,7 +703,7 @@ NS_ASSUME_NONNULL_BEGIN
     
     id <ZDSectionProtocol> viewForFooterInSection = (id)view;
     
-    ZDSectionViewModel *footerViewModel = self.sectionCellDatas[section][FooterViewModelKey];
+    ZDSectionViewModel footerViewModel = self.sectionCellDatas[section][FooterViewModelKey];
     if (!footerViewModel) return;
     
     if ([viewForFooterInSection respondsToSelector:@selector(setSectionViewModel:)]) {
@@ -964,7 +962,7 @@ NS_ASSUME_NONNULL_BEGIN
 		NSCAssert(section < self.sectionCellDatas.count, @"数组越界了");
 
 		NSArray *cellViewModelArr = self.sectionCellDatas[section][CellViewModelKey];
-		ZDCellViewModel *viewModel = cellViewModelArr[indexPath.row];
+		ZDCellViewModel viewModel = cellViewModelArr[indexPath.row];
 		NSCAssert(viewModel, @"viewModel不能为nil");
 		return viewModel;
 	}
@@ -1133,7 +1131,7 @@ NS_ASSUME_NONNULL_BEGIN
     _isNeedToResetData = NO;
 }
 
-- (void)registerNibForTableViewWithCellViewModels:(NSArray<ZDCellViewModel *> *)cellViewModels
+- (void)registerNibForTableViewWithCellViewModels:(NSArray<ZDCellViewModel> *)cellViewModels
 {
 	NSCAssert(cellViewModels, @"CellViewModels cann't be nil");
 
@@ -1163,7 +1161,7 @@ NS_ASSUME_NONNULL_BEGIN
 	}
 }
 
-- (void)registerNibForTableViewWithSectionViewModel:(ZDSectionViewModel *)sectionViewModel
+- (void)registerNibForTableViewWithSectionViewModel:(ZDSectionViewModel )sectionViewModel
 {
 	// register header && footer (only to mutableSection)
 	NSString *sectionNibName = [sectionViewModel zd_sectionNibName];
@@ -1193,9 +1191,9 @@ NS_ASSUME_NONNULL_BEGIN
     if (!self.isMultiSection) return;
         
 	for (NSDictionary *sectionCellDataDic in sectionCellModels) {
-        ZDSectionViewModel *headerViewModel = sectionCellDataDic[HeaderViewModelKey];
+        ZDSectionViewModel headerViewModel = sectionCellDataDic[HeaderViewModelKey];
         NSArray *cellViewModels = sectionCellDataDic[CellViewModelKey];
-        ZDSectionViewModel *footerViewModel = sectionCellDataDic[FooterViewModelKey];
+        ZDSectionViewModel footerViewModel = sectionCellDataDic[FooterViewModelKey];
         
         if (cellViewModels.count > 0) {
             [self registerNibForTableViewWithCellViewModels:cellViewModels];

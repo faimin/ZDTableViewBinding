@@ -6,9 +6,9 @@
 //  Copyright © 2016年 Zero.D.Saber. All rights reserved.
 //
 
-#import "ZDCellViewModel.h"
+#import "ZDBaseCellViewModel.h"
 
-@implementation ZDCellViewModel
+@implementation ZDBaseCellViewModel
 
 - (CGFloat)zd_estimatedHeight
 {

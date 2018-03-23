@@ -8,11 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "ZDSectionViewModelProtocol.h"
+#import "ZDBindingProtocols.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZDSectionViewModel : NSObject<ZDSectionViewModelProtocol>
+@interface ZDBaseSectionViewModel : NSObject<ZDSectionViewModelProtocol>
 
 ///------------------- Require -------------------
 @property (nonatomic, copy, nullable) NSString *zd_sectionNibName;

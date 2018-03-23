@@ -22,7 +22,7 @@
 	// Initialization code
 }
 
-- (void)bindToCellViewModel:(ZDCellViewModel *)viewModel
+- (void)bindToCellViewModel:(ZDCellViewModel)viewModel
 {
     NSCAssert(NO, @"abstract class，need to implementation in subClass");
 }
