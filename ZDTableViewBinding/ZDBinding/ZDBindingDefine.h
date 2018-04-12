@@ -44,10 +44,14 @@ static NSString * const FooterViewModelKey = @"FooterViewModelKey";
 
 #define ZDCellDictionary(_cellViewModels) ZDSectionCellDictionary(nil, _cellViewModels, nil)
 
-#define ZDSectionCellDictionary(_headerViewModel, _cellViewModels, _footerViewModel)                           \
-[NSDictionary dictionaryWithObjectsAndKeys:(_headerViewModel ?: [NSNull null]) , HeaderViewModelKey,           \
-                                                               _cellViewModels , CellViewModelKey,             \
-                                           (_footerViewModel ?: [NSNull null]) , FooterViewModelKey, nil]
+#define ZDSectionCellDictionary(_headerViewModel, _cellViewModels, _footerViewModel)    \
+({                                                                                      \
+    NSMutableDictionary *sectionAndCellDict = @{}.mutableCopy;                          \
+    sectionAndCellDict[HeaderViewModelKey] = _headerViewModel;                          \
+    sectionAndCellDict[CellViewModelKey] = _cellViewModels;                             \
+    sectionAndCellDict[FooterViewModelKey] = _footerViewModel;                          \
+    sectionAndCellDict;                                                                 \
+})
 
 NS_INLINE BOOL ZDNotNilOrEmpty(NSString *_objc) {
     if (_objc == nil || _objc == NULL) {

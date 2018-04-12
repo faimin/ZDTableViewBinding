@@ -1161,7 +1161,7 @@ NS_ASSUME_NONNULL_BEGIN
 	}
 }
 
-- (void)registerNibForTableViewWithSectionViewModel:(ZDSectionViewModel )sectionViewModel
+- (void)registerNibForTableViewWithSectionViewModel:(ZDSectionViewModel)sectionViewModel
 {
 	// register header && footer (only to mutableSection)
 	NSString *sectionNibName = [sectionViewModel zd_sectionNibName];
@@ -1186,7 +1186,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 /// muti Section
-- (void)registerNibForTableViewWithSectionCellViewModels:(__kindof NSArray <NSDictionary *> *)sectionCellModels
+- (void)registerNibForTableViewWithSectionCellViewModels:(__kindof NSArray<NSDictionary *> *)sectionCellModels
 {
     if (!self.isMultiSection) return;
         
