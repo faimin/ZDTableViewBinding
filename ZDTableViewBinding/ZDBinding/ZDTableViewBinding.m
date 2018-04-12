@@ -106,7 +106,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) RACCommand *sectionCommand;
 /// 包含sectionViewModel和cellViewModel字典的数组
 @property (nonatomic, strong) NSMutableArray<NSDictionary *> *sectionCellDatas;
-@property (nonatomic, strong) NSMutableArray<id<ZDCellViewModelProtocol>> *cellViewModels;
+@property (nonatomic, strong) NSMutableArray<ZDCellViewModel> *cellViewModels;
 /// 下面2个array盛放的是注册过的nibName
 @property (nonatomic, strong) NSMutableSet<NSString *> *mutSetNibNameForCell;
 @property (nonatomic, strong) NSMutableSet<NSString *> *mutSetClassNameForCell;
@@ -197,9 +197,9 @@ NS_ASSUME_NONNULL_BEGIN
 {
     //TODO: 预加载
 //    for (NSIndexPath *indexPath in indexPaths) {
-//        id <ZDCellViewModelProtocol> cellViewModel = [self cellViewModelAtIndexPath:indexPath];
+//        ZDCellViewModel cellViewModel = [self cellViewModelAtIndexPath:indexPath];
 //        NSCAssert(cellViewModel != nil, @"cellViewModel can't be nil");
-//        id <ZDCellProtocol> cell = [tableView dequeueReusableCellWithIdentifier:([cellViewModel zd_reuseIdentifier] ?: [cellViewModel zd_nibName]) forIndexPath:indexPath];
+//        ZDCell cell = [tableView dequeueReusableCellWithIdentifier:([cellViewModel zd_reuseIdentifier] ?: [cellViewModel zd_nibName]) forIndexPath:indexPath];
 //        NSCAssert(cell != nil, @"cell can't be nil");
 //    }
 }
@@ -230,7 +230,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	id <ZDCellViewModelProtocol> cellViewModel = [self cellViewModelAtIndexPath:indexPath];
+	ZDCellViewModel cellViewModel = [self cellViewModelAtIndexPath:indexPath];
 	NSCAssert(cellViewModel != nil, @"cellViewModel can't be nil");
     NSString *reuseIdentifier = ({
         NSString *reuseId = nil;
@@ -255,7 +255,7 @@ NS_ASSUME_NONNULL_BEGIN
     });
     
     NSString *identifier = reuseIdentifier ?: (nibName ?: className);
-    id <ZDCellProtocol> cell = [tableView dequeueReusableCellWithIdentifier:identifier forIndexPath:indexPath];
+    ZDCell cell = [tableView dequeueReusableCellWithIdentifier:identifier forIndexPath:indexPath];
     if (!cell) {
         Class aCalss = NSClassFromString(className ?: reuseIdentifier);
         if (!aCalss) {
@@ -312,13 +312,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSArray<id<ZDCellViewModelProtocol>> *cellViewModels = self.cellViewModels;
+    NSArray<ZDCellViewModel> *cellViewModels = self.cellViewModels;
     if (self.isMultiSection) {
         cellViewModels = self.sectionCellDatas[indexPath.section][CellViewModelKey];
     }
 
     if (cellViewModels.count > indexPath.row) {
-        id<ZDCellViewModelProtocol> cellViewModel = cellViewModels[indexPath.row];
+        ZDCellViewModel cellViewModel = cellViewModels[indexPath.row];
         if ([cellViewModel respondsToSelector:@selector(zd_canEditRow)]) {
             return cellViewModel.zd_canEditRow;
         }
@@ -337,7 +337,7 @@ NS_ASSUME_NONNULL_BEGIN
         return cellHeight;
     }
 
-	id <ZDCellViewModelProtocol> cellViewModel = [self cellViewModelAtIndexPath:indexPath];
+	ZDCellViewModel cellViewModel = [self cellViewModelAtIndexPath:indexPath];
     
     if (cellViewModel.zd_fixedHeight > 0) {
         return cellViewModel.zd_fixedHeight;
@@ -375,7 +375,7 @@ NS_ASSUME_NONNULL_BEGIN
 		return estimateHeight;
 	}
 	else {
-		id <ZDCellViewModelProtocol> cellViewModel = [self cellViewModelAtIndexPath:indexPath];
+		ZDCellViewModel cellViewModel = [self cellViewModelAtIndexPath:indexPath];
 		estimatedHeightForRowAtIndexPath = [cellViewModel zd_estimatedHeight];
 	}
 
@@ -399,10 +399,10 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
         
-    id <ZDCellViewModelProtocol> cellViewModel = [self cellViewModelAtIndexPath:indexPath];
+    ZDCellViewModel cellViewModel = [self cellViewModelAtIndexPath:indexPath];
     NSCAssert(cellViewModel != nil, @"cellViewModel can't be nil");
     
-    id <ZDCellProtocol> zdCell = (id)cell;
+    ZDCell zdCell = (id)cell;
     
     if ([zdCell respondsToSelector:@selector(setModel:)]) {
         zdCell.model = cellViewModel.zd_model;
@@ -499,7 +499,7 @@ NS_ASSUME_NONNULL_BEGIN
             return headerInSectionView;
         }
         
-        id <ZDSectionProtocol> viewForHeaderInSection = (id)headerInSectionView;
+        ZDSection viewForHeaderInSection = (id)headerInSectionView;
         
         if ([viewForHeaderInSection respondsToSelector:@selector(setSectionBindProxy:)]) {
             viewForHeaderInSection.sectionBindProxy = self;
@@ -539,7 +539,7 @@ NS_ASSUME_NONNULL_BEGIN
         return footerInSectionView;
     }
     
-    id <ZDSectionProtocol> viewForFooterInSection = (id)footerInSectionView;
+    ZDSection viewForFooterInSection = (id)footerInSectionView;
     
     if ([viewForFooterInSection respondsToSelector:@selector(setSectionBindProxy:)]) {
         viewForFooterInSection.sectionBindProxy = self;
@@ -585,7 +585,7 @@ NS_ASSUME_NONNULL_BEGIN
     if (!sectionViewModel) return 0.f;
     
     NSString *headerReuseIdentifier = sectionViewModel.zd_sectionReuseIdentifier ?: sectionViewModel.zd_sectionNibName;
-    id <ZDSectionProtocol> headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:headerReuseIdentifier];
+    ZDSection headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:headerReuseIdentifier];
     headerView.sectionModel = sectionViewModel.zd_sectionModel;
     
     if (sectionViewModel.zd_sectionFixedHeight > 0) {   // 固定高度
@@ -644,7 +644,7 @@ NS_ASSUME_NONNULL_BEGIN
     if (!sectionViewModel) return 0.f;
     
     NSString *footerReuseIdentifier = sectionViewModel.zd_sectionReuseIdentifier ?: sectionViewModel.zd_sectionNibName;
-    id <ZDSectionProtocol> footerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:footerReuseIdentifier];
+    ZDSection footerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:footerReuseIdentifier];
     footerView.sectionModel = sectionViewModel.zd_sectionModel;
     
     if (sectionViewModel.zd_sectionFixedHeight > 0) {
@@ -674,7 +674,7 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
     
-    id <ZDSectionProtocol> viewForHeaderInSection = (id)view;
+    ZDSection viewForHeaderInSection = (id)view;
     
     ZDSectionViewModel headerViewModel = self.sectionCellDatas[section][HeaderViewModelKey];
     if (!headerViewModel) return;
@@ -701,7 +701,7 @@ NS_ASSUME_NONNULL_BEGIN
         return;
     }
     
-    id <ZDSectionProtocol> viewForFooterInSection = (id)view;
+    ZDSection viewForFooterInSection = (id)view;
     
     ZDSectionViewModel footerViewModel = self.sectionCellDatas[section][FooterViewModelKey];
     if (!footerViewModel) return;
@@ -955,7 +955,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - Public Methods
 // MARK: -----------------------获取CellViewModel-----------------------
-- (nullable id <ZDCellViewModelProtocol>)cellViewModelAtIndexPath:(NSIndexPath *)indexPath
+- (nullable ZDCellViewModel)cellViewModelAtIndexPath:(NSIndexPath *)indexPath
 {
 	if (self.isMultiSection) {
 		NSInteger section = indexPath.section;
@@ -978,7 +978,7 @@ NS_ASSUME_NONNULL_BEGIN
 	}
 }
 
-- (void)updateViewModel:(id <ZDCellViewModelProtocol>)viewModel atIndexPath:(NSIndexPath *)indexPath
+- (void)updateViewModel:(ZDCellViewModel)viewModel atIndexPath:(NSIndexPath *)indexPath
 {
     if (!indexPath || !viewModel) return;
     
@@ -994,7 +994,7 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
-- (void)insertViewModel:(id <ZDCellViewModelProtocol>)viewModel atIndexPath:(NSIndexPath *)indexPath
+- (void)insertViewModel:(ZDCellViewModel)viewModel atIndexPath:(NSIndexPath *)indexPath
 {
     if (!indexPath || !viewModel) return;
     
@@ -1013,7 +1013,7 @@ NS_ASSUME_NONNULL_BEGIN
     ZD_BATCH_UPDATE(self.tableView, [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];)
 }
 
-- (void)replaceViewModel:(id <ZDCellViewModelProtocol>)viewModel atIndexPath:(NSIndexPath *)indexPath afterDelay:(NSTimeInterval)delay
+- (void)replaceViewModel:(ZDCellViewModel)viewModel atIndexPath:(NSIndexPath *)indexPath afterDelay:(NSTimeInterval)delay
 {
     if (!indexPath || !viewModel) return;
     
@@ -1040,13 +1040,13 @@ NS_ASSUME_NONNULL_BEGIN
     }
 }
 
-- (void)replaceViewModel:(id<ZDCellViewModelProtocol>)viewModel atIndexPath:(NSIndexPath *)indexPath
+- (void)replaceViewModel:(ZDCellViewModel)viewModel atIndexPath:(NSIndexPath *)indexPath
 {
     [self replaceViewModel:viewModel atIndexPath:indexPath afterDelay:0];
 }
 
 // 单section时，fromIndexPath和viewmodel可以只传一个；多section时，fromIndexPath必传，viewmodel可选
-- (void)moveViewModel:(nullable id<ZDCellViewModelProtocol>)viewModel fromIndexPath:(nullable NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+- (void)moveViewModel:(nullable ZDCellViewModel)viewModel fromIndexPath:(nullable NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
 {
     if (self.isMultiSection) {
         NSArray *cellViewModelArr = self.sectionCellDatas[fromIndexPath.section][CellViewModelKey];
@@ -1082,7 +1082,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 // single section
-- (void)moveViewModel:(id<ZDCellViewModelProtocol>)viewModel toIndexPath:(NSIndexPath *)toIndexPath
+- (void)moveViewModel:(ZDCellViewModel)viewModel toIndexPath:(NSIndexPath *)toIndexPath
 {
     [self moveViewModel:viewModel fromIndexPath:nil toIndexPath:toIndexPath];
 }
@@ -1136,7 +1136,7 @@ NS_ASSUME_NONNULL_BEGIN
 	NSCAssert(cellViewModels, @"CellViewModels cann't be nil");
 
 	/// storyBoard里的cell不需要手动注册，只需要设置reuseIdentifier
-	for (id <ZDCellViewModelProtocol> cellViewModel in cellViewModels) {
+	for (ZDCellViewModel cellViewModel in cellViewModels) {
 		// register cell
 		NSString *cellNibName = [cellViewModel zd_nibName];
 		NSString *cellClassName = [cellViewModel zd_className];
@@ -1144,7 +1144,7 @@ NS_ASSUME_NONNULL_BEGIN
 		NSCAssert(reuseIdentifier, @"Cell's reuseIdentifier must be set");
 
 		if (ZDNotNilOrEmpty(cellNibName) && ![self.mutSetNibNameForCell containsObject:cellNibName]) {
-            NSString *nibPath = [[NSBundle mainBundle] pathForResource:cellNibName ofType:@"xib"];
+            NSString *nibPath = [[NSBundle mainBundle] pathForResource:cellNibName ofType:@"nib"];
 			if (nibPath) {
                 // create an instance of the template cell and register with the table view
                 // UITableViewCell *templateCell = [[nib instantiateWithOwner:nil options:nil] firstObject];
@@ -1171,7 +1171,7 @@ NS_ASSUME_NONNULL_BEGIN
 	NSCAssert(sectionReuseIdentifier, @"SectionView's reuseIdentifier must be set");
 
 	if (ZDNotNilOrEmpty(sectionNibName) && ![self.mutSetNibNameForSection containsObject:sectionNibName]) {
-        NSString *nibPath = [[NSBundle mainBundle] pathForResource:sectionNibName ofType:@"xib"];
+        NSString *nibPath = [[NSBundle mainBundle] pathForResource:sectionNibName ofType:@"nib"];
 		if (nibPath) {
             UINib *sectionNib = [UINib nibWithNibName:sectionNibName bundle:nil];
 			[self.tableView registerNib:sectionNib forHeaderFooterViewReuseIdentifier:sectionReuseIdentifier ?: sectionNibName];
@@ -1217,7 +1217,7 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 #pragma mark - Setters
-- (void)setDelegate:(nullable id <UITableViewDelegate>)delegate
+- (void)setDelegate:(nullable id<UITableViewDelegate>)delegate
 {
     if (self.delegate != delegate) {
         _delegate = delegate;
@@ -1315,7 +1315,7 @@ NS_ASSUME_NONNULL_BEGIN
     return _sectionCellDatas;
 }
 
-- (NSMutableArray<id<ZDCellViewModelProtocol>> *)cellViewModels
+- (NSMutableArray<ZDCellViewModel> *)cellViewModels
 {
     if (!_cellViewModels) {
         _cellViewModels = [[NSMutableArray alloc] init];

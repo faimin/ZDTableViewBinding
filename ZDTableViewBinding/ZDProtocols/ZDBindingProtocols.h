@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 // PS: ViewModel需要实现的协议，为了与cellProtocol区分，协议方法前都加了zd前缀
 @protocol ZDCellViewModelProtocol <NSObject>
 
-@property (nonatomic, copy) NSString *zd_reuseIdentifier;
+@property (nonatomic, copy  ) NSString *zd_reuseIdentifier;
 @property (nonatomic, copy, nullable) NSString *zd_nibName;
 @property (nonatomic, copy, nullable) NSString *zd_className;
 @property (nonatomic, strong) id       zd_model;
@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) CGFloat  zd_height;
 @property (nonatomic, assign) CGFloat  zd_fixedHeight;
 @property (nonatomic, assign) BOOL     zd_canEditRow;
-@property (nonatomic, weak) ZDTableViewBinding *zd_bindProxy;
+@property (nonatomic, weak  ) ZDTableViewBinding *zd_bindProxy;
 
 @end
 

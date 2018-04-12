@@ -15,7 +15,7 @@
  */
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZDBaseCellViewModel : NSObject<ZDCellViewModelProtocol>
+@interface ZDBaseCellViewModel : NSObject <ZDCellViewModelProtocol>
 
 ///------------------- Require -------------------
 @property (nonatomic, copy  ) NSString *zd_reuseIdentifier;

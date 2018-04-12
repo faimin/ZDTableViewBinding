@@ -10,7 +10,6 @@
 #import "ZDTableViewBinding.h"
 #import "ZDBaseCellViewModel.h"
 #import "ZDBaseSectionViewModel.h"
-#import "ZDBindingDefine.h"
 #import "MJExtension.h"
 #import "ZDModel.h"
 #import "ZDCustomCell.h"
