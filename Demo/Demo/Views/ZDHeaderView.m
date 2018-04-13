@@ -18,7 +18,7 @@
 - (void)awakeFromNib
 {
     [super awakeFromNib];
-    self.customBackgroundColor = [UIColor purpleColor];
+    self.contentView.backgroundColor = [UIColor purpleColor];
     @weakify(self);
     [[RACObserve(self, sectionModel) ignore:nil] subscribeNext:^(Module *x) {
         @strongify(self);

@@ -51,8 +51,8 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  TableView数据绑定
 
- @param tableView 表视图
- @param multiSection 只要想包含section,此参数就需要设置为`YES`
+ @param tableView tableView
+ @param multiSection 只要包含section,此参数就需要设置为`YES`
  @param sourceSignal 数据源信号
  @param cellCommand cell上的事件
  @param sectionCommand section上的事件
@@ -76,7 +76,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)deleteCellViewModelAtIndexPath:(NSIndexPath *)indexPath;
 - (void)reloadItemsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths;
 
-/// clear all existing datas after the next new datas come
+/// clear all existing datas when the next new datas coming
 - (void)setNeedsResetData;
 
 @end

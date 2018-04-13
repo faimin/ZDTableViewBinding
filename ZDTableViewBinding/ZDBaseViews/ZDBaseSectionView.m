@@ -13,7 +13,7 @@
 - (void)awakeFromNib
 {
     [super awakeFromNib];
-    self.customBackgroundColor = [UIColor whiteColor];
+    self.contentView.backgroundColor = [UIColor whiteColor];
 }
 
 - (void)bindToSectionViewModel:(ZDSectionViewModel)viewModel
@@ -26,25 +26,6 @@
     NSCAssert(self.sectionCommand, @"command isn't initialization");
     if (self.sectionCommand) {
         [self.sectionCommand execute:parameterTuple];
-    }
-}
-
-#pragma mark - Setter
-
-- (void)setCustomBackgroundColor:(UIColor *)customBackgroundColor
-{
-    if (_customBackgroundColor != customBackgroundColor) {
-        _customBackgroundColor = customBackgroundColor;
-        if (self.backgroundView) {
-            self.backgroundView.backgroundColor = customBackgroundColor;
-        }
-        else {
-            self.backgroundView = ({
-                UIView *backView = [[UIView alloc] init];
-                backView.backgroundColor = customBackgroundColor;
-                backView;
-            });
-        }
     }
 }
 

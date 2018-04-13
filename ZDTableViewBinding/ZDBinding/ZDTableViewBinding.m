@@ -222,8 +222,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 	if (self.isMultiSection) {
+        if (section >= self.sectionCellDatas.count) return 0;
+        
 		NSArray *cellViewModelArr = self.sectionCellDatas[section][CellViewModelKey];
-        return [NSArray zdbd_cast:cellViewModelArr] ? cellViewModelArr.count : 0;
+        return [NSArray zdbd_cast:cellViewModelArr].count;
 	}
 	return self.cellViewModels.count;
 }
@@ -314,6 +316,7 @@ NS_ASSUME_NONNULL_BEGIN
 {
     NSArray<ZDCellViewModel> *cellViewModels = self.cellViewModels;
     if (self.isMultiSection) {
+        if (indexPath.section >= self.sectionCellDatas.count) return NO;
         cellViewModels = self.sectionCellDatas[indexPath.section][CellViewModelKey];
     }
 
@@ -485,57 +488,52 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     if (!self.isMultiSection) return nil;
+    if (section >= self.sectionCellDatas.count) return nil;
     
-	if (self.sectionCellDatas.count > section) {
-		ZDSectionViewModel headerViewModel = self.sectionCellDatas[section][HeaderViewModelKey];
-
-        if (!headerViewModel) return nil;
-        
-        NSString *headerReuseIdentifier = headerViewModel.zd_sectionReuseIdentifier ?: headerViewModel.zd_sectionNibName;
-		UITableViewHeaderFooterView *headerInSectionView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:headerReuseIdentifier];
-        
-        if (![headerInSectionView conformsToProtocol:@protocol(ZDSectionProtocol)]) {
-            NSCAssert(NO, @"headerView需要遵守协议");
-            return headerInSectionView;
-        }
-        
-        ZDSection viewForHeaderInSection = (id)headerInSectionView;
-        
-        if ([viewForHeaderInSection respondsToSelector:@selector(setSectionBindProxy:)]) {
-            viewForHeaderInSection.sectionBindProxy = self;
-        }
-        
-		if ([viewForHeaderInSection respondsToSelector:@selector(setHeaderHeight:)]) {
-            viewForHeaderInSection.headerHeight = headerViewModel.zd_sectionHeight;
-		}
-
-		if ([viewForHeaderInSection respondsToSelector:@selector(setSectionCommand:)]) {
-			viewForHeaderInSection.sectionCommand = self.sectionCommand;
-		}
-
-		return [UIView zdbd_cast:viewForHeaderInSection];
-	}
-
-	return nil;
+    ZDSectionViewModel headerViewModel = self.sectionCellDatas[section][HeaderViewModelKey];
+    if (!headerViewModel) return nil;
+    
+    NSString *headerReuseIdentifier = headerViewModel.zd_sectionReuseIdentifier ?: headerViewModel.zd_sectionNibName;
+    UITableViewHeaderFooterView *headerInSectionView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:headerReuseIdentifier];
+    
+    if (![headerInSectionView conformsToProtocol:@protocol(ZDSectionProtocol)]) {
+        NSCAssert(NO, @"headerView need to conform protocol");
+        return headerInSectionView;
+    }
+    
+    ZDSection viewForHeaderInSection = (id)headerInSectionView;
+    
+    if ([viewForHeaderInSection respondsToSelector:@selector(setSectionBindProxy:)]) {
+        viewForHeaderInSection.sectionBindProxy = self;
+    }
+    
+    if ([viewForHeaderInSection respondsToSelector:@selector(setHeaderHeight:)]) {
+        viewForHeaderInSection.headerHeight = headerViewModel.zd_sectionHeight;
+    }
+    
+    if ([viewForHeaderInSection respondsToSelector:@selector(setSectionCommand:)]) {
+        viewForHeaderInSection.sectionCommand = self.sectionCommand;
+    }
+    
+    return [UIView zdbd_cast:viewForHeaderInSection];
 }
 
 - (nullable UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
     if (!self.isMultiSection) return nil;
     if (section >= self.sectionCellDatas.count) {
-        ZDBDLog(@"数组越界");
+        ZDBDLog(@"Array out of bounds");
         return nil;
     }
     
     ZDSectionViewModel footerViewModel = self.sectionCellDatas[section][FooterViewModelKey];
-    
     if (!footerViewModel) return nil;
     
     NSString *footerReuseIdentifier = footerViewModel.zd_sectionReuseIdentifier ?: footerViewModel.zd_sectionNibName;
     UITableViewHeaderFooterView *footerInSectionView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:footerReuseIdentifier];
     
     if (![footerInSectionView conformsToProtocol:@protocol(ZDSectionProtocol)]) {
-        NSCAssert(NO, @"需要遵守协议");
+        NSCAssert(NO, @"footerView need to conform protocol");
         return footerInSectionView;
     }
     
@@ -670,15 +668,14 @@ NS_ASSUME_NONNULL_BEGIN
 {
     if (!self.isMultiSection) return;
     if (self.sectionCellDatas.count <= section) {
-        ZDBDLog(@"数组越界");
+        ZDBDLog(@"Array out of bounds");
         return;
     }
-    
-    ZDSection viewForHeaderInSection = (id)view;
     
     ZDSectionViewModel headerViewModel = self.sectionCellDatas[section][HeaderViewModelKey];
     if (!headerViewModel) return;
     
+    ZDSection viewForHeaderInSection = (id)view;
     if ([viewForHeaderInSection respondsToSelector:@selector(setSectionViewModel:)]) {
         viewForHeaderInSection.sectionViewModel = headerViewModel;
     }
@@ -697,15 +694,14 @@ NS_ASSUME_NONNULL_BEGIN
 {
     if (!self.isMultiSection) return;
     if (self.sectionCellDatas.count <= section) {
-        ZDBDLog(@"数组越界");
+        ZDBDLog(@"Array out of bounds");
         return;
     }
-    
-    ZDSection viewForFooterInSection = (id)view;
     
     ZDSectionViewModel footerViewModel = self.sectionCellDatas[section][FooterViewModelKey];
     if (!footerViewModel) return;
     
+    ZDSection viewForFooterInSection = (id)view;
     if ([viewForFooterInSection respondsToSelector:@selector(setSectionViewModel:)]) {
         viewForFooterInSection.sectionViewModel = footerViewModel;
     }
@@ -959,11 +955,18 @@ NS_ASSUME_NONNULL_BEGIN
 {
 	if (self.isMultiSection) {
 		NSInteger section = indexPath.section;
-		NSCAssert(section < self.sectionCellDatas.count, @"数组越界了");
-
-		NSArray *cellViewModelArr = self.sectionCellDatas[section][CellViewModelKey];
+        if (section >= self.sectionCellDatas.count) {
+            NSCAssert(NO, @"Array out of bounds");
+            return nil;
+        }
+        
+		NSArray<ZDCellViewModel> *cellViewModelArr = self.sectionCellDatas[section][CellViewModelKey];
+        if (indexPath.row >= cellViewModelArr.count) {
+            NSCAssert(NO, @"Array out of bounds");
+            return nil;
+        }
 		ZDCellViewModel viewModel = cellViewModelArr[indexPath.row];
-		NSCAssert(viewModel, @"viewModel不能为nil");
+		NSCAssert(viewModel, @"viewModel can't be nil");
 		return viewModel;
 	}
 	else {
@@ -1001,6 +1004,8 @@ NS_ASSUME_NONNULL_BEGIN
     [self registerNibForTableViewWithCellViewModels:@[viewModel]];
 
 	if (self.isMultiSection) {
+        if (indexPath.section >= self.sectionCellDatas.count) return;
+        
 		NSArray *cellViewModelArr = self.sectionCellDatas[indexPath.section][CellViewModelKey];
 		NSMutableArray *cellViewModelMutArr = cellViewModelArr.mutableCopy;
 		[cellViewModelMutArr insertObject:viewModel atIndex:indexPath.row];
@@ -1020,6 +1025,8 @@ NS_ASSUME_NONNULL_BEGIN
     [self registerNibForTableViewWithCellViewModels:@[viewModel]];
 
 	if (self.isMultiSection) {
+        if (indexPath.section >= self.sectionCellDatas.count) return;
+        
 		NSArray *cellViewModelArr = self.sectionCellDatas[indexPath.section][CellViewModelKey];
 		NSMutableArray *cellViewModelMutArr = cellViewModelArr.mutableCopy;
 		[cellViewModelMutArr replaceObjectAtIndex:indexPath.row withObject:viewModel];
@@ -1049,8 +1056,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)moveViewModel:(nullable ZDCellViewModel)viewModel fromIndexPath:(nullable NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
 {
     if (self.isMultiSection) {
+        if (fromIndexPath.section >= self.sectionCellDatas.count) return;
+        
         NSArray *cellViewModelArr = self.sectionCellDatas[fromIndexPath.section][CellViewModelKey];
-        if (!viewModel) {
+        if (!viewModel && (fromIndexPath.row < cellViewModelArr.count)) {
             viewModel = cellViewModelArr[fromIndexPath.row];
         }
         NSMutableArray *mutRowCellViewModelArr = cellViewModelArr.mutableCopy;
@@ -1092,6 +1101,8 @@ NS_ASSUME_NONNULL_BEGIN
     if (!indexPath) return;
 
 	if (self.isMultiSection) {
+        if (indexPath.section >= self.sectionCellDatas.count) return;
+            
 		NSArray *cellViewModelArr = self.sectionCellDatas[indexPath.section][CellViewModelKey];
 		NSMutableArray *cellViewModelMutArr = cellViewModelArr.mutableCopy;
 		[cellViewModelMutArr removeObjectAtIndex:indexPath.row];
