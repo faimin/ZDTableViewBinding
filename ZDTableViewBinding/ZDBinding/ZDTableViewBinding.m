@@ -507,8 +507,8 @@ NS_ASSUME_NONNULL_BEGIN
         viewForHeaderInSection.sectionBindProxy = self;
     }
     
-    if ([viewForHeaderInSection respondsToSelector:@selector(setHeaderHeight:)]) {
-        viewForHeaderInSection.headerHeight = headerViewModel.zd_sectionHeight;
+    if ([viewForHeaderInSection respondsToSelector:@selector(setSectionHeight:)]) {
+        viewForHeaderInSection.sectionHeight = headerViewModel.zd_sectionHeight;
     }
     
     if ([viewForHeaderInSection respondsToSelector:@selector(setSectionCommand:)]) {
@@ -543,8 +543,8 @@ NS_ASSUME_NONNULL_BEGIN
         viewForFooterInSection.sectionBindProxy = self;
     }
     
-    if ([viewForFooterInSection respondsToSelector:@selector(setHeaderHeight:)]) {
-        viewForFooterInSection.headerHeight = footerViewModel.zd_sectionHeight;
+    if ([viewForFooterInSection respondsToSelector:@selector(setSectionHeight:)]) {
+        viewForFooterInSection.sectionHeight = footerViewModel.zd_sectionHeight;
     }
     
     if ([viewForFooterInSection respondsToSelector:@selector(setSectionCommand:)]) {

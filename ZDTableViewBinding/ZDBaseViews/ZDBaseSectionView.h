@@ -20,8 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, strong) id<ZDSectionViewModelProtocol> sectionViewModel;
 @property (nonatomic, strong) id sectionModel;
-@property (nonatomic, assign) CGFloat headerHeight;
-@property (nonatomic, assign) CGFloat footerHeight;
+@property (nonatomic, assign) CGFloat sectionHeight;
 @property (nonatomic, strong) RACCommand *sectionCommand;
 @property (nonatomic, weak, nullable) ZDTableViewBinding *sectionBindProxy;
 
