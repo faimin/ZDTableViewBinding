@@ -16,7 +16,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZDBaseSectionView : UITableViewHeaderFooterView<ZDSectionProtocol>
+@interface ZDBaseSectionView : UITableViewHeaderFooterView <ZDSectionProtocol>
 
 @property (nonatomic, strong) id<ZDSectionViewModelProtocol> sectionViewModel;
 @property (nonatomic, strong) id sectionModel;

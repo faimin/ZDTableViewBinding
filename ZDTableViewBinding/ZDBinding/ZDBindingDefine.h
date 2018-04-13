@@ -53,6 +53,12 @@ static NSString * const FooterViewModelKey = @"FooterViewModelKey";
     sectionAndCellDict;                                                                 \
 })
 
+#define ZDSynthesizeCellProperty                                                        \
+@synthesize model = _model, viewModel = _viewModel, cellCommand = _cellCommand, height = _height, indexPath = _indexPath, bindProxy;
+
+#define ZDSynthesizeSectionProperty                                                     \
+@synthesize sectionViewModel = _sectionViewModel, sectionModel = _sectionModel, sectionCommand = _sectionCommand, sectionHeight = _sectionHeight, sectionBindProxy;
+
 NS_INLINE BOOL ZDNotNilOrEmpty(NSString *_objc) {
     if (_objc == nil || _objc == NULL) {
         return NO;
