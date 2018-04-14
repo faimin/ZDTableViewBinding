@@ -33,9 +33,9 @@ extern NSInteger const ZDBD_Event_DidSelectRow;
 
  @param tableView tableView
  @param multiSection 只要包含section,此参数就需要设置为`YES`
- @param sourceSignal 数据源信号
+ @param dataSourceSignal 数据源信号
  @param cellCommand cell上的事件
- @param sectionCommand section上的事件
+ @param headerFooterCommand headerView/footerView上的事件
  @return tableView代理
  */
 + (instancetype)bindingHelperForTableView:(__kindof UITableView *)tableView

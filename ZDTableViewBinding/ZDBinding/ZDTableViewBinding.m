@@ -8,7 +8,7 @@
 
 #import "ZDTableViewBinding.h"
 #if ZD_INCLUEDE_FD
-#import "UITableView+FDTemplateLayoutCell.h"
+#import <UITableView+FDTemplateLayoutCell.h>
 #endif
 
 NS_ASSUME_NONNULL_BEGIN
@@ -490,7 +490,7 @@ NSInteger const ZDBD_Event_DidSelectRow = -1;
     ZDHeaderFooterViewModel headerViewModel = self.sectionCellDatas[section][HeaderViewModelKey];
     if (!headerViewModel) return nil;
     
-    if ([headerViewModel respondsToSelector:@selector(setZd_sectionBindProxy:)]) {
+    if ([headerViewModel respondsToSelector:@selector(setZd_headerFooterBindProxy:)]) {
         headerViewModel.zd_headerFooterBindProxy = self;
     }
     
@@ -516,7 +516,7 @@ NSInteger const ZDBD_Event_DidSelectRow = -1;
         viewForHeaderInSection.headerFooterCommand = self.headerFooterCommand;
     }
     
-    return viewForHeaderInSection;
+    return [UIView zdbd_cast:viewForHeaderInSection];
 }
 
 - (nullable UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
@@ -556,7 +556,7 @@ NSInteger const ZDBD_Event_DidSelectRow = -1;
         viewForFooterInSection.headerFooterCommand = self.headerFooterCommand;
     }
     
-    return viewForFooterInSection;
+    return [UIView zdbd_cast:viewForFooterInSection];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section
@@ -690,7 +690,7 @@ NSInteger const ZDBD_Event_DidSelectRow = -1;
     }
     
     // section绑定协议
-    if ([viewForHeaderInSection respondsToSelector:@selector(bindToSectionViewModel:)]) {
+    if ([viewForHeaderInSection respondsToSelector:@selector(bindToHeaderFooterViewModel:)]) {
         [viewForHeaderInSection bindToHeaderFooterViewModel:headerViewModel];
     }
 }
