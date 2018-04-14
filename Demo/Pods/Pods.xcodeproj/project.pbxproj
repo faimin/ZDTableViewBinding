@@ -20,8 +20,8 @@
 		064EC4AA8FCCD08F2037037B1E672DBF /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 748BF77A467C0B1C75BE3F5AF0F68307 /* AFURLSessionManager.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		0A1CE7CE58B28609B573D4058ABDD616 /* AFSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = E8BB13F2A946FA36308C0A225709B282 /* AFSecurityPolicy.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		0B5008EA886CE50EB1C13EA304D132A6 /* NSSet+RACSequenceAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = EFA33646906C56A9EE151D842EAC7FA7 /* NSSet+RACSequenceAdditions.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		0B568D09AB3EB5E52E6A180E95DA8603 /* ZDTableViewBinding.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C0244A95DD52CBF3F7ADDEC175BE84 /* ZDTableViewBinding.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		0B9183481A6C5EF5DE8367E74352A71E /* UIBarButtonItem+RACCommandSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CAC679324D27F761C65630D1AF9659 /* UIBarButtonItem+RACCommandSupport.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		0CD4D3F9E4AD8539853E9FA12562EA1F /* ZDBindingProtocols.h in Headers */ = {isa = PBXBuildFile; fileRef = 93A00EFCAEC8A00024E8A72E31F0153A /* ZDBindingProtocols.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		0DAE61EE8CFDFB7FB297590A54105F92 /* MJPropertyType.m in Sources */ = {isa = PBXBuildFile; fileRef = 0CE9DA6C1F1981AB14F71E06155FE646 /* MJPropertyType.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		0E06F4B33E1C124FBE87E12378EE99C5 /* RACIndexSetSequence.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BA08EF0221FE8CFCD7755656CA02189 /* RACIndexSetSequence.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		0F56BC6FF3EA963EA1B63D69293E3EBD /* RACCommand.h in Headers */ = {isa = PBXBuildFile; fileRef = C0BDAD488A8228638E0DD1C7EF9C4F56 /* RACCommand.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -30,10 +30,10 @@
 		12FCB056A2B7051B0D91B16CAFE85C1D /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 728C06AD20CB6135CA29B3CA708E1D11 /* UIRefreshControl+AFNetworking.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		130FC79057E4D1F05ADF22BDAE7B2708 /* UIStepper+RACSignalSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = D890C5B2221B6D19A67AECB4F3D2254D /* UIStepper+RACSignalSupport.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		13293985A8EF2FCE81FEEF0522E18350 /* RACTuple.m in Sources */ = {isa = PBXBuildFile; fileRef = B0A4D85A45E5726CC982A2D15168ACB4 /* RACTuple.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		144E01A8EA7C6E45DA48A1049245A946 /* ZDBaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FDA63FA5E7BA10A43F690CCE882CDB8F /* ZDBaseTableViewCell.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		14A9E7B0BE7392524FC07D93C47D7A7F /* MJExtensionConst.h in Headers */ = {isa = PBXBuildFile; fileRef = 2CE40D1201B6526EF5754099F610B6DA /* MJExtensionConst.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		16CB16AC897D92670D262461EF792719 /* RACValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = ED1BC424E93C7EBE3E948EA5483CDACD /* RACValueTransformer.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		1702DB74CC573578862AA584FC9D1632 /* AFNetworkActivityIndicatorManager.h in Headers */ = {isa = PBXBuildFile; fileRef = A3B0257BE4358BEA66FA1B860D38ECAA /* AFNetworkActivityIndicatorManager.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		1734091C4AF125E2003D30C4E494B1F6 /* ZDBaseTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 8B9E5DDC0BA8E1711E34A1E252774B67 /* ZDBaseTableViewCell.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		17889562A613EFB9E8C0CD14947CCC8F /* AFAutoPurgingImageCache.h in Headers */ = {isa = PBXBuildFile; fileRef = F47AB9101E988FCA4FAB78468254D68E /* AFAutoPurgingImageCache.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		17E74D623462991F19748A7F99CF8ED6 /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D2BB04D8DB45845B4D7317C676AD62D /* UIWebView+AFNetworking.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		1863C0F26A50E5A96CA3C942E9215847 /* UIGestureRecognizer+RACSignalSupport.h in Headers */ = {isa = PBXBuildFile; fileRef = 3C023DE6363FCA101805D3D99AE9DE7B /* UIGestureRecognizer+RACSignalSupport.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -60,7 +60,6 @@
 		292DD49D012717B72FD4D87987C47D9F /* NSObject+RACDescription.h in Headers */ = {isa = PBXBuildFile; fileRef = D0461AABB756A01B4DF20170C246BEC5 /* NSObject+RACDescription.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		29D221887670387A248AD92AA94253C2 /* AFURLSessionManager.h in Headers */ = {isa = PBXBuildFile; fileRef = B1F3F62D294551C9CCFE5F79223B442A /* AFURLSessionManager.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		2A00DF204E7644869AFE77FD1A599F5C /* UITableView+FDTemplateLayoutCellDebug.m in Sources */ = {isa = PBXBuildFile; fileRef = 67EFA418B7A3EB0962BE7E8D47FDBA80 /* UITableView+FDTemplateLayoutCellDebug.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		2B9C695A713F7D8008E134756CD62F66 /* ZDTableViewBinding.h in Headers */ = {isa = PBXBuildFile; fileRef = 90FD801B088CD49EDE6CA82C2BC30EAC /* ZDTableViewBinding.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		2BCD3F861A5F4CF448072C4692AD130D /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 64F830386EE86CA46CC9AF5130C59A6A /* UIImageView+AFNetworking.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		2CDE9B98A00F2833F457A128E441B4C8 /* RACCommand.m in Sources */ = {isa = PBXBuildFile; fileRef = FA63F05F0E9A485AD5011E663A864A6D /* RACCommand.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		2DBD6E614DA2DCD8498D69A1578FE654 /* JPFPSStatus.h in Headers */ = {isa = PBXBuildFile; fileRef = 3434CD9173E990269180810360A20062 /* JPFPSStatus.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -78,10 +77,10 @@
 		3A135E858450F155E28A1F19CF0D0332 /* NSObject+MJProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = DD2333678E0FB3C875D5D522F43F5E22 /* NSObject+MJProperty.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		3B3193046E57C34B59C246453C20DBDC /* NSURLConnection+RACSupport.h in Headers */ = {isa = PBXBuildFile; fileRef = E2FDD1BF219084EFC2F6E9A5370D93E3 /* NSURLConnection+RACSupport.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		3DDACF8C0A46560D12BF70C62CB0C1DD /* NSObject+RACSelectorSignal.h in Headers */ = {isa = PBXBuildFile; fileRef = 011431688D6352CB977A0C8DD0B51053 /* NSObject+RACSelectorSignal.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		3E26FC2D827A41301D5947EAF6A56F87 /* ZDCommonCellViewModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 110D7EA8B32F7517A083CF3B1A2C8DCD /* ZDCommonCellViewModel.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		3F01CCBD9BCBC4C3CFE268F5BFB5977A /* UISegmentedControl+RACSignalSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 890B23377A40A939982BD83604D0A9FB /* UISegmentedControl+RACSignalSupport.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		41B367876557E7AAE4524FBDF62AC667 /* NSString+RACSequenceAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 87170808B518393E6555B4D9736846D3 /* NSString+RACSequenceAdditions.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		42685FE0DCB9BA31B699886E77DF8E69 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DF8FFA016F7FC9560215A96908CE92D /* UIKit.framework */; };
-		42D86EA00FC239B504CD107FB7DA4F31 /* ZDCommonCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B0128CAA395B11BE865E53E0838F724 /* ZDCommonCellViewModel.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		43255A8EEFBBFF2A8F582B614CA03982 /* RACEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = BEFFCBF4F887C734830FA3A7F81A6079 /* RACEvent.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		458F0BA4F0F94555B5D9FE48BFB09CF3 /* NSString+RACSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = B3835738C6DD9A817DE877C042C04C4E /* NSString+RACSupport.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		46A11205EECD0F37C025BEA9B803CB12 /* RACStream.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AED25E3F3F003505C4C38345C5CAD3A /* RACStream.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -96,16 +95,14 @@
 		4B27D8DED80A18FACEAC5E4C33734DD1 /* RACTargetQueueScheduler.m in Sources */ = {isa = PBXBuildFile; fileRef = 15A7B12E65206184B19435FB28A62037 /* RACTargetQueueScheduler.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		4CB32AA2430CF4AC45089D0D92F467E1 /* UITableView+FDTemplateLayoutCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2584680777A11CC138558D440E1D055A /* UITableView+FDTemplateLayoutCell.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		4CB74C0E73B24D85633865F7978019FC /* RACGroupedSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EE0F4C9BD439063FA445E1F24185D3A /* RACGroupedSignal.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		4CD5C51B55CAF13A25DAF1A61CBCC5C2 /* ZDCommonHeaderFooterViewModel.h in Headers */ = {isa = PBXBuildFile; fileRef = ABFFB0503774DA2DE18A86475A407169 /* ZDCommonHeaderFooterViewModel.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		4D7D1A6B06FBEDBDC2DBB729296C5FD8 /* RACScopedDisposable.h in Headers */ = {isa = PBXBuildFile; fileRef = 2557BC8E3E2BEE34A35A57064FE4CCA3 /* RACScopedDisposable.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		4D8D174CF7EDB02B23761A29288A46D8 /* ZDBindingDefine.h in Headers */ = {isa = PBXBuildFile; fileRef = BD31C4562B3E3A77C1964004EECAD226 /* ZDBindingDefine.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		4E89C3874679BCFC8B8C01183C8B9AAC /* NSInvocation+RACTypeParsing.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B828488EC7E6332C2AD06CAE9BC3599 /* NSInvocation+RACTypeParsing.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		500FB7D639FDBF733048E0217E4AC1FA /* NSObject+RACKVOWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = A9C3004BED6441429EB7A07AF44040D0 /* NSObject+RACKVOWrapper.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
-		50E86C5F57C91399AF59D617F93131F7 /* ZDTableViewBinding-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 92D37E25AFBC2293D586583B1E617792 /* ZDTableViewBinding-dummy.m */; };
 		51EDC7F3D1A6C5D66D45736A31890D6D /* RACSignalProvider.d in Sources */ = {isa = PBXBuildFile; fileRef = 46EC64C7109AD26A9DFDCB2E7C0009C4 /* RACSignalProvider.d */; };
 		5264E5DD9D90196CD93F047B7A1A156F /* NSNotificationCenter+RACSupport.h in Headers */ = {isa = PBXBuildFile; fileRef = F03FB100A04D004799357C2670BD3661 /* NSNotificationCenter+RACSupport.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		52E28A0A333684B80D6CD7FFD42865E2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDACA249905A37FD49D1977373223D99 /* Foundation.framework */; };
 		5306B895856C8B3DD3FA37BD95C68722 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8895A39AC0F89FD4C2CC5865155B665 /* CoreFoundation.framework */; };
-		534DC08BCFB8ED75733E22E6E1C6F135 /* ZDBindingProtocols.h in Headers */ = {isa = PBXBuildFile; fileRef = 93A00EFCAEC8A00024E8A72E31F0153A /* ZDBindingProtocols.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		54133905EDC72628065074F4FE59BB57 /* RACTuple.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FB752CD1CE2971157FBAE853CF0BCB5 /* RACTuple.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		562D96E8010F490A5769130D5DD40483 /* RACErrorSignal.h in Headers */ = {isa = PBXBuildFile; fileRef = 592526EA770D5B48ACEDFCE668C2DF7B /* RACErrorSignal.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		568C7D688C6EF6ADB427A5C8E17DAC7E /* UIImagePickerController+RACSignalSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = D7565F8333BB1C0D3D8729B814327597 /* UIImagePickerController+RACSignalSupport.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
@@ -118,7 +115,6 @@
 		5B6497AC008B221FB3833E948B83C09B /* RACReturnSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = 590E506FCA83991DA4F7B435417A21E1 /* RACReturnSignal.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		5D437F5C4A12A4552070DCFCC423583B /* AFURLRequestSerialization.h in Headers */ = {isa = PBXBuildFile; fileRef = 82A0EA34A1B32118B6B93DF2D5F69980 /* AFURLRequestSerialization.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		5E44DBB795EEB3709514EBCD0DC72E53 /* RACEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 2A8493FE220AE256BCACCDE373E721F9 /* RACEvent.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		5E52644B58FDDB076C064361F8ACB26D /* ZDBaseSectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E2C93DA81A15C2E418337A9EB98F755 /* ZDBaseSectionView.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		602682335D682F25A99063B4BA6E0463 /* RACReplaySubject.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3C19E70CD627B4C72038E50F0BB6B4 /* RACReplaySubject.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		603E8599681E02B771213D56B984443D /* RACChannel.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A469ED5C836146C1FE422F8ED32E676 /* RACChannel.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		6221F1DCA91872CD5FA13D8129A8965A /* UISlider+RACSignalSupport.h in Headers */ = {isa = PBXBuildFile; fileRef = D240BAE65634D7DE506FB858BBC07132 /* UISlider+RACSignalSupport.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -149,6 +145,7 @@
 		7482DD9AE507E2E744A01F061D7C9266 /* UIProgressView+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 88B24BE840384CFA45C5749F81A122DF /* UIProgressView+AFNetworking.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		75D4D1F473F6DA208001A46179BAEB7A /* AFSecurityPolicy.h in Headers */ = {isa = PBXBuildFile; fileRef = 3B3B5CE4895BC4249437000E0A28B96C /* AFSecurityPolicy.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		77B3926415A970491072FDC9BB252899 /* RACSerialDisposable.h in Headers */ = {isa = PBXBuildFile; fileRef = C011771419C12B6197916127D80767F2 /* RACSerialDisposable.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		782F81D4334D2F786EF8634486C229B5 /* ZDCommonCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B0128CAA395B11BE865E53E0838F724 /* ZDCommonCellViewModel.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		79D3F583C06696FD6A4E021DD8379C77 /* RACKVOChannel.h in Headers */ = {isa = PBXBuildFile; fileRef = D2FF8C98216C2B80D2460A45772B1738 /* RACKVOChannel.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		7A7DF101023FEE5FC71D635B2A5A3281 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDACA249905A37FD49D1977373223D99 /* Foundation.framework */; };
 		7A8D67E5E2B8795E16AB9182947484B3 /* RACUnarySequence.h in Headers */ = {isa = PBXBuildFile; fileRef = E76DBB290CD285DA6E1FC099FCDDF434 /* RACUnarySequence.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -163,6 +160,7 @@
 		83903A123D0E3D6CBE703394D7C6DB9F /* RACKVOChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = 36FC9A64E1B7463CB71A337F11779153 /* RACKVOChannel.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		83FA693D0356AEB44327173FFE5CE007 /* RACTestScheduler.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E18192623CDD4860B4D4432F6E09145 /* RACTestScheduler.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		85105491A5FC962C5BF37FEC446F3212 /* UITableView+FDKeyedHeightCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 915349DE7CF2835B98B01C29B0C3737C /* UITableView+FDKeyedHeightCache.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		857F8728B1399ECCC72CD69DA66CF9D2 /* ZDCommonHeaderFooterViewModel.h in Headers */ = {isa = PBXBuildFile; fileRef = ABFFB0503774DA2DE18A86475A407169 /* ZDCommonHeaderFooterViewModel.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		861379E7FA908BF49612B0EE8D405C0A /* RACSequence.m in Sources */ = {isa = PBXBuildFile; fileRef = BCFEB6E83603D49CE096A7F54194017A /* RACSequence.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		861E9BA92B815566D651E924238879E0 /* JPFPSStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 73773BEDD7B83E18B0AFD66877957774 /* JPFPSStatus.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		8742C2A84F5F3185099971B4D2629D34 /* RACStringSequence.h in Headers */ = {isa = PBXBuildFile; fileRef = F2F7B5F3A12B7D2FBACF416D396A962A /* RACStringSequence.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -185,17 +183,18 @@
 		98052DB6D3537546B8CA6F017F5BBC0B /* NSUserDefaults+RACSupport.h in Headers */ = {isa = PBXBuildFile; fileRef = 35602F1471E29C5084520DFF69193ACD /* NSUserDefaults+RACSupport.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		98744DD863CAE2EBEC90DC236E0119B3 /* NSString+RACSupport.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F54744C27B8ABCB90509FCE48E2E588 /* NSString+RACSupport.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		99008B8B56A1F62288DD01F0866E9C78 /* UIButton+RACCommandSupport.h in Headers */ = {isa = PBXBuildFile; fileRef = 7353050C286EADF6EEFCBB71FC409440 /* UIButton+RACCommandSupport.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		99695B05AD78E82C83B0C5CC5A56AE5F /* ZDBaseTableViewHeaderFooterView.h in Headers */ = {isa = PBXBuildFile; fileRef = 6F97863BA529A85DB69512A9AC14D342 /* ZDBaseTableViewHeaderFooterView.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		9AE8683AEDA0C2DDA429F08AD8C2D22A /* Pods-Demo-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C00AFED8FDEF3AA61D1A5446162FAD88 /* Pods-Demo-dummy.m */; };
 		9CA07EB2B7AECC19D1AD449875DEAA92 /* RACMulticastConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = E92EEEEC123D143C7516A4CA269F301E /* RACMulticastConnection.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		9CFD09492995D30EEA1A7D8AE3C3B929 /* ZDTableViewBinding-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 92D37E25AFBC2293D586583B1E617792 /* ZDTableViewBinding-dummy.m */; };
 		9EA69CE3DCF163200B3B80837D79DCB2 /* RACEXTRuntimeExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7516385D351CE96280A8CAECFA0062 /* RACEXTRuntimeExtensions.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		9EE197681E648A6A88D9B8FFB2B79AF6 /* NSNotificationCenter+RACSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CCA471C78FA538622269AD36A2CE3C9 /* NSNotificationCenter+RACSupport.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		9F39FCC5EFE5F66AFA01AB0F2E9065FA /* MJPropertyKey.m in Sources */ = {isa = PBXBuildFile; fileRef = D4609FF3F59333BB85BC8D54333C5478 /* MJPropertyKey.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		A124156F6C05378C1A55D7D9BEC94926 /* RACIndexSetSequence.h in Headers */ = {isa = PBXBuildFile; fileRef = D192E52CD70929311E081273949B42D5 /* RACIndexSetSequence.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		A1DC2BCF65CE8D3D02F42126143AC736 /* RACTupleSequence.m in Sources */ = {isa = PBXBuildFile; fileRef = 98D61B596554069C256A9C56EC5E6CB1 /* RACTupleSequence.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		A30CCBAD1D16D8F8AB28E309CE6182C6 /* RACBlockTrampoline.h in Headers */ = {isa = PBXBuildFile; fileRef = 95E4A805D261F04C5C9156427115B6E5 /* RACBlockTrampoline.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		A441CEC1DFF07EF3609E769BCAF8D7D7 /* ZDCommonCellViewModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 110D7EA8B32F7517A083CF3B1A2C8DCD /* ZDCommonCellViewModel.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		A44650EEECEAD2A7B6FE8A060C91A34B /* ZDBaseTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 5B9385E310C78BB50746A550B738235F /* ZDBaseTableViewCell.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		A524B935F5DD807E496B00B9393F5512 /* RACSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = 988A0A6D5AE7E8C99FD20505FF321508 /* RACSignal.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		A6732E5BE47DA2F2349437F1425DB6BB /* ZDTableViewBinding.h in Headers */ = {isa = PBXBuildFile; fileRef = 90FD801B088CD49EDE6CA82C2BC30EAC /* ZDTableViewBinding.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		A86274C9E90A4978502075FE77227018 /* NSIndexSet+RACSequenceAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F659E1FD134FE4136316045B4F7FFC4 /* NSIndexSet+RACSequenceAdditions.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		A8CADFE3ED189A0D78FB843A061542AF /* RACSignal+Operations.m in Sources */ = {isa = PBXBuildFile; fileRef = 031588264650C219009B4FA6E99F683A /* RACSignal+Operations.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		A8CDA749EE1937B3A539634669E5B3EB /* RACCompoundDisposable.m in Sources */ = {isa = PBXBuildFile; fileRef = BF66D0FE7B4C31CD8D0330230A19A73E /* RACCompoundDisposable.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
@@ -216,7 +215,6 @@
 		B43CDF265CF01D7C6072082897C51DEE /* UIKit+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 5298709B3871796A3C1D7366D640B457 /* UIKit+AFNetworking.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		B47220D4E8528995947E6ECB21D4A10D /* RACDynamicSignal.m in Sources */ = {isa = PBXBuildFile; fileRef = 0665EF3FC10CF72FCC2D47A10A26C65A /* RACDynamicSignal.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		B4B73C846B3868F5CAE2C28C9143D277 /* NSObject+RACDeallocating.h in Headers */ = {isa = PBXBuildFile; fileRef = E67967C499CDA52B18324A9CC84B3265 /* NSObject+RACDeallocating.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		B4BBBD57A9BE02C755D3A05CE990F739 /* ZDBindingDefine.h in Headers */ = {isa = PBXBuildFile; fileRef = BD31C4562B3E3A77C1964004EECAD226 /* ZDBindingDefine.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		B5A9BA39819D0FC6AA3F383396CF311D /* UITableViewHeaderFooterView+RACSignalSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 706828C5EA81D6A99A42BF9A7043E0B1 /* UITableViewHeaderFooterView+RACSignalSupport.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		B6898E6D9E4C35238A0B8824BCC9AB29 /* RACEXTRuntimeExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = C4C816025B1C89190865A38706A44EC1 /* RACEXTRuntimeExtensions.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		B7CCA874ABA6692B073FD44D11608018 /* UIControl+RACSignalSupportPrivate.m in Sources */ = {isa = PBXBuildFile; fileRef = 160652C9D685BFE280FE7FB0447F854C /* UIControl+RACSignalSupportPrivate.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
@@ -234,7 +232,9 @@
 		C214E3582DE2BE5E85F81912A8D66702 /* NSObject+MJClass.m in Sources */ = {isa = PBXBuildFile; fileRef = A6772A5253F32B03C6D57EE76A4A5573 /* NSObject+MJClass.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		C2AB469E03CADDDF64FC57A3D518CA38 /* MKAnnotationView+RACSignalSupport.h in Headers */ = {isa = PBXBuildFile; fileRef = 574A8B24680096DFFCA1512313A98069 /* MKAnnotationView+RACSignalSupport.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		C2E25440FC20E3B1ED5E1B9FAAC6C1EB /* UITableView+FDKeyedHeightCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 389CC007EC483971A79D916D0E4A0A37 /* UITableView+FDKeyedHeightCache.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		C372D36405DCBA41D67685B98ECAFE01 /* ZDCommonHeaderFooterViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A55D93A147D772AE60DF1538676BB2D /* ZDCommonHeaderFooterViewModel.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		C4D12D56B5E4323CDE6A77AEF30D4D9F /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = C81E09FE96E2CB1E47C6A8047A096B01 /* AFURLResponseSerialization.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		C501E45A85B70531DCCDBAD148DD6876 /* ZDBaseTableViewHeaderFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = F97475CAED93BBFF3C17ED702809BDD6 /* ZDBaseTableViewHeaderFooterView.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		C60E5845068B90D7760411CE582C2934 /* AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 73C652B0A45905A60A71A1761E17B27B /* AFNetworking.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		C6DD242331052B0DA370C39CD169BA85 /* RACEmptySequence.h in Headers */ = {isa = PBXBuildFile; fileRef = 03B9BFC20D5D9A8789B31110E015D8CD /* RACEmptySequence.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		C7FA1B2090E34DE66B834FF423D1BE33 /* RACReturnSignal.h in Headers */ = {isa = PBXBuildFile; fileRef = 150857E9FE0D125740AD68636FD9D6D9 /* RACReturnSignal.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -250,14 +250,15 @@
 		CD665167D4A55D477B41552FD82853F3 /* NSData+RACSupport.h in Headers */ = {isa = PBXBuildFile; fileRef = F63F141AA7F9F53FB989F9D942CFB1A6 /* NSData+RACSupport.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		CDC3F61A31DD6EBEDD1D8C0FD98036F9 /* UITextView+RACSignalSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 3933B36C205BD1D8887E7DEF04CEA4D2 /* UITextView+RACSignalSupport.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		D01A54B5D0AA4B42E4DEE8C030AA6991 /* NSDictionary+RACSequenceAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = BB09067EC7CA0FD644B0BA62CE7B261B /* NSDictionary+RACSequenceAdditions.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
+		D01AAD03F9DBE018C8EE07697AEF4C46 /* ZDBaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E0CCEFB1C6694428D85D99DA70E9AC5 /* ZDBaseTableViewCell.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		D35C4D9D13D79BD5862DB027BC33C1A7 /* ReactiveObjC-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = B74F77FF57467089761838152A1FC1C9 /* ReactiveObjC-dummy.m */; };
-		D4356FDEE38A6B59AB4AC4D401BA9471 /* ZDBaseSectionView.h in Headers */ = {isa = PBXBuildFile; fileRef = AB33A7E0F7E6AA521C2AB5688FA4592D /* ZDBaseSectionView.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		D4403A1286EC49CC71A5483E590AC59B /* RACUnit.h in Headers */ = {isa = PBXBuildFile; fileRef = 55465B53048618DED08FA16D47EDBAB6 /* RACUnit.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		D486C538AE3151018303619712539B4C /* UIProgressView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C11278DD676EEF1A8208FC02C23E329 /* UIProgressView+AFNetworking.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		D4A76B2914BB41E76D470F137C5ABF3E /* RACScopedDisposable.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B3872D8CCEC5D4F79C7E941AC9E3386 /* RACScopedDisposable.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		D542E74CF3A429E7433464C12405F07B /* UIImage+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 88E3AE3DB5FF18090EE137A7DD23ED63 /* UIImage+AFNetworking.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		D5652156F818D84C5AD04C488396A875 /* UIAlertView+RACSignalSupport.h in Headers */ = {isa = PBXBuildFile; fileRef = 392E7ADAD901DE7B2794CCAD390F6C92 /* UIAlertView+RACSignalSupport.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		D64725D9FFE0D8E7236A487BFC9F72AD /* RACMulticastConnection+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = AFB2949ED07CC84B088CBF7A611FAF7A /* RACMulticastConnection+Private.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		D67CFA9E2C279FAFF3506F50F383BA45 /* ZDTableViewBinding.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C0244A95DD52CBF3F7ADDEC175BE84 /* ZDTableViewBinding.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		D7D44C706D8295922D87537BA1C9F793 /* UIImagePickerController+RACSignalSupport.h in Headers */ = {isa = PBXBuildFile; fileRef = D8329CA9DB7E5004AE65D6FB06950441 /* UIImagePickerController+RACSignalSupport.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		D971C1C197D6FB0F4D4257B7F055510A /* RACStream+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 7DDDECF719CDBF53AABE8289B47F9222 /* RACStream+Private.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		D9B832A4587F66C92F6447F359089179 /* NSArray+RACSequenceAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 23E9AF70A620A91EB109CB10CF216027 /* NSArray+RACSequenceAdditions.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -267,7 +268,6 @@
 		DE825B8F32AB823F4BE5492CAC6FCB4B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F36B7C414BAF1E23E7D3F29D7FA6937F /* Security.framework */; };
 		DEC521B675C52F02ACE668EE3C42C17F /* MJExtension.h in Headers */ = {isa = PBXBuildFile; fileRef = C5C024EA46AC40768EDF901438FB136B /* MJExtension.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		E011792C6983420DEC79E0692178790D /* RACSequence.h in Headers */ = {isa = PBXBuildFile; fileRef = F1975A5FB8CC0BC7FE25B528DC90C289 /* RACSequence.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		E080594B107B4FBBC27EF6A83F6802D9 /* ZDCommonHeaderFooterViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A55D93A147D772AE60DF1538676BB2D /* ZDCommonHeaderFooterViewModel.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		E0994B157B77142978BF9F39279B1D8E /* RACBlockTrampoline.m in Sources */ = {isa = PBXBuildFile; fileRef = 74F487089F390118827D80A5C1E32D71 /* RACBlockTrampoline.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		E0F54A95DF1F7BC8C9C6828396D74B5D /* RACScheduler.h in Headers */ = {isa = PBXBuildFile; fileRef = B8BB6E0ECEDF17B5191466499BBD3E46 /* RACScheduler.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		E20A90B9E4DCCD83880D775FF7480E6C /* NSUserDefaults+RACSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = CD14115BE4C9ADCB4FDC5AD4C3A76E3E /* NSUserDefaults+RACSupport.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
@@ -415,6 +415,7 @@
 		19D41B2B6997A397CC07CD8055F07FF6 /* RACSubscriber.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RACSubscriber.h; path = ReactiveObjC/RACSubscriber.h; sourceTree = "<group>"; };
 		19EF7A79639FB43E8DD8B3CBD793F1D8 /* RACTupleSequence.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RACTupleSequence.h; path = ReactiveObjC/RACTupleSequence.h; sourceTree = "<group>"; };
 		1C471D2787DA363599021CB84055D878 /* RACKVOProxy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = RACKVOProxy.m; path = ReactiveObjC/RACKVOProxy.m; sourceTree = "<group>"; };
+		1E0CCEFB1C6694428D85D99DA70E9AC5 /* ZDBaseTableViewCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ZDBaseTableViewCell.m; path = ZDTableViewBinding/ZDBaseViews/ZDBaseTableViewCell.m; sourceTree = "<group>"; };
 		1E7A7714E63575ACADFDC0B5E91788BA /* RACKVOTrampoline.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = RACKVOTrampoline.m; path = ReactiveObjC/RACKVOTrampoline.m; sourceTree = "<group>"; };
 		1EC8A5411C8B570C2F5B19ED7CE6036E /* UITableView+FDTemplateLayoutCell-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "UITableView+FDTemplateLayoutCell-dummy.m"; sourceTree = "<group>"; };
 		1F659E1FD134FE4136316045B4F7FFC4 /* NSIndexSet+RACSequenceAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSIndexSet+RACSequenceAdditions.m"; path = "ReactiveObjC/NSIndexSet+RACSequenceAdditions.m"; sourceTree = "<group>"; };
@@ -505,7 +506,6 @@
 		59BD81F286E0CF42713EF1B673B23FA1 /* YYClassInfo.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = YYClassInfo.m; path = YYModel/YYClassInfo.m; sourceTree = "<group>"; };
 		5A3C19E70CD627B4C72038E50F0BB6B4 /* RACReplaySubject.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = RACReplaySubject.m; path = ReactiveObjC/RACReplaySubject.m; sourceTree = "<group>"; };
 		5ACFF74239124627000522673E81556E /* MJFoundation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MJFoundation.h; path = MJExtension/MJFoundation.h; sourceTree = "<group>"; };
-		5B9385E310C78BB50746A550B738235F /* ZDBaseTableViewCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ZDBaseTableViewCell.h; path = ZDTableViewBinding/ZDBaseViews/ZDBaseTableViewCell.h; sourceTree = "<group>"; };
 		5BE412FACD6EFED5594AC187EE6B710F /* NSObject+MJClass.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSObject+MJClass.h"; path = "MJExtension/NSObject+MJClass.h"; sourceTree = "<group>"; };
 		5C23EA7B88D999947E3A6B6A6A2870F7 /* Pods-DemoUITests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-DemoUITests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		5CD62EBC49047492DBFAC55F8EE1F9F4 /* UITableViewCell+RACSignalSupport.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UITableViewCell+RACSignalSupport.h"; path = "ReactiveObjC/UITableViewCell+RACSignalSupport.h"; sourceTree = "<group>"; };
@@ -525,6 +525,7 @@
 		6EB9099869729D6FEB7CEC45D2E4D8EB /* AFHTTPSessionManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AFHTTPSessionManager.h; path = AFNetworking/AFHTTPSessionManager.h; sourceTree = "<group>"; };
 		6F6DAAC75B9102D98EC953084189F74E /* AFNetworking-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "AFNetworking-dummy.m"; sourceTree = "<group>"; };
 		6F8A510A277962775E8780B1008290FF /* UIDatePicker+RACSignalSupport.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIDatePicker+RACSignalSupport.h"; path = "ReactiveObjC/UIDatePicker+RACSignalSupport.h"; sourceTree = "<group>"; };
+		6F97863BA529A85DB69512A9AC14D342 /* ZDBaseTableViewHeaderFooterView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ZDBaseTableViewHeaderFooterView.h; path = ZDTableViewBinding/ZDBaseViews/ZDBaseTableViewHeaderFooterView.h; sourceTree = "<group>"; };
 		6FB752CD1CE2971157FBAE853CF0BCB5 /* RACTuple.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RACTuple.h; path = ReactiveObjC/RACTuple.h; sourceTree = "<group>"; };
 		706828C5EA81D6A99A42BF9A7043E0B1 /* UITableViewHeaderFooterView+RACSignalSupport.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UITableViewHeaderFooterView+RACSignalSupport.m"; path = "ReactiveObjC/UITableViewHeaderFooterView+RACSignalSupport.m"; sourceTree = "<group>"; };
 		7092ACCE8F0B8FC94603366CADAD8C0E /* NSOrderedSet+RACSequenceAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSOrderedSet+RACSequenceAdditions.m"; path = "ReactiveObjC/NSOrderedSet+RACSequenceAdditions.m"; sourceTree = "<group>"; };
@@ -557,6 +558,7 @@
 		88E3AE3DB5FF18090EE137A7DD23ED63 /* UIImage+AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIImage+AFNetworking.h"; path = "UIKit+AFNetworking/UIImage+AFNetworking.h"; sourceTree = "<group>"; };
 		890B23377A40A939982BD83604D0A9FB /* UISegmentedControl+RACSignalSupport.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UISegmentedControl+RACSignalSupport.m"; path = "ReactiveObjC/UISegmentedControl+RACSignalSupport.m"; sourceTree = "<group>"; };
 		89B1E26CE1BB197037F66F1B85A6B542 /* UIControl+RACSignalSupport.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIControl+RACSignalSupport.h"; path = "ReactiveObjC/UIControl+RACSignalSupport.h"; sourceTree = "<group>"; };
+		8B9E5DDC0BA8E1711E34A1E252774B67 /* ZDBaseTableViewCell.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ZDBaseTableViewCell.h; path = ZDTableViewBinding/ZDBaseViews/ZDBaseTableViewCell.h; sourceTree = "<group>"; };
 		8D5A5A98E14285CBE36F625EC28978C9 /* MJExtensionConst.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MJExtensionConst.m; path = MJExtension/MJExtensionConst.m; sourceTree = "<group>"; };
 		8DDE438515311CAE86AE7A5482DFAA79 /* RACImmediateScheduler.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RACImmediateScheduler.h; path = ReactiveObjC/RACImmediateScheduler.h; sourceTree = "<group>"; };
 		8DFE8208A5D0239FA6FE2657F06D7739 /* UIRefreshControl+AFNetworking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIRefreshControl+AFNetworking.h"; path = "UIKit+AFNetworking/UIRefreshControl+AFNetworking.h"; sourceTree = "<group>"; };
@@ -581,7 +583,6 @@
 		9D2BB04D8DB45845B4D7317C676AD62D /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIWebView+AFNetworking.m"; path = "UIKit+AFNetworking/UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
 		9D308C579506668FFAA58376A5F93807 /* AFHTTPSessionManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = AFHTTPSessionManager.m; path = AFNetworking/AFHTTPSessionManager.m; sourceTree = "<group>"; };
 		9DF8FFA016F7FC9560215A96908CE92D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
-		9E2C93DA81A15C2E418337A9EB98F755 /* ZDBaseSectionView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ZDBaseSectionView.m; path = ZDTableViewBinding/ZDBaseViews/ZDBaseSectionView.m; sourceTree = "<group>"; };
 		9E2DD6D88FDA0638C5ABD1D234AA3FBD /* UITableView+FDIndexPathHeightCache.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UITableView+FDIndexPathHeightCache.m"; path = "Classes/UITableView+FDIndexPathHeightCache.m"; sourceTree = "<group>"; };
 		9E2FF9072B7A8662614B4117AD67F238 /* UISegmentedControl+RACSignalSupport.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UISegmentedControl+RACSignalSupport.h"; path = "ReactiveObjC/UISegmentedControl+RACSignalSupport.h"; sourceTree = "<group>"; };
 		9E32F3CF8FFCE25EB3C2CA94F115ACD0 /* MKAnnotationView+RACSignalSupport.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "MKAnnotationView+RACSignalSupport.m"; path = "ReactiveObjC/MKAnnotationView+RACSignalSupport.m"; sourceTree = "<group>"; };
@@ -597,7 +598,6 @@
 		A9C3004BED6441429EB7A07AF44040D0 /* NSObject+RACKVOWrapper.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSObject+RACKVOWrapper.m"; path = "ReactiveObjC/NSObject+RACKVOWrapper.m"; sourceTree = "<group>"; };
 		AA8F097636D5E2DBA83F5902C9C11747 /* NSObject+RACDeallocating.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSObject+RACDeallocating.m"; path = "ReactiveObjC/NSObject+RACDeallocating.m"; sourceTree = "<group>"; };
 		AABEE88E9C86D0BC96E384E698BBC9A4 /* UITableView+FDTemplateLayoutCell-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "UITableView+FDTemplateLayoutCell-prefix.pch"; sourceTree = "<group>"; };
-		AB33A7E0F7E6AA521C2AB5688FA4592D /* ZDBaseSectionView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ZDBaseSectionView.h; path = ZDTableViewBinding/ZDBaseViews/ZDBaseSectionView.h; sourceTree = "<group>"; };
 		ABD74DB31976CB48F9501EAADCCE2B90 /* Pods-DemoTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-DemoTests-acknowledgements.plist"; sourceTree = "<group>"; };
 		ABFFB0503774DA2DE18A86475A407169 /* ZDCommonHeaderFooterViewModel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ZDCommonHeaderFooterViewModel.h; path = ZDTableViewBinding/ZDViewModels/ZDCommonHeaderFooterViewModel.h; sourceTree = "<group>"; };
 		AC423FB118349D7B5004B95607045FFB /* NSOrderedSet+RACSequenceAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSOrderedSet+RACSequenceAdditions.h"; path = "ReactiveObjC/NSOrderedSet+RACSequenceAdditions.h"; sourceTree = "<group>"; };
@@ -711,13 +711,13 @@
 		F66DEEB11DC4AAD0A3056A88E063A9C2 /* NSObject+MJCoding.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSObject+MJCoding.m"; path = "MJExtension/NSObject+MJCoding.m"; sourceTree = "<group>"; };
 		F80B0BCB514F6F5F815392B286E9C4DB /* Pods-DemoTests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-DemoTests-frameworks.sh"; sourceTree = "<group>"; };
 		F93C53BAA2D7E42619DD8A772794A026 /* Pods-Demo-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Demo-frameworks.sh"; sourceTree = "<group>"; };
+		F97475CAED93BBFF3C17ED702809BDD6 /* ZDBaseTableViewHeaderFooterView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ZDBaseTableViewHeaderFooterView.m; path = ZDTableViewBinding/ZDBaseViews/ZDBaseTableViewHeaderFooterView.m; sourceTree = "<group>"; };
 		F9AB7F7EAA92D4B0213AF857B1C2FA4E /* RACScheduler.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = RACScheduler.m; path = ReactiveObjC/RACScheduler.m; sourceTree = "<group>"; };
 		FA63F05F0E9A485AD5011E663A864A6D /* RACCommand.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = RACCommand.m; path = ReactiveObjC/RACCommand.m; sourceTree = "<group>"; };
 		FABB4F0C846976AE8D8F0E7974630546 /* libZDTableViewBinding.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libZDTableViewBinding.a; path = libZDTableViewBinding.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB930C9986AEE6E0EE61EECFBC929A68 /* MJFoundation.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MJFoundation.m; path = MJExtension/MJFoundation.m; sourceTree = "<group>"; };
 		FBC5B94826EC4EC468BF637F564E6C37 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
 		FCE1A5825B21D523FD693B1F5AF524BE /* RACSubject.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = RACSubject.m; path = ReactiveObjC/RACSubject.m; sourceTree = "<group>"; };
-		FDA63FA5E7BA10A43F690CCE882CDB8F /* ZDBaseTableViewCell.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ZDBaseTableViewCell.m; path = ZDTableViewBinding/ZDBaseViews/ZDBaseTableViewCell.m; sourceTree = "<group>"; };
 		FE2C335249D05552DC160A347DC765ED /* Pods-DemoUITests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-DemoUITests-frameworks.sh"; sourceTree = "<group>"; };
 		FFDE05829931C23FDE1CEDFE1B73537E /* MJProperty.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MJProperty.h; path = MJExtension/MJProperty.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1125,7 +1125,7 @@
 			children = (
 				BB3F462032B177EBD114B883E41CA0FA /* Pod */,
 				54EAD3500F38170184FFEA16EAF08150 /* Support Files */,
-				AAC23057DC976937CC4EADC2D79F7B70 /* ZDBaseViews */,
+				B9B6A056479AA579FCB7136B2D34EAE5 /* ZDBaseViews */,
 				28E432F4DF45C093593C5EA7B12AD7BB /* ZDBinding */,
 				E5B7858B548B17CB8871721A0DA1F7F3 /* ZDProtocols */,
 				965B2D741108FE7259D918D3A6555B35 /* ZDViewModels */,
@@ -1277,17 +1277,6 @@
 			path = "Target Support Files/Pods-DemoUITests";
 			sourceTree = "<group>";
 		};
-		AAC23057DC976937CC4EADC2D79F7B70 /* ZDBaseViews */ = {
-			isa = PBXGroup;
-			children = (
-				AB33A7E0F7E6AA521C2AB5688FA4592D /* ZDBaseSectionView.h */,
-				9E2C93DA81A15C2E418337A9EB98F755 /* ZDBaseSectionView.m */,
-				5B9385E310C78BB50746A550B738235F /* ZDBaseTableViewCell.h */,
-				FDA63FA5E7BA10A43F690CCE882CDB8F /* ZDBaseTableViewCell.m */,
-			);
-			name = ZDBaseViews;
-			sourceTree = "<group>";
-		};
 		AEE1E8B45379434E2E8B69AF1E8B0B49 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -1297,6 +1286,17 @@
 			);
 			name = "Support Files";
 			path = "../Target Support Files/MJExtension";
+			sourceTree = "<group>";
+		};
+		B9B6A056479AA579FCB7136B2D34EAE5 /* ZDBaseViews */ = {
+			isa = PBXGroup;
+			children = (
+				8B9E5DDC0BA8E1711E34A1E252774B67 /* ZDBaseTableViewCell.h */,
+				1E0CCEFB1C6694428D85D99DA70E9AC5 /* ZDBaseTableViewCell.m */,
+				6F97863BA529A85DB69512A9AC14D342 /* ZDBaseTableViewHeaderFooterView.h */,
+				F97475CAED93BBFF3C17ED702809BDD6 /* ZDBaseTableViewHeaderFooterView.m */,
+			);
+			name = ZDBaseViews;
 			sourceTree = "<group>";
 		};
 		BB3F462032B177EBD114B883E41CA0FA /* Pod */ = {
@@ -1577,20 +1577,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5F6092EAC6ECC2F914D2D6DF17A454C7 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D4356FDEE38A6B59AB4AC4D401BA9471 /* ZDBaseSectionView.h in Headers */,
-				A44650EEECEAD2A7B6FE8A060C91A34B /* ZDBaseTableViewCell.h in Headers */,
-				B4BBBD57A9BE02C755D3A05CE990F739 /* ZDBindingDefine.h in Headers */,
-				534DC08BCFB8ED75733E22E6E1C6F135 /* ZDBindingProtocols.h in Headers */,
-				A441CEC1DFF07EF3609E769BCAF8D7D7 /* ZDCommonCellViewModel.h in Headers */,
-				4CD5C51B55CAF13A25DAF1A61CBCC5C2 /* ZDCommonHeaderFooterViewModel.h in Headers */,
-				2B9C695A713F7D8008E134756CD62F66 /* ZDTableViewBinding.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		864D7FF60E899EA81A55C0B7F82FC174 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -1628,6 +1614,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		EE70F21E02F398F06D0B8B788CD24F10 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1734091C4AF125E2003D30C4E494B1F6 /* ZDBaseTableViewCell.h in Headers */,
+				99695B05AD78E82C83B0C5CC5A56AE5F /* ZDBaseTableViewHeaderFooterView.h in Headers */,
+				4D8D174CF7EDB02B23761A29288A46D8 /* ZDBindingDefine.h in Headers */,
+				0CD4D3F9E4AD8539853E9FA12562EA1F /* ZDBindingProtocols.h in Headers */,
+				3E26FC2D827A41301D5947EAF6A56F87 /* ZDCommonCellViewModel.h in Headers */,
+				857F8728B1399ECCC72CD69DA66CF9D2 /* ZDCommonHeaderFooterViewModel.h in Headers */,
+				A6732E5BE47DA2F2349437F1425DB6BB /* ZDTableViewBinding.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
@@ -1635,9 +1635,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 42627034EC3009533D46ADB97B9A0CE9 /* Build configuration list for PBXNativeTarget "ZDTableViewBinding" */;
 			buildPhases = (
-				A872A0A18A78A1938D45B371785CE40E /* Sources */,
+				D8E6D3F8A76803A077F573C6D929AE43 /* Sources */,
 				D1877D4768F4757E91B417FBFF13B630 /* Frameworks */,
-				5F6092EAC6ECC2F914D2D6DF17A454C7 /* Headers */,
+				EE70F21E02F398F06D0B8B788CD24F10 /* Headers */,
 			);
 			buildRules = (
 			);
@@ -1994,19 +1994,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A872A0A18A78A1938D45B371785CE40E /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				5E52644B58FDDB076C064361F8ACB26D /* ZDBaseSectionView.m in Sources */,
-				144E01A8EA7C6E45DA48A1049245A946 /* ZDBaseTableViewCell.m in Sources */,
-				42D86EA00FC239B504CD107FB7DA4F31 /* ZDCommonCellViewModel.m in Sources */,
-				E080594B107B4FBBC27EF6A83F6802D9 /* ZDCommonHeaderFooterViewModel.m in Sources */,
-				50E86C5F57C91399AF59D617F93131F7 /* ZDTableViewBinding-dummy.m in Sources */,
-				0B568D09AB3EB5E52E6A180E95DA8603 /* ZDTableViewBinding.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		AAEE4C1DF970D446DF57CA3DDD16AD00 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2049,6 +2036,19 @@
 				B2387C9774E915455605D7638069C6AE /* UITableView+FDTemplateLayoutCell-dummy.m in Sources */,
 				4CB32AA2430CF4AC45089D0D92F467E1 /* UITableView+FDTemplateLayoutCell.m in Sources */,
 				2A00DF204E7644869AFE77FD1A599F5C /* UITableView+FDTemplateLayoutCellDebug.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D8E6D3F8A76803A077F573C6D929AE43 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D01AAD03F9DBE018C8EE07697AEF4C46 /* ZDBaseTableViewCell.m in Sources */,
+				C501E45A85B70531DCCDBAD148DD6876 /* ZDBaseTableViewHeaderFooterView.m in Sources */,
+				782F81D4334D2F786EF8634486C229B5 /* ZDCommonCellViewModel.m in Sources */,
+				C372D36405DCBA41D67685B98ECAFE01 /* ZDCommonHeaderFooterViewModel.m in Sources */,
+				9CFD09492995D30EEA1A7D8AE3C3B929 /* ZDTableViewBinding-dummy.m in Sources */,
+				D67CFA9E2C279FAFF3506F50F383BA45 /* ZDTableViewBinding.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

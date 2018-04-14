@@ -681,11 +681,11 @@ NSInteger const ZDBD_Event_DidSelectRow = -1;
     if (!headerViewModel) return;
     
     ZDHeaderFooter viewForHeaderInSection = (id)view;
-    if ([viewForHeaderInSection respondsToSelector:@selector(setSectionViewModel:)]) {
+    if ([viewForHeaderInSection respondsToSelector:@selector(setHeaderFooterModel:)]) {
         viewForHeaderInSection.headerFooterViewModel = headerViewModel;
     }
     
-    if ([viewForHeaderInSection respondsToSelector:@selector(setSectionModel:)]) {
+    if ([viewForHeaderInSection respondsToSelector:@selector(setHeaderFooterModel:)]) {
         viewForHeaderInSection.headerFooterModel = headerViewModel.zd_headerFooterModel;
     }
     

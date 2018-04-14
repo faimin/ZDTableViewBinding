@@ -2,7 +2,7 @@
 //  ZDCustomCell.m
 //  Demo
 //
-//  Created by 符现超 on 16/3/9.
+//  Created by Zero.D.Saber on 16/3/9.
 //  Copyright © 2016年 Zero.D.Saber. All rights reserved.
 //
 //  http://devetc.org/code/2014/07/07/auto-layout-and-views-that-wrap.html

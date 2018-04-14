@@ -6,9 +6,9 @@
 //  Copyright © 2016年 Zero.D.Saber. All rights reserved.
 //
 
-#import "ZDBaseSectionView.h"
+#import "ZDBaseTableViewHeaderFooterView.h"
 
-@implementation ZDBaseSectionView
+@implementation ZDBaseTableViewHeaderFooterView
 
 - (void)awakeFromNib
 {
