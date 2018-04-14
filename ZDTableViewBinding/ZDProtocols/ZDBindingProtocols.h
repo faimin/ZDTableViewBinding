@@ -59,7 +59,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) CGFloat  zd_estimatedSectionHeight;
 @property (nonatomic, assign) CGFloat  zd_sectionHeight;
 @property (nonatomic, assign) CGFloat  zd_sectionFixedHeight;
-@property (nonatomic, weak  ) ZDTableViewBinding *zd_sectionBindProxy;  ///< 在section创建时赋值,不用外界关心
+@property (nonatomic, weak, nullable) ZDTableViewBinding *zd_sectionBindProxy;  ///< 在section创建时赋值,不用外界关心
 
 @end
 
@@ -71,7 +71,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) id sectionModel;
 @property (nonatomic, assign) CGFloat sectionHeight;
 @property (nonatomic, strong) RACCommand *sectionCommand;
-@property (nonatomic, weak  ) ZDTableViewBinding *sectionBindProxy; ///< 在section创建时赋值,不用外界关心
+@property (nonatomic, weak, nullable) ZDTableViewBinding *sectionBindProxy; ///< 在section创建时赋值,不用外界关心
 
 @optional
 - (void)bindToSectionViewModel:(id<ZDSectionViewModelProtocol>)viewModel;
