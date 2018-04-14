@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 //****************************************************************
 
-// PS: ViewModel需要实现的协议，为了与cellProtocol区分，协议方法前都加了zd前缀
+// PS: ViewModel需要实现的协议，为了与cellProtocol做区分，协议方法前都加了zd前缀
 @protocol ZDCellViewModelProtocol <NSObject>
 
 @property (nonatomic, copy  ) NSString *zd_reuseIdentifier;
@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) CGFloat  zd_height;
 @property (nonatomic, assign) CGFloat  zd_fixedHeight;
 @property (nonatomic, assign) BOOL     zd_canEditRow;
-@property (nonatomic, weak  ) ZDTableViewBinding *zd_bindProxy;
+@property (nonatomic, weak  ) ZDTableViewBinding *zd_bindProxy; ///< 在cell创建时赋值,不用外界关心
 
 @end
 
@@ -40,7 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) CGFloat height;
 @property (nonatomic, strong, nullable) NSIndexPath *indexPath;
 @property (nonatomic, strong) RACCommand *cellCommand;
-@property (nonatomic, weak  ) ZDTableViewBinding *bindProxy;
+@property (nonatomic, weak  ) ZDTableViewBinding *bindProxy;    ///< 在cell创建时赋值,不用外界关心
 
 @optional
 /// Binds the given viewModel to the view
@@ -59,7 +59,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign) CGFloat  zd_estimatedSectionHeight;
 @property (nonatomic, assign) CGFloat  zd_sectionHeight;
 @property (nonatomic, assign) CGFloat  zd_sectionFixedHeight;
-@property (nonatomic, weak  ) ZDTableViewBinding *zd_sectionBindProxy;
+@property (nonatomic, weak  ) ZDTableViewBinding *zd_sectionBindProxy;  ///< 在section创建时赋值,不用外界关心
 
 @end
 
@@ -71,7 +71,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong) id sectionModel;
 @property (nonatomic, assign) CGFloat sectionHeight;
 @property (nonatomic, strong) RACCommand *sectionCommand;
-@property (nonatomic, weak  ) ZDTableViewBinding *sectionBindProxy;
+@property (nonatomic, weak  ) ZDTableViewBinding *sectionBindProxy; ///< 在section创建时赋值,不用外界关心
 
 @optional
 - (void)bindToSectionViewModel:(id<ZDSectionViewModelProtocol>)viewModel;

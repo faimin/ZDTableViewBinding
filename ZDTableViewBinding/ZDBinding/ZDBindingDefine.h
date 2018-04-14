@@ -37,11 +37,6 @@ do {                                                \
 } while (0);
 #endif
 
-
-static NSString * const HeaderViewModelKey = @"HeaderViewModelKey";
-static NSString * const CellViewModelKey   = @"CellViewModelKey";
-static NSString * const FooterViewModelKey = @"FooterViewModelKey";
-
 #define ZDCellDictionary(_cellViewModels) ZDSectionCellDictionary(nil, _cellViewModels, nil)
 
 #define ZDSectionCellDictionary(_headerViewModel, _cellViewModels, _footerViewModel)    \
@@ -54,12 +49,16 @@ static NSString * const FooterViewModelKey = @"FooterViewModelKey";
 })
 
 #define ZDSynthesizeCellProperty                                                        \
-@synthesize model = _model, viewModel = _viewModel, cellCommand = _cellCommand, height = _height, indexPath = _indexPath, bindProxy;
+@synthesize model = _model, viewModel = _viewModel, cellCommand = _cellCommand, height = _height, indexPath = _indexPath, bindProxy = _bindProxy;
 
 #define ZDSynthesizeSectionProperty                                                     \
-@synthesize sectionViewModel = _sectionViewModel, sectionModel = _sectionModel, sectionCommand = _sectionCommand, sectionHeight = _sectionHeight, sectionBindProxy;
+@synthesize sectionViewModel = _sectionViewModel, sectionModel = _sectionModel, sectionCommand = _sectionCommand, sectionHeight = _sectionHeight, sectionBindProxy = _sectionBindProxy;
 
-NS_INLINE BOOL ZDNotNilOrEmpty(NSString *_objc) {
+static NSString * const HeaderViewModelKey = @"HeaderViewModelKey";
+static NSString * const CellViewModelKey   = @"CellViewModelKey";
+static NSString * const FooterViewModelKey = @"FooterViewModelKey";
+
+NS_INLINE BOOL ZDBD_NotNilOrEmpty(NSString *_objc) {
     if (_objc == nil || _objc == NULL) {
         return NO;
     }
@@ -72,12 +71,34 @@ NS_INLINE BOOL ZDNotNilOrEmpty(NSString *_objc) {
     return NO;
 }
 
-NS_INLINE void ZDDispatch_async_on_main_queue(dispatch_block_t block) {
+NS_INLINE void ZDBD_Dispatch_async_on_main_queue(dispatch_block_t block) {
     if ([NSThread isMainThread]) {
         block();
     }
     else {
         dispatch_async(dispatch_get_main_queue(), block);
+    }
+}
+
+NS_INLINE NSMutableArray *ZDBD_MutableArray(__kindof NSArray *array) {
+    if (!array || ![array isKindOfClass:[NSArray class]]) return nil;
+    
+    if ([array isKindOfClass:[NSMutableArray class]]) {
+        return array;
+    }
+    else {
+        return [NSMutableArray arrayWithArray:array];
+    }
+}
+
+NS_INLINE NSMutableDictionary *ZDBD_MutableDictionary(__kindof NSDictionary *dict) {
+    if (!dict || ![dict isKindOfClass:[NSDictionary class]]) return nil;
+    
+    if ([dict isKindOfClass:[NSMutableDictionary class]]) {
+        return dict;
+    }
+    else {
+        return [NSMutableDictionary dictionaryWithDictionary:dict];
     }
 }
 
