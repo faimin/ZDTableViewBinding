@@ -42,7 +42,7 @@ extern NSInteger const ZDBD_Event_DidSelectRow;
                              multiSection:(BOOL)multiSection
                          dataSourceSignal:(__kindof RACSignal *)dataSourceSignal
                               cellCommand:(nullable RACCommand *)cellCommand
-                           sectionCommand:(nullable RACCommand *)sectionCommand;
+                      headerFooterCommand:(nullable RACCommand *)headerFooterCommand;
 
 - (nullable ZDCellViewModel)cellViewModelAtIndexPath:(NSIndexPath *)indexPath;
 

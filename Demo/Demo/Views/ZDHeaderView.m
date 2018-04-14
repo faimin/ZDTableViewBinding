@@ -20,13 +20,13 @@
     [super awakeFromNib];
     self.contentView.backgroundColor = [UIColor purpleColor];
     @weakify(self);
-    [[RACObserve(self, sectionModel) ignore:nil] subscribeNext:^(Module *x) {
+    [[RACObserve(self, headerFooterModel) ignore:nil] subscribeNext:^(Module *x) {
         @strongify(self);
         self.titleLabel.text = x.moduleName;
     }];
 }
 
-- (void)bindToSectionViewModel:(ZDSectionViewModel)viewModel
+- (void)bindToHeaderFooterViewModel:(ZDHeaderFooterViewModel)viewModel
 {
     /** 方案2
     Module *x = viewModel.zd_headerModel;
@@ -36,8 +36,8 @@
 
 - (IBAction)click:(UIButton *)sender
 {
-    //[self.sectionCommand execute:RACTuplePack(sender, self.sectionModel)];
-    [self deliverSectionEvent:RACTuplePack(sender, self.sectionModel)];
+    //[self.headerFooterCommand execute:RACTuplePack(sender, self.headerFooterModel)];
+    [self deliverSectionEvent:RACTuplePack(sender, self.headerFooterModel)];
 }
 
 @end

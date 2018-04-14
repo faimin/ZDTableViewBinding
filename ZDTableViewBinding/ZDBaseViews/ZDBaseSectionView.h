@@ -16,13 +16,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZDBaseSectionView : UITableViewHeaderFooterView <ZDSectionProtocol>
+@interface ZDBaseSectionView : UITableViewHeaderFooterView <ZDHeaderFooterProtocol>
 
-@property (nonatomic, strong) id<ZDSectionViewModelProtocol> sectionViewModel;
-@property (nonatomic, strong) id sectionModel;
-@property (nonatomic, assign) CGFloat sectionHeight;
-@property (nonatomic, strong) RACCommand *sectionCommand;
-@property (nonatomic, weak, nullable) ZDTableViewBinding *sectionBindProxy;
+@property (nonatomic, strong) id<ZDHeaderFooterViewModelProtocol> headerFooterViewModel;
+@property (nonatomic, strong) id headerFooterModel;
+@property (nonatomic, assign) CGFloat headerFooterHeight;
+@property (nonatomic, strong) RACCommand *headerFooterCommand;
+@property (nonatomic, weak, nullable) ZDTableViewBinding *headerFooterBindProxy;
 
 ///外传section中的事件
 - (void)deliverSectionEvent:(RACTuple *)parameterTuple;

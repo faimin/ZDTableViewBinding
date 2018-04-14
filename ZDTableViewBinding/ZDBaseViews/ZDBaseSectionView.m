@@ -16,16 +16,16 @@
     self.contentView.backgroundColor = [UIColor whiteColor];
 }
 
-- (void)bindToSectionViewModel:(ZDSectionViewModel)viewModel
+- (void)bindToSectionViewModel:(ZDHeaderFooterViewModel)viewModel
 {
     NSCAssert(NO, @"abstract class，need to implementation in subClass");
 }
 
 - (void)deliverSectionEvent:(RACTuple *)parameterTuple
 {
-    NSCAssert(self.sectionCommand, @"command isn't initialization");
-    if (self.sectionCommand) {
-        [self.sectionCommand execute:parameterTuple];
+    NSCAssert(self.headerFooterCommand, @"command isn't initialization");
+    if (self.headerFooterCommand) {
+        [self.headerFooterCommand execute:parameterTuple];
     }
 }
 

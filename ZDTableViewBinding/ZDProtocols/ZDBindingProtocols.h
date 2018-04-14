@@ -50,31 +50,31 @@ NS_ASSUME_NONNULL_BEGIN
 
 //****************************************************************
 
-@protocol ZDSectionViewModelProtocol <NSObject>
+@protocol ZDHeaderFooterViewModelProtocol <NSObject>
 
-@property (nonatomic, copy  ) NSString *zd_sectionReuseIdentifier;
-@property (nonatomic, copy, nullable) NSString *zd_sectionNibName;
-@property (nonatomic, copy, nullable) NSString *zd_sectionClassName;
-@property (nonatomic, strong) id       zd_sectionModel;
-@property (nonatomic, assign) CGFloat  zd_estimatedSectionHeight;
-@property (nonatomic, assign) CGFloat  zd_sectionHeight;
-@property (nonatomic, assign) CGFloat  zd_sectionFixedHeight;
-@property (nonatomic, weak, nullable) ZDTableViewBinding *zd_sectionBindProxy;  ///< 在section创建时赋值,不用外界关心
+@property (nonatomic, copy  ) NSString *zd_headerFooterReuseIdentifier;
+@property (nonatomic, copy, nullable) NSString *zd_headerFooterNibName;
+@property (nonatomic, copy, nullable) NSString *zd_headerFooterClassName;
+@property (nonatomic, strong) id       zd_headerFooterModel;
+@property (nonatomic, assign) CGFloat  zd_estimatedHeaderFooterHeight;
+@property (nonatomic, assign) CGFloat  zd_headerFooterHeight;
+@property (nonatomic, assign) CGFloat  zd_headerFooterFixedHeight;
+@property (nonatomic, weak, nullable) ZDTableViewBinding *zd_headerFooterBindProxy;  ///< 在section创建时赋值,不用外界关心
 
 @end
 
 //****************************************************************
 
-@protocol ZDSectionProtocol <NSObject>
+@protocol ZDHeaderFooterProtocol <NSObject>
 
-@property (nonatomic, strong) id<ZDSectionViewModelProtocol> sectionViewModel;
-@property (nonatomic, strong) id sectionModel;
-@property (nonatomic, assign) CGFloat sectionHeight;
-@property (nonatomic, strong) RACCommand *sectionCommand;
-@property (nonatomic, weak, nullable) ZDTableViewBinding *sectionBindProxy; ///< 在section创建时赋值,不用外界关心
+@property (nonatomic, strong) id<ZDHeaderFooterViewModelProtocol> headerFooterViewModel;
+@property (nonatomic, strong) id headerFooterModel;
+@property (nonatomic, assign) CGFloat headerFooterHeight;
+@property (nonatomic, strong) RACCommand *headerFooterCommand;
+@property (nonatomic, weak, nullable) ZDTableViewBinding *headerFooterBindProxy; ///< 在section创建时赋值,不用外界关心
 
 @optional
-- (void)bindToSectionViewModel:(id<ZDSectionViewModelProtocol>)viewModel;
+- (void)bindToHeaderFooterViewModel:(id<ZDHeaderFooterViewModelProtocol>)viewModel;
 
 @end
 
@@ -82,8 +82,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef id<ZDCellViewModelProtocol> ZDCellViewModel;
 typedef id<ZDCellProtocol> ZDCell;
-typedef id<ZDSectionViewModelProtocol> ZDSectionViewModel;
-typedef id<ZDSectionProtocol> ZDSection;
+typedef id<ZDHeaderFooterViewModelProtocol> ZDHeaderFooterViewModel;
+typedef id<ZDHeaderFooterProtocol> ZDHeaderFooter;
 
 //****************************************************************
 

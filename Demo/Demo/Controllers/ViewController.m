@@ -9,7 +9,7 @@
 #import "ViewController.h"
 #import "ZDTableViewBinding.h"
 #import "ZDCommonCellViewModel.h"
-#import "ZDCommonSectionViewModel.h"
+#import "ZDCommonHeaderFooterViewModel.h"
 #import "MJExtension.h"
 #import "ZDModel.h"
 #import "ZDCustomCell.h"
@@ -75,19 +75,19 @@
 					}
 				}
 
-				ZDCommonSectionViewModel *headerViewModel = [ZDCommonSectionViewModel new];
+				ZDCommonHeaderFooterViewModel *headerViewModel = [ZDCommonHeaderFooterViewModel new];
 				NSString *headerName = NSStringFromClass([ZDHeaderView class]);
-				headerViewModel.zd_sectionReuseIdentifier = headerName;
-				headerViewModel.zd_sectionNibName = headerName;
-				headerViewModel.zd_sectionModel = zdModel.module;
-				headerViewModel.zd_estimatedSectionHeight = 100;
+				headerViewModel.zd_headerFooterReuseIdentifier = headerName;
+				headerViewModel.zd_headerFooterNibName = headerName;
+				headerViewModel.zd_headerFooterModel = zdModel.module;
+				headerViewModel.zd_estimatedHeaderFooterHeight = 100;
 
-				ZDCommonSectionViewModel *footerViewModel = [ZDCommonSectionViewModel new];
+				ZDCommonHeaderFooterViewModel *footerViewModel = [ZDCommonHeaderFooterViewModel new];
 				NSString *footerName = NSStringFromClass([ZDFooterView class]);
-				footerViewModel.zd_sectionReuseIdentifier = footerName;
-				footerViewModel.zd_sectionNibName = footerName;
-				footerViewModel.zd_sectionModel = zdModel.module;
-				footerViewModel.zd_estimatedSectionHeight = 100;
+				footerViewModel.zd_headerFooterReuseIdentifier = footerName;
+				footerViewModel.zd_headerFooterNibName = footerName;
+				footerViewModel.zd_headerFooterModel = zdModel.module;
+				footerViewModel.zd_estimatedHeaderFooterHeight = 100;
 
 				NSDictionary *sectionDic = ZDSectionCellDictionary(headerViewModel, cellViewModels, footerViewModel);
 				[sectionCellViewModels addObject:sectionDic];
@@ -117,7 +117,7 @@
                                                    multiSection:YES
                                                dataSourceSignal:RACObserve(self, models)
                                                     cellCommand:command
-                                                 sectionCommand:sectionCommand];
+                                            headerFooterCommand:sectionCommand];
     self.helper.delegate = self;
 }
 

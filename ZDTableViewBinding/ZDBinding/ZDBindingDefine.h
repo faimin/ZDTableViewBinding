@@ -51,8 +51,8 @@ do {                                                \
 #define ZDSynthesizeCellProperty                                                        \
 @synthesize model = _model, viewModel = _viewModel, cellCommand = _cellCommand, height = _height, indexPath = _indexPath, bindProxy = _bindProxy;
 
-#define ZDSynthesizeSectionProperty                                                     \
-@synthesize sectionViewModel = _sectionViewModel, sectionModel = _sectionModel, sectionCommand = _sectionCommand, sectionHeight = _sectionHeight, sectionBindProxy = _sectionBindProxy;
+#define ZDSynthesizeHeaderFooterProperty                                                     \
+@synthesize headerFooterViewModel = _headerFooterViewModel, headerFooterModel = _headerFooterModel, headerFooterCommand = _headerFooterCommand, headerFooterHeight = _headerFooterHeight, headerFooterBindProxy = _headerFooterBindProxy;
 
 static NSString * const HeaderViewModelKey = @"HeaderViewModelKey";
 static NSString * const CellViewModelKey   = @"CellViewModelKey";

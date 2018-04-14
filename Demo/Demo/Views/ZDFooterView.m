@@ -15,7 +15,7 @@
     [super awakeFromNib];
 }
 
-- (void)bindToSectionViewModel:(ZDSectionViewModel)viewModel
+- (void)bindToHeaderFooterViewModel:(ZDHeaderFooterViewModel)viewModel
 {
     
 }
@@ -23,8 +23,8 @@
 - (IBAction)bottomButtonAction:(UIButton *)sender
 {
     NSLog(@"尾视图响应了");
-    //[self.sectionCommand execute:RACTuplePack(sender, self.sectionModel)];
-    [self deliverSectionEvent:RACTuplePack(sender, self.sectionModel)];
+    //[self.headerFooterCommand execute:RACTuplePack(sender, self.headerFooterModel)];
+    [self deliverSectionEvent:RACTuplePack(sender, self.headerFooterModel)];
 }
 
 
