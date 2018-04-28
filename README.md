@@ -1,6 +1,12 @@
-[![License MIT](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](https://github.com/faimin/ZDTableViewBinding/blob/master/Demo/LICENSE)&nbsp;
+[![License MIT](https://img.shields.io/badge/license-MIT-green.svg?style=flat)](https://github.com/faimin/ZDTableViewBinding/blob/master/Demo/LICENSE)
 [![Language](http://img.shields.io/badge/language-objc-brightgreen.svg?style=flat
-)](https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html)&nbsp;
+)](https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html)
+[![](http://img.shields.io/travis/faimin/ZDTableViewBinding.svg?style=flat)](https://travis-ci.org/faimin/ZDTableViewBinding)
+![](https://img.shields.io/cocoapods/v/ZDTableViewBinding.svg?style=flat)
+![](https://img.shields.io/cocoapods/dt/ZDTableViewBinding.svg)
+![](https://img.shields.io/cocoapods/dm/ZDTableViewBinding.svg)
+![](https://img.shields.io/cocoapods/dw/ZDTableViewBinding.svg)
+
 # ZDTableViewBinding
 
 #### 简介：
