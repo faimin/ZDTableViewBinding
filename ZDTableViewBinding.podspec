@@ -37,6 +37,7 @@ Pod::Spec.new do |s|
 
   s.requires_arc = true
   s.static_framework = true
+  s.module_name = 'ZDTableViewBinding'
   s.frameworks = 'Foundation', 'UIKit'
   # s.dependency "ReactiveCocoa", "~> 2.5"
   s.dependency 'ReactiveObjC'
