@@ -20,11 +20,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 extern NSInteger const ZDBD_Event_DidSelectRow;
 
+@protocol ZDTableViewBindingDelegate <UITableViewDelegate>
+@end
+
+//*******************************************************
+
 @interface ZDTableViewBinding : NSObject
 
 @property (nonatomic, weak, readonly) UITableView *tableView;
 /// used to forward the delegate method
-@property (nonatomic, weak, nullable) id<UITableViewDelegate> delegate;
+@property (nonatomic, weak, nullable) id <ZDTableViewBindingDelegate> delegate;
 /// datas had be reloaded
 @property (nonatomic, assign, readonly) BOOL isFinishedReloadData;
 

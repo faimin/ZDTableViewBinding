@@ -59,4 +59,4 @@ $ pod install
 
 ### License
 
-**ZDTableViewBinding** is under an MIT license. See the [LICENSE](https://github.com/faimin/ZDTableViewBinding/blob/master/Demo/LICENSE) file for more information.
+**ZDTableViewBinding** is under an MIT license. See the [LICENSE](https://github.com/faimin/ZDTableViewBinding/blob/master/LICENSE) file for more information.

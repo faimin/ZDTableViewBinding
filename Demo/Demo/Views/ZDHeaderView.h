@@ -6,9 +6,9 @@
 //  Copyright © 2016年 Zero.D.Saber. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import "ZDBaseTableViewHeaderFooterView.h"
+@import UIKit;
+#import <ZDTableViewBinding/ZDTableViewBinding.h>
 
-@interface ZDHeaderView : ZDBaseTableViewHeaderFooterView
+@interface ZDHeaderView : UITableViewHeaderFooterView <ZDHeaderFooterProtocol>
 
 @end

@@ -248,12 +248,12 @@
 			children = (
 				DA0935B61F31A011005CBB69 /* ZDCustomCell.h */,
 				DA0935B71F31A011005CBB69 /* ZDCustomCell.m */,
-				DA0935B81F31A011005CBB69 /* ZDFooterView.h */,
-				DA0935B91F31A011005CBB69 /* ZDFooterView.m */,
-				DA0935BA1F31A011005CBB69 /* ZDFooterView.xib */,
 				DA0935BB1F31A011005CBB69 /* ZDHeaderView.h */,
 				DA0935BC1F31A011005CBB69 /* ZDHeaderView.m */,
 				DA0935BD1F31A011005CBB69 /* ZDHeaderView.xib */,
+				DA0935B81F31A011005CBB69 /* ZDFooterView.h */,
+				DA0935B91F31A011005CBB69 /* ZDFooterView.m */,
+				DA0935BA1F31A011005CBB69 /* ZDFooterView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";

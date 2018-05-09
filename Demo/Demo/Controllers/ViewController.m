@@ -18,7 +18,7 @@
 #import "YYModel.h"
 #import "YYFPSLabel.h"
 
-@interface ViewController () <UITableViewDelegate>
+@interface ViewController () <ZDTableViewBindingDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSArray *models;
 @property (nonatomic, strong) ZDTableViewBinding *helper;
@@ -101,7 +101,7 @@
 	}];
 	[dataTask resume];
 
-	RACCommand *command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(RACTuple *input) {
+	RACCommand *cellCommand = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(RACTuple *input) {
 		ZDCommonCellViewModel *viewModel = input.second;
 		NSLog(@"\n 点击的cell的高度 = %lf", viewModel.zd_height);
 		return [RACSignal empty];
@@ -116,7 +116,7 @@
 	self.helper = [ZDTableViewBinding bindingHelperForTableView:self.tableView
                                                    multiSection:YES
                                                dataSourceSignal:RACObserve(self, models)
-                                                    cellCommand:command
+                                                    cellCommand:cellCommand
                                             headerFooterCommand:sectionCommand];
     self.helper.delegate = self;
 }

@@ -14,6 +14,7 @@
 @end
 
 @implementation ZDHeaderView
+ZDSynthesizeHeaderFooterProperty
 
 - (void)awakeFromNib
 {
@@ -36,8 +37,8 @@
 
 - (IBAction)click:(UIButton *)sender
 {
-    //[self.headerFooterCommand execute:RACTuplePack(sender, self.headerFooterModel)];
-    [self deliverSectionEvent:RACTuplePack(sender, self.headerFooterModel)];
+    [self.headerFooterCommand execute:RACTuplePack(sender, self.headerFooterModel)];
+    //[self deliverSectionEvent:RACTuplePack(sender, self.headerFooterModel)];
 }
 
 @end
