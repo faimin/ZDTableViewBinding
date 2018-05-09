@@ -1,0 +1,6 @@
+framework module ZDTableViewBinding {
+  umbrella header "ZDTableViewBinding-umbrella.h"
+
+  export *
+  module * { export * }
+}

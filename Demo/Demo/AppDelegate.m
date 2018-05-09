@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import <JPFPSStatus.h>
+#import <JPFPSStatus/JPFPSStatus.h>
 #import "ZDWatchdog.h"
 
 @interface AppDelegate ()

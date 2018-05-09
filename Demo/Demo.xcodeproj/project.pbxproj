@@ -14,12 +14,12 @@
 		0592DDD81C8C15130063526D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0592DDD61C8C15130063526D /* LaunchScreen.storyboard */; };
 		0592DDE31C8C15130063526D /* DemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0592DDE21C8C15130063526D /* DemoTests.m */; };
 		0592DDEE1C8C15130063526D /* DemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0592DDED1C8C15130063526D /* DemoUITests.m */; };
-		286A6DCFDD8D31550607ED7A /* libPods-DemoUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 28945D73703CA67834C2A026 /* libPods-DemoUITests.a */; };
-		3016FE3D5B3ACBB319606577 /* libPods-DemoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BC1FA9138A2071508ABB48C /* libPods-DemoTests.a */; };
+		20272481BFA91DA4E9814C24 /* libPods-DemoTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C9C8F20B804E507F0DF383AE /* libPods-DemoTests.a */; };
+		27CA41D8F6489D6B89B82CD7 /* libPods-DemoUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D1D632D31C49C3F9B639E54E /* libPods-DemoUITests.a */; };
+		97A767CD993D2F9C9F3D2431 /* libPods-Demo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6032C64845AE0234D830340 /* libPods-Demo.a */; };
 		BC75FDB81C8FD44600C915E0 /* ZDModel.m in Sources */ = {isa = PBXBuildFile; fileRef = BC75FDB71C8FD44600C915E0 /* ZDModel.m */; };
 		BCEE70001D5B0452002FFFF3 /* YYFPSLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = BCEE6FFF1D5B0451002FFFF3 /* YYFPSLabel.m */; };
 		BCEE70031D5B0513002FFFF3 /* YYWeakProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = BCEE70021D5B0513002FFFF3 /* YYWeakProxy.m */; };
-		CC85646B602573FA401C52C4 /* libPods-Demo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AE198B456128EA9341B0657 /* libPods-Demo.a */; };
 		DA0935B21F31A00B005CBB69 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0935B11F31A00B005CBB69 /* ViewController.m */; };
 		DA0935BF1F31A011005CBB69 /* ZDCustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0935B71F31A011005CBB69 /* ZDCustomCell.m */; };
 		DA0935C01F31A011005CBB69 /* ZDFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = DA0935B91F31A011005CBB69 /* ZDFooterView.m */; };
@@ -62,11 +62,8 @@
 		0592DDE91C8C15130063526D /* DemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0592DDED1C8C15130063526D /* DemoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DemoUITests.m; sourceTree = "<group>"; };
 		0592DDEF1C8C15130063526D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		28945D73703CA67834C2A026 /* libPods-DemoUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DemoUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2AF37F0681FFF8AE961076E4 /* Pods-DemoUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DemoUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DemoUITests/Pods-DemoUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		4BC1FA9138A2071508ABB48C /* libPods-DemoTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DemoTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6344B6D33DDB0E46114AF5CC /* Pods-Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Demo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Demo/Pods-Demo.release.xcconfig"; sourceTree = "<group>"; };
-		6AE198B456128EA9341B0657 /* libPods-Demo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Demo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFFAAB58EAA729B799D27D53 /* Pods-DemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DemoTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DemoTests/Pods-DemoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		BC75FDB61C8FD44600C915E0 /* ZDModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZDModel.h; sourceTree = "<group>"; };
 		BC75FDB71C8FD44600C915E0 /* ZDModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZDModel.m; sourceTree = "<group>"; };
@@ -74,6 +71,8 @@
 		BCEE6FFF1D5B0451002FFFF3 /* YYFPSLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYFPSLabel.m; sourceTree = "<group>"; };
 		BCEE70011D5B0513002FFFF3 /* YYWeakProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYWeakProxy.h; sourceTree = "<group>"; };
 		BCEE70021D5B0513002FFFF3 /* YYWeakProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYWeakProxy.m; sourceTree = "<group>"; };
+		C9C8F20B804E507F0DF383AE /* libPods-DemoTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DemoTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D1D632D31C49C3F9B639E54E /* libPods-DemoUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DemoUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA0935B01F31A00B005CBB69 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		DA0935B11F31A00B005CBB69 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		DA0935B61F31A011005CBB69 /* ZDCustomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZDCustomCell.h; sourceTree = "<group>"; };
@@ -90,6 +89,7 @@
 		DAE6E51C1FA5C9F70056C13F /* ZDWatchdog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZDWatchdog.h; sourceTree = "<group>"; };
 		DC107892207001210A19034F /* Pods-Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Demo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Demo/Pods-Demo.debug.xcconfig"; sourceTree = "<group>"; };
 		ECE7092B921D6A3C1B3A5CD8 /* Pods-DemoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DemoUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DemoUITests/Pods-DemoUITests.release.xcconfig"; sourceTree = "<group>"; };
+		F6032C64845AE0234D830340 /* libPods-Demo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Demo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FDCD6910E07E42A9FA7910DA /* Pods-DemoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DemoTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-DemoTests/Pods-DemoTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -98,7 +98,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CC85646B602573FA401C52C4 /* libPods-Demo.a in Frameworks */,
+				97A767CD993D2F9C9F3D2431 /* libPods-Demo.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -106,7 +106,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3016FE3D5B3ACBB319606577 /* libPods-DemoTests.a in Frameworks */,
+				20272481BFA91DA4E9814C24 /* libPods-DemoTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -114,7 +114,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				286A6DCFDD8D31550607ED7A /* libPods-DemoUITests.a in Frameworks */,
+				27CA41D8F6489D6B89B82CD7 /* libPods-DemoUITests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -203,9 +203,9 @@
 		841B6C8C0464492227FD43D6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				6AE198B456128EA9341B0657 /* libPods-Demo.a */,
-				4BC1FA9138A2071508ABB48C /* libPods-DemoTests.a */,
-				28945D73703CA67834C2A026 /* libPods-DemoUITests.a */,
+				F6032C64845AE0234D830340 /* libPods-Demo.a */,
+				C9C8F20B804E507F0DF383AE /* libPods-DemoTests.a */,
+				D1D632D31C49C3F9B639E54E /* libPods-DemoUITests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

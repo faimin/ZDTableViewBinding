@@ -1,42 +1,42 @@
 PODS:
-  - AFNetworking (3.2.0):
-    - AFNetworking/NSURLSession (= 3.2.0)
-    - AFNetworking/Reachability (= 3.2.0)
-    - AFNetworking/Security (= 3.2.0)
-    - AFNetworking/Serialization (= 3.2.0)
-    - AFNetworking/UIKit (= 3.2.0)
-  - AFNetworking/NSURLSession (3.2.0):
+  - AFNetworking (3.2.1):
+    - AFNetworking/NSURLSession (= 3.2.1)
+    - AFNetworking/Reachability (= 3.2.1)
+    - AFNetworking/Security (= 3.2.1)
+    - AFNetworking/Serialization (= 3.2.1)
+    - AFNetworking/UIKit (= 3.2.1)
+  - AFNetworking/NSURLSession (3.2.1):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/Reachability (3.2.0)
-  - AFNetworking/Security (3.2.0)
-  - AFNetworking/Serialization (3.2.0)
-  - AFNetworking/UIKit (3.2.0):
+  - AFNetworking/Reachability (3.2.1)
+  - AFNetworking/Security (3.2.1)
+  - AFNetworking/Serialization (3.2.1)
+  - AFNetworking/UIKit (3.2.1):
     - AFNetworking/NSURLSession
   - JPFPSStatus (0.1.1)
   - MJExtension (3.0.13)
   - ReactiveObjC (3.1.0)
   - "UITableView+FDTemplateLayoutCell (1.6)"
   - YYModel (1.0.4)
-  - ZDTableViewBinding (0.1):
+  - ZDTableViewBinding (0.2):
     - ReactiveObjC
-    - ZDTableViewBinding/ZDBaseViews (= 0.1)
-    - ZDTableViewBinding/ZDBinding (= 0.1)
-    - ZDTableViewBinding/ZDProtocols (= 0.1)
-    - ZDTableViewBinding/ZDViewModels (= 0.1)
-  - ZDTableViewBinding/ZDBaseViews (0.1):
+    - ZDTableViewBinding/ZDBaseViews (= 0.2)
+    - ZDTableViewBinding/ZDBinding (= 0.2)
+    - ZDTableViewBinding/ZDProtocols (= 0.2)
+    - ZDTableViewBinding/ZDViewModels (= 0.2)
+  - ZDTableViewBinding/ZDBaseViews (0.2):
     - ReactiveObjC
     - ZDTableViewBinding/ZDProtocols
     - ZDTableViewBinding/ZDViewModels
-  - ZDTableViewBinding/ZDBinding (0.1):
+  - ZDTableViewBinding/ZDBinding (0.2):
     - ReactiveObjC
     - "UITableView+FDTemplateLayoutCell (~> 1.6)"
     - ZDTableViewBinding/ZDProtocols
     - ZDTableViewBinding/ZDViewModels
-  - ZDTableViewBinding/ZDProtocols (0.1):
+  - ZDTableViewBinding/ZDProtocols (0.2):
     - ReactiveObjC
-  - ZDTableViewBinding/ZDViewModels (0.1):
+  - ZDTableViewBinding/ZDViewModels (0.2):
     - ReactiveObjC
     - ZDTableViewBinding/ZDProtocols
 
@@ -61,13 +61,13 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  AFNetworking: 8ac6017b94ea105479f7776e5288e48ae9c59bb4
+  AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   JPFPSStatus: 03f32aa3d4d7d0c5bf56f6f3e7cf8b7280a5f52c
   MJExtension: 5932755f451458eefa24239358817f8d291240c7
   ReactiveObjC: 2a38ea15335de4119d8b17caf1db1484f61db902
   "UITableView+FDTemplateLayoutCell": 5c949b4a5059c404b442926c0e80f81d10a2d66f
   YYModel: 2a7fdd96aaa4b86a824e26d0c517de8928c04b30
-  ZDTableViewBinding: 60e74e187f0f75cfa745985ab06db43009586c7f
+  ZDTableViewBinding: b97059a13b16237d9a1b1219c53af471eb5540a7
 
 PODFILE CHECKSUM: dbcc54a7be6e6483ab51e4931e731bb3fdf927c4
 
