@@ -625,7 +625,7 @@ NSInteger const ZDBD_Event_DidSelectRow = -1;
         
         if (!sectionViewModel) return 0.f;
         
-        CGFloat estimateHeight = sectionViewModel.zd_estimatedSectionHeight;
+        CGFloat estimateHeight = sectionViewModel.zd_estimatedHeaderFooterHeight;
         return estimateHeight;
     }
     
