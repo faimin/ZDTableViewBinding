@@ -136,7 +136,7 @@ NSInteger const ZDBD_Event_DidSelectRow = -1;
                               cellCommand:(nullable RACCommand *)cellCommand
                       headerFooterCommand:(nullable RACCommand *)headerFooterCommand
 {
-	return [[self alloc] initWithTableView:tableView
+    return [[self alloc] initWithTableView:tableView
                               multiSection:multiSection
                           dataSourceSignal:dataSourceSignal
                                cellCommand:cellCommand
@@ -150,7 +150,7 @@ NSInteger const ZDBD_Event_DidSelectRow = -1;
               headerFooterCommand:(nullable RACCommand *)headerFooterCommand
 {
     self = [super init];
-	if (!self) return nil;
+    if (!self) return nil;
     
     self.tableView = tableView;
     self.tableView.dataSource = self;
@@ -166,24 +166,24 @@ NSInteger const ZDBD_Event_DidSelectRow = -1;
     self.headerFooterCommand = headerFooterCommand;
     
     @weakify(self);
-    [[[dataSourceSignal filter:^BOOL(id value) {
-        return (value != nil);
-    }] deliverOnMainThread] subscribeNext:^(__kindof NSArray *x) {
+    [[[dataSourceSignal deliverOnMainThread] doNext:^(id  _Nullable x) {
         @strongify(self);
         // 清空数据源(只有调用resetData后才会清空数据源,否则下面方法没作用)
         [self clearDataIfNeeded];
-        
+    }] subscribeNext:^(NSArray * _Nullable x) {
+        @strongify(self);
         // register cell && header && footer
-        if (multiSection) {
-            [self registerNibForTableViewWithSectionCellViewModels:x];
-            [self.sectionCellDatas addObjectsFromArray:x];
-        }
-        else {
-            [self registerNibForTableViewWithCellViewModels:x];
-            [self.cellViewModels addObjectsFromArray:x];
+        if (x.count > 0) {
+            if (multiSection) {
+                [self registerNibForTableViewWithSectionCellViewModels:x];
+                [self.sectionCellDatas addObjectsFromArray:x];
+            }
+            else {
+                [self registerNibForTableViewWithCellViewModels:x];
+                [self.cellViewModels addObjectsFromArray:x];
+            }
         }
         
-        /// reloadData on mainThread
         [self.tableView reloadData];
         
         self.isFinishedReloadData = YES;
@@ -320,7 +320,7 @@ NSInteger const ZDBD_Event_DidSelectRow = -1;
         if (indexPath.section >= self.sectionCellDatas.count) return NO;
         cellViewModels = self.sectionCellDatas[indexPath.section][CellViewModelKey];
     }
-
+    
     if (cellViewModels.count > indexPath.row) {
         ZDCellViewModel cellViewModel = cellViewModels[indexPath.row];
         if ([cellViewModel respondsToSelector:@selector(zd_canEditRow)]) {
@@ -340,8 +340,8 @@ NSInteger const ZDBD_Event_DidSelectRow = -1;
         cellHeight = [self.delegate tableView:tableView heightForRowAtIndexPath:indexPath];
         return cellHeight;
     }
-
-	ZDCellViewModel cellViewModel = [self cellViewModelAtIndexPath:indexPath];
+    
+    ZDCellViewModel cellViewModel = [self cellViewModelAtIndexPath:indexPath];
     
     if (cellViewModel.zd_fixedHeight > 0) {
         return cellViewModel.zd_fixedHeight;
@@ -366,34 +366,40 @@ NSInteger const ZDBD_Event_DidSelectRow = -1;
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	CGFloat estimatedHeightForRowAtIndexPath = tableView.estimatedRowHeight;
-
-	if (self.isMultiSection) {
-		NSDictionary *dict = self.sectionCellDatas[indexPath.section];
-		NSArray *cellViewModelArr = dict[CellViewModelKey];
-		ZDCellViewModel cellViewModel = cellViewModelArr[indexPath.row];
+    CGFloat estimatedHeightForRowAtIndexPath = tableView.estimatedRowHeight;
+    
+    if (self.isMultiSection) {
+        if (indexPath.section >= self.sectionCellDatas.count) {
+            ZDBDLog(@"Array out of bounds");
+            return estimatedHeightForRowAtIndexPath;
+        }
+        
+        NSDictionary *dict = self.sectionCellDatas[indexPath.section];
+        
+        NSArray *cellViewModelArr = dict[CellViewModelKey];
+        ZDCellViewModel cellViewModel = cellViewModelArr[indexPath.row];
         
         if (!cellViewModel) return 0.f;
         
-		CGFloat estimateHeight = cellViewModel.zd_estimatedHeight;
-		return estimateHeight;
-	}
-	else {
-		ZDCellViewModel cellViewModel = [self cellViewModelAtIndexPath:indexPath];
-		estimatedHeightForRowAtIndexPath = [cellViewModel zd_estimatedHeight];
-	}
-
-	return estimatedHeightForRowAtIndexPath;
+        CGFloat estimateHeight = cellViewModel.zd_estimatedHeight;
+        return estimateHeight;
+    }
+    else {
+        ZDCellViewModel cellViewModel = [self cellViewModelAtIndexPath:indexPath];
+        estimatedHeightForRowAtIndexPath = [cellViewModel zd_estimatedHeight];
+    }
+    
+    return estimatedHeightForRowAtIndexPath;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView indentationLevelForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	NSInteger indentationLevelForRowAtIndexPath = 0;
-
-	if (_delegateRespondsTo.indentationLevelForRowAtIndexPath == 1) {
-		indentationLevelForRowAtIndexPath = [self.delegate tableView:tableView indentationLevelForRowAtIndexPath:indexPath];
-	}
-	return indentationLevelForRowAtIndexPath;
+    NSInteger indentationLevelForRowAtIndexPath = 0;
+    
+    if (_delegateRespondsTo.indentationLevelForRowAtIndexPath == 1) {
+        indentationLevelForRowAtIndexPath = [self.delegate tableView:tableView indentationLevelForRowAtIndexPath:indexPath];
+    }
+    return indentationLevelForRowAtIndexPath;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -402,7 +408,7 @@ NSInteger const ZDBD_Event_DidSelectRow = -1;
         NSCAssert(NO, @"cell need confrom ZDCellProtocol");
         return;
     }
-        
+    
     ZDCellViewModel cellViewModel = [self cellViewModelAtIndexPath:indexPath];
     NSCAssert(cellViewModel != nil, @"cellViewModel can't be nil");
     
@@ -429,63 +435,67 @@ NSInteger const ZDBD_Event_DidSelectRow = -1;
 #pragma mark Managing Accessory Views
 - (nullable NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	NSArray *editActionsForRowAtIndexPath = nil;
-	if (_delegateRespondsTo.editActionsForRowAtIndexPath == 1) {
-		editActionsForRowAtIndexPath = [self.delegate tableView:tableView editActionsForRowAtIndexPath:indexPath];
-	}
-	return editActionsForRowAtIndexPath;
+    NSArray *editActionsForRowAtIndexPath = nil;
+    if (_delegateRespondsTo.editActionsForRowAtIndexPath == 1) {
+        editActionsForRowAtIndexPath = [self.delegate tableView:tableView editActionsForRowAtIndexPath:indexPath];
+    }
+    return editActionsForRowAtIndexPath;
 }
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
 {
-	if (_delegateRespondsTo.accessoryButtonTappedForRowWithIndexPath == 1) {
-		[self.delegate tableView:tableView accessoryButtonTappedForRowWithIndexPath:indexPath];
-	}
+    if (_delegateRespondsTo.accessoryButtonTappedForRowWithIndexPath == 1) {
+        [self.delegate tableView:tableView accessoryButtonTappedForRowWithIndexPath:indexPath];
+    }
 }
 
 #pragma mark Managing Selections
 - (nullable NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	NSIndexPath *willSelectRowAtIndexPath = indexPath;
-	if (_delegateRespondsTo.willSelectRowAtIndexPath == 1) {
-		willSelectRowAtIndexPath = [self.delegate tableView:tableView willSelectRowAtIndexPath:indexPath];
-	}
-	return willSelectRowAtIndexPath;
+    NSIndexPath *willSelectRowAtIndexPath = indexPath;
+    if (_delegateRespondsTo.willSelectRowAtIndexPath == 1) {
+        willSelectRowAtIndexPath = [self.delegate tableView:tableView willSelectRowAtIndexPath:indexPath];
+    }
+    return willSelectRowAtIndexPath;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	UITableViewCell <ZDCellProtocol> *cell = [tableView cellForRowAtIndexPath:indexPath];
-	// execute the command
-	if ([cell respondsToSelector:@selector(cellCommand)]) {
-		/// RACTuplePack(cell, viewModel, event)
-		/// 这里的-1默认代表的是点击的cell本身
-		[cell.cellCommand execute:[RACTuple tupleWithObjects:cell, [self cellViewModelAtIndexPath:indexPath], @(ZDBD_Event_DidSelectRow), nil]];
-	}
-	[tableView deselectRowAtIndexPath:indexPath animated:NO];
+    UITableViewCell <ZDCellProtocol> *cell = [tableView cellForRowAtIndexPath:indexPath];
+    // execute the command
+    if ([cell respondsToSelector:@selector(cellCommand)]) {
+        /// RACTuplePack(cell, viewModel, event)
+        /// 这里的-1默认代表的是点击的cell本身
+        [cell.cellCommand execute:[RACTuple tupleWithObjects:cell, [self cellViewModelAtIndexPath:indexPath], @(ZDBD_Event_DidSelectRow), nil]];
+    }
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
 - (nullable NSIndexPath *)tableView:(UITableView *)tableView willDeselectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	NSIndexPath *willDeselectRowAtIndexPath = indexPath;
-	if (_delegateRespondsTo.willDeselectRowAtIndexPath == 1) {
-		willDeselectRowAtIndexPath = [self.delegate tableView:tableView willDeselectRowAtIndexPath:indexPath];
-	}
-	return willDeselectRowAtIndexPath;
+    NSIndexPath *willDeselectRowAtIndexPath = indexPath;
+    if (_delegateRespondsTo.willDeselectRowAtIndexPath == 1) {
+        willDeselectRowAtIndexPath = [self.delegate tableView:tableView willDeselectRowAtIndexPath:indexPath];
+    }
+    return willDeselectRowAtIndexPath;
 }
 
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	if (_delegateRespondsTo.didDeselectRowAtIndexPath == 1) {
-		[self.delegate tableView:tableView didDeselectRowAtIndexPath:indexPath];
-	}
+    if (_delegateRespondsTo.didDeselectRowAtIndexPath == 1) {
+        [self.delegate tableView:tableView didDeselectRowAtIndexPath:indexPath];
+    }
 }
 
 #pragma mark Modifying the Header and Footer of Sections
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     if (!self.isMultiSection) return nil;
-    if (section >= self.sectionCellDatas.count) return nil;
+    
+    if (section >= self.sectionCellDatas.count) {
+        ZDBDLog(@"Array out of bounds");
+        return nil;
+    }
     
     ZDHeaderFooterViewModel headerViewModel = self.sectionCellDatas[section][HeaderViewModelKey];
     if (!headerViewModel) return nil;
@@ -563,24 +573,32 @@ NSInteger const ZDBD_Event_DidSelectRow = -1;
 {
     CGFloat estimatedHeightForHeaderInSection = 0.0f;
     
-    if (self.isMultiSection) {
-        NSDictionary *dic = self.sectionCellDatas[section];
-        ZDHeaderFooterViewModel sectionViewModel = dic[HeaderViewModelKey];
-        
-        if (!sectionViewModel) return 0.f;
-        
-        CGFloat estimateHeight = sectionViewModel.zd_estimatedHeaderFooterHeight;
-        return estimateHeight;
+    if (!self.isMultiSection) return estimatedHeightForHeaderInSection;
+    
+    if (section >= self.sectionCellDatas.count) {
+        ZDBDLog(@"Array out of bounds");
+        return estimatedHeightForHeaderInSection;
     }
     
-    return estimatedHeightForHeaderInSection;
+    NSDictionary *dict = self.sectionCellDatas[section];
+    ZDHeaderFooterViewModel sectionViewModel = dict[HeaderViewModelKey];
+    
+    if (!sectionViewModel) return 0.f;
+    
+    CGFloat estimateHeight = sectionViewModel.zd_estimatedHeaderFooterHeight;
+    return estimateHeight;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-	CGFloat heightForHeaderInSection = 0.f;
+    CGFloat heightForHeaderInSection = 0.f;
     
     if (!self.isMultiSection) return heightForHeaderInSection;
+    
+    if (section >= self.sectionCellDatas.count) {
+        ZDBDLog(@"Array out of bounds");
+        return heightForHeaderInSection;
+    }
     
     NSDictionary *dict = self.sectionCellDatas[section];
     ZDHeaderFooterViewModel headerFooterViewModel = dict[HeaderViewModelKey];
@@ -609,8 +627,8 @@ NSInteger const ZDBD_Event_DidSelectRow = -1;
         mutDict[HeaderViewModelKey] = headerFooterViewModel;
         self.sectionCellDatas[section] = mutDict.copy;
     }
-
-	return heightForHeaderInSection;
+    
+    return heightForHeaderInSection;
 }
 
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_9_0
@@ -619,17 +637,20 @@ NSInteger const ZDBD_Event_DidSelectRow = -1;
 {
     CGFloat estimatedHeightForFooterInSection = 0.f;
     
-    if (self.isMultiSection) {
-        NSDictionary *dic = self.sectionCellDatas[section];
-        ZDHeaderFooterViewModel sectionViewModel = dic[FooterViewModelKey];
-        
-        if (!sectionViewModel) return 0.f;
-        
-        CGFloat estimateHeight = sectionViewModel.zd_estimatedHeaderFooterHeight;
-        return estimateHeight;
+    if (self.isMultiSection) return estimatedHeightForFooterInSection;
+    
+    if (section >= self.sectionCellDatas.count) {
+        ZDBDLog(@"Array out of bounds");
+        return estimatedHeightForFooterInSection;
     }
     
-    return estimatedHeightForFooterInSection;
+    NSDictionary *dict = self.sectionCellDatas[section];
+    ZDHeaderFooterViewModel sectionViewModel = dict[FooterViewModelKey];
+    
+    if (!sectionViewModel) return 0.f;
+    
+    CGFloat estimateHeight = sectionViewModel.zd_estimatedHeaderFooterHeight;
+    return estimateHeight;
 }
 #endif
 
@@ -637,9 +658,14 @@ NSInteger const ZDBD_Event_DidSelectRow = -1;
 /// if it was created in a plain style (UITableViewStylePlain).
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-	CGFloat heightForFooterInSection = 0.f;
-
+    CGFloat heightForFooterInSection = 0.f;
+    
     if (!self.isMultiSection) return heightForFooterInSection;
+    
+    if (section >= self.sectionCellDatas.count) {
+        ZDBDLog(@"Array out of bounds");
+        return heightForFooterInSection;
+    }
     
     NSDictionary *dic = self.sectionCellDatas[section];
     ZDHeaderFooterViewModel sectionViewModel = dic[FooterViewModelKey];
@@ -666,7 +692,7 @@ NSInteger const ZDBD_Event_DidSelectRow = -1;
         self.sectionCellDatas[section] = mutDic.copy;
     }
     
-	return heightForFooterInSection;
+    return heightForFooterInSection;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
@@ -724,132 +750,132 @@ NSInteger const ZDBD_Event_DidSelectRow = -1;
 #pragma mark Editing Table Rows
 - (void)tableView:(UITableView *)tableView willBeginEditingRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	if (_delegateRespondsTo.willBeginEditingRowAtIndexPath == 1) {
-		[self.delegate tableView:tableView willBeginEditingRowAtIndexPath:indexPath];
-	}
+    if (_delegateRespondsTo.willBeginEditingRowAtIndexPath == 1) {
+        [self.delegate tableView:tableView willBeginEditingRowAtIndexPath:indexPath];
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didEndEditingRowAtIndexPath:(nullable NSIndexPath *)indexPath
 {
-	if (_delegateRespondsTo.didEndEditingRowAtIndexPath == 1) {
-		[self.delegate tableView:tableView didEndEditingRowAtIndexPath:indexPath];
-	}
+    if (_delegateRespondsTo.didEndEditingRowAtIndexPath == 1) {
+        [self.delegate tableView:tableView didEndEditingRowAtIndexPath:indexPath];
+    }
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	UITableViewCellEditingStyle editingStyleForRowAtIndexPath = [tableView cellForRowAtIndexPath:indexPath].editing == YES ? UITableViewCellEditingStyleDelete : UITableViewCellEditingStyleNone;
-
-	if (_delegateRespondsTo.editingStyleForRowAtIndexPath == 1) {
-		editingStyleForRowAtIndexPath = [self.delegate tableView:tableView editingStyleForRowAtIndexPath:indexPath];
-	}
-	return editingStyleForRowAtIndexPath;
+    UITableViewCellEditingStyle editingStyleForRowAtIndexPath = [tableView cellForRowAtIndexPath:indexPath].editing == YES ? UITableViewCellEditingStyleDelete : UITableViewCellEditingStyleNone;
+    
+    if (_delegateRespondsTo.editingStyleForRowAtIndexPath == 1) {
+        editingStyleForRowAtIndexPath = [self.delegate tableView:tableView editingStyleForRowAtIndexPath:indexPath];
+    }
+    return editingStyleForRowAtIndexPath;
 }
 
 - (nullable NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	NSString *titleForDeleteConfirmationButtonForRowAtIndexPath = NSLocalizedString(@"删除", @"Delete");
-
-	if (_delegateRespondsTo.titleForDeleteConfirmationButtonForRowAtIndexPath == 1) {
-		titleForDeleteConfirmationButtonForRowAtIndexPath = [self.delegate tableView:tableView titleForDeleteConfirmationButtonForRowAtIndexPath:indexPath];
-	}
-	return titleForDeleteConfirmationButtonForRowAtIndexPath;
+    NSString *titleForDeleteConfirmationButtonForRowAtIndexPath = NSLocalizedString(@"删除", @"Delete");
+    
+    if (_delegateRespondsTo.titleForDeleteConfirmationButtonForRowAtIndexPath == 1) {
+        titleForDeleteConfirmationButtonForRowAtIndexPath = [self.delegate tableView:tableView titleForDeleteConfirmationButtonForRowAtIndexPath:indexPath];
+    }
+    return titleForDeleteConfirmationButtonForRowAtIndexPath;
 }
 
 - (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	BOOL shouldIndentWhileEditingRowAtIndexPath = YES;
-
-	if (_delegateRespondsTo.shouldIndentWhileEditingRowAtIndexPath == 1) {
-		shouldIndentWhileEditingRowAtIndexPath = [self.delegate tableView:tableView shouldIndentWhileEditingRowAtIndexPath:indexPath];
-	}
-	return shouldIndentWhileEditingRowAtIndexPath;
+    BOOL shouldIndentWhileEditingRowAtIndexPath = YES;
+    
+    if (_delegateRespondsTo.shouldIndentWhileEditingRowAtIndexPath == 1) {
+        shouldIndentWhileEditingRowAtIndexPath = [self.delegate tableView:tableView shouldIndentWhileEditingRowAtIndexPath:indexPath];
+    }
+    return shouldIndentWhileEditingRowAtIndexPath;
 }
 
 #pragma mark Reordering Table Rows
 - (NSIndexPath *)tableView:(UITableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath
 {
-	NSIndexPath *toProposedIndexPath = proposedDestinationIndexPath;
-
-	if (_delegateRespondsTo.targetIndexPathForMoveFromRowAtIndexPathToProposedIndexPath == 1) {
-		toProposedIndexPath = [self.delegate tableView:tableView targetIndexPathForMoveFromRowAtIndexPath:sourceIndexPath toProposedIndexPath:proposedDestinationIndexPath];
-	}
-	return toProposedIndexPath;
+    NSIndexPath *toProposedIndexPath = proposedDestinationIndexPath;
+    
+    if (_delegateRespondsTo.targetIndexPathForMoveFromRowAtIndexPathToProposedIndexPath == 1) {
+        toProposedIndexPath = [self.delegate tableView:tableView targetIndexPathForMoveFromRowAtIndexPath:sourceIndexPath toProposedIndexPath:proposedDestinationIndexPath];
+    }
+    return toProposedIndexPath;
 }
 
 #pragma mark Tracking the Removal of Views
 - (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	if (_delegateRespondsTo.didEndDisplayingCellForRowAtIndexPath == 1) {
-		[self.delegate tableView:tableView didEndDisplayingCell:cell forRowAtIndexPath:indexPath];
-	}
+    if (_delegateRespondsTo.didEndDisplayingCellForRowAtIndexPath == 1) {
+        [self.delegate tableView:tableView didEndDisplayingCell:cell forRowAtIndexPath:indexPath];
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didEndDisplayingHeaderView:(UIView *)view forSection:(NSInteger)section
 {
-	if (_delegateRespondsTo.didEndDisplayingHeaderViewForSection == 1) {
-		[self.delegate tableView:tableView didEndDisplayingHeaderView:view forSection:section];
-	}
+    if (_delegateRespondsTo.didEndDisplayingHeaderViewForSection == 1) {
+        [self.delegate tableView:tableView didEndDisplayingHeaderView:view forSection:section];
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didEndDisplayingFooterView:(UIView *)view forSection:(NSInteger)section
 {
-	if (_delegateRespondsTo.didEndDisplayingFooterViewForSection == 1) {
-		[self.delegate tableView:tableView didEndDisplayingFooterView:view forSection:section];
-	}
+    if (_delegateRespondsTo.didEndDisplayingFooterViewForSection == 1) {
+        [self.delegate tableView:tableView didEndDisplayingFooterView:view forSection:section];
+    }
 }
 
 #pragma mark Copying and Pasting Row Content
 - (BOOL)tableView:(UITableView *)tableView shouldShowMenuForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	BOOL shouldShowMenuForRowAtIndexPath = NO;
-
-	if (_delegateRespondsTo.shouldShowMenuForRowAtIndexPath == 1) {
-		shouldShowMenuForRowAtIndexPath = [self.delegate tableView:tableView shouldShowMenuForRowAtIndexPath:indexPath];
-	}
-	return shouldShowMenuForRowAtIndexPath;
+    BOOL shouldShowMenuForRowAtIndexPath = NO;
+    
+    if (_delegateRespondsTo.shouldShowMenuForRowAtIndexPath == 1) {
+        shouldShowMenuForRowAtIndexPath = [self.delegate tableView:tableView shouldShowMenuForRowAtIndexPath:indexPath];
+    }
+    return shouldShowMenuForRowAtIndexPath;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canPerformAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(nullable id)sender
 {
-	BOOL canPerformAction = NO;
-
-	if (_delegateRespondsTo.canPerformActionForRowAtIndexPathWithSender == 1) {
-		canPerformAction = [self.delegate tableView:tableView canPerformAction:action forRowAtIndexPath:indexPath withSender:sender];
-	}
-	return canPerformAction;
+    BOOL canPerformAction = NO;
+    
+    if (_delegateRespondsTo.canPerformActionForRowAtIndexPathWithSender == 1) {
+        canPerformAction = [self.delegate tableView:tableView canPerformAction:action forRowAtIndexPath:indexPath withSender:sender];
+    }
+    return canPerformAction;
 }
 
 - (void)tableView:(UITableView *)tableView performAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(nullable id)sender
 {
-	if (_delegateRespondsTo.performActionForRowAtIndexPathWithSender == 1) {
-		[self.delegate tableView:tableView performAction:action forRowAtIndexPath:indexPath withSender:sender];
-	}
+    if (_delegateRespondsTo.performActionForRowAtIndexPathWithSender == 1) {
+        [self.delegate tableView:tableView performAction:action forRowAtIndexPath:indexPath withSender:sender];
+    }
 }
 
 #pragma mak Managing Table View Highlighting
 - (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	BOOL shouldHighlightRowAtIndexPath = YES;
-
-	if (_delegateRespondsTo.shouldHighlightRowAtIndexPath == 1) {
-		shouldHighlightRowAtIndexPath = [self.delegate tableView:tableView shouldHighlightRowAtIndexPath:indexPath];
-	}
-	return shouldHighlightRowAtIndexPath;
+    BOOL shouldHighlightRowAtIndexPath = YES;
+    
+    if (_delegateRespondsTo.shouldHighlightRowAtIndexPath == 1) {
+        shouldHighlightRowAtIndexPath = [self.delegate tableView:tableView shouldHighlightRowAtIndexPath:indexPath];
+    }
+    return shouldHighlightRowAtIndexPath;
 }
 
 - (void)tableView:(UITableView *)tableView didHighlightRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	if (_delegateRespondsTo.didHighlightRowAtIndexPath == 1) {
-		[self.delegate tableView:tableView didHighlightRowAtIndexPath:indexPath];
-	}
+    if (_delegateRespondsTo.didHighlightRowAtIndexPath == 1) {
+        [self.delegate tableView:tableView didHighlightRowAtIndexPath:indexPath];
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didUnhighlightRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	if (_delegateRespondsTo.didUnhighlightRowAtIndexPath == 1) {
-		[self.delegate tableView:tableView didUnhighlightRowAtIndexPath:indexPath];
-	}
+    if (_delegateRespondsTo.didUnhighlightRowAtIndexPath == 1) {
+        [self.delegate tableView:tableView didUnhighlightRowAtIndexPath:indexPath];
+    }
 }
 
 #pragma mark - UIScrollViewDelegate
@@ -857,133 +883,133 @@ NSInteger const ZDBD_Event_DidSelectRow = -1;
 #pragma mark Responding to Scrolling and Dragging
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-	if (_delegateRespondsTo.scrollViewDidScroll) {
-		[self.delegate scrollViewDidScroll:scrollView];
-	}
+    if (_delegateRespondsTo.scrollViewDidScroll) {
+        [self.delegate scrollViewDidScroll:scrollView];
+    }
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
-	if (_delegateRespondsTo.scrollViewWillBeginDragging) {
-		[self.delegate scrollViewWillBeginDragging:scrollView];
-	}
+    if (_delegateRespondsTo.scrollViewWillBeginDragging) {
+        [self.delegate scrollViewWillBeginDragging:scrollView];
+    }
 }
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
 {
-	if (_delegateRespondsTo.scrollViewWillEndDraggingWithVelocityTargetContentOffset) {
-		[self.delegate scrollViewWillEndDragging:scrollView withVelocity:velocity targetContentOffset:targetContentOffset];
-	}
+    if (_delegateRespondsTo.scrollViewWillEndDraggingWithVelocityTargetContentOffset) {
+        [self.delegate scrollViewWillEndDragging:scrollView withVelocity:velocity targetContentOffset:targetContentOffset];
+    }
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
-	if (_delegateRespondsTo.scrollViewDidEndDraggingWillDecelerate) {
-		[self.delegate scrollViewDidEndDragging:scrollView willDecelerate:decelerate];
-	}
+    if (_delegateRespondsTo.scrollViewDidEndDraggingWillDecelerate) {
+        [self.delegate scrollViewDidEndDragging:scrollView willDecelerate:decelerate];
+    }
 }
 
 - (BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView
 {
-	BOOL scrollViewShouldScrollToTop = YES;
-
-	if (_delegateRespondsTo.scrollViewShouldScrollToTop) {
-		scrollViewShouldScrollToTop = [self.delegate scrollViewShouldScrollToTop:scrollView];
-	}
-	return scrollViewShouldScrollToTop;
+    BOOL scrollViewShouldScrollToTop = YES;
+    
+    if (_delegateRespondsTo.scrollViewShouldScrollToTop) {
+        scrollViewShouldScrollToTop = [self.delegate scrollViewShouldScrollToTop:scrollView];
+    }
+    return scrollViewShouldScrollToTop;
 }
 
 - (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView
 {
-	if (_delegateRespondsTo.scrollViewDidScrollToTop) {
-		[self.delegate scrollViewDidScrollToTop:scrollView];
-	}
+    if (_delegateRespondsTo.scrollViewDidScrollToTop) {
+        [self.delegate scrollViewDidScrollToTop:scrollView];
+    }
 }
 
 - (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView
 {
-	if (_delegateRespondsTo.scrollViewWillBeginDecelerating) {
-		[self.delegate scrollViewWillBeginDecelerating:scrollView];
-	}
+    if (_delegateRespondsTo.scrollViewWillBeginDecelerating) {
+        [self.delegate scrollViewWillBeginDecelerating:scrollView];
+    }
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-	if (_delegateRespondsTo.scrollViewDidEndDecelerating) {
-		[self.delegate scrollViewDidEndDecelerating:scrollView];
-	}
+    if (_delegateRespondsTo.scrollViewDidEndDecelerating) {
+        [self.delegate scrollViewDidEndDecelerating:scrollView];
+    }
 }
 
 #pragma mark Managing Zooming
 - (nullable UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
 {
-	UIView *viewForZoomingInScrollView = nil;
-
-	if (_delegateRespondsTo.viewForZoomingInScrollView) {
-		viewForZoomingInScrollView = [self.delegate viewForZoomingInScrollView:scrollView];
-	}
-	return viewForZoomingInScrollView;
+    UIView *viewForZoomingInScrollView = nil;
+    
+    if (_delegateRespondsTo.viewForZoomingInScrollView) {
+        viewForZoomingInScrollView = [self.delegate viewForZoomingInScrollView:scrollView];
+    }
+    return viewForZoomingInScrollView;
 }
 
 - (void)scrollViewWillBeginZooming:(UIScrollView *)scrollView withView:(nullable UIView *)view
 {
-	if (_delegateRespondsTo.scrollViewWillBeginZoomingWithView) {
-		[self.delegate scrollViewWillBeginZooming:scrollView withView:view];
-	}
+    if (_delegateRespondsTo.scrollViewWillBeginZoomingWithView) {
+        [self.delegate scrollViewWillBeginZooming:scrollView withView:view];
+    }
 }
 
 - (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(nullable UIView *)view atScale:(CGFloat)scale
 {
-	if (_delegateRespondsTo.scrollViewDidEndZoomingWithViewAtScale) {
-		[self.delegate scrollViewDidEndZooming:scrollView withView:view atScale:scale];
-	}
+    if (_delegateRespondsTo.scrollViewDidEndZoomingWithViewAtScale) {
+        [self.delegate scrollViewDidEndZooming:scrollView withView:view atScale:scale];
+    }
 }
 
 - (void)scrollViewDidZoom:(UIScrollView *)scrollView
 {
-	if (_delegateRespondsTo.scrollViewDidZoom) {
-		[self.delegate scrollViewDidZoom:scrollView];
-	}
+    if (_delegateRespondsTo.scrollViewDidZoom) {
+        [self.delegate scrollViewDidZoom:scrollView];
+    }
 }
 
 #pragma mark Responding to Scrolling Animations
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
 {
-	if (_delegateRespondsTo.scrollViewDidEndScrollingAnimation) {
-		[self.delegate scrollViewDidEndScrollingAnimation:scrollView];
-	}
+    if (_delegateRespondsTo.scrollViewDidEndScrollingAnimation) {
+        [self.delegate scrollViewDidEndScrollingAnimation:scrollView];
+    }
 }
 
 #pragma mark - Public Methods
 // MARK: -----------------------获取CellViewModel-----------------------
 - (nullable ZDCellViewModel)cellViewModelAtIndexPath:(NSIndexPath *)indexPath
 {
-	if (self.isMultiSection) {
-		NSInteger section = indexPath.section;
+    if (self.isMultiSection) {
+        NSInteger section = indexPath.section;
         if (section >= self.sectionCellDatas.count) {
             NSCAssert(NO, @"Array out of bounds");
             return nil;
         }
         
-		NSArray<ZDCellViewModel> *cellViewModelArr = self.sectionCellDatas[section][CellViewModelKey];
+        NSArray<ZDCellViewModel> *cellViewModelArr = self.sectionCellDatas[section][CellViewModelKey];
         if (indexPath.row >= cellViewModelArr.count) {
             NSCAssert(NO, @"Array out of bounds");
             return nil;
         }
-		ZDCellViewModel viewModel = cellViewModelArr[indexPath.row];
-		NSCAssert(viewModel, @"viewModel can't be nil");
-		return viewModel;
-	}
-	else {
-		NSInteger index = indexPath.row;
-
-		if (index < 0 || index >= self.cellViewModels.count) {
-			return nil;
-		}
-		else {
-			return self.cellViewModels[index];
-		}
-	}
+        ZDCellViewModel viewModel = cellViewModelArr[indexPath.row];
+        NSCAssert(viewModel, @"viewModel can't be nil");
+        return viewModel;
+    }
+    else {
+        NSInteger index = indexPath.row;
+        
+        if (index < 0 || index >= self.cellViewModels.count) {
+            return nil;
+        }
+        else {
+            return self.cellViewModels[index];
+        }
+    }
 }
 
 - (void)updateViewModel:(ZDCellViewModel)viewModel atIndexPath:(NSIndexPath *)indexPath
@@ -991,6 +1017,11 @@ NSInteger const ZDBD_Event_DidSelectRow = -1;
     if (!indexPath || !viewModel) return;
     
     if (self.isMultiSection) {
+        if (indexPath.section >= self.sectionCellDatas.count) {
+            ZDBDLog(@"Array out of bounds");
+            return;
+        }
+        
         NSMutableDictionary *sectionMutDict = self.sectionCellDatas[indexPath.section].mutableCopy;
         NSMutableArray *cellViewModelMutArr = [NSArray zdbd_cast:sectionMutDict[CellViewModelKey]].mutableCopy;
         [cellViewModelMutArr replaceObjectAtIndex:indexPath.row withObject:viewModel];
@@ -1007,18 +1038,18 @@ NSInteger const ZDBD_Event_DidSelectRow = -1;
     if (!indexPath || !viewModel) return;
     
     [self registerNibForTableViewWithCellViewModels:@[viewModel]];
-
-	if (self.isMultiSection) {
+    
+    if (self.isMultiSection) {
         if (indexPath.section >= self.sectionCellDatas.count) return;
         
-		NSArray *cellViewModelArr = self.sectionCellDatas[indexPath.section][CellViewModelKey];
-		NSMutableArray *cellViewModelMutArr = cellViewModelArr.mutableCopy;
-		[cellViewModelMutArr insertObject:viewModel atIndex:indexPath.row];
-		[self.sectionCellDatas[indexPath.section] setValue:cellViewModelMutArr.copy forKey:CellViewModelKey];
-	}
-	else {
-		[self.cellViewModels insertObject:viewModel atIndex:indexPath.row];
-	}
+        NSArray *cellViewModelArr = self.sectionCellDatas[indexPath.section][CellViewModelKey];
+        NSMutableArray *cellViewModelMutArr = cellViewModelArr.mutableCopy;
+        [cellViewModelMutArr insertObject:viewModel atIndex:indexPath.row];
+        [self.sectionCellDatas[indexPath.section] setValue:cellViewModelMutArr.copy forKey:CellViewModelKey];
+    }
+    else {
+        [self.cellViewModels insertObject:viewModel atIndex:indexPath.row];
+    }
     
     ZD_BATCH_UPDATE(self.tableView, [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];)
 }
@@ -1028,18 +1059,18 @@ NSInteger const ZDBD_Event_DidSelectRow = -1;
     if (!indexPath || !viewModel) return;
     
     [self registerNibForTableViewWithCellViewModels:@[viewModel]];
-
-	if (self.isMultiSection) {
+    
+    if (self.isMultiSection) {
         if (indexPath.section >= self.sectionCellDatas.count) return;
         
-		NSArray *cellViewModelArr = self.sectionCellDatas[indexPath.section][CellViewModelKey];
-		NSMutableArray *cellViewModelMutArr = cellViewModelArr.mutableCopy;
-		[cellViewModelMutArr replaceObjectAtIndex:indexPath.row withObject:viewModel];
-		[self.sectionCellDatas[indexPath.section] setValue:cellViewModelMutArr.copy forKey:CellViewModelKey];
-	}
-	else {
-		[self.cellViewModels replaceObjectAtIndex:indexPath.row withObject:viewModel];
-	}
+        NSArray *cellViewModelArr = self.sectionCellDatas[indexPath.section][CellViewModelKey];
+        NSMutableArray *cellViewModelMutArr = cellViewModelArr.mutableCopy;
+        [cellViewModelMutArr replaceObjectAtIndex:indexPath.row withObject:viewModel];
+        [self.sectionCellDatas[indexPath.section] setValue:cellViewModelMutArr.copy forKey:CellViewModelKey];
+    }
+    else {
+        [self.cellViewModels replaceObjectAtIndex:indexPath.row withObject:viewModel];
+    }
     
     if (delay < 0) return;
     else if (delay == 0) {
@@ -1104,18 +1135,18 @@ NSInteger const ZDBD_Event_DidSelectRow = -1;
 - (void)deleteCellViewModelAtIndexPath:(NSIndexPath *)indexPath
 {
     if (!indexPath) return;
-
-	if (self.isMultiSection) {
+    
+    if (self.isMultiSection) {
         if (indexPath.section >= self.sectionCellDatas.count) return;
-            
-		NSArray *cellViewModelArr = self.sectionCellDatas[indexPath.section][CellViewModelKey];
-		NSMutableArray *cellViewModelMutArr = cellViewModelArr.mutableCopy;
-		[cellViewModelMutArr removeObjectAtIndex:indexPath.row];
-		[self.sectionCellDatas[indexPath.section] setValue:cellViewModelMutArr.copy forKey:CellViewModelKey];
-	}
-	else {
-		[self.cellViewModels removeObjectAtIndex:indexPath.row];
-	}
+        
+        NSArray *cellViewModelArr = self.sectionCellDatas[indexPath.section][CellViewModelKey];
+        NSMutableArray *cellViewModelMutArr = cellViewModelArr.mutableCopy;
+        [cellViewModelMutArr removeObjectAtIndex:indexPath.row];
+        [self.sectionCellDatas[indexPath.section] setValue:cellViewModelMutArr.copy forKey:CellViewModelKey];
+    }
+    else {
+        [self.cellViewModels removeObjectAtIndex:indexPath.row];
+    }
     
     ZD_BATCH_UPDATE(self.tableView, [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];)
 }
@@ -1153,31 +1184,31 @@ NSInteger const ZDBD_Event_DidSelectRow = -1;
         NSCAssert(cellViewModels, @"CellViewModels cann't be nil");
         return;
     };
-
-	/// storyBoard里的cell不需要手动注册，只需要设置reuseIdentifier
-	for (ZDCellViewModel cellViewModel in cellViewModels) {
-		// register cell
-		NSString *cellNibName = [cellViewModel zd_nibName];
-		NSString *cellClassName = [cellViewModel zd_className];
-		NSString *reuseIdentifier = [cellViewModel zd_reuseIdentifier];
-		NSCAssert(reuseIdentifier, @"Cell's reuseIdentifier must be set");
-
-		if (ZDBD_NotNilOrEmpty(cellNibName) && ![self.mutSetNibNameForCell containsObject:cellNibName]) {
+    
+    /// storyBoard里的cell不需要手动注册，只需要设置reuseIdentifier
+    for (ZDCellViewModel cellViewModel in cellViewModels) {
+        // register cell
+        NSString *cellNibName = [cellViewModel zd_nibName];
+        NSString *cellClassName = [cellViewModel zd_className];
+        NSString *reuseIdentifier = [cellViewModel zd_reuseIdentifier];
+        NSCAssert(reuseIdentifier, @"Cell's reuseIdentifier must be set");
+        
+        if (ZDBD_NotNilOrEmpty(cellNibName) && ![self.mutSetNibNameForCell containsObject:cellNibName]) {
             NSString *nibPath = [[NSBundle mainBundle] pathForResource:cellNibName ofType:@"nib"];
-			if (nibPath) {
+            if (nibPath) {
                 // create an instance of the template cell and register with the table view
                 // UITableViewCell *templateCell = [[nib instantiateWithOwner:nil options:nil] firstObject];
                 UINib *cellNib = [UINib nibWithNibName:cellNibName bundle:nil];
-				[self.tableView registerNib:cellNib forCellReuseIdentifier:reuseIdentifier ?: cellNibName];
-				[self.mutSetNibNameForCell addObject:cellNibName];
-			}
-		}
-		else if (ZDBD_NotNilOrEmpty(cellClassName) && ![self.mutSetClassNameForCell containsObject:cellClassName]) {
-			// 通过类名注册Cell
-			[self.tableView registerClass:NSClassFromString(cellClassName) forCellReuseIdentifier:reuseIdentifier ?: cellClassName];
-			[self.mutSetClassNameForCell addObject:cellClassName];
-		}
-	}
+                [self.tableView registerNib:cellNib forCellReuseIdentifier:reuseIdentifier ?: cellNibName];
+                [self.mutSetNibNameForCell addObject:cellNibName];
+            }
+        }
+        else if (ZDBD_NotNilOrEmpty(cellClassName) && ![self.mutSetClassNameForCell containsObject:cellClassName]) {
+            // 通过类名注册Cell
+            [self.tableView registerClass:NSClassFromString(cellClassName) forCellReuseIdentifier:reuseIdentifier ?: cellClassName];
+            [self.mutSetClassNameForCell addObject:cellClassName];
+        }
+    }
 }
 
 - (void)registerNibForTableViewWithSectionViewModel:(ZDHeaderFooterViewModel)sectionViewModel
@@ -1188,34 +1219,34 @@ NSInteger const ZDBD_Event_DidSelectRow = -1;
         return;
     }
     
-	// register header && footer (only to mutableSection)
-	NSString *sectionNibName = [sectionViewModel zd_headerFooterNibName];
-	NSString *sectionClassName = [sectionViewModel zd_headerFooterClassName];
-	NSString *sectionReuseIdentifier = [sectionViewModel zd_headerFooterReuseIdentifier];
-
-	NSCAssert(sectionReuseIdentifier, @"SectionView's reuseIdentifier must be set");
-
-	if (ZDBD_NotNilOrEmpty(sectionNibName) && ![self.mutSetNibNameForSection containsObject:sectionNibName]) {
+    // register header && footer (only to mutableSection)
+    NSString *sectionNibName = [sectionViewModel zd_headerFooterNibName];
+    NSString *sectionClassName = [sectionViewModel zd_headerFooterClassName];
+    NSString *sectionReuseIdentifier = [sectionViewModel zd_headerFooterReuseIdentifier];
+    
+    NSCAssert(sectionReuseIdentifier, @"SectionView's reuseIdentifier must be set");
+    
+    if (ZDBD_NotNilOrEmpty(sectionNibName) && ![self.mutSetNibNameForSection containsObject:sectionNibName]) {
         NSString *nibPath = [[NSBundle mainBundle] pathForResource:sectionNibName ofType:@"nib"];
-		if (nibPath) {
+        if (nibPath) {
             UINib *sectionNib = [UINib nibWithNibName:sectionNibName bundle:nil];
-			[self.tableView registerNib:sectionNib forHeaderFooterViewReuseIdentifier:sectionReuseIdentifier ?: sectionNibName];
-			[self.mutSetNibNameForSection addObject:sectionNibName];
-		}
-	}
-	else if (ZDBD_NotNilOrEmpty(sectionClassName) && ![self.mutSetClassNameForSection containsObject:sectionClassName]) {
-		// 通过类名注册Section
-		[self.tableView registerClass:NSClassFromString(sectionClassName) forHeaderFooterViewReuseIdentifier:sectionReuseIdentifier ?: sectionClassName];
-		[self.mutSetClassNameForSection addObject:sectionClassName];
-	}
+            [self.tableView registerNib:sectionNib forHeaderFooterViewReuseIdentifier:sectionReuseIdentifier ?: sectionNibName];
+            [self.mutSetNibNameForSection addObject:sectionNibName];
+        }
+    }
+    else if (ZDBD_NotNilOrEmpty(sectionClassName) && ![self.mutSetClassNameForSection containsObject:sectionClassName]) {
+        // 通过类名注册Section
+        [self.tableView registerClass:NSClassFromString(sectionClassName) forHeaderFooterViewReuseIdentifier:sectionReuseIdentifier ?: sectionClassName];
+        [self.mutSetClassNameForSection addObject:sectionClassName];
+    }
 }
 
 /// muti Section
 - (void)registerNibForTableViewWithSectionCellViewModels:(__kindof NSArray<NSDictionary *> *)sectionCellModels
 {
     if (!self.isMultiSection) return;
-        
-	for (NSDictionary *sectionCellDataDic in sectionCellModels) {
+    
+    for (NSDictionary *sectionCellDataDic in sectionCellModels) {
         ZDHeaderFooterViewModel headerViewModel = sectionCellDataDic[HeaderViewModelKey];
         NSArray *cellViewModels = sectionCellDataDic[CellViewModelKey];
         ZDHeaderFooterViewModel footerViewModel = sectionCellDataDic[FooterViewModelKey];
@@ -1229,7 +1260,7 @@ NSInteger const ZDBD_Event_DidSelectRow = -1;
         if (footerViewModel) {
             [self registerNibForTableViewWithSectionViewModel:footerViewModel];
         }
-	}
+    }
 }
 
 - (void)reloadRowsNoAnimationAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths
@@ -1348,34 +1379,34 @@ NSInteger const ZDBD_Event_DidSelectRow = -1;
 
 - (NSMutableSet<NSString *> *)mutSetNibNameForCell
 {
-	if (!_mutSetNibNameForCell) {
-		_mutSetNibNameForCell = [[NSMutableSet alloc] init];
-	}
-	return _mutSetNibNameForCell;
+    if (!_mutSetNibNameForCell) {
+        _mutSetNibNameForCell = [[NSMutableSet alloc] init];
+    }
+    return _mutSetNibNameForCell;
 }
 
 - (NSMutableSet<NSString *> *)mutSetClassNameForCell
 {
-	if (!_mutSetClassNameForCell) {
-		_mutSetClassNameForCell = [[NSMutableSet alloc] init];
-	}
-	return _mutSetClassNameForCell;
+    if (!_mutSetClassNameForCell) {
+        _mutSetClassNameForCell = [[NSMutableSet alloc] init];
+    }
+    return _mutSetClassNameForCell;
 }
 
 - (NSMutableSet<NSString *> *)mutSetNibNameForSection
 {
-	if (!_mutSetNibNameForSection) {
-		_mutSetNibNameForSection = [[NSMutableSet alloc] init];
-	}
-	return _mutSetNibNameForSection;
+    if (!_mutSetNibNameForSection) {
+        _mutSetNibNameForSection = [[NSMutableSet alloc] init];
+    }
+    return _mutSetNibNameForSection;
 }
 
 - (NSMutableSet<NSString *> *)mutSetClassNameForSection
 {
-	if (!_mutSetClassNameForSection) {
-		_mutSetClassNameForSection = [[NSMutableSet alloc] init];
-	}
-	return _mutSetClassNameForSection;
+    if (!_mutSetClassNameForSection) {
+        _mutSetClassNameForSection = [[NSMutableSet alloc] init];
+    }
+    return _mutSetClassNameForSection;
 }
 
 - (NSMutableDictionary<NSIndexPath *, id> *)prefetchDict
@@ -1395,10 +1426,10 @@ NSInteger const ZDBD_Event_DidSelectRow = -1;
 + (nullable instancetype)zdbd_cast:(id)objc
 {
     if (!objc) return nil;
-	if ([objc isKindOfClass:[self class]]) {
-		return objc;
-	}
-	return nil;
+    if ([objc isKindOfClass:[self class]]) {
+        return objc;
+    }
+    return nil;
 }
 
 @end
