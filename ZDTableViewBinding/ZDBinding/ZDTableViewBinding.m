@@ -1271,20 +1271,18 @@ NSInteger const ZDBD_Event_DidSelectRow = -1;
 }
 
 #pragma mark - Setters
-- (void)setDelegate:(nullable id<UITableViewDelegate>)delegate
+- (void)setDelegate:(nullable id<ZDTableViewBindingDelegate>)delegate
 {
-    if (self.delegate != delegate) {
+    if (_delegate != delegate) {
         _delegate = delegate;
         
         /**
          *  Forward the delegate method
-         *  refer： https://github.com/ColinEberhardt/CETableViewBinding
-         *
-         *  如果delegate履行了哪个协议方法，那么这个协议方法就在代理对象的类里执行
+         *  refer：https://github.com/ColinEberhardt/CETableViewBinding
          */
         struct delegateMethodsCaching newMethodCaching;
-        // UITableViewDelegate
         
+        // UITableViewDelegate
         //Configuring Rows for the Table View
         newMethodCaching.heightForRowAtIndexPath = [_delegate respondsToSelector:@selector(tableView:heightForRowAtIndexPath:)];
         newMethodCaching.estimatedHeightForRowAtIndexPath = [_delegate respondsToSelector:@selector(tableView:estimatedHeightForRowAtIndexPath:)];
