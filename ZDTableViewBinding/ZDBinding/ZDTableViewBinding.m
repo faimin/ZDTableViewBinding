@@ -1199,6 +1199,7 @@ NSInteger const ZDBD_Event_DidSelectRow = -1;
                 // create an instance of the template cell and register with the table view
                 // UITableViewCell *templateCell = [[nib instantiateWithOwner:nil options:nil] firstObject];
                 UINib *cellNib = [UINib nibWithNibName:cellNibName bundle:nil];
+                NSCAssert(cellNib, ([NSString stringWithFormat:@"❌ %@ does not exist", cellNibName]));
                 [self.tableView registerNib:cellNib forCellReuseIdentifier:reuseIdentifier ?: cellNibName];
                 [self.mutSetNibNameForCell addObject:cellNibName];
             }
@@ -1206,7 +1207,7 @@ NSInteger const ZDBD_Event_DidSelectRow = -1;
         else if (ZDBD_NotNilOrEmpty(cellClassName) && ![self.mutSetClassNameForCell containsObject:cellClassName]) {
             // 通过类名注册Cell
             Class aCellClass = NSClassFromString(cellClassName);
-            NSCAssert(aCellClass, ([NSString stringWithFormat:@"❌ %@ does not exist exist", aCellClass]));
+            NSCAssert(aCellClass, ([NSString stringWithFormat:@"❌ %@ does not exist", aCellClass]));
             [self.tableView registerClass:aCellClass forCellReuseIdentifier:reuseIdentifier ?: cellClassName];
             [self.mutSetClassNameForCell addObject:cellClassName];
         }
