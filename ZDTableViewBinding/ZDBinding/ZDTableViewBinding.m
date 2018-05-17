@@ -264,7 +264,7 @@ NSInteger const ZDBD_Event_DidSelectRow = -1;
         if (!aCalss) {
             NSCAssert(NO, @"aClass don't exist");
         }
-        else if ([aCalss isSubclassOfClass:[UITableViewCell class]]) {
+        else if ([aCalss isKindOfClass:[UITableViewCell class]]) {
             cell = [[aCalss alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
         }
         else {
@@ -1205,7 +1205,9 @@ NSInteger const ZDBD_Event_DidSelectRow = -1;
         }
         else if (ZDBD_NotNilOrEmpty(cellClassName) && ![self.mutSetClassNameForCell containsObject:cellClassName]) {
             // 通过类名注册Cell
-            [self.tableView registerClass:NSClassFromString(cellClassName) forCellReuseIdentifier:reuseIdentifier ?: cellClassName];
+            Class aCellClass = NSClassFromString(cellClassName);
+            NSCAssert(aCellClass, ([NSString stringWithFormat:@"❌ %@ does not exist exist", aCellClass]));
+            [self.tableView registerClass:aCellClass forCellReuseIdentifier:reuseIdentifier ?: cellClassName];
             [self.mutSetClassNameForCell addObject:cellClassName];
         }
     }
