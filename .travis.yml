@@ -32,10 +32,15 @@ branches:
 
 before_install:
   - env
-  - gem install xcpretty --no-rdoc --no-ri --no-document --quiet
-  - gem install cocoapods --pre --no-rdoc --no-ri --no-document --quiet
-  - pod repo update --silent
-  - pod install --project-directory=Demo
+  - gem update bundler
+  # - gem install xcpretty --no-rdoc --no-ri --no-document --quiet
+  # - gem install cocoapods --pre --no-rdoc --no-ri --no-document --quiet
+  # - pod repo update --silent
+  # - pod install --project-directory=Demo
+
+before_script:
+  - bundle install --gemfile=Demo/Gemfile
+  - bundle exec pod update
 
 script:
   - set -o pipefail
