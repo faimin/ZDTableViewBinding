@@ -7,7 +7,7 @@
 //
 
 #import "ZDTableViewBinding.h"
-#if ZD_INCLUEDE_FD
+#if ZD_INCLUDE_FD
 #import <UITableView+FDTemplateLayoutCell.h>
 #endif
 
@@ -27,79 +27,79 @@ NSInteger const ZDBD_Event_DidSelectRow = -1;
     BOOL _isNeedToResetData;
 }
 
-// 位域: http://c.biancheng.net/cpp/html/102.html
 @property (nonatomic, readwrite, assign) struct delegateMethodsCaching {
     // UITableViewDelegate
     //Configuring Rows for the Table View
-	uint heightForRowAtIndexPath: 1;
-	uint estimatedHeightForRowAtIndexPath: 1;
-	uint indentationLevelForRowAtIndexPath: 1;
-	uint willDisplayCellForRowAtIndexPath: 1;
+    uint heightForRowAtIndexPath : 1;
+    uint estimatedHeightForRowAtIndexPath : 1;
+    uint indentationLevelForRowAtIndexPath : 1;
+    uint willDisplayCellForRowAtIndexPath : 1;
 
     //Managing Accessory Views
-	uint editActionsForRowAtIndexPath: 1;
-	uint accessoryButtonTappedForRowWithIndexPath: 1;
+    uint editActionsForRowAtIndexPath : 1;
+    uint accessoryButtonTappedForRowWithIndexPath: 1;
 
     //Managing Selections
-	uint willSelectRowAtIndexPath: 1;
-	uint didSelectRowAtIndexPath: 1;
-	uint willDeselectRowAtIndexPath: 1;
-	uint didDeselectRowAtIndexPath: 1;
+    uint willSelectRowAtIndexPath : 1;
+    uint didSelectRowAtIndexPath : 1;
+    uint willDeselectRowAtIndexPath : 1;
+    uint didDeselectRowAtIndexPath : 1;
 
     //Modifying the Header and Footer of Sections
-	uint viewForHeaderInSection: 1;
-	uint viewForFooterInSection: 1;
-	uint heightForHeaderInSection: 1;
-	uint estimatedHeightForHeaderInSection: 1;
-	uint heightForFooterInSection: 1;
-	uint estimatedHeightForFooterInSection: 1;
-	uint willDisplayHeaderViewForSection: 1;
-	uint willDisplayFooterViewForSection: 1;
+    uint viewForHeaderInSection : 1;
+    uint viewForFooterInSection : 1;
+    uint heightForHeaderInSection : 1;
+    uint estimatedHeightForHeaderInSection : 1;
+    uint heightForFooterInSection : 1;
+    uint estimatedHeightForFooterInSection : 1;
+    uint willDisplayHeaderViewForSection : 1;
+    uint willDisplayFooterViewForSection : 1;
 
     //Editing Table Rows
-	uint willBeginEditingRowAtIndexPath: 1;
-	uint didEndEditingRowAtIndexPath: 1;
-	uint editingStyleForRowAtIndexPath: 1;
-	uint titleForDeleteConfirmationButtonForRowAtIndexPath: 1;
-	uint shouldIndentWhileEditingRowAtIndexPath: 1;
+    uint willBeginEditingRowAtIndexPath : 1;
+    uint didEndEditingRowAtIndexPath : 1;
+    uint editingStyleForRowAtIndexPath : 1;
+    uint titleForDeleteConfirmationButtonForRowAtIndexPath : 1;
+    uint shouldIndentWhileEditingRowAtIndexPath : 1;
 
     //Reordering Table Rows
-	uint targetIndexPathForMoveFromRowAtIndexPathToProposedIndexPath: 1;
+    uint targetIndexPathForMoveFromRowAtIndexPathToProposedIndexPath : 1;
 
     //Tracking the Removal of Views
-	uint didEndDisplayingCellForRowAtIndexPath: 1;
-	uint didEndDisplayingHeaderViewForSection: 1;
-	uint didEndDisplayingFooterViewForSection: 1;
+    uint didEndDisplayingCellForRowAtIndexPath : 1;
+    uint didEndDisplayingHeaderViewForSection : 1;
+    uint didEndDisplayingFooterViewForSection : 1;
 
     //Copying and Pasting Row Content
-	uint shouldShowMenuForRowAtIndexPath: 1;
-	uint canPerformActionForRowAtIndexPathWithSender: 1;
-	uint performActionForRowAtIndexPathWithSender: 1;
+    uint shouldShowMenuForRowAtIndexPath : 1;
+    uint canPerformActionForRowAtIndexPathWithSender : 1;
+    uint performActionForRowAtIndexPathWithSender : 1;
 
     //Managing Table View Highlighting
-	uint shouldHighlightRowAtIndexPath: 1;
-	uint didHighlightRowAtIndexPath: 1;
-	uint didUnhighlightRowAtIndexPath: 1;
+    uint shouldHighlightRowAtIndexPath : 1;
+    uint didHighlightRowAtIndexPath : 1;
+    uint didUnhighlightRowAtIndexPath : 1;
+
 
     // UIScrollViewDelegate
     //Responding to Scrolling and Dragging
-	uint scrollViewDidScroll: 1;
-	uint scrollViewWillBeginDragging: 1;
-	uint scrollViewWillEndDraggingWithVelocityTargetContentOffset: 1;
-	uint scrollViewDidEndDraggingWillDecelerate: 1;
-	uint scrollViewShouldScrollToTop: 1;
-	uint scrollViewDidScrollToTop: 1;
-	uint scrollViewWillBeginDecelerating: 1;
-	uint scrollViewDidEndDecelerating: 1;
+    uint scrollViewDidScroll : 1;
+    uint scrollViewWillBeginDragging : 1;
+    uint scrollViewWillEndDraggingWithVelocityTargetContentOffset : 1;
+    uint scrollViewDidEndDraggingWillDecelerate : 1;
+    uint scrollViewShouldScrollToTop : 1;
+    uint scrollViewDidScrollToTop : 1;
+    uint scrollViewWillBeginDecelerating : 1;
+    uint scrollViewDidEndDecelerating : 1;
 
     //Managing Zooming
-	uint viewForZoomingInScrollView: 1;
-	uint scrollViewWillBeginZoomingWithView: 1;
-	uint scrollViewDidEndZoomingWithViewAtScale: 1;
-	uint scrollViewDidZoom: 1;
+    uint viewForZoomingInScrollView : 1;
+    uint scrollViewWillBeginZoomingWithView : 1;
+    uint scrollViewDidEndZoomingWithViewAtScale : 1;
+    uint scrollViewDidZoom : 1;
 
     //Responding to Scrolling Animations
-	uint scrollViewDidEndScrollingAnimation: 1;
+    uint scrollViewDidEndScrollingAnimation : 1;
 } delegateRespondsTo;
 
 @property (nonatomic, weak, readwrite) __kindof UITableView *tableView;
@@ -347,7 +347,7 @@ NSInteger const ZDBD_Event_DidSelectRow = -1;
         return cellViewModel.zd_fixedHeight;
     }
     else {
-#if ZD_INCLUEDE_FD
+#if ZD_INCLUDE_FD
         NSString *identifier = [cellViewModel zd_reuseIdentifier];
         cellHeight = [tableView fd_heightForCellWithIdentifier:identifier cacheByIndexPath:indexPath configuration:^(__kindof UITableViewCell <ZDCellProtocol> *cell) {
             if ([cell respondsToSelector:@selector(setModel:)]) {
