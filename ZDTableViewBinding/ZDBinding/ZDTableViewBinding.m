@@ -637,7 +637,7 @@ NSInteger const ZDBD_Event_DidSelectRow = -1;
 {
     CGFloat estimatedHeightForFooterInSection = 0.f;
     
-    if (self.isMultiSection) return estimatedHeightForFooterInSection;
+    if (!self.isMultiSection) return estimatedHeightForFooterInSection;
     
     if (section >= self.sectionCellDatas.count) {
         ZDBDLog(@"Array out of bounds");
