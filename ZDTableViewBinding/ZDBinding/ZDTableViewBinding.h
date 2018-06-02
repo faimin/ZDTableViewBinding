@@ -30,11 +30,13 @@ extern NSInteger const ZDBD_Event_DidSelectRow;
 @property (nonatomic, weak, readonly) UITableView *tableView;
 /// used to forward the delegate method
 @property (nonatomic, weak, nullable) id <ZDTableViewBindingDelegate> delegate;
+/// manually add data to dataSource outside, default value is auto.
+@property (nonatomic, assign) BOOL manuallyAddDataOutside;
 /// datas had be reloaded
 @property (nonatomic, assign, readonly) BOOL isFinishedReloadData;
 
 /**
- TableView数据绑定
+ 初始化tableView代理
 
  @param tableView tableView
  @param multiSection 只要包含section,此参数就需要设置为`YES`
@@ -89,10 +91,18 @@ NS_ASSUME_NONNULL_END
  *        ...
  *   ]
  *
+ *   dataSource = @[
+ *      ZDSectionCellDictionary(sectionViewModel, @[cellViewModel, cellViewModel, ...], sectionViewModel),
+ *      ZDSectionCellDictionary(sectionViewModel, @[cellViewModel, cellViewModel, ...], sectionViewModel),
+ *      ...
+ *  ];
+ *
  *  2. 单个section，则只需要包装成一个`cellViewModel`数组
  *  [
  *      cellViewModel,
  *      cellViewModel,
  *      ...
  *  ]
+ *
+ *  dataSource = @[cellViewModel, cellViewModel, ...];
  */

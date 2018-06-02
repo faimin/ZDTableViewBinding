@@ -168,7 +168,7 @@ NSInteger const ZDBD_Event_DidSelectRow = -1;
     @weakify(self);
     [[[dataSourceSignal deliverOnMainThread] doNext:^(id  _Nullable x) {
         @strongify(self);
-        // 清空数据源(只有调用resetData后才会清空数据源,否则下面方法没作用)
+        // 清空数据源(只有调用resetData后才会清空数据源,否则下面的方法不会有任何操作)
         [self clearDataIfNeeded];
     }] subscribeNext:^(NSArray * _Nullable x) {
         @strongify(self);
@@ -176,11 +176,23 @@ NSInteger const ZDBD_Event_DidSelectRow = -1;
         if (x.count > 0) {
             if (multiSection) {
                 [self registerNibForTableViewWithSectionCellViewModels:x];
-                [self.sectionCellDatas addObjectsFromArray:x];
+                
+                if (self.manuallyAddDataOutside) {
+                    self.sectionCellDatas = [NSMutableArray arrayWithArray:x];
+                }
+                else {
+                    [self.sectionCellDatas addObjectsFromArray:x];
+                }
             }
             else {
                 [self registerNibForTableViewWithCellViewModels:x];
-                [self.cellViewModels addObjectsFromArray:x];
+                
+                if (self.manuallyAddDataOutside) {
+                    self.cellViewModels = [NSMutableArray arrayWithArray:x];
+                }
+                else {
+                    [self.cellViewModels addObjectsFromArray:x];
+                }
             }
         }
         

@@ -37,8 +37,6 @@ do {                                                \
 } while (0);
 #endif
 
-#define ZDCellDictionary(_cellViewModels) ZDSectionCellDictionary(nil, _cellViewModels, nil)
-
 #define ZDSectionCellDictionary(_headerViewModel, _cellViewModels, _footerViewModel)    \
 ({                                                                                      \
     NSMutableDictionary *sectionAndCellDict = @{}.mutableCopy;                          \
