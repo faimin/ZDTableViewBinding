@@ -24,7 +24,7 @@
 #define ZD_BATCH_UPDATE(tableView, stuff)           \
 do {                                                \
     if (@available(iOS 11.0, *)) {                  \
-        [self.tableView performBatchUpdates:^{      \
+        [tableView performBatchUpdates:^{           \
             stuff;                                  \
         } completion:^(BOOL finished) {             \
                                                     \
