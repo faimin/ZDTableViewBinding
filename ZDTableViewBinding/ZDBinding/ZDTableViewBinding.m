@@ -180,6 +180,27 @@ NSInteger const ZDBD_Event_DidSelectRow = -1;
                 if (self.manuallyAddDataOutside) {
                     self.sectionCellDatas = [NSMutableArray arrayWithArray:x];
                 }
+                else if (self.addDataToLastSection) {
+                    NSDictionary<NSString *, id> *lastSectionData = self.sectionCellDatas.lastObject;
+                    if (lastSectionData) {
+                        NSArray<ZDCellViewModel> *cellVierwModels = lastSectionData[CellViewModelKey];
+                        NSMutableArray<ZDCellViewModel> *mutableCellVierwModels = [NSMutableArray arrayWithArray:cellVierwModels];
+                        
+                        NSDictionary<NSString *, id> *newSectionData = [NSDictionary zdbd_cast:x.firstObject];
+                        NSArray<ZDCellViewModel> *newCellVierwModels = newSectionData[CellViewModelKey];
+                        if (newCellVierwModels) {
+                            [mutableCellVierwModels addObjectsFromArray:newCellVierwModels];
+                            
+                            NSMutableDictionary *mutableLastSectionData = [NSMutableDictionary dictionaryWithDictionary:lastSectionData];
+                            mutableLastSectionData[CellViewModelKey] = mutableCellVierwModels.copy;
+                            
+                            [self.sectionCellDatas replaceObjectAtIndex:(self.sectionCellDatas.count-1) withObject:mutableLastSectionData.copy];
+                        }
+                    }
+                    else {
+                        [self.sectionCellDatas addObjectsFromArray:x];
+                    }
+                }
                 else {
                     [self.sectionCellDatas addObjectsFromArray:x];
                 }

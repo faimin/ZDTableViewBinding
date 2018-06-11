@@ -30,8 +30,10 @@ extern NSInteger const ZDBD_Event_DidSelectRow;
 @property (nonatomic, weak, readonly) UITableView *tableView;
 /// used to forward the delegate method
 @property (nonatomic, weak, nullable) id <ZDTableViewBindingDelegate> delegate;
-/// manually add data to dataSource outside, default value is auto.
+/// manually add data to dataSource outside, default value is auto, 
 @property (nonatomic, assign) BOOL manuallyAddDataOutside;
+/// add data to last section in dataSource,  only for mutiSection mode
+@property (nonatomic, assign) BOOL addDataToLastSection;
 /// datas had be reloaded
 @property (nonatomic, assign, readonly) BOOL isFinishedReloadData;
 
