@@ -173,32 +173,27 @@ NSInteger const ZDBD_Event_DidSelectRow = -1;
     }] subscribeNext:^(NSArray * _Nullable x) {
         @strongify(self);
         // register cell && header && footer
-        if (x.count > 0) {
-            if (multiSection) {
-                [self registerNibForTableViewWithSectionCellViewModels:x];
-                
-                if (self.manuallyAddDataOutside) {
-                    self.sectionCellDatas = [NSMutableArray arrayWithArray:x];
-                }
-                else if (self.addDataToLastSection) {
-                    NSDictionary<NSString *, id> *lastSectionData = self.sectionCellDatas.lastObject;
-                    if (lastSectionData) {
-                        NSArray<ZDCellViewModel> *cellVierwModels = lastSectionData[CellViewModelKey];
-                        NSMutableArray<ZDCellViewModel> *mutableCellVierwModels = [NSMutableArray arrayWithArray:cellVierwModels];
+        if (multiSection) {
+            [self registerNibForTableViewWithSectionCellViewModels:x];
+            
+            if (self.manuallyAddDataOutside) {
+                self.sectionCellDatas = [NSMutableArray arrayWithArray:x];
+            }
+            else if (self.addDataToLastSection) {
+                NSDictionary<NSString *, id> *lastSectionData = self.sectionCellDatas.lastObject;
+                if (lastSectionData) {
+                    NSArray<ZDCellViewModel> *cellVierwModels = lastSectionData[CellViewModelKey];
+                    NSMutableArray<ZDCellViewModel> *mutableCellVierwModels = [NSMutableArray arrayWithArray:cellVierwModels];
+                    
+                    NSDictionary<NSString *, id> *newSectionData = [NSDictionary zdbd_cast:x.firstObject];
+                    NSArray<ZDCellViewModel> *newCellVierwModels = newSectionData[CellViewModelKey];
+                    if (newCellVierwModels) {
+                        [mutableCellVierwModels addObjectsFromArray:newCellVierwModels];
                         
-                        NSDictionary<NSString *, id> *newSectionData = [NSDictionary zdbd_cast:x.firstObject];
-                        NSArray<ZDCellViewModel> *newCellVierwModels = newSectionData[CellViewModelKey];
-                        if (newCellVierwModels) {
-                            [mutableCellVierwModels addObjectsFromArray:newCellVierwModels];
-                            
-                            NSMutableDictionary *mutableLastSectionData = [NSMutableDictionary dictionaryWithDictionary:lastSectionData];
-                            mutableLastSectionData[CellViewModelKey] = mutableCellVierwModels.copy;
-                            
-                            [self.sectionCellDatas replaceObjectAtIndex:(self.sectionCellDatas.count-1) withObject:mutableLastSectionData.copy];
-                        }
-                    }
-                    else {
-                        [self.sectionCellDatas addObjectsFromArray:x];
+                        NSMutableDictionary *mutableLastSectionData = [NSMutableDictionary dictionaryWithDictionary:lastSectionData];
+                        mutableLastSectionData[CellViewModelKey] = mutableCellVierwModels.copy;
+                        
+                        [self.sectionCellDatas replaceObjectAtIndex:(self.sectionCellDatas.count-1) withObject:mutableLastSectionData.copy];
                     }
                 }
                 else {
@@ -206,14 +201,17 @@ NSInteger const ZDBD_Event_DidSelectRow = -1;
                 }
             }
             else {
-                [self registerNibForTableViewWithCellViewModels:x];
-                
-                if (self.manuallyAddDataOutside) {
-                    self.cellViewModels = [NSMutableArray arrayWithArray:x];
-                }
-                else {
-                    [self.cellViewModels addObjectsFromArray:x];
-                }
+                [self.sectionCellDatas addObjectsFromArray:x];
+            }
+        }
+        else {
+            [self registerNibForTableViewWithCellViewModels:x];
+            
+            if (self.manuallyAddDataOutside) {
+                self.cellViewModels = [NSMutableArray arrayWithArray:x];
+            }
+            else {
+                [self.cellViewModels addObjectsFromArray:x];
             }
         }
         
@@ -1213,10 +1211,7 @@ NSInteger const ZDBD_Event_DidSelectRow = -1;
 
 - (void)registerNibForTableViewWithCellViewModels:(NSArray<ZDCellViewModel> *)cellViewModels
 {
-    if (![NSArray zdbd_cast:cellViewModels]) {
-        NSCAssert(cellViewModels, @"CellViewModels cann't be nil");
-        return;
-    };
+    if (![NSArray zdbd_cast:cellViewModels]) return;
     
     /// storyBoard里的cell不需要手动注册，只需要设置reuseIdentifier
     for (ZDCellViewModel cellViewModel in cellViewModels) {
