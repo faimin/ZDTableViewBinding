@@ -7,8 +7,10 @@
 //
 
 #import "ZDTableViewBinding.h"
-#if ZD_INCLUDE_FD
-#import <UITableView+FDTemplateLayoutCell.h>
+#if __has_include(<UITableView+FDTemplateLayoutCell/UITableView+FDTemplateLayoutCell.h>)
+#import <UITableView+FDTemplateLayoutCell/UITableView+FDTemplateLayoutCell.h>
+#elif __has_include("UITableView+FDTemplateLayoutCell.h")
+#import "UITableView+FDTemplateLayoutCell.h"
 #endif
 
 NS_ASSUME_NONNULL_BEGIN

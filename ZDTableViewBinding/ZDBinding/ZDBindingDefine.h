@@ -17,7 +17,7 @@
 #endif
 
 #ifndef ZD_INCLUDE_FD
-#define ZD_INCLUDE_FD (__has_include(<UITableView+FDTemplateLayoutCell/UITableView+FDTemplateLayoutCell.h>))
+#define ZD_INCLUDE_FD (__has_include(<UITableView+FDTemplateLayoutCell/UITableView+FDTemplateLayoutCell.h>) || __has_include("UITableView+FDTemplateLayoutCell/UITableView+FDTemplateLayoutCell.h"))
 #endif
 
 #ifndef ZD_BATCH_UPDATE
