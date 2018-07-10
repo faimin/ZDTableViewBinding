@@ -82,6 +82,9 @@ NSInteger const ZDBD_Event_DidSelectRow = -1;
     uint didHighlightRowAtIndexPath : 1;
     uint didUnhighlightRowAtIndexPath : 1;
 
+    // UITableViewDataSourcePrefetching
+    uint tableViewPrefetchRowsAtIndexPaths : 1;
+    uint tableViewCancelPrefetchingForRowsAtIndexPaths : 1;
 
     // UIScrollViewDelegate
     //Responding to Scrolling and Dragging
@@ -229,18 +232,18 @@ NSInteger const ZDBD_Event_DidSelectRow = -1;
 #pragma mark -
 - (void)tableView:(UITableView *)tableView prefetchRowsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths
 {
-    //TODO: 预加载
-//    for (NSIndexPath *indexPath in indexPaths) {
-//        ZDCellViewModel cellViewModel = [self cellViewModelAtIndexPath:indexPath];
-//        NSCAssert(cellViewModel != nil, @"cellViewModel can't be nil");
-//        ZDCell cell = [tableView dequeueReusableCellWithIdentifier:([cellViewModel zd_reuseIdentifier] ?: [cellViewModel zd_nibName]) forIndexPath:indexPath];
-//        NSCAssert(cell != nil, @"cell can't be nil");
-//    }
+    //MARK: 预加载
+    if (self.delegateRespondsTo.tableViewPrefetchRowsAtIndexPaths) {
+        [self.delegate tableView:tableView prefetchRowsAtIndexPaths:indexPaths];
+    }
 }
 
 - (void)tableView:(UITableView *)tableView cancelPrefetchingForRowsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths
 {
-    //TODO: 取消预加载
+    //MARK: 取消预加载
+    if (self.delegateRespondsTo.tableViewCancelPrefetchingForRowsAtIndexPaths) {
+        [self.delegate tableView:tableView cancelPrefetchingForRowsAtIndexPaths:indexPaths];
+    }
 }
 
 #pragma mark - UITableViewDataSource
@@ -1314,6 +1317,10 @@ NSInteger const ZDBD_Event_DidSelectRow = -1;
          *  refer：https://github.com/ColinEberhardt/CETableViewBinding
          */
         struct delegateMethodsCaching newMethodCaching;
+        
+        // UITableViewDataSourcePrefetching
+        newMethodCaching.tableViewPrefetchRowsAtIndexPaths = [_delegate respondsToSelector:@selector(tableView:prefetchRowsAtIndexPaths:)];
+        newMethodCaching.tableViewCancelPrefetchingForRowsAtIndexPaths = [_delegate respondsToSelector:@selector(tableView:cancelPrefetchingForRowsAtIndexPaths:)];
         
         // UITableViewDelegate
         //Configuring Rows for the Table View

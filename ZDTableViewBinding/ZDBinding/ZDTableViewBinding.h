@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 extern NSInteger const ZDBD_Event_DidSelectRow;
 
-@protocol ZDTableViewBindingDelegate <UITableViewDelegate>
+@protocol ZDTableViewBindingDelegate <UITableViewDelegate, UITableViewDataSourcePrefetching>
 @end
 
 //*******************************************************
@@ -29,7 +29,7 @@ extern NSInteger const ZDBD_Event_DidSelectRow;
 
 @property (nonatomic, weak, readonly) UITableView *tableView;
 /// used to forward the delegate method
-@property (nonatomic, weak, nullable) id <ZDTableViewBindingDelegate> delegate;
+@property (nonatomic, weak, nullable) id<ZDTableViewBindingDelegate> delegate;
 /// manually add data to dataSource outside, default value is auto, 
 @property (nonatomic, assign) BOOL manuallyAddDataOutside;
 /// add data to last section in dataSource,  only for mutiSection mode
