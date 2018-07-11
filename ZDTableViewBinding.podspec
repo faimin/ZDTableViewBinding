@@ -35,11 +35,13 @@ Pod::Spec.new do |s|
     ss.dependency 'ZDTableViewBinding/ZDViewModels'
   end
 
-  s.requires_arc = true
   # s.static_framework = true
+  s.requires_arc = true
   s.module_name = 'ZDTableViewBinding'
   s.frameworks = 'Foundation', 'UIKit'
-  # s.dependency "ReactiveCocoa", "~> 2.5"
+  s.pod_target_xcconfig = {
+    #  'DEFINES_MODULE' => 'YES'
+  }
   s.dependency 'ReactiveObjC'
 
 end

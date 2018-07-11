@@ -20,7 +20,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 extern NSInteger const ZDBD_Event_DidSelectRow;
 
-@protocol ZDTableViewBindingDelegate <UITableViewDelegate, UITableViewDataSourcePrefetching>
+@protocol ZDTableViewBindingDelegate <UITableViewDelegate>
+@optional
+- (void)tableView:(UITableView *)tableView prefetchRowsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths;
+- (void)tableView:(UITableView *)tableView cancelPrefetchingForRowsAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths;
 @end
 
 //*******************************************************

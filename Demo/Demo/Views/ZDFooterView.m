@@ -7,6 +7,7 @@
 //
 
 #import "ZDFooterView.h"
+#import <ReactiveObjC/RACTuple.h>
 
 @implementation ZDFooterView
 
