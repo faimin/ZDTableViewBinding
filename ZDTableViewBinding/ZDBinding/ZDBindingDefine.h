@@ -20,23 +20,6 @@
 #define ZD_INCLUDE_FD (__has_include(<UITableView+FDTemplateLayoutCell/UITableView+FDTemplateLayoutCell.h>) || __has_include("UITableView+FDTemplateLayoutCell/UITableView+FDTemplateLayoutCell.h"))
 #endif
 
-#ifndef ZD_BATCH_UPDATE
-#define ZD_BATCH_UPDATE(tableView, stuff)           \
-do {                                                \
-    if (@available(iOS 11.0, *)) {                  \
-        [tableView performBatchUpdates:^{           \
-            stuff;                                  \
-        } completion:^(BOOL finished) {             \
-                                                    \
-        }];                                         \
-    } else {                                        \
-        [tableView beginUpdates];                   \
-        stuff;                                      \
-        [tableView endUpdates];                     \
-    }                                               \
-} while (0);
-#endif
-
 #define ZDSectionCellDictionary(_headerViewModel, _cellViewModels, _footerViewModel)    \
 ({                                                                                      \
     NSMutableDictionary *sectionAndCellDict = @{}.mutableCopy;                          \

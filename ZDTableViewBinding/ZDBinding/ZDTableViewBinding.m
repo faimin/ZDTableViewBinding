@@ -23,6 +23,22 @@ NSInteger const ZDBD_Event_DidSelectRow = -1;
 + (nullable instancetype)zdbd_cast:(id)objc;
 @end
 
+NS_INLINE void ZDBD_BatchUpdates(UITableView *tableView, void (NS_NOESCAPE ^ _Nullable block)(void)) {
+    if (!tableView || !block) return;
+    
+    if (@available(iOS 11.0, *)) {
+        [tableView performBatchUpdates:^{
+            block();
+        } completion:^(BOOL finished) {
+            
+        }];
+    } else {
+        [tableView beginUpdates];
+        block();
+        [tableView endUpdates];
+    }
+}
+
 //****************************************************************
 
 @interface ZDTableViewBinding ()<UITableViewDelegate, UITableViewDataSource, UITableViewDataSourcePrefetching> {
@@ -1029,7 +1045,9 @@ NSInteger const ZDBD_Event_DidSelectRow = -1;
         [self.cellViewModels insertObject:viewModel atIndex:indexPath.row];
     }
     
-    ZD_BATCH_UPDATE(self.tableView, [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];)
+    ZDBD_BatchUpdates(self.tableView, ^{
+        [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    });
 }
 
 - (void)replaceViewModel:(ZDCellViewModel)viewModel atIndexPath:(NSIndexPath *)indexPath afterDelay:(NSTimeInterval)delay {
@@ -1092,7 +1110,9 @@ NSInteger const ZDBD_Event_DidSelectRow = -1;
         }
     }
     
-    ZD_BATCH_UPDATE(self.tableView, [self.tableView moveRowAtIndexPath:fromIndexPath toIndexPath:toIndexPath];)
+    ZDBD_BatchUpdates(self.tableView, ^{
+        [self.tableView moveRowAtIndexPath:fromIndexPath toIndexPath:toIndexPath];
+    });
 }
 
 // muti section
@@ -1120,13 +1140,17 @@ NSInteger const ZDBD_Event_DidSelectRow = -1;
         [self.cellViewModels removeObjectAtIndex:indexPath.row];
     }
     
-    ZD_BATCH_UPDATE(self.tableView, [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];)
+    ZDBD_BatchUpdates(self.tableView, ^{
+        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    });
 }
 
 - (void)reloadItemsAtIndexPaths:(NSArray <NSIndexPath *> *)indexPaths {
     if (indexPaths.count == 0) return;
     
-    ZD_BATCH_UPDATE(self.tableView, [self.tableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];)
+    ZDBD_BatchUpdates(self.tableView, ^{
+        [self.tableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+    });
 }
 
 - (void)setNeedsResetData {
@@ -1232,7 +1256,9 @@ NSInteger const ZDBD_Event_DidSelectRow = -1;
 - (void)reloadRowsNoAnimationAtIndexPaths:(NSArray<NSIndexPath *> *)indexPaths {
     if (indexPaths.count == 0) return;
     
-    ZD_BATCH_UPDATE(self.tableView, [self.tableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];)
+    ZDBD_BatchUpdates(self.tableView, ^{
+        [self.tableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+    });
 }
 
 #pragma mark - Setters
