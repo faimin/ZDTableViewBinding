@@ -302,7 +302,7 @@ NS_INLINE void ZDBD_BatchUpdates(UITableView *tableView, void (NS_NOESCAPE ^ _Nu
     });
 
     NSString *identifier = reuseIdentifier ? : (nibName ? : className);
-    ZDCell cell = [tableView dequeueReusableCellWithIdentifier:identifier forIndexPath:indexPath];
+    ZDCell cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (!cell) {
         Class aCalss = NSClassFromString(className ? : reuseIdentifier);
         if (!aCalss) {
