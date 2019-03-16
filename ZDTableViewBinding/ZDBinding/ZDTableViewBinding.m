@@ -600,7 +600,7 @@ NS_INLINE void ZDBD_BatchUpdates(UITableView *tableView, void (NS_NOESCAPE ^ _Nu
 }
 
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForHeaderInSection:(NSInteger)section {
-    CGFloat estimatedHeightForHeaderInSection = 0.0f;
+    CGFloat estimatedHeightForHeaderInSection = CGFLOAT_MIN;
 
     if (!self.isMultiSection) return estimatedHeightForHeaderInSection;
 
@@ -612,14 +612,14 @@ NS_INLINE void ZDBD_BatchUpdates(UITableView *tableView, void (NS_NOESCAPE ^ _Nu
     NSDictionary *dict = self.sectionCellDatas[section];
     ZDHeaderFooterViewModel sectionViewModel = dict[HeaderViewModelKey];
 
-    if (!sectionViewModel) return 0.f;
+    if (!sectionViewModel) return estimatedHeightForHeaderInSection;
 
     CGFloat estimateHeight = sectionViewModel.zd_estimatedHeaderFooterHeight;
     return estimateHeight;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    CGFloat heightForHeaderInSection = 0.f;
+    CGFloat heightForHeaderInSection = CGFLOAT_MIN;
 
     if (!self.isMultiSection) return heightForHeaderInSection;
 
@@ -631,7 +631,7 @@ NS_INLINE void ZDBD_BatchUpdates(UITableView *tableView, void (NS_NOESCAPE ^ _Nu
     NSDictionary *dict = self.sectionCellDatas[section];
     ZDHeaderFooterViewModel headerFooterViewModel = dict[HeaderViewModelKey];
 
-    if (!headerFooterViewModel) return 0.f;
+    if (!headerFooterViewModel) return heightForHeaderInSection;
 
     NSString *headerReuseIdentifier = headerFooterViewModel.zd_headerFooterReuseIdentifier ? : headerFooterViewModel.zd_headerFooterNibName;
     ZDHeaderFooter headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:headerReuseIdentifier];
@@ -662,7 +662,7 @@ NS_INLINE void ZDBD_BatchUpdates(UITableView *tableView, void (NS_NOESCAPE ^ _Nu
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_9_0
 // fix bug：在9.0之前的系统，执行此方法后，tableView:heightForFooterInSection:代理方法会不执行，然后footerHeight用的是header的height
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForFooterInSection:(NSInteger)section {
-    CGFloat estimatedHeightForFooterInSection = 0.f;
+    CGFloat estimatedHeightForFooterInSection = CGFLOAT_MIN;
 
     if (!self.isMultiSection) return estimatedHeightForFooterInSection;
 
@@ -674,7 +674,7 @@ NS_INLINE void ZDBD_BatchUpdates(UITableView *tableView, void (NS_NOESCAPE ^ _Nu
     NSDictionary *dict = self.sectionCellDatas[section];
     ZDHeaderFooterViewModel sectionViewModel = dict[FooterViewModelKey];
 
-    if (!sectionViewModel) return 0.f;
+    if (!sectionViewModel) return estimatedHeightForFooterInSection;
 
     CGFloat estimateHeight = sectionViewModel.zd_estimatedHeaderFooterHeight;
     return estimateHeight;
@@ -685,7 +685,7 @@ NS_INLINE void ZDBD_BatchUpdates(UITableView *tableView, void (NS_NOESCAPE ^ _Nu
 /// The table view does not call this method
 /// if it was created in a plain style (UITableViewStylePlain).
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    CGFloat heightForFooterInSection = 0.f;
+    CGFloat heightForFooterInSection = CGFLOAT_MIN;
 
     if (!self.isMultiSection) return heightForFooterInSection;
 
@@ -697,7 +697,7 @@ NS_INLINE void ZDBD_BatchUpdates(UITableView *tableView, void (NS_NOESCAPE ^ _Nu
     NSDictionary *dic = self.sectionCellDatas[section];
     ZDHeaderFooterViewModel sectionViewModel = dic[FooterViewModelKey];
 
-    if (!sectionViewModel) return 0.f;
+    if (!sectionViewModel) return heightForFooterInSection;
 
     NSString *footerReuseIdentifier = sectionViewModel.zd_headerFooterReuseIdentifier ? : sectionViewModel.zd_headerFooterNibName;
     ZDHeaderFooter footerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:footerReuseIdentifier];
