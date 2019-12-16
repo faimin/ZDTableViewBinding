@@ -2,7 +2,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "ZDTableViewBinding"
-  s.version      = "0.3.1"
+  s.version      = "0.3.2"
   s.summary      = "使用`ReactiveObjC`绑定处理tableView的数据,并利用`UITableView+FDTemplateLayoutCell`计算tableViewCell的高度"
   s.homepage     = "https://github.com/faimin/ZDTableViewBinding"
   s.license      = { :type => "MIT", :file => "LICENSE" }
